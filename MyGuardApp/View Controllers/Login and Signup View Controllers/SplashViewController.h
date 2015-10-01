@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ApiConstants.h"
+#import <FBSDKLoginKit.h>
+#import <FBSDKCoreKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import <JTMaterialSpinner.h>
 
-@interface SplashViewController : UIViewController
+@interface SplashViewController : UIViewController<CLLocationManagerDelegate>
+
+@property (nonatomic,strong) NSDictionary *dictFB;
+@property (nonatomic,strong) CLLocationManager *locationManager;
+
+- (IBAction)actionLogin:(id)sender;
+- (IBAction)actionFB:(id)sender;
 
 @end

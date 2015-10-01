@@ -16,6 +16,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if([[NSUserDefaults standardUserDefaults] valueForKey:@"profile"]==nil)
+    {
+        [self performSegueWithIdentifier:KWalkSegue sender:nil];
+    }
+    else
+    {
+        [self performSegueWithIdentifier:KtabSegue sender:self];
+        
+    }
+
     // Do any additional setup after loading the view.
 }
 

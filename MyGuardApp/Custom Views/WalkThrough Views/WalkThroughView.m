@@ -10,12 +10,30 @@
 
 @implementation WalkThroughView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    
+    self = [super initWithFrame:frame];
+    if (self)
+    {
+        self = [[[NSBundle mainBundle] loadNibNamed:@"WalkThroughView" owner:self options:nil] lastObject];
+        [self setFrame:frame];
+        //[self initializeUI];
+    }
+    
+    
+    return self;
+    
 }
-*/
-
+-(void)setUpWalk:(NSString *)title desc:(NSString *)description imageName:(NSString *)name
+{
+    [self.labelDescription setText:description];
+    [self.labelTitle setText:title];
+    [self.imageViewWalk setImage:[UIImage imageNamed:name]];
+}
+//-(void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//    [self setFrame:self.frame];
+//}
 @end

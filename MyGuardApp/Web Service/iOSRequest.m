@@ -48,24 +48,21 @@
 
 }
 
-+(void)getJsonResponse : (NSString *)urlStr success : (void (^)(NSDictionary *responseDict))success failure:(void(^)(NSError* error))failure
++(void)getJsonResponse : (NSString *)urlStr success : (void (^)(NSDictionary *responseDict))success failure:(void(^)(NSString * errorString))failure
 {
-    NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-//    operation.responseSerializer =  [AFJSONResponseSerializer serializer];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:(NSData *)responseObject options:NSJSONReadingMutableLeaves error:nil];
-         
-        success(dict);
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+      manager.responseSerializer =  [AFHTTPResponseSerializer serializer];
+    [manager GET:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-    {
-        failure(error);        
-    }];
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
 
-    [operation start];
+        success(dict);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString *errorString = NSLocalizedString(@"no_internet", nil);
+        failure(errorString);
+    }];
+    
     
 }
 
@@ -93,12 +90,7 @@
                  
              }];
         
- 
-        
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-//        NSString *charlieStr =[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        
         
         success([NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil]);
         

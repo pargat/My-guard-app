@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIImage (Extras)
+- (UIImage*)circularScaleAndCropImage:(CGRect)frame;
 - (UIImage*)imageByScalingAndCroppingForSize:(CGSize)targetSize
 ;
 @end

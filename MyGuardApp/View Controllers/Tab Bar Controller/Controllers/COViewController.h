@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ApiConstants.h"
+#import "MainContentViewController.h"
+#import "UIImage+Extras.h"
 
 @interface COViewController : UIViewController
-
+@property (nonatomic,strong) MainContentViewController *mainVC;
+@property (weak, nonatomic) IBOutlet UIView *viewContainer;
 @end

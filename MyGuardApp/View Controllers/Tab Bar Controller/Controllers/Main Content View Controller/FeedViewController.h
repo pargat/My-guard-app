@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XLPagerTabStripViewController.h"
 
-@interface FeedViewController : UIViewController
+@protocol FeedDelegate
+
+-(void)delHideShowHeader:(BOOL)hide;
+
+@end
+
+@interface FeedViewController : UIViewController <XLPagerTabStripChildItem,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
+
+@property (nonatomic,weak) id<FeedDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewFeeds;
+@property (nonatomic,strong) NSMutableArray *arrayFeeds;
 
 @end

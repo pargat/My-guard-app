@@ -10,4 +10,13 @@
 
 @interface WalkThroughLastView : UIView
 
+@property (weak, nonatomic) IBOutlet UILabel *labelWTEmergencyTitle;
+@property (weak, nonatomic) IBOutlet UILabel *labelWTEmergencyDescription;
+@property (weak, nonatomic) IBOutlet UILabel *labelWTAlarmTitle;
+@property (weak, nonatomic) IBOutlet UILabel *labelWTAlarmDescription;
+@property (weak, nonatomic) IBOutlet UILabel *labelWTQuickTitle;
+@property (weak, nonatomic) IBOutlet UILabel *labelWTQuickDescription;
+
+-(void)setterText;
+
 @end

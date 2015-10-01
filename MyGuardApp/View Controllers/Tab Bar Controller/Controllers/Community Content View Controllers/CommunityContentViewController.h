@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ApiConstants.h"
+#import "CommunityCell.h"
+#import "XLPagerTabStripViewController.h"
+#import "User.h"
+#import "LOcationUpdater.h"
+#import <UIImageView+WebCache.h>
 
-@interface CommunityContentViewController : UIViewController
+@interface CommunityContentViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+
+@property COMMUNITYTAB currentTab;
+@property(nonatomic,strong) NSMutableArray *arrayCommunity;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewCommunity;
+
+
+
 
 @end

@@ -10,4 +10,202 @@
 
 @implementation SettingViewCntroller
 
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.arraySettings = @[NSLocalizedString(@"change_alert_sounds", nil),NSLocalizedString(@"users_guide", nil),NSLocalizedString(@"demo", nil),NSLocalizedString(@"invite_fb_friends", nil),NSLocalizedString(@"contact_us", nil),NSLocalizedString(@"legal", nil),NSLocalizedString(@"logout", nil)];
+    [self.tableViewSettings setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    [self setUpNavBar];
+    
+}
+
+#pragma mark -
+#pragma mark - Helper functions
+-(void)setUpNavBar
+{
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+}
+#pragma mark -
+#pragma mark - Table View Datasource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 7;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row==0||indexPath.row==1)
+    {
+        SettingCellDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingCellDescriptionCell"];
+        [cell.labelTitle setText:[self.arraySettings objectAtIndex:indexPath.row]];
+        [self configureSettingCelldescription:cell atIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
+    else
+    {
+        SettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingCell"];
+        [self configureSettingCell:cell atIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
+}
+
+-(void)configureSettingCell:(SettingCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    [cell.labelTitle setText:[self.arraySettings objectAtIndex:indexPath.row]];
+    
+}
+-(void)configureSettingCelldescription:(SettingCellDescriptionCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row==0)
+    {
+        [cell.viewBottom setHidden:YES];
+        cell.heightBottom.constant = 0;
+        [cell.labelDescription setText:NSLocalizedString(@"custom_alert_description", nil)];
+    }
+    else
+    {
+        [cell.viewBottom setHidden:NO];
+        cell.heightBottom.constant = 8;
+        [cell.labelDescription setText:NSLocalizedString(@"user_guide_des", nil)];
+        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:cell.viewBottom.bounds];
+        cell.viewBottom.layer.masksToBounds = NO;
+        cell.viewBottom.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+        cell.viewBottom.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+        cell.viewBottom.layer.shadowOpacity = 0.3f;
+        cell.viewBottom.layer.shadowPath = shadowPath.CGPath;
+        
+    }
+    
+}
+
+#pragma mark -
+#pragma mark - Table view delegates
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if(indexPath.row==3)
+    {
+        FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
+        content.appLinkURL = [NSURL URLWithString:@"https://fb.me/727046074067178"];
+        //optionally set previewImageURL
+        content.appInvitePreviewImageURL = [NSURL URLWithString:@"https://img.youtube.com/vi/fuBhQX3ki1Q/mqdefault.jpg"];
+        
+        // present the dialog. Assumes self implements protocol `FBSDKAppInviteDialogDelegate`
+        [FBSDKAppInviteDialog showWithContent:content
+                                     delegate:self];
+    }
+    else if (indexPath.row==4)
+    {
+        [self mailComposer];
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row==0||indexPath.row==1)
+    {
+        static SettingCellDescriptionCell *sizingCell = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            sizingCell = [tableView dequeueReusableCellWithIdentifier:@"SettingCellDescriptionCell"];
+        });
+        
+        [self configureSettingCelldescription:sizingCell atIndexPath:indexPath];
+        CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        return size.height+1;
+    }
+    else
+    {
+        static SettingCell *sizingCell = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            sizingCell = [tableView dequeueReusableCellWithIdentifier:@"SettingCell"];
+        });
+        
+        [self configureSettingCell:sizingCell atIndexPath:indexPath];
+        CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        return size.height+1;
+    }
+    
+}
+
+
+#pragma mark -
+#pragma mark - Helpers setting
+-(void)mailComposer
+{
+    if ([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
+        mail.mailComposeDelegate = self;
+        [mail setSubject:@"Sample Subject"];
+        [mail setMessageBody:@"Here is some main text in the email!" isHTML:NO];
+        [mail setToRecipients:@[@"support@firesonar.com"]];
+        
+        [self presentViewController:mail animated:YES completion:nil];
+    }
+    else
+    {
+        NSLog(@"This device cannot send email");
+    }
+    
+}
+
+#pragma mark -
+#pragma mark - Mail composer delegate
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result) {
+        case MFMailComposeResultSent:
+            NSLog(@"You sent the email.");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"You saved a draft of this email");
+            break;
+        case MFMailComposeResultCancelled:
+            NSLog(@"You cancelled sending this email.");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail failed:  An error occurred when trying to compose this email");
+            break;
+        default:
+            NSLog(@"An error occurred when trying to compose this email");
+            break;
+    }
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+
+#pragma mark -
+#pragma mark - facebook invite delegate
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results
+{
+    
+}
+
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error
+{
+    
+}
+
 @end

@@ -23,6 +23,52 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+}
+
+#pragma mark -
+#pragma mark - XlChild
+
+- (NSString *)titleForPagerTabStripViewController:(XLPagerTabStripViewController *)pagerTabStripViewController
+{
+
+    return NSLocalizedString(@"feed", nil);
+}
+
+#pragma mark -
+#pragma mark - Scroll View Delegate
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    
+    if(velocity.y<0&&targetContentOffset->y==0)
+    {
+        [self.delegate delHideShowHeader:NO];
+    }
+    else
+    {
+        [self.delegate delHideShowHeader:YES];
+    }
+    
+}
+
+#pragma mark -
+#pragma mark - Table View Datasource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 100;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    
+    [cell.textLabel setText:[NSString stringWithFormat:@"Cell %ld",indexPath.row]];
+    
+    return cell;
+}
 
 /*
 #pragma mark - Navigation

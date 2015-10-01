@@ -7,7 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ApiConstants.h"
+#import "LOcationUpdater.h"
+#import <Accelerate/Accelerate.h>
+#import <EZAudio.h>
+#import "AlarmOverLayView.h"
+#import "WaveAnimationView.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
+#import "VideoStreamViewController.h"
 
-@interface MainTabBarController : UITabBarController
+
+@interface MainTabBarController : UITabBarController<CLLocationManagerDelegate,alarmOverlayDelegate,waveAnimationDelegate,EZMicrophoneDelegate>
+
+@property (nonatomic,strong)NSString *type;
+@property (nonatomic,strong) EZMicrophone *microphone;
+@property (nonatomic,strong) CLLocationManager *locationManager;
+
+
 
 @end

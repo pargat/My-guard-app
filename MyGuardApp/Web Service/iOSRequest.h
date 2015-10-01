@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 @interface iOSRequest : NSObject
 
+
++(void)getJsonResponse : (NSString *)urlStr success : (void (^)(NSDictionary *responseDict))success failure:(void(^)(NSString * errorString))failure;
+
+
 +(void)getStringResponse : (NSString *)urlStr success : (void (^)(NSString *responseStr))success failure:(void(^)(NSError* error))failure;
-+(void)getJsonResponse : (NSString *)urlStr success : (void (^)(NSDictionary *responseDict))success failure:(void(^)(NSError* error))failure;
-
-
 +(void)postNormalData :(NSDictionary *)parameters :(NSString *)urlStr  success : (void (^)(NSDictionary *responseDict))success failure:(void(^)(NSError* error))failure;
 +(void)postMultipart : (NSDictionary *)parameters :(NSArray *)images :(NSString *)urlStr success : (void (^)(NSDictionary *responseDict))success failure:(void(^)(NSError* error))failure;
 

@@ -28,7 +28,6 @@
 @interface XLButtonBarViewCell()
 
 @property IBOutlet UIImageView * imageView;
-@property IBOutlet UILabel * label;
 
 @end
 

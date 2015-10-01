@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface WalkThroughViewController : UIViewController
+#import "WalkThroughView.h"
+#import "WalkThroughLastView.h"
+#import "ApiConstants.h"
+@interface WalkThroughViewController : UIViewController<UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UIButton *btnSkipWalkThrough;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollViewMain;
+@property (weak, nonatomic) IBOutlet UIButton *btnLoginRegister;
+@property (weak, nonatomic) IBOutlet UIButton *btnStartDemo;
 
 @end

@@ -16,12 +16,100 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self viewHelper];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -
+#pragma mark - Helpers
+-(void)viewHelper
+{
+    [self.tableViewSafety setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    // Do any additional setup after loading the view.
+    [self getSafetyMeasures];
+
+}
+-(void)getSafetyMeasures
+{
+    __weak SafetyMeasuresViewController *weakSelf = self;
+    NSString *strSafety = [NSString stringWithFormat:KGetSafetyMeasure,KbaseUrl,@"34",self.feedType,0,10];
+    [SafetyMeasure callAPIForSafetyMeasure:strSafety Params:nil success:^(NSMutableArray *safetyArr) {
+        weakSelf.arraySafetyMeasures = [[NSMutableArray alloc] initWithArray:safetyArr];
+        [weakSelf.tableViewSafety reloadData];
+    } failure:^(NSString *errorStr) {
+        
+    }];
+}
+
+#pragma mark -
+#pragma mark - XlChild
+
+- (NSString *)titleForPagerTabStripViewController:(XLPagerTabStripViewController *)pagerTabStripViewController
+{
+    return NSLocalizedString(@"safety_measures", nil);
+}
+
+
+#pragma mark -
+#pragma mark - Table View Datasource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.arraySafetyMeasures.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SafetyMeasureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SafetyMeasureCell"];
+    [self configureSafetyCell:cell atIndexPath:indexPath];
+    return cell;
+}
+     
+-(void)configureSafetyCell:(SafetyMeasureCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    SafetyMeasure *mesaure = [self.arraySafetyMeasures objectAtIndex:indexPath.row];
+    
+    [cell.labelDescription setPreferredMaxLayoutWidth:[[UIScreen mainScreen] bounds].size.width - 98];
+    [cell.labelName setText:mesaure.safetyFirstName];
+    [cell.labelDescription setText:mesaure.safetyDescription];
+    [cell.labelTime setText:mesaure.safetyDisplayTime];
+    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:KBaseTimbthumbUrl,mesaure.safetyImageName,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
+
+}
+#pragma mark -
+#pragma mark - Table view delegates
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static SafetyMeasureCell *sizingCell = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sizingCell = [self.tableViewSafety dequeueReusableCellWithIdentifier:@"SafetyMeasureCell"];
+    });
+    
+    [self configureSafetyCell:sizingCell atIndexPath:indexPath];
+    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height+1;
+
+}
+
+
+#pragma mark -
+#pragma mark - Scroll View Delegate
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    
+    if(velocity.y<0&&targetContentOffset->y==0)
+    {
+        [self.delegate delHideShowHeader:NO];
+    }
+    else
+    {
+        [self.delegate delHideShowHeader:YES];
+    }
+    
 }
 
 /*

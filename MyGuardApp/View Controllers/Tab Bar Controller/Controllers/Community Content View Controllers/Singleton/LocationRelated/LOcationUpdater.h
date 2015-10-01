@@ -7,7 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+#import "ApiConstants.h"
 
-@interface LOcationUpdater : NSObject
+@interface LOcationUpdater : NSObject<CLLocationManagerDelegate>
+
+
+
++ (id)sharedManager;
+
+@property (strong,nonatomic) NSTimer *timerObj;
+@property (nonatomic,strong) CLLocationManager *locationManager;
+@property (nonatomic, strong)  CLLocation *currentLoc;
 
 @end

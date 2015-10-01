@@ -17,5 +17,30 @@
     // Drawing code
 }
 */
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    
+    self = [super initWithFrame:frame];
+    if (self)
+    {
+        self = [[[NSBundle mainBundle] loadNibNamed:@"WalkThroughLastView" owner:self options:nil] lastObject];
+        [self setFrame:frame];
+        //[self initializeUI];
+    }
+    
+    
+    return self;
+    
+}
+-(void)setterText
+{
+    [self.labelWTAlarmTitle setText:NSLocalizedString(@"wt_alarm_title", nil)];
+    [self.labelWTEmergencyTitle setText:NSLocalizedString(@"wt_emergency_title", nil)];
+    [self.labelWTQuickTitle setText:NSLocalizedString(@"wt_quick_title", nil)];
+    [self.labelWTAlarmDescription setText:NSLocalizedString(@"wt_alarm_desc", nil)];
+    [self.labelWTEmergencyDescription setText:NSLocalizedString(@"wt_emergency_desc", nil)];
+    [self.labelWTQuickDescription setText:NSLocalizedString(@"wt_quick_desc", nil)];
+
+}
 
 @end

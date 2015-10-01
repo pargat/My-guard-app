@@ -1,0 +1,82 @@
+PODS:
+  - AFNetworking (2.6.0):
+    - AFNetworking/NSURLConnection (= 2.6.0)
+    - AFNetworking/NSURLSession (= 2.6.0)
+    - AFNetworking/Reachability (= 2.6.0)
+    - AFNetworking/Security (= 2.6.0)
+    - AFNetworking/Serialization (= 2.6.0)
+    - AFNetworking/UIKit (= 2.6.0)
+  - AFNetworking/NSURLConnection (2.6.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.0)
+  - AFNetworking/Security (2.6.0)
+  - AFNetworking/Serialization (2.6.0)
+  - AFNetworking/UIKit (2.6.0):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - Bolts (1.2.1):
+    - Bolts/AppLinks (= 1.2.1)
+    - Bolts/Tasks (= 1.2.1)
+  - Bolts/AppLinks (1.2.1):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.2.1)
+  - EZAudio (1.1.1):
+    - EZAudio/Full (= 1.1.1)
+  - EZAudio/Core (1.1.1)
+  - EZAudio/Full (1.1.1):
+    - EZAudio/Core
+    - TPCircularBuffer (~> 0.0)
+  - FBSDKCoreKit (4.5.1):
+    - Bolts (~> 1.1)
+    - FBSDKCoreKit/arc (= 4.5.1)
+    - FBSDKCoreKit/no-arc (= 4.5.1)
+  - FBSDKCoreKit/arc (4.5.1):
+    - Bolts (~> 1.1)
+  - FBSDKCoreKit/no-arc (4.5.1):
+    - Bolts (~> 1.1)
+    - FBSDKCoreKit/arc
+  - FBSDKLoginKit (4.5.1):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.5.1):
+    - FBSDKCoreKit
+  - GoogleMaps (1.10.2)
+  - JTMaterialSpinner (1.0.1)
+  - OpenTok (2.6.0)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
+  - SVPullToRefresh (0.4.1)
+  - TPCircularBuffer (0.0.1)
+
+DEPENDENCIES:
+  - AFNetworking
+  - EZAudio
+  - FBSDKLoginKit
+  - FBSDKShareKit
+  - GoogleMaps
+  - JTMaterialSpinner
+  - OpenTok
+  - SDWebImage
+  - SVPullToRefresh
+
+SPEC CHECKSUMS:
+  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
+  Bolts: 7686a5cb204d1ac54cee26f12d9b7622db3f80d1
+  EZAudio: 63cd1f0d1b1261f76955dab204a10af067ffb689
+  FBSDKCoreKit: f335eaf6865e1e1597dee1debfb533045500da47
+  FBSDKLoginKit: 225cc9a388a92916ee3f3bb14422017b6e44b65b
+  FBSDKShareKit: 642034ac9f30793dfd897851b724bb4281750266
+  GoogleMaps: 5c92e599b07b0a2a9b367c5dd128edc629bddfea
+  JTMaterialSpinner: 4e025e1511dc2b06975a3b8d758005ec765e9338
+  OpenTok: 2b99bd75055554f4028735fa84e4242e4932d245
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  TPCircularBuffer: 949e9632b9fb99b7274d7b2296ee22bff5841e35
+
+COCOAPODS: 0.37.2

@@ -26,6 +26,8 @@
     {
         self = [[[NSBundle mainBundle] loadNibNamed:@"AlarmOverLayView" owner:self options:nil] lastObject];
         //[self initializeUI];
+        self.overlay_backgroundView.layer.cornerRadius = 8.0;
+        [self.overlay_backgroundView setClipsToBounds:YES];
         [self localizeUI];
     }
     
@@ -35,15 +37,40 @@
 }
 -(void)localizeUI
 {
+    [self.labelRaining setText:NSLocalizedString(@"raising", nil)];
     [self.buttonCancel setTitle:NSLocalizedString(@"cancel_alert_now",nil ) forState:UIControlStateNormal];
     [self.buttonSend setTitle:NSLocalizedString(@"send_alert_now",nil ) forState:UIControlStateNormal];
-    [self.buttonNotifyEmergency setTitle:NSLocalizedString(@"countdown_notify", nil) forState:UIControlStateNormal];
-    [self.labelHelp setText:NSLocalizedString(@"help_danger", nil)];
     
-    [self.buttonNotifyEmergency setHidden:YES];
     
+    CALayer *layer = self.overlay_backgroundView.layer;
+    CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
+    rotationAndPerspectiveTransform.m34 = -1.0;
+    layer.transform = rotationAndPerspectiveTransform;
+
 }
 
+-(void)viewColorSetter
+{
+    if(self.currentTab==FIRE)
+    {
+        [self.overlay_backgroundView setBackgroundColor:KOrangeColor];
+        [self.buttonSend setTitleColor:KOrangeColor forState:UIControlStateNormal];
+        [self.labelRaisingAlarm setText:NSLocalizedString(@"fire_alarm", nil)];
+    }
+    else if (self.currentTab == GUN)
+    {
+        [self.overlay_backgroundView setBackgroundColor:KRedColor];
+        [self.buttonSend setTitleColor:KRedColor forState:UIControlStateNormal];
+        [self.labelRaisingAlarm setText:NSLocalizedString(@"gun_alarm", nil)];
+    }
+    else
+    {
+        [self.overlay_backgroundView setBackgroundColor:KGreenColor];
+        [self.buttonSend setTitleColor:KGreenColor forState:UIControlStateNormal];
+        [self.labelRaisingAlarm setText:NSLocalizedString(@"co_alarm", nil)];
+    }
+
+}
 - (IBAction)actionSendImmidiate:(id)sender {
     [self.delegate delegateSendImmediate];
 }
@@ -53,8 +80,5 @@
     [self.delegate disarmClicked];
 }
 
-- (IBAction)notifyEmergencyContacts:(id)sender
-{
-    [self.delegate emergencyContactClicked];
-}
+
 @end

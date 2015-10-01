@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "iOSRequest.h"
-#import "constants.h"
+#import "ApiConstants.h"
+
 @protocol waveAnimationDelegate
 
 -(void)waveAnimationTurnOff;

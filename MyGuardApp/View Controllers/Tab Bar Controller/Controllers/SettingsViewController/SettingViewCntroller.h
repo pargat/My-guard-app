@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SettingCell.h"
+#import "SettingCellDescriptionCell.h"
+#import <FBSDKShareKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface SettingViewCntroller : UIViewController
+@interface SettingViewCntroller : UIViewController<UITableViewDataSource,UITableViewDelegate,FBSDKAppInviteDialogDelegate,MFMailComposeViewControllerDelegate>
+
+@property (nonatomic, strong) NSArray *arraySettings;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewSettings;
 
 @end

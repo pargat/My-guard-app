@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ApiConstants.h"
+#import <CoreLocation/CoreLocation.h>
+#import <JTMaterialSpinner.h>
+#import "Profile.h"
+#import "NSUserDefaults+RMSaveCustomObject.h"
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController<CLLocationManagerDelegate,UITextFieldDelegate>
+
+@property (nonatomic,strong) CLLocationManager *locationManager;
+
+@property (weak, nonatomic) IBOutlet UITextField *tfEmail;
+@property (weak, nonatomic) IBOutlet UITextField *tfPassword;
 
 @end

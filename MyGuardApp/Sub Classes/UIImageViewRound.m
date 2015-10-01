@@ -10,12 +10,10 @@
 
 @implementation UIImageViewRound
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
-    // Drawing code
+    [super drawRect:rect];
+    self.layer.cornerRadius = self.frame.size.height/2;
+    self.clipsToBounds = YES;
+    
 }
-*/
-
 @end

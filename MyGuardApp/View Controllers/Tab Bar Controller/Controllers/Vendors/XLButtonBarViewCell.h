@@ -28,6 +28,6 @@
 @interface XLButtonBarViewCell : UICollectionViewCell
 
 @property (readonly, nonatomic) UIImageView * imageView;
-@property (readonly, nonatomic) UILabel * label;
+@property IBOutlet UILabel * label;
 
 @end

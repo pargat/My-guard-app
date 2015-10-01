@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ApiConstants.h"
+#import "UIImage+Extras.h"
+
 
 @interface SexOffenderViewController : UIViewController
 

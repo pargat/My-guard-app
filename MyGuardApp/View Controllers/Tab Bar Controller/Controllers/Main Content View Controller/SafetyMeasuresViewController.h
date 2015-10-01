@@ -7,7 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XLPagerTabStripViewController.h"
+#import "SafetyMeasure.h"
+#import "SafetyMeasureCell.h"
+#import "ApiConstants.h"
+#import <UIImageView+WebCache.h>
 
-@interface SafetyMeasuresViewController : UIViewController
+@protocol SafetyDelegate
+
+-(void)delHideShowHeader:(BOOL)hide;
+
+@end
+
+
+@interface SafetyMeasuresViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic,weak) id<SafetyDelegate> delegate;
+@property (nonatomic,strong) NSMutableArray *arraySafetyMeasures;
+@property (nonatomic, strong) NSString *feedType;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewSafety;
+
 
 @end
