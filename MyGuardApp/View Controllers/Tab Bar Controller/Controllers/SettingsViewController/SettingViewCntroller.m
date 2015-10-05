@@ -18,6 +18,11 @@
     [self setUpNavBar];
     
 }
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+   
+}
 
 #pragma mark -
 #pragma mark - Helper functions

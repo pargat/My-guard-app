@@ -13,6 +13,9 @@
 		27630AAD1BB90AD800474F0D /* SettingViewCntroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 27630AAC1BB90AD800474F0D /* SettingViewCntroller.m */; settings = {ASSET_TAGS = (); }; };
 		27630AB11BB91E5900474F0D /* SettingCellDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27630AB01BB91E5900474F0D /* SettingCellDescriptionCell.m */; settings = {ASSET_TAGS = (); }; };
 		27630AB41BB91E6E00474F0D /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27630AB31BB91E6E00474F0D /* SettingCell.m */; settings = {ASSET_TAGS = (); }; };
+		2771B0AB1BBD51DC002DE1E2 /* FeedMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2771B0AA1BBD51DC002DE1E2 /* FeedMainCell.m */; settings = {ASSET_TAGS = (); }; };
+		2771B0AF1BBD5581002DE1E2 /* FeedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2771B0AE1BBD5581002DE1E2 /* FeedImageCell.m */; settings = {ASSET_TAGS = (); }; };
+		2771B0B31BBD58ED002DE1E2 /* FeedModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2771B0B21BBD58ED002DE1E2 /* FeedModal.m */; settings = {ASSET_TAGS = (); }; };
 		277A8EBA1BB293E500A7C347 /* SafetyProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 277A8EB91BB293E500A7C347 /* SafetyProfileCell.m */; settings = {ASSET_TAGS = (); }; };
 		277A8EBD1BB2B84500A7C347 /* ProfileHeaderMyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 277A8EBC1BB2B84500A7C347 /* ProfileHeaderMyCell.m */; settings = {ASSET_TAGS = (); }; };
 		278210991B9AE822000EA90B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 278210981B9AE822000EA90B /* main.m */; };
@@ -53,6 +56,7 @@
 		279FBD421BB01F0B007AEFCB /* CommunityContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279FBD411BB01F0B007AEFCB /* CommunityContentViewController.m */; settings = {ASSET_TAGS = (); }; };
 		279FBD451BB022CD007AEFCB /* CommunityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 279FBD441BB022CD007AEFCB /* CommunityCell.m */; settings = {ASSET_TAGS = (); }; };
 		279FBD4D1BB13785007AEFCB /* LOcationUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 279FBD4C1BB13785007AEFCB /* LOcationUpdater.m */; settings = {ASSET_TAGS = (); }; };
+		27C137A41BC256AD0072EDB6 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C137A31BC256AD0072EDB6 /* NotificationViewController.m */; settings = {ASSET_TAGS = (); }; };
 		27DE4E031BBA6AB100135DF6 /* AlarmOverLayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DE4E011BBA6AB100135DF6 /* AlarmOverLayView.m */; settings = {ASSET_TAGS = (); }; };
 		27DE4E041BBA6AB100135DF6 /* AlarmOverLayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DE4E021BBA6AB100135DF6 /* AlarmOverLayView.xib */; settings = {ASSET_TAGS = (); }; };
 		27DE4E0B1BBA95AE00135DF6 /* UIView+Snapshotting.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DE4E071BBA95AE00135DF6 /* UIView+Snapshotting.m */; settings = {ASSET_TAGS = (); }; };
@@ -106,6 +110,12 @@
 		27630AB01BB91E5900474F0D /* SettingCellDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCellDescriptionCell.m; sourceTree = "<group>"; };
 		27630AB21BB91E6E00474F0D /* SettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
 		27630AB31BB91E6E00474F0D /* SettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
+		2771B0A91BBD51DC002DE1E2 /* FeedMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedMainCell.h; sourceTree = "<group>"; };
+		2771B0AA1BBD51DC002DE1E2 /* FeedMainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedMainCell.m; sourceTree = "<group>"; };
+		2771B0AD1BBD5581002DE1E2 /* FeedImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedImageCell.h; sourceTree = "<group>"; };
+		2771B0AE1BBD5581002DE1E2 /* FeedImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedImageCell.m; sourceTree = "<group>"; };
+		2771B0B11BBD58ED002DE1E2 /* FeedModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedModal.h; sourceTree = "<group>"; };
+		2771B0B21BBD58ED002DE1E2 /* FeedModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedModal.m; sourceTree = "<group>"; };
 		277A8EB81BB293E500A7C347 /* SafetyProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafetyProfileCell.h; sourceTree = "<group>"; };
 		277A8EB91BB293E500A7C347 /* SafetyProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SafetyProfileCell.m; sourceTree = "<group>"; };
 		277A8EBB1BB2B84500A7C347 /* ProfileHeaderMyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileHeaderMyCell.h; sourceTree = "<group>"; };
@@ -183,6 +193,8 @@
 		279FBD441BB022CD007AEFCB /* CommunityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityCell.m; sourceTree = "<group>"; };
 		279FBD4B1BB13785007AEFCB /* LOcationUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LOcationUpdater.h; sourceTree = "<group>"; };
 		279FBD4C1BB13785007AEFCB /* LOcationUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LOcationUpdater.m; sourceTree = "<group>"; };
+		27C137A21BC256AD0072EDB6 /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
+		27C137A31BC256AD0072EDB6 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		27DE4E001BBA6AB100135DF6 /* AlarmOverLayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmOverLayView.h; sourceTree = "<group>"; };
 		27DE4E011BBA6AB100135DF6 /* AlarmOverLayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmOverLayView.m; sourceTree = "<group>"; };
 		27DE4E021BBA6AB100135DF6 /* AlarmOverLayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlarmOverLayView.xib; sourceTree = "<group>"; };
@@ -290,6 +302,27 @@
 				27630AB31BB91E6E00474F0D /* SettingCell.m */,
 			);
 			path = "Settings Cell";
+			sourceTree = "<group>";
+		};
+		2771B0A81BBD51CC002DE1E2 /* Feed Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2771B0A91BBD51DC002DE1E2 /* FeedMainCell.h */,
+				2771B0AA1BBD51DC002DE1E2 /* FeedMainCell.m */,
+				2771B0AD1BBD5581002DE1E2 /* FeedImageCell.h */,
+				2771B0AE1BBD5581002DE1E2 /* FeedImageCell.m */,
+			);
+			name = "Feed Cells";
+			path = "Settings Cell/Alarm Views/Feed Cells";
+			sourceTree = "<group>";
+		};
+		2771B0B01BBD58DB002DE1E2 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				2771B0B11BBD58ED002DE1E2 /* FeedModal.h */,
+				2771B0B21BBD58ED002DE1E2 /* FeedModal.m */,
+			);
+			path = Feed;
 			sourceTree = "<group>";
 		};
 		277A8EB71BB2937300A7C347 /* Profile Cells */ = {
@@ -556,6 +589,7 @@
 		278CAFFE1BA871FC005814C6 /* Modals */ = {
 			isa = PBXGroup;
 			children = (
+				2771B0B01BBD58DB002DE1E2 /* Feed */,
 				2745D1921BAFE61D002261B0 /* Videos */,
 				273338D61BAD3E7100BDECCA /* UserModal */,
 				2794EE9C1BABFCD60036BB75 /* Safety Measure Modal */,
@@ -567,6 +601,8 @@
 		2794EE981BABF9A90036BB75 /* Custom Table Cells */ = {
 			isa = PBXGroup;
 			children = (
+				27C137A51BC25E4D0072EDB6 /* Notification Cells */,
+				2771B0A81BBD51CC002DE1E2 /* Feed Cells */,
 				27630AAE1BB91E3B00474F0D /* Settings Cell */,
 				277A8EB71BB2937300A7C347 /* Profile Cells */,
 				2794EE991BABF9C40036BB75 /* SafetyMeasureCell.h */,
@@ -625,6 +661,22 @@
 			path = LocationRelated;
 			sourceTree = "<group>";
 		};
+		27C137A11BC256310072EDB6 /* Notification View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				27C137A21BC256AD0072EDB6 /* NotificationViewController.h */,
+				27C137A31BC256AD0072EDB6 /* NotificationViewController.m */,
+			);
+			path = "Notification View Controller";
+			sourceTree = "<group>";
+		};
+		27C137A51BC25E4D0072EDB6 /* Notification Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Notification Cells";
+			sourceTree = "<group>";
+		};
 		27DE4DFF1BBA6AA800135DF6 /* Alarm Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -675,6 +727,7 @@
 		27FBA6D81BA9382500F373E4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				27C137A11BC256310072EDB6 /* Notification View Controller */,
 				27630AAA1BB90AAD00474F0D /* SettingsViewController */,
 				2795A8071BB184DC00793B1E /* Profile View Controllers */,
 				279FBD3F1BB01E58007AEFCB /* Community Content View Controllers */,
@@ -914,6 +967,7 @@
 				2782109F1B9AE822000EA90B /* MyGuardApp.xcdatamodeld in Sources */,
 				27DE4E031BBA6AB100135DF6 /* AlarmOverLayView.m in Sources */,
 				27630AB41BB91E6E00474F0D /* SettingCell.m in Sources */,
+				27C137A41BC256AD0072EDB6 /* NotificationViewController.m in Sources */,
 				278CAFDF1BA82A5D005814C6 /* NSObject+RMArchivable.m in Sources */,
 				278CAFFD1BA86CE5005814C6 /* MainTabBarController.m in Sources */,
 				27FBA6F21BA94BEA00F373E4 /* XLBarView.m in Sources */,
@@ -926,6 +980,8 @@
 				279FBD451BB022CD007AEFCB /* CommunityCell.m in Sources */,
 				27FBA6E11BA93A9C00F373E4 /* COViewController.m in Sources */,
 				277A8EBA1BB293E500A7C347 /* SafetyProfileCell.m in Sources */,
+				2771B0AF1BBD5581002DE1E2 /* FeedImageCell.m in Sources */,
+				2771B0B31BBD58ED002DE1E2 /* FeedModal.m in Sources */,
 				27DE4E0B1BBA95AE00135DF6 /* UIView+Snapshotting.m in Sources */,
 				27FBA6FF1BA94D5D00F373E4 /* MainContentViewController.m in Sources */,
 				278CAFB71BA6E909005814C6 /* WalkThroughView.m in Sources */,
@@ -937,6 +993,7 @@
 				2794EE9B1BABF9C40036BB75 /* SafetyMeasureCell.m in Sources */,
 				278CAFAE1BA6E42B005814C6 /* StartNavigationViewController.m in Sources */,
 				27DE4E101BBAAF3100135DF6 /* WaveAnimationView.m in Sources */,
+				2771B0AB1BBD51DC002DE1E2 /* FeedMainCell.m in Sources */,
 				278CAFD21BA7F61B005814C6 /* LoginViewController.m in Sources */,
 				27FBA7051BA9519B00F373E4 /* SafetyMeasuresViewController.m in Sources */,
 				27FBA6E41BA93B9200F373E4 /* SexOffenderViewController.m in Sources */,

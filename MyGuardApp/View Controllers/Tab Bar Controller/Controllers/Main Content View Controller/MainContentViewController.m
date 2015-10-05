@@ -72,16 +72,22 @@
     {
         self.safetyVC.feedType = @"1";
         self.infoVC.feedType = @"1";
+        self.feedVC.feedType = 1;
+        self.feedVC.markerUrl = KFireIcon;
     }
     else if (self.currentTab==GUN)
     {
         self.safetyVC.feedType = @"3";
         self.infoVC.feedType = @"3";
+        self.feedVC.feedType = 3;
+        self.feedVC.markerUrl = KGunIcon;
     }
     else
     {
         self.safetyVC.feedType = @"2";
         self.infoVC.feedType = @"2";
+        self.feedVC.feedType = 2;
+        self.feedVC.markerUrl = KCOIcon;
     }
 
 }

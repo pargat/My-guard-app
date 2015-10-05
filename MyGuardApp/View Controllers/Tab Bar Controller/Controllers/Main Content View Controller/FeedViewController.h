@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "XLPagerTabStripViewController.h"
+#import "FeedModal.h"
+#import "Profile.h"
+#import "FeedMainCell.h"
+#import "ApiConstants.h"
+#import <UIImageView+WebCache.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+
 
 @protocol FeedDelegate
 
@@ -15,8 +22,12 @@
 
 @end
 
-@interface FeedViewController : UIViewController <XLPagerTabStripChildItem,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
+@interface FeedViewController : UIViewController <XLPagerTabStripChildItem,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
+@property (nonatomic,strong) NSIndexPath *selectedIndex;
+@property int pageIndex;
+@property int feedType;
+@property (nonatomic,strong) NSString *markerUrl;
 @property (nonatomic,weak) id<FeedDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewFeeds;
 @property (nonatomic,strong) NSMutableArray *arrayFeeds;

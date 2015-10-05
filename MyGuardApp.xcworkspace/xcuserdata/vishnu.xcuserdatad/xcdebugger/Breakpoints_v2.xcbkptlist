@@ -26,7 +26,7 @@
                   moduleName = "MyGuardApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/View%20Controllers/Login%20and%20Signup%20View%20Controllers/SplashViewController.m"
-                  timestampString = "465376079.179726"
+                  timestampString = "465738545.087376"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "67"
@@ -41,7 +41,7 @@
                   moduleName = "MyGuardApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/View%20Controllers/Login%20and%20Signup%20View%20Controllers/SplashViewController.m"
-                  timestampString = "465376079.180261"
+                  timestampString = "465738545.087682"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "67"
@@ -107,22 +107,6 @@
             endingLineNumber = "92"
             landmarkName = "-reloadPagerTabStripView"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyGuardApp/Custom Views/Custom Table Cells/Settings Cell/Alarm Views/WaveAnimationView.m"
-            timestampString = "465376024.467558"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "@implementation WaveAnimationView"
-            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

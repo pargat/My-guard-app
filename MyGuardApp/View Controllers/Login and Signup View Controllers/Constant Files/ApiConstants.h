@@ -29,7 +29,7 @@ typedef enum : NSUInteger {
 //General Constants
 #define DisplayScale [[UIScreen mainScreen] scale]
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
-
+#define TIMEOFFSET [[NSTimeZone localTimeZone] secondsFromGMT]
 
 #define KBaseTimbthumbUrl @"http://api.firesonar.com/FireSonar/timthumb.php?src=uploads/%@&w=%f&h=%f"
 #define KGetSafetyMeasure @"%@get_safety_measures.php?user_id=%@&type=%@&page=%d&length=%d"
@@ -40,6 +40,7 @@ typedef enum : NSUInteger {
 
 //feeds
 #define KGetVideos @"%@get_informational_videos.php?user_id=%@&type=%@&page=%d&length=10"
+#define KGetAlarms @"%@get_alarms.php?user_id=%@&type=%d&page=%d&length=10&zone=%ld"
 
 //Community
 #define KListFamily @"%@list_all_family.php?user_id=%@"
@@ -70,3 +71,8 @@ typedef enum : NSUInteger {
 #define kListAllUsers @"%@list_all_users.php?user_id=%@"
 #define KUpdateAlarm @"%@update_alarm.php"
 
+
+//Map marker icon
+#define KFireIcon @"http://api.firesonar.com/FireSonar/uploads/pin_fire.png"
+#define KCOIcon @"http://api.firesonar.com/FireSonar/uploads/pin_co.png"
+#define KGunIcon @"http://api.firesonar.com/FireSonar/uploads/pin_gunshot.png"
