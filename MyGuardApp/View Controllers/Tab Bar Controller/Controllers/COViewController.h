@@ -10,8 +10,9 @@
 #import "ApiConstants.h"
 #import "MainContentViewController.h"
 #import "UIImage+Extras.h"
+#import "AddSafetyViewController.h"
 
-@interface COViewController : UIViewController
+@interface COViewController : UIViewController <MainContentDelegate>
 @property (nonatomic,strong) MainContentViewController *mainVC;
 @property (weak, nonatomic) IBOutlet UIView *viewContainer;
 @end

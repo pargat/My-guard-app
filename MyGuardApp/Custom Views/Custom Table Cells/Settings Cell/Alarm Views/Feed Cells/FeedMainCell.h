@@ -11,9 +11,17 @@
 #import <UIImageView+WebCache.h>
 #import "ApiConstants.h"
 
+
+@protocol FeedMainDelegate <NSObject>
+
+-(void)delCameraClicked:(NSIndexPath *)indexPath;
+
+@end
+
 @interface FeedMainCell : UITableViewCell <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
-
+@property (nonatomic,strong) id<FeedMainDelegate> delegate;
+@property (nonatomic,strong) NSIndexPath *selectedPath;
 @property (nonatomic,strong) NSMutableArray *arrayFiles;
 
 
@@ -31,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelTimeDetail;
 @property (weak, nonatomic) IBOutlet UIView *viewGradient;
 @property (weak, nonatomic) IBOutlet UIView *viewShadow;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightMap;
 
 -(void)setDelegateAndData;
 - (IBAction)actionCamera:(id)sender;

@@ -17,14 +17,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self viewHelper];
-
+    
     // Do any additional setup after loading the view.
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated. 
+    // Dispose of any resources that can be recreated.
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -37,7 +37,7 @@
 {
     [self.tabBarController.tabBar setTintColor:KOrangeColor];
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
-
+    
     [navigationBar setBackgroundColor:KOrangeColor];
     
     [navigationBar setBarTintColor:KOrangeColor];
@@ -49,59 +49,88 @@
     
     [navigationBar setShadowImage:[UIImage new]];
     [self.navigationItem setTitle:NSLocalizedString(@"fire", nil)];
-        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    UIBarButtonItem *btnSearch = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(actionSearch)];
-    [btnSearch setTintColor:[UIColor whiteColor]];
-    self.navigationItem.rightBarButtonItem = btnSearch;
-
+    
+    
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://api.firesonar.com/FireSonar/timthumb.php?src=uploads/iSf0mKHUG5vgEt2pncuW.jpeg"]];
         UIImage *image = [UIImage imageWithData:tmpdata];
         image = [image circularScaleAndCropImage:CGRectMake(0, 0, 32, 32)];
         image = [image imageByScalingAndCroppingForSize:CGSizeMake(32, 32)];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                UIButton *btnProfileA = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
-                [btnProfileA setImage:image forState:UIControlStateNormal];
-                [btnProfileA addTarget:self action:@selector(actionProfile) forControlEvents:UIControlEventTouchUpInside];
-                btnProfileA.layer.cornerRadius = btnProfileA.frame.size.width/2;
-                btnProfileA.layer.borderColor = [[UIColor whiteColor] CGColor];
-                btnProfileA.layer.borderWidth = 1.0;
-                
-                
-                UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
-                [btnProfile setTintColor:[UIColor whiteColor]];
-                self.navigationItem.leftBarButtonItem = btnProfile;
-            });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            UIButton *btnProfileA = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+            [btnProfileA setImage:image forState:UIControlStateNormal];
+            [btnProfileA addTarget:self action:@selector(actionProfile) forControlEvents:UIControlEventTouchUpInside];
+            btnProfileA.layer.cornerRadius = btnProfileA.frame.size.width/2;
+            btnProfileA.layer.borderColor = [[UIColor whiteColor] CGColor];
+            btnProfileA.layer.borderWidth = 1.0;
+            
+            
+            UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
+            [btnProfile setTintColor:[UIColor whiteColor]];
+            self.navigationItem.leftBarButtonItem = btnProfile;
+        });
         
     });
+    [self addNavbuttons:NO];
+    
+}
 
+-(void)addNavbuttons:(BOOL)shouldShowSafety
+{
+    UIBarButtonItem *btnSearch = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(actionSearch)];
+    [btnSearch setTintColor:[UIColor whiteColor]];
+    
+    if(shouldShowSafety)
+    {
+        UIBarButtonItem *btnAddSafetyMeasure = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_safety"] style:UIBarButtonItemStylePlain target:self action:@selector(actionAddSafety)];
+        [btnAddSafetyMeasure setTintColor:[UIColor whiteColor]];
+        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItems = @[btnSearch, btnAddSafetyMeasure];
+    }
+    else
+    {
+        self.navigationItem.rightBarButtonItems = nil;
+        self.navigationItem.rightBarButtonItem = btnSearch;
+    }
 }
 -(void)viewHelper
 {
     self.mainVC = (MainContentViewController *)[self.storyboard instantiateViewControllerWithIdentifier:KMainVC];
     self.mainVC.currentTab = FIRE;
+    self.mainVC.delegate1 = self;
     [self.mainVC.view setFrame:self.viewContainer.bounds];
     [self.viewContainer addSubview:self.mainVC.view];
     [self addChildViewController:self.mainVC];
     [self.mainVC didMoveToParentViewController:self];
     
     
-        self.transition = [[ZoomInteractiveTransition alloc] initWithNavigationController:self.navigationController];
+    self.transition = [[ZoomInteractiveTransition alloc] initWithNavigationController:self.navigationController];
 }
 
+#pragma mark -
+#pragma mark - Main Content Delegate
+-(void)delChangeNavButton:(BOOL)showOptional
+{
+    [self addNavbuttons:showOptional];
+}
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - Button Actions
+-(void)actionAddSafety
+{
+    [self performSegueWithIdentifier:KAddSafetySegue sender:self];
+}
 -(void)actionSearch
 {
     
 }
 -(void)actionProfile
 {
-
+    
     [self performSegueWithIdentifier:KMyProfileSegue sender:nil];
 }
 
@@ -118,14 +147,17 @@
 
 
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+     if([segue.identifier isEqualToString:KAddSafetySegue])
+     {
+         AddSafetyViewController *addSafetyVC = (AddSafetyViewController *)segue.destinationViewController;
+         addSafetyVC.currentTab = FIRE;
+     }
+ }
+
 
 @end

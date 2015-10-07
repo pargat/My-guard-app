@@ -110,8 +110,7 @@ int previousFreq=0;
     getsCOArray = [[NSMutableArray alloc] init];
     mainCOMeanArray = [[NSMutableArray alloc] init];
     mainCOMeanDiffArray = [[NSMutableArray alloc] init];
-    self.microphone = [EZMicrophone microphoneWithDelegate:self
-                                         startsImmediately:YES];
+    //self.microphone = [EZMicrophone microphoneWithDelegate:self startsImmediately:YES];
     ISOVERLAYSHOWING = NO;
     ISWAVEOVERLAYSHOWING = NO ;
     

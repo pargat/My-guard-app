@@ -15,6 +15,7 @@
 #define KLoginSegue @"Login"
 #define KRegister1Segue @"Register1"
 #define KMyProfileSegue @"myprofile"
+#define KAddSafetySegue @"SafetySegue"
 
 //Storyboard identifier names
 #define KCommunityContent @"CommunityContent"

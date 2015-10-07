@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3B1729F699E1C9BB10FA0C90"
+               BlueprintIdentifier = "0572360B61402BA213397F6D"
                BuildableName = "libPods-MyGuardApp-TPCircularBuffer.a"
                BlueprintName = "Pods-MyGuardApp-TPCircularBuffer"
                ReferencedContainer = "container:Pods.xcodeproj">

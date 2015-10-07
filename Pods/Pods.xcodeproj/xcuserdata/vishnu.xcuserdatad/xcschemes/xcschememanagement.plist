@@ -49,6 +49,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-MyGuardApp-SZTextView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-MyGuardApp-TPCircularBuffer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,57 +67,62 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3B1729F699E1C9BB10FA0C90</key>
+		<key>0572360B61402BA213397F6D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4CE9A67711EBE36A206E7AD5</key>
+		<key>104AF2244C7AAA2EFB467CA6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5F573C1F2CD1033F83A38F13</key>
+		<key>15493D088CD03139921C8443</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>708EDB06C28116192F9EEBCB</key>
+		<key>1F43369379B652DCBF207660</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7B4C1E41DAD994C4D85F162E</key>
+		<key>416D4C91D2692FF0BEA6B0F4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>98375C72C5A0F72F4842A623</key>
+		<key>4EFB5C28D0642AA3840F6F54</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B66ECFAA3F15B660BB8414F6</key>
+		<key>555051116566BDA2E0BED1F1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B9C743BBAC9D0FF8145580D2</key>
+		<key>5DCCE6EA81A114236DB23D2C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CA1F736F4520291BCC4A383D</key>
+		<key>7CA748CD44F57563D1D3FC3F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D05A9E46CCDF02E61491383A</key>
+		<key>9BE97977225FE939C8CC85E3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FBB33DB83599FD1D974759C0</key>
+		<key>AE883C77BB7EC486660A29A6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D376E863C500A53F352254AE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

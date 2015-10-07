@@ -125,9 +125,9 @@
 "customize_sound_for" = "CUSTOMIZE SOUND FOR";
 "select_sound" = "SELECT SOUND";
 "gunshot"="Gun Shot";
-"feed"= "Feed";
-"safety_measures"="Safety Measures";
-"info_videos"="Info Videos";
+"feed"= "FEED";
+"safety_measures"="SAFETY MEASURES";
+"info_videos"="INFO VIDEOS";
 "community"="Community";
 "friends"="Friends";
 "all"="All";

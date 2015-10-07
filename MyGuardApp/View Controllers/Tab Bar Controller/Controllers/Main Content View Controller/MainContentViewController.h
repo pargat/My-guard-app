@@ -13,8 +13,15 @@
 #import "InfoVideosViewController.h"
 #import "ApiConstants.h"
 
+@protocol MainContentDelegate <NSObject>
+
+-(void)delChangeNavButton:(BOOL)showOptional;
+
+@end
+
 @interface MainContentViewController : XLButtonBarPagerTabStripViewController<FeedDelegate,SafetyDelegate,InfoVideosDelegate>
 
+@property (nonatomic,weak) id<MainContentDelegate> delegate1;
 @property MAINTAB currentTab;
 @property (weak, nonatomic) IBOutlet UIView *viewHeader;
 @property (strong, nonatomic) FeedViewController *feedVC;

@@ -11,8 +11,9 @@
 #import "MainContentViewController.h"
 #import <UIButton+WebCache.h>
 #import "UIImage+Extras.h"
+#import "AddSafetyViewController.h"
 #import "ZoomInteractiveTransition.h"
-@interface FireViewController : UIViewController<ZoomTransitionProtocol>
+@interface FireViewController : UIViewController<ZoomTransitionProtocol,MainContentDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *viewContainer;
 @property (nonatomic,strong) MainContentViewController *mainVC;

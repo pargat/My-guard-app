@@ -66,7 +66,9 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    
     return CGSizeMake(100, 100);
+
 }
 -(void)configureCell:(FeedImageCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
@@ -76,7 +78,6 @@
 
         [cell.imageViewM sd_setImageWithURL:[NSURL URLWithString:[dictTemp valueForKey:@"files"]] placeholderImage:[UIImage imageNamed:@"defaultImg80.png"]];
     }
-    
     else
     {
         [cell.imageViewM sd_setImageWithURL:[NSURL URLWithString:[dictTemp valueForKey:@"thumb"]] placeholderImage:[UIImage imageNamed:@"video.png"]];
@@ -89,5 +90,7 @@
 #pragma mark -
 #pragma mark - Button Actions
 - (IBAction)actionCamera:(id)sender {
+    
+    [self.delegate delCameraClicked:self.selectedPath];
 }
 @end

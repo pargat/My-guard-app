@@ -12,7 +12,7 @@ pod 'OpenTok'
 pod 'FBSDKShareKit'
 pod 'FBSDKLoginKit'
 pod 'JTMaterialSpinner'
-
+pod 'SZTextView'
 end
 
 target 'MyGuardAppTests' do

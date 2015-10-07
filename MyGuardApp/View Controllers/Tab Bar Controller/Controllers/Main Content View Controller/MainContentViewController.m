@@ -68,6 +68,7 @@
     self.feedVC.delegate = self;
     self.safetyVC.delegate = self;
     self.infoVC.delegate = self;
+    
     if(self.currentTab==FIRE)
     {
         self.safetyVC.feedType = @"1";
@@ -94,6 +95,10 @@
 
 #pragma mark -
 #pragma mark - Feed Delegate
+-(void)delChangeNavButton:(BOOL)showOptional
+{
+    [self.delegate1 delChangeNavButton:showOptional];
+}
 -(void)delHideShowHeader:(BOOL)hide
 {
     if(hide&&self.heightExtra.constant==100)

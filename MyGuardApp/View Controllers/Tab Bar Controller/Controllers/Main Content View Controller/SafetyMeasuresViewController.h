@@ -16,6 +16,7 @@
 @protocol SafetyDelegate
 
 -(void)delHideShowHeader:(BOOL)hide;
+-(void)delChangeNavButton:(BOOL)showOptional;
 
 @end
 

@@ -57,6 +57,7 @@
 		279FBD451BB022CD007AEFCB /* CommunityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 279FBD441BB022CD007AEFCB /* CommunityCell.m */; settings = {ASSET_TAGS = (); }; };
 		279FBD4D1BB13785007AEFCB /* LOcationUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 279FBD4C1BB13785007AEFCB /* LOcationUpdater.m */; settings = {ASSET_TAGS = (); }; };
 		27C137A41BC256AD0072EDB6 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C137A31BC256AD0072EDB6 /* NotificationViewController.m */; settings = {ASSET_TAGS = (); }; };
+		27C137A91BC54D480072EDB6 /* AddSafetyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C137A81BC54D480072EDB6 /* AddSafetyViewController.m */; settings = {ASSET_TAGS = (); }; };
 		27DE4E031BBA6AB100135DF6 /* AlarmOverLayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DE4E011BBA6AB100135DF6 /* AlarmOverLayView.m */; settings = {ASSET_TAGS = (); }; };
 		27DE4E041BBA6AB100135DF6 /* AlarmOverLayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DE4E021BBA6AB100135DF6 /* AlarmOverLayView.xib */; settings = {ASSET_TAGS = (); }; };
 		27DE4E0B1BBA95AE00135DF6 /* UIView+Snapshotting.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DE4E071BBA95AE00135DF6 /* UIView+Snapshotting.m */; settings = {ASSET_TAGS = (); }; };
@@ -195,6 +196,8 @@
 		279FBD4C1BB13785007AEFCB /* LOcationUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LOcationUpdater.m; sourceTree = "<group>"; };
 		27C137A21BC256AD0072EDB6 /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
 		27C137A31BC256AD0072EDB6 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
+		27C137A71BC54D480072EDB6 /* AddSafetyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSafetyViewController.h; sourceTree = "<group>"; };
+		27C137A81BC54D480072EDB6 /* AddSafetyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSafetyViewController.m; sourceTree = "<group>"; };
 		27DE4E001BBA6AB100135DF6 /* AlarmOverLayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmOverLayView.h; sourceTree = "<group>"; };
 		27DE4E011BBA6AB100135DF6 /* AlarmOverLayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmOverLayView.m; sourceTree = "<group>"; };
 		27DE4E021BBA6AB100135DF6 /* AlarmOverLayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlarmOverLayView.xib; sourceTree = "<group>"; };
@@ -677,6 +680,15 @@
 			path = "Notification Cells";
 			sourceTree = "<group>";
 		};
+		27C137A61BC54D2E0072EDB6 /* Safety Measure View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				27C137A71BC54D480072EDB6 /* AddSafetyViewController.h */,
+				27C137A81BC54D480072EDB6 /* AddSafetyViewController.m */,
+			);
+			path = "Safety Measure View Controllers";
+			sourceTree = "<group>";
+		};
 		27DE4DFF1BBA6AA800135DF6 /* Alarm Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -727,6 +739,7 @@
 		27FBA6D81BA9382500F373E4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				27C137A61BC54D2E0072EDB6 /* Safety Measure View Controllers */,
 				27C137A11BC256310072EDB6 /* Notification View Controller */,
 				27630AAA1BB90AAD00474F0D /* SettingsViewController */,
 				2795A8071BB184DC00793B1E /* Profile View Controllers */,
@@ -851,6 +864,7 @@
 		2782108B1B9AE822000EA90B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = myguardapps;
 				TargetAttributes = {
@@ -983,6 +997,7 @@
 				2771B0AF1BBD5581002DE1E2 /* FeedImageCell.m in Sources */,
 				2771B0B31BBD58ED002DE1E2 /* FeedModal.m in Sources */,
 				27DE4E0B1BBA95AE00135DF6 /* UIView+Snapshotting.m in Sources */,
+				27C137A91BC54D480072EDB6 /* AddSafetyViewController.m in Sources */,
 				27FBA6FF1BA94D5D00F373E4 /* MainContentViewController.m in Sources */,
 				278CAFB71BA6E909005814C6 /* WalkThroughView.m in Sources */,
 				2745D1961BAFE692002261B0 /* Video.m in Sources */,
@@ -1158,11 +1173,14 @@
 			baseConfigurationReference = 681B470C6C8E8F498AD4DFB7 /* Pods-MyGuardApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyGuardApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyGuardApp/sounds/MyGuardApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -1171,11 +1189,13 @@
 			baseConfigurationReference = 057FBDCE3FE922A3EC550FB2 /* Pods-MyGuardApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyGuardApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyGuardApp/sounds/MyGuardApp-Bridging-Header.h";
 			};
 			name = Release;
 		};

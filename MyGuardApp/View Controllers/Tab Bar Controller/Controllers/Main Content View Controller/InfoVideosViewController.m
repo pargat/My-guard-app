@@ -26,6 +26,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.delegate delChangeNavButton:NO];
+}
+
+
+#pragma mark -
+#pragma mark - Helper and api related functions
 -(void)getVideos
 {
     [Video callAPIForVideos:[NSString stringWithFormat:KGetVideos,KbaseUrl,@"34",self.feedType,0] Params:nil success:^(NSMutableArray *videoArr) {

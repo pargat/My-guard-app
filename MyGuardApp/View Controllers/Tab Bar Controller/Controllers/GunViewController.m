@@ -38,6 +38,7 @@
 {
     self.mainVC = (MainContentViewController *)[self.storyboard instantiateViewControllerWithIdentifier:KMainVC];
     self.mainVC.currentTab = GUN;
+    self.mainVC.delegate1 = self;
     [self.mainVC.view setFrame:self.viewContainer.bounds];
     [self.viewContainer addSubview:self.mainVC.view];
     [self addChildViewController:self.mainVC];
@@ -61,9 +62,6 @@
     [navigationBar setShadowImage:[UIImage new]];
     [self.navigationItem setTitle:NSLocalizedString(@"gunshot", nil)];
         [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    UIBarButtonItem *btnSearch = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(actionSearch)];
-    [btnSearch setTintColor:[UIColor whiteColor]];
-    self.navigationItem.rightBarButtonItem = btnSearch;
     
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -87,10 +85,45 @@
         });
         
     });
+    
+    [self addNavbuttons:NO];
+
 
 }
+-(void)addNavbuttons:(BOOL)shouldShowSafety
+{
+    UIBarButtonItem *btnSearch = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(actionSearch)];
+    [btnSearch setTintColor:[UIColor whiteColor]];
+    
+    if(shouldShowSafety)
+    {
+        UIBarButtonItem *btnAddSafetyMeasure = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_safety"] style:UIBarButtonItemStylePlain target:self action:@selector(actionAddSafety)];
+        [btnAddSafetyMeasure setTintColor:[UIColor whiteColor]];
+        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItems = @[btnSearch, btnAddSafetyMeasure];
+    }
+    else
+    {
+        self.navigationItem.rightBarButtonItems = nil;
+        self.navigationItem.rightBarButtonItem = btnSearch;
+    }
+}
+#pragma mark -
+#pragma mark - Main Content Delegate
+-(void)delChangeNavButton:(BOOL)showOptional
+{
+    [self addNavbuttons:showOptional];
+}
+
+
 #pragma mark -
 #pragma mark - Button Actions
+-(void)actionAddSafety
+{
+    [self performSegueWithIdentifier:KAddSafetySegue sender:self];
+
+}
+
 -(void)actionSearch
 {
     
@@ -102,14 +135,17 @@
 
 
 
-/*
+#pragma mark -
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:KAddSafetySegue])
+    {
+        AddSafetyViewController *addSafetyVC = (AddSafetyViewController *)segue.destinationViewController;
+        addSafetyVC.currentTab = FIRE;
+    }
 }
-*/
+
 
 @end
