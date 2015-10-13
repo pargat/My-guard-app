@@ -131,6 +131,8 @@
 #pragma mark -
 #pragma mark - button actions
 - (IBAction)actionEmergencyContact:(id)sender {
+    
+    [self performSegueWithIdentifier:KEmergencySegue sender:self];
 }
 
 - (IBAction)actionAlarm:(id)sender {

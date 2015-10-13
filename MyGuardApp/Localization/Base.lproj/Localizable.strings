@@ -6,11 +6,24 @@
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
 
+//Emergency Screen
+"emergency_screen_title" = "Emergency phone";
+
+//Sex offenders screen
+"sex_offender_title" = "Sex Offender";
+
 //Alarm overlay
 "raising" = "Raising";
 "fire_alarm" = "Fire alarm";
 "gun_alarm" = "Gun alarm";
 "co_alarm" = "CO alarm";
+
+//Add safety
+"type_here" = "Type here";
+"add_to" = "ADD TO";
+"safety_fire" = "Fire Alarm";
+"safety_gun" = "Gun Shot";
+"safety_co" = "Carbon Monoxide";
 
 // Settings
 "demo" = "Demo";

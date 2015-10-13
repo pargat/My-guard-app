@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ApiConstants.h"
 
 @interface Profile : NSObject
 
@@ -28,5 +29,8 @@
 
 -(id)initWithAttributes:(NSDictionary *)tempDict;
 +(NSMutableArray *)parseDictToModal : (NSArray *)tempArr;
++(NSString *)getCurrentProfileUserId;
++(NSString *)getCurrentProfile;
+
 
 @end

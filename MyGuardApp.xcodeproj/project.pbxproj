@@ -26,6 +26,10 @@
 		278210B61B9AE822000EA90B /* MyGuardAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 278210B51B9AE822000EA90B /* MyGuardAppTests.m */; };
 		278210C41B9B1705000EA90B /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278210C31B9B1705000EA90B /* SplashViewController.m */; };
 		278210C81B9B1CEB000EA90B /* UIButtonRound.m in Sources */ = {isa = PBXBuildFile; fileRef = 278210C71B9B1CEB000EA90B /* UIButtonRound.m */; };
+		278418731BCCD4F90075B7C1 /* EmergencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278418721BCCD4F90075B7C1 /* EmergencyViewController.m */; settings = {ASSET_TAGS = (); }; };
+		278418771BCCE10A0075B7C1 /* EmergencyCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = 278418761BCCE10A0075B7C1 /* EmergencyCell1.m */; settings = {ASSET_TAGS = (); }; };
+		2784187A1BCCE11E0075B7C1 /* EmergencyCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 278418791BCCE11E0075B7C1 /* EmergencyCell2.m */; settings = {ASSET_TAGS = (); }; };
+		2784187D1BCCE1380075B7C1 /* EmergencyCellContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 2784187C1BCCE1380075B7C1 /* EmergencyCellContact.m */; settings = {ASSET_TAGS = (); }; };
 		278711891BAAAC8500F9CA16 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 278711881BAAAC8500F9CA16 /* Profile.m */; };
 		278711981BAAE6B900F9CA16 /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278711971BAAE6B900F9CA16 /* StartViewController.m */; };
 		278CAFAE1BA6E42B005814C6 /* StartNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CAFAD1BA6E42B005814C6 /* StartNavigationViewController.m */; };
@@ -58,6 +62,11 @@
 		279FBD4D1BB13785007AEFCB /* LOcationUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 279FBD4C1BB13785007AEFCB /* LOcationUpdater.m */; settings = {ASSET_TAGS = (); }; };
 		27C137A41BC256AD0072EDB6 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C137A31BC256AD0072EDB6 /* NotificationViewController.m */; settings = {ASSET_TAGS = (); }; };
 		27C137A91BC54D480072EDB6 /* AddSafetyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C137A81BC54D480072EDB6 /* AddSafetyViewController.m */; settings = {ASSET_TAGS = (); }; };
+		27C137AF1BC66D770072EDB6 /* UIButtonCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C137AE1BC66D770072EDB6 /* UIButtonCenter.m */; settings = {ASSET_TAGS = (); }; };
+		27C137B91BC7BF2C0072EDB6 /* SexOffenderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C137B81BC7BF2C0072EDB6 /* SexOffenderCell.m */; settings = {ASSET_TAGS = (); }; };
+		27C137BD1BC7E7E10072EDB6 /* SexOffender.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C137BC1BC7E7E10072EDB6 /* SexOffender.m */; settings = {ASSET_TAGS = (); }; };
+		27C137C01BCBB1570072EDB6 /* SexOffenderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C137BF1BCBB1570072EDB6 /* SexOffenderDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
+		27C137C31BCBCC7E0072EDB6 /* SexOffenderDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C137C21BCBCC7E0072EDB6 /* SexOffenderDetailCell.m */; settings = {ASSET_TAGS = (); }; };
 		27DE4E031BBA6AB100135DF6 /* AlarmOverLayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DE4E011BBA6AB100135DF6 /* AlarmOverLayView.m */; settings = {ASSET_TAGS = (); }; };
 		27DE4E041BBA6AB100135DF6 /* AlarmOverLayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DE4E021BBA6AB100135DF6 /* AlarmOverLayView.xib */; settings = {ASSET_TAGS = (); }; };
 		27DE4E0B1BBA95AE00135DF6 /* UIView+Snapshotting.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DE4E071BBA95AE00135DF6 /* UIView+Snapshotting.m */; settings = {ASSET_TAGS = (); }; };
@@ -136,6 +145,14 @@
 		278210C31B9B1705000EA90B /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		278210C61B9B1CEB000EA90B /* UIButtonRound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIButtonRound.h; sourceTree = "<group>"; };
 		278210C71B9B1CEB000EA90B /* UIButtonRound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIButtonRound.m; sourceTree = "<group>"; };
+		278418711BCCD4F90075B7C1 /* EmergencyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmergencyViewController.h; sourceTree = "<group>"; };
+		278418721BCCD4F90075B7C1 /* EmergencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmergencyViewController.m; sourceTree = "<group>"; };
+		278418751BCCE10A0075B7C1 /* EmergencyCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmergencyCell1.h; sourceTree = "<group>"; };
+		278418761BCCE10A0075B7C1 /* EmergencyCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmergencyCell1.m; sourceTree = "<group>"; };
+		278418781BCCE11E0075B7C1 /* EmergencyCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmergencyCell2.h; sourceTree = "<group>"; };
+		278418791BCCE11E0075B7C1 /* EmergencyCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmergencyCell2.m; sourceTree = "<group>"; };
+		2784187B1BCCE1380075B7C1 /* EmergencyCellContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmergencyCellContact.h; sourceTree = "<group>"; };
+		2784187C1BCCE1380075B7C1 /* EmergencyCellContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmergencyCellContact.m; sourceTree = "<group>"; };
 		278711871BAAAC8500F9CA16 /* Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profile.h; sourceTree = "<group>"; };
 		278711881BAAAC8500F9CA16 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
 		278711961BAAE6B900F9CA16 /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
@@ -198,6 +215,16 @@
 		27C137A31BC256AD0072EDB6 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		27C137A71BC54D480072EDB6 /* AddSafetyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSafetyViewController.h; sourceTree = "<group>"; };
 		27C137A81BC54D480072EDB6 /* AddSafetyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSafetyViewController.m; sourceTree = "<group>"; };
+		27C137AD1BC66D770072EDB6 /* UIButtonCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIButtonCenter.h; sourceTree = "<group>"; };
+		27C137AE1BC66D770072EDB6 /* UIButtonCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIButtonCenter.m; sourceTree = "<group>"; };
+		27C137B71BC7BF2C0072EDB6 /* SexOffenderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SexOffenderCell.h; sourceTree = "<group>"; };
+		27C137B81BC7BF2C0072EDB6 /* SexOffenderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SexOffenderCell.m; sourceTree = "<group>"; };
+		27C137BB1BC7E7E10072EDB6 /* SexOffender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SexOffender.h; sourceTree = "<group>"; };
+		27C137BC1BC7E7E10072EDB6 /* SexOffender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SexOffender.m; sourceTree = "<group>"; };
+		27C137BE1BCBB1570072EDB6 /* SexOffenderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SexOffenderDetailViewController.h; sourceTree = "<group>"; };
+		27C137BF1BCBB1570072EDB6 /* SexOffenderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SexOffenderDetailViewController.m; sourceTree = "<group>"; };
+		27C137C11BCBCC7E0072EDB6 /* SexOffenderDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SexOffenderDetailCell.h; sourceTree = "<group>"; };
+		27C137C21BCBCC7E0072EDB6 /* SexOffenderDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SexOffenderDetailCell.m; sourceTree = "<group>"; };
 		27DE4E001BBA6AB100135DF6 /* AlarmOverLayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmOverLayView.h; sourceTree = "<group>"; };
 		27DE4E011BBA6AB100135DF6 /* AlarmOverLayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmOverLayView.m; sourceTree = "<group>"; };
 		27DE4E021BBA6AB100135DF6 /* AlarmOverLayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlarmOverLayView.xib; sourceTree = "<group>"; };
@@ -422,6 +449,7 @@
 		278210C01B9AE87D000EA90B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				278418701BCCD4C80075B7C1 /* Emergency View Controller */,
 				27DE4E121BBAB04C00135DF6 /* OpenTok Video Controller */,
 				278CAFFA1BA86CC1005814C6 /* Tab Bar Controller */,
 				278CAFCA1BA6FDAD005814C6 /* Start Nvigation */,
@@ -445,12 +473,36 @@
 		278210C51B9B1CC8000EA90B /* Sub Classes */ = {
 			isa = PBXGroup;
 			children = (
+				27C137AD1BC66D770072EDB6 /* UIButtonCenter.h */,
+				27C137AE1BC66D770072EDB6 /* UIButtonCenter.m */,
 				278210C61B9B1CEB000EA90B /* UIButtonRound.h */,
 				278210C71B9B1CEB000EA90B /* UIButtonRound.m */,
 				2794EE951BABF7450036BB75 /* UIImageViewRound.h */,
 				2794EE961BABF7450036BB75 /* UIImageViewRound.m */,
 			);
 			path = "Sub Classes";
+			sourceTree = "<group>";
+		};
+		278418701BCCD4C80075B7C1 /* Emergency View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				278418711BCCD4F90075B7C1 /* EmergencyViewController.h */,
+				278418721BCCD4F90075B7C1 /* EmergencyViewController.m */,
+			);
+			path = "Emergency View Controller";
+			sourceTree = "<group>";
+		};
+		278418741BCCE0F10075B7C1 /* Emergency Cell */ = {
+			isa = PBXGroup;
+			children = (
+				278418751BCCE10A0075B7C1 /* EmergencyCell1.h */,
+				278418761BCCE10A0075B7C1 /* EmergencyCell1.m */,
+				278418781BCCE11E0075B7C1 /* EmergencyCell2.h */,
+				278418791BCCE11E0075B7C1 /* EmergencyCell2.m */,
+				2784187B1BCCE1380075B7C1 /* EmergencyCellContact.h */,
+				2784187C1BCCE1380075B7C1 /* EmergencyCellContact.m */,
+			);
+			path = "Emergency Cell";
 			sourceTree = "<group>";
 		};
 		278711861BAAABFC00F9CA16 /* Profile Modal */ = {
@@ -592,6 +644,7 @@
 		278CAFFE1BA871FC005814C6 /* Modals */ = {
 			isa = PBXGroup;
 			children = (
+				27C137BA1BC7E7C80072EDB6 /* Sex Offender */,
 				2771B0B01BBD58DB002DE1E2 /* Feed */,
 				2745D1921BAFE61D002261B0 /* Videos */,
 				273338D61BAD3E7100BDECCA /* UserModal */,
@@ -604,6 +657,8 @@
 		2794EE981BABF9A90036BB75 /* Custom Table Cells */ = {
 			isa = PBXGroup;
 			children = (
+				278418741BCCE0F10075B7C1 /* Emergency Cell */,
+				27C137B61BC7BF090072EDB6 /* Sex Offenders Cell */,
 				27C137A51BC25E4D0072EDB6 /* Notification Cells */,
 				2771B0A81BBD51CC002DE1E2 /* Feed Cells */,
 				27630AAE1BB91E3B00474F0D /* Settings Cell */,
@@ -689,6 +744,26 @@
 			path = "Safety Measure View Controllers";
 			sourceTree = "<group>";
 		};
+		27C137B61BC7BF090072EDB6 /* Sex Offenders Cell */ = {
+			isa = PBXGroup;
+			children = (
+				27C137B71BC7BF2C0072EDB6 /* SexOffenderCell.h */,
+				27C137B81BC7BF2C0072EDB6 /* SexOffenderCell.m */,
+				27C137C11BCBCC7E0072EDB6 /* SexOffenderDetailCell.h */,
+				27C137C21BCBCC7E0072EDB6 /* SexOffenderDetailCell.m */,
+			);
+			path = "Sex Offenders Cell";
+			sourceTree = "<group>";
+		};
+		27C137BA1BC7E7C80072EDB6 /* Sex Offender */ = {
+			isa = PBXGroup;
+			children = (
+				27C137BB1BC7E7E10072EDB6 /* SexOffender.h */,
+				27C137BC1BC7E7E10072EDB6 /* SexOffender.m */,
+			);
+			path = "Sex Offender";
+			sourceTree = "<group>";
+		};
 		27DE4DFF1BBA6AA800135DF6 /* Alarm Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -755,6 +830,8 @@
 				27FBA6E31BA93B9200F373E4 /* SexOffenderViewController.m */,
 				27FBA6E51BA93BA300F373E4 /* CommunityViewController.h */,
 				27FBA6E61BA93BA300F373E4 /* CommunityViewController.m */,
+				27C137BE1BCBB1570072EDB6 /* SexOffenderDetailViewController.h */,
+				27C137BF1BCBB1570072EDB6 /* SexOffenderDetailViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -978,6 +1055,7 @@
 			files = (
 				277A8EBD1BB2B84500A7C347 /* ProfileHeaderMyCell.m in Sources */,
 				278711891BAAAC8500F9CA16 /* Profile.m in Sources */,
+				27C137C01BCBB1570072EDB6 /* SexOffenderDetailViewController.m in Sources */,
 				2782109F1B9AE822000EA90B /* MyGuardApp.xcdatamodeld in Sources */,
 				27DE4E031BBA6AB100135DF6 /* AlarmOverLayView.m in Sources */,
 				27630AB41BB91E6E00474F0D /* SettingCell.m in Sources */,
@@ -986,6 +1064,7 @@
 				278CAFFD1BA86CE5005814C6 /* MainTabBarController.m in Sources */,
 				27FBA6F21BA94BEA00F373E4 /* XLBarView.m in Sources */,
 				2794EE971BABF7450036BB75 /* UIImageViewRound.m in Sources */,
+				27C137AF1BC66D770072EDB6 /* UIButtonCenter.m in Sources */,
 				278711981BAAE6B900F9CA16 /* StartViewController.m in Sources */,
 				2782109C1B9AE822000EA90B /* AppDelegate.m in Sources */,
 				27630AB11BB91E5900474F0D /* SettingCellDescriptionCell.m in Sources */,
@@ -997,15 +1076,20 @@
 				2771B0AF1BBD5581002DE1E2 /* FeedImageCell.m in Sources */,
 				2771B0B31BBD58ED002DE1E2 /* FeedModal.m in Sources */,
 				27DE4E0B1BBA95AE00135DF6 /* UIView+Snapshotting.m in Sources */,
+				2784187A1BCCE11E0075B7C1 /* EmergencyCell2.m in Sources */,
 				27C137A91BC54D480072EDB6 /* AddSafetyViewController.m in Sources */,
+				278418731BCCD4F90075B7C1 /* EmergencyViewController.m in Sources */,
 				27FBA6FF1BA94D5D00F373E4 /* MainContentViewController.m in Sources */,
 				278CAFB71BA6E909005814C6 /* WalkThroughView.m in Sources */,
 				2745D1961BAFE692002261B0 /* Video.m in Sources */,
 				278CAFF71BA8621A005814C6 /* WalkThroughLastView.m in Sources */,
 				27FBA7081BA951A700F373E4 /* InfoVideosViewController.m in Sources */,
 				278210C81B9B1CEB000EA90B /* UIButtonRound.m in Sources */,
+				27C137C31BCBCC7E0072EDB6 /* SexOffenderDetailCell.m in Sources */,
 				278CAFEF1BA82AD9005814C6 /* LoaderView.m in Sources */,
+				278418771BCCE10A0075B7C1 /* EmergencyCell1.m in Sources */,
 				2794EE9B1BABF9C40036BB75 /* SafetyMeasureCell.m in Sources */,
+				27C137BD1BC7E7E10072EDB6 /* SexOffender.m in Sources */,
 				278CAFAE1BA6E42B005814C6 /* StartNavigationViewController.m in Sources */,
 				27DE4E101BBAAF3100135DF6 /* WaveAnimationView.m in Sources */,
 				2771B0AB1BBD51DC002DE1E2 /* FeedMainCell.m in Sources */,
@@ -1014,6 +1098,7 @@
 				27FBA6E41BA93B9200F373E4 /* SexOffenderViewController.m in Sources */,
 				278CAFE21BA82A5D005814C6 /* RMMapper.m in Sources */,
 				27FBA7021BA9516E00F373E4 /* FeedViewController.m in Sources */,
+				27C137B91BC7BF2C0072EDB6 /* SexOffenderCell.m in Sources */,
 				278CAFBD1BA6EA89005814C6 /* WalkThroughViewController.m in Sources */,
 				278CAFE01BA82A5D005814C6 /* NSObject+RMCopyable.m in Sources */,
 				27630AAD1BB90AD800474F0D /* SettingViewCntroller.m in Sources */,
@@ -1028,6 +1113,7 @@
 				278CAFE11BA82A5D005814C6 /* NSUserDefaults+RMSaveCustomObject.m in Sources */,
 				27FBA6FB1BA94C4200F373E4 /* XLPagerTabStripViewController.m in Sources */,
 				278210991B9AE822000EA90B /* main.m in Sources */,
+				2784187D1BCCE1380075B7C1 /* EmergencyCellContact.m in Sources */,
 				279FBD421BB01F0B007AEFCB /* CommunityContentViewController.m in Sources */,
 				273338D91BAD3E7E00BDECCA /* User.m in Sources */,
 				278210C41B9B1705000EA90B /* SplashViewController.m in Sources */,

@@ -47,7 +47,6 @@
     return userArr;
 }
 
-
 #pragma mark - api hit                                                                                                                      
 
 +(void)callAPIForCommunityUser : (NSString *)urlStr  Params : (NSDictionary *)paramsDict success : (void(^)(NSMutableArray *safetyArr))success failure : (void(^)(NSString *errorStr))failure

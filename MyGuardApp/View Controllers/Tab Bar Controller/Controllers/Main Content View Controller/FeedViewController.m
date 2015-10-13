@@ -137,6 +137,7 @@
     cell.selectedPath = indexPath;
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     [cell setDelegate:self];
+ 
     return cell;
 }
 
@@ -146,7 +147,7 @@
     [self.view layoutIfNeeded];
     
     
-    UIBezierPath *shadowPath1 = [UIBezierPath bezierPathWithRect:cell.viewShadow.bounds];
+
     
     UIBezierPath *shadowPath  = [UIBezierPath bezierPathWithRect:cell.viewOverlay.bounds];
     cell.viewOverlay.layer.masksToBounds = NO;
@@ -155,6 +156,7 @@
     cell.viewOverlay.layer.shadowOpacity = 0.75f;
     cell.viewOverlay.layer.shadowPath = shadowPath.CGPath;
     
+    UIBezierPath *shadowPath1 = [UIBezierPath bezierPathWithRect:cell.viewShadow.bounds];
     cell.viewShadow.layer.masksToBounds = NO;
     cell.viewShadow.layer.shadowColor = [UIColor lightGrayColor].CGColor;
     cell.viewShadow.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
@@ -196,7 +198,7 @@
     else
         [cell.labelAddress setText:modal.feed_address];
     //[cell.labelTimeDetail setText:modal.feed_time_passed];
-    [cell.labelTimeDetail setText:@"09 Sept . 08:30 pm"];
+    [cell.labelTimeDetail setText:@"09 Sept • 08:30 pm"];
     if(self.feedType==1)
     {
         [cell.labelEmergencyName setText:@"Fire"];

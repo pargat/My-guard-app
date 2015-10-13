@@ -26,7 +26,7 @@
                   moduleName = "MyGuardApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/View%20Controllers/Login%20and%20Signup%20View%20Controllers/SplashViewController.m"
-                  timestampString = "465829871.616915"
+                  timestampString = "466365890.675441"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "67"
@@ -41,7 +41,7 @@
                   moduleName = "MyGuardApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/View%20Controllers/Login%20and%20Signup%20View%20Controllers/SplashViewController.m"
-                  timestampString = "465829871.617415"
+                  timestampString = "466365890.675742"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "67"
@@ -106,6 +106,22 @@
             startingLineNumber = "92"
             endingLineNumber = "92"
             landmarkName = "-reloadPagerTabStripView"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyGuardApp/View Controllers/Tab Bar Controller/Controllers/Safety Measure View Controllers/AddSafetyViewController.m"
+            timestampString = "466008286.905521"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "-actionDone"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

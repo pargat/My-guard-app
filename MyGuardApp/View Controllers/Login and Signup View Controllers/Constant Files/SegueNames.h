@@ -10,12 +10,15 @@
 
 
 //Segue names
+#define KEmergencySegue @"EmergencySegue"
+#define KLogoutUnwindSegue @"unWindLogout"
 #define KWalkSegue @"Walk"
 #define KtabSegue @"Tab"
 #define KLoginSegue @"Login"
 #define KRegister1Segue @"Register1"
 #define KMyProfileSegue @"myprofile"
 #define KAddSafetySegue @"SafetySegue"
+#define KSexOffenderDetailSegue @"SexOffenderDetailSegue"
 
 //Storyboard identifier names
 #define KCommunityContent @"CommunityContent"

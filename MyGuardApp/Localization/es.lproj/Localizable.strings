@@ -12,6 +12,12 @@
 "gun_alarm" = "alarma pistola";
 "co_alarm" = "CO alarma";
 
+//Add safety
+"type_here" = "Type here";
+"add_to" = "ADD TO";
+"safety_fire" = "Fire Alarm";
+"safety_gun" = "Gun Shot";
+"safety_co" = "Carbon Monoxide";
 
 // Settings
 "demo" = "Demo";

@@ -38,6 +38,10 @@ typedef enum : NSUInteger {
 #define KFbRegister @"%@fb_register_new.php?email=%@&lat=%f&lng=%f&zone=%ld"
 #define KBaseTimbthumbUrl @"http://api.firesonar.com/FireSonar/timthumb.php?src=uploads/%@&w=%f&h=%f"
 
+//Adding Safety Measure
+#define KAddSafetyMeasureApi @"%@post_safety_measure.php?user_id=%@&type=%@&description=%@"
+
+
 //feeds
 #define KGetVideos @"%@get_informational_videos.php?user_id=%@&type=%@&page=%d&length=10"
 #define KGetAlarms @"%@get_alarms.php?user_id=%@&type=%d&page=%d&length=10&zone=%ld"
@@ -60,6 +64,10 @@ typedef enum : NSUInteger {
 
 //Profile fetching
 #define KGetProfile @"%@get_other_profile.php?uid=%@&mid=%@"
+
+//Settings
+#define KLogoutApi  @"%@logout.php?user_id=%@"
+
 
 // Sign Up Screen
 #define KSignUpScreen @"%@signup_new.php"

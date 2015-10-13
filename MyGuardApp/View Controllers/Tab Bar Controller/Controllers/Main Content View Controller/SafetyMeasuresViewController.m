@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self viewHelper];
+    [self addRefreshAndInfinite];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,22 +35,49 @@
 #pragma mark - Helpers
 -(void)viewHelper
 {
+    self.pageIndex = 0;
     [self.tableViewSafety setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     // Do any additional setup after loading the view.
-    [self getSafetyMeasures];
+    [self getSafetyMeasures:YES];
 
 }
--(void)getSafetyMeasures
+-(void)getSafetyMeasures :(BOOL)isRefresh
 {
     __weak SafetyMeasuresViewController *weakSelf = self;
-    NSString *strSafety = [NSString stringWithFormat:KGetSafetyMeasure,KbaseUrl,@"34",self.feedType,0,10];
+    NSString *strSafety = [NSString stringWithFormat:KGetSafetyMeasure,KbaseUrl,@"34",self.feedType,self.pageIndex,10];
     [SafetyMeasure callAPIForSafetyMeasure:strSafety Params:nil success:^(NSMutableArray *safetyArr) {
-        weakSelf.arraySafetyMeasures = [[NSMutableArray alloc] initWithArray:safetyArr];
+        if(isRefresh)
+        {
+            weakSelf.arraySafetyMeasures = [[NSMutableArray alloc] initWithArray:safetyArr];
+
+        }
+        else
+        {
+            [weakSelf.arraySafetyMeasures addObjectsFromArray:safetyArr];
+        }
         [weakSelf.tableViewSafety reloadData];
+        [self.tableViewSafety.infiniteScrollingView stopAnimating];
+        [self.tableViewSafety.pullToRefreshView stopAnimating];
     } failure:^(NSString *errorStr) {
-        
+        [self.tableViewSafety.infiniteScrollingView stopAnimating];
+        [self.tableViewSafety.pullToRefreshView stopAnimating];
+
     }];
 }
+-(void)addRefreshAndInfinite
+{
+    [self.tableViewSafety addPullToRefreshWithActionHandler:^{
+        self.pageIndex = 0;
+        [self getSafetyMeasures:YES];
+    }];
+    
+    [self.tableViewSafety addInfiniteScrollingWithActionHandler:^{
+        self.pageIndex++;
+        [self getSafetyMeasures:NO];
+    }];
+    
+}
+
 
 #pragma mark -
 #pragma mark - XlChild
@@ -118,7 +146,7 @@
     
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -126,6 +154,6 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
 
 @end

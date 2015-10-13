@@ -16,6 +16,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.tableViewOffenders setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    [self.tableViewOffenders setDelegate:self];
+    [self.tableViewOffenders setDataSource:self];
+    [self getOffenders];
     // Do any additional setup after loading the view.
 }
 
@@ -30,6 +34,19 @@
     
 }
 
+
+
+#pragma mark -
+#pragma mark - Helper functions
+-(void)getOffenders
+{
+    [SexOffender callAPIForSexOffenders:@"http://services.familywatchdog.us/json/json.asp?key=YOUR-KEY-HERE&lite=0&type=searchbylatlong&minlat=39.9537592&maxlat=39.9557592&minlong=-75.2694439&maxlong=-75.2654439" Params:nil success:^(NSMutableArray *offenderArr) {
+        self.arraySexOffender = [NSMutableArray arrayWithArray:offenderArr];
+        [self.tableViewOffenders reloadData];
+    } failure:^(NSString *errorStr) {
+        
+    }];
+}
 -(void)setNavBarAndTab
 {
     [self.tabBarController.tabBar setTintColor:KPurpleColor];
@@ -68,20 +85,78 @@
     });
 
 }
+#pragma mark -
+#pragma mark - lat long calculating formula
 
+-(NSArray *)getBoundingBox:(double)kilometers lat:(double)lat lon:(double)lon
+{
+    double R = 6371; // earth radius in km
+    double lat1 = lat - (M_PI/180) *(kilometers / R);
+    double lon1 = lon - (M_PI/180) *(kilometers / R / cos(lat*180/M_PI));
+    double lat2 = lat + (M_PI/180) *(kilometers / R);
+    double lon2 = lon +(M_PI/180) *(kilometers / R / cos(lat*180/M_PI));
+    return @[[NSString stringWithFormat:@"%f",lat1],[NSString stringWithFormat:@"%f",lon1],[NSString stringWithFormat:@"%f",lat2],[NSString stringWithFormat:@"%f",lon2]];
+}
+
+
+#pragma mark -
+#pragma mark - Button Actions
 -(void)actionProfile
 {
     
 }
 
-/*
-#pragma mark - Navigation
 
+#pragma mark - 
+#pragma mark - Table View Delegate and datasource functions
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.arraySexOffender.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SexOffenderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SexOffenderCell"];
+    [self configureCell:cell atIndexPath:indexPath];
+    
+    return cell;
+    
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static SexOffenderCell *sizingCell = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sizingCell = [self.tableViewOffenders dequeueReusableCellWithIdentifier:@"SexOffenderCell"];
+    });
+
+    [self configureCell:sizingCell atIndexPath:indexPath];
+    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height+1;
+}
+-(void)configureCell:(SexOffenderCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    SexOffender *modal = [self.arraySexOffender objectAtIndex:indexPath.row];
+    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:modal.offenderPhoto]];
+    [cell.labelName setText:modal.offenderName];
+    [cell.labelDescription setText:[NSString stringWithFormat:@"Age : %@ Sex : %@",modal.offenderAge,modal.offenderSex]];
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.sexOffenderModal = [self.arraySexOffender objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:KSexOffenderDetailSegue sender:self];
+}
+
+#pragma mark -
+#pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+    SexOffenderDetailViewController *sexVC = (SexOffenderDetailViewController *)segue.destinationViewController;
+    sexVC.sexOffenderModal = self.sexOffenderModal;
+    
+
 }
-*/
+
 
 @end

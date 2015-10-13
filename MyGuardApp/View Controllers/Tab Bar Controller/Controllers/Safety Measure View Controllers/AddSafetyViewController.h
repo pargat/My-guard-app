@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ApiConstants.h"
 #import <SZTextView.h>
+#import <JTMaterialSpinner.h>
 
 @interface AddSafetyViewController : UIViewController
 

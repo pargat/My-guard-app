@@ -12,6 +12,8 @@
 #import "SafetyMeasureCell.h"
 #import "ApiConstants.h"
 #import <UIImageView+WebCache.h>
+#import <SVPullToRefresh.h>
+
 
 @protocol SafetyDelegate
 
@@ -23,6 +25,7 @@
 
 @interface SafetyMeasuresViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
+@property int pageIndex;
 @property (nonatomic,weak) id<SafetyDelegate> delegate;
 @property (nonatomic,strong) NSMutableArray *arraySafetyMeasures;
 @property (nonatomic, strong) NSString *feedType;

@@ -9,6 +9,9 @@
 #import "SettingViewCntroller.h"
 
 @implementation SettingViewCntroller
+{
+    JTMaterialSpinner *loaderObj ;
+}
 
 -(void)viewDidLoad
 {
@@ -21,7 +24,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-   
+    
 }
 
 #pragma mark -
@@ -74,34 +77,80 @@
         [cell.viewBottom setHidden:NO];
         cell.heightBottom.constant = 8;
         [cell.labelDescription setText:NSLocalizedString(@"user_guide_des", nil)];
-        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:cell.viewBottom.bounds];
-        cell.viewBottom.layer.masksToBounds = NO;
-        cell.viewBottom.layer.shadowColor = [UIColor lightGrayColor].CGColor;
-        cell.viewBottom.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
-        cell.viewBottom.layer.shadowOpacity = 0.3f;
-        cell.viewBottom.layer.shadowPath = shadowPath.CGPath;
+        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:cell.viewShadow.bounds];
+        cell.viewShadow.layer.masksToBounds = NO;
+        cell.viewShadow.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+        cell.viewShadow.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+        cell.viewShadow.layer.shadowOpacity = 0.75f;
+        cell.viewShadow.layer.shadowPath = shadowPath.CGPath;
+        cell.separatorInset = UIEdgeInsetsMake(0.f, 10+cell.bounds.size.width, 0.f, 0.f);
+        
         
     }
     
 }
 
+#pragma mark - Hide Unhide Loader View
+
+-(void)setUpLoaderView
+{
+    [loaderObj removeFromSuperview];
+    loaderObj = [[JTMaterialSpinner alloc] init];
+    loaderObj.frame = CGRectMake(self.view.frame.size.width/2-20, self.view.frame.size.height/2-20, 40, 40);
+    loaderObj.circleLayer.lineWidth = 2.0;
+    loaderObj.circleLayer.strokeColor = KPurpleColor.CGColor;
+    [self.view addSubview:loaderObj];
+    [loaderObj beginRefreshing];
+}
+
+-(void)removeLoaderView
+{
+    [loaderObj removeFromSuperview];
+    [loaderObj endRefreshing];
+}
+
+
+#pragma mark -
+#pragma mark - Table Helper
+- (void)logOutClicked
+{
+    
+    NSString *urlString = [NSString stringWithFormat:KLogoutApi,KbaseUrl,[Profile getCurrentProfileUserId]];
+    [self setUpLoaderView];
+    [iOSRequest getJsonResponse:urlString success:^(NSDictionary *responseDict) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"profile"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [loaderObj removeFromSuperview];
+        
+        [self performSegueWithIdentifier:KLogoutUnwindSegue sender:self];
+    } failure:^(NSString *errorString) {
+        [loaderObj removeFromSuperview];
+    }];
+    
+    
+}
+
+
 #pragma mark -
 #pragma mark - Table view delegates
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Remove seperator inset
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-        [cell setSeparatorInset:UIEdgeInsetsZero];
-    }
-    
-    // Prevent the cell from inheriting the Table View's margin settings
-    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
-        [cell setPreservesSuperviewLayoutMargins:NO];
-    }
-    
-    // Explictly set your cell's layout margins
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
+    if(indexPath.row!=1)
+    {
+        // Remove seperator inset
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            [cell setSeparatorInset:UIEdgeInsetsZero];
+        }
+        
+        // Prevent the cell from inheriting the Table View's margin settings
+        if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+            [cell setPreservesSuperviewLayoutMargins:NO];
+        }
+        
+        // Explictly set your cell's layout margins
+        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+            [cell setLayoutMargins:UIEdgeInsetsZero];
+        }
     }
 }
 
@@ -123,6 +172,10 @@
     {
         [self mailComposer];
     }
+    else
+    {
+        [self logOutClicked];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -137,7 +190,7 @@
         
         [self configureSettingCelldescription:sizingCell atIndexPath:indexPath];
         CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        return size.height+1;
+        return size.height;
     }
     else
     {
@@ -149,7 +202,7 @@
         
         [self configureSettingCell:sizingCell atIndexPath:indexPath];
         CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        return size.height+1;
+        return size.height;
     }
     
 }

@@ -49,4 +49,18 @@
 }
 
 
+#pragma mark -
+#pragma mark - User related functions
++(NSString *)getCurrentProfileUserId
+{
+    Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+    return modal.profileUserId;
+}
++(NSString *)getCurrentProfile
+{
+    return [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+}
+
+
+
 @end

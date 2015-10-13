@@ -9,8 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "ApiConstants.h"
 #import "UIImage+Extras.h"
+#import <math.h>
+#import "SexOffenderCell.h"
+#import "SexOffender.h"
+#import <UIImageView+WebCache.h>
+#import "SexOffenderDetailViewController.h"
+
+@interface SexOffenderViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 
-@interface SexOffenderViewController : UIViewController
+@property (nonatomic,strong) NSMutableArray *arraySexOffender;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewOffenders;
+@property (nonatomic,strong) SexOffender *sexOffenderModal;
+
 
 @end
+

@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelDescription;
 @property (weak, nonatomic) IBOutlet UIView *viewBottom;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightBottom;
+@property (weak, nonatomic) IBOutlet UIView *viewShadow;
 
 @end
