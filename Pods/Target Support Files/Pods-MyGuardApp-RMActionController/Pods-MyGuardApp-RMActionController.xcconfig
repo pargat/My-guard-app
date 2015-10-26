@@ -1,0 +1,1 @@
+PODS_MYGUARDAPP_RMACTIONCONTROLLER_OTHER_LDFLAGS = -framework "CoreGraphics" -framework "QuartzCore"

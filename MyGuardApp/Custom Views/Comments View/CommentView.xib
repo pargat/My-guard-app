@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="CommentView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cie-ne-H50">
+                    <rect key="frame" x="20" y="27" width="55" height="32"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="LIe-vn-v1j"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                    <state key="normal" title="BACK">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="actionBAck:" destination="iN0-l3-epB" eventType="touchUpInside" id="0al-we-zOK"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ox-My-uPT">
+                    <rect key="frame" x="256" y="32" width="89" height="21"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BBo-LL-8QI">
+                    <rect key="frame" x="0.0" y="67" width="600" height="1"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="nZA-pv-PKH"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZBf-PG-B3C">
+                    <rect key="frame" x="0.0" y="550" width="600" height="50"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GUX-3H-Eug">
+                            <rect key="frame" x="8" y="10" width="544" height="30"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPy-si-uw8">
+                            <rect key="frame" x="552" y="1" width="48" height="48"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="S7L-Mb-8Ae"/>
+                                <constraint firstAttribute="width" constant="48" id="rNN-US-cH1"/>
+                            </constraints>
+                            <state key="normal" image="ic_send">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="actionSend:" destination="iN0-l3-epB" eventType="touchUpInside" id="g7p-5A-3dx"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="centerY" secondItem="GUX-3H-Eug" secondAttribute="centerY" id="EVR-Ku-knS"/>
+                        <constraint firstAttribute="height" constant="50" id="HXf-I7-DkQ"/>
+                        <constraint firstAttribute="trailing" secondItem="YPy-si-uw8" secondAttribute="trailing" id="Idk-gy-rqv"/>
+                        <constraint firstItem="GUX-3H-Eug" firstAttribute="leading" secondItem="ZBf-PG-B3C" secondAttribute="leading" constant="8" id="aZU-nQ-lsx"/>
+                        <constraint firstAttribute="centerY" secondItem="YPy-si-uw8" secondAttribute="centerY" id="hoK-bk-g1q"/>
+                        <constraint firstItem="YPy-si-uw8" firstAttribute="leading" secondItem="GUX-3H-Eug" secondAttribute="trailing" id="jp1-SX-uyn"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Sao-EQ-Pvn">
+                    <rect key="frame" x="0.0" y="68" width="600" height="482"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="cie-ne-H50" firstAttribute="centerY" secondItem="1ox-My-uPT" secondAttribute="centerY" id="4bo-D8-Dte"/>
+                <constraint firstItem="1ox-My-uPT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="32" id="63w-cj-idB"/>
+                <constraint firstAttribute="bottom" secondItem="ZBf-PG-B3C" secondAttribute="bottom" id="FKD-mO-BV8"/>
+                <constraint firstAttribute="trailing" secondItem="Sao-EQ-Pvn" secondAttribute="trailing" id="IW6-dh-uIf"/>
+                <constraint firstItem="BBo-LL-8QI" firstAttribute="top" secondItem="cie-ne-H50" secondAttribute="bottom" constant="8" symbolic="YES" id="NS7-Jg-YF4"/>
+                <constraint firstAttribute="centerX" secondItem="1ox-My-uPT" secondAttribute="centerX" id="TT6-Oi-pmH"/>
+                <constraint firstItem="ZBf-PG-B3C" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Wvg-35-A4y"/>
+                <constraint firstItem="BBo-LL-8QI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="bzV-Nt-MqI"/>
+                <constraint firstAttribute="trailing" secondItem="ZBf-PG-B3C" secondAttribute="trailing" id="cIg-J5-evU"/>
+                <constraint firstAttribute="trailing" secondItem="BBo-LL-8QI" secondAttribute="trailing" id="cKe-c6-61f"/>
+                <constraint firstItem="Sao-EQ-Pvn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gPR-BH-P8k"/>
+                <constraint firstItem="cie-ne-H50" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="iFp-Qr-VH3"/>
+                <constraint firstItem="ZBf-PG-B3C" firstAttribute="top" secondItem="Sao-EQ-Pvn" secondAttribute="bottom" id="kcQ-LK-uC9"/>
+                <constraint firstItem="Sao-EQ-Pvn" firstAttribute="top" secondItem="BBo-LL-8QI" secondAttribute="bottom" id="vwA-ww-mDG"/>
+            </constraints>
+            <connections>
+                <outlet property="btnSend" destination="YPy-si-uw8" id="6zt-GI-8oA"/>
+                <outlet property="layoutBottomSpace" destination="FKD-mO-BV8" id="aDY-RN-lwX"/>
+                <outlet property="tableViewComments" destination="Sao-EQ-Pvn" id="tFG-Mw-sYB"/>
+                <outlet property="textFieldComment" destination="GUX-3H-Eug" id="xpg-wm-tKb"/>
+                <outlet property="viewCommentHolde" destination="ZBf-PG-B3C" id="qHu-OJ-agI"/>
+            </connections>
+            <point key="canvasLocation" x="96" y="40"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_send" width="24" height="24"/>
+    </resources>
+</document>
