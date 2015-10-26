@@ -10,8 +10,16 @@
 
 
 //Segue names
+#define KImageVideoDetailSegue @"ImageVideoDetailSegue"
+#define KYoutubeVideoSegue @"YoutubeSegue"
+#define KEditProfileSegue @"EditProfileSegue"
+#define KSafetyDetailSegue @"SafetyDetailSegue"
+#define KTCSegue @"TCSegue"
+#define KOtherProfileSegue @"OtherProfileSegue"
+#define KImageVideoSegue @"ImageVideoSegue"
+#define KSoundMainSegue @"SoundMainSegue"
 #define KEmergencySegue @"EmergencySegue"
-#define KLogoutUnwindSegue @"unWindLogout"
+#define KLogoutUnwindSegue @"unwindLogout"
 #define KWalkSegue @"Walk"
 #define KtabSegue @"Tab"
 #define KLoginSegue @"Login"
@@ -19,9 +27,12 @@
 #define KMyProfileSegue @"myprofile"
 #define KAddSafetySegue @"SafetySegue"
 #define KSexOffenderDetailSegue @"SexOffenderDetailSegue"
+#define KMapFeedSegue @"MapFeedSegue"
+#define KRegisterStep2 @"Register2"
 
 //Storyboard identifier names
 #define KCommunityContent @"CommunityContent"
+#define KCommunitySearchContent @"CommunitySearchContent"
 #define KFeedVC @"feed"
 #define KSafetyVC @"safety"
 #define KInfoVC @"info"

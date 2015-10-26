@@ -16,6 +16,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     if([[NSUserDefaults standardUserDefaults] valueForKey:@"profile"]==nil)
     {
         [self performSegueWithIdentifier:KWalkSegue sender:nil];
@@ -26,14 +37,8 @@
         
     }
 
-    // Do any additional setup after loading the view.
+    
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 #pragma mark - Navigation
 
@@ -42,7 +47,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-- (IBAction)unwindToLoginViewController:(UIStoryboardSegue *)unwindSegue
+- (IBAction)unwindToStartViewController:(UIStoryboardSegue *)unwindSegue
 {
     
     

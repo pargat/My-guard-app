@@ -10,11 +10,12 @@
 #import "FeedImageCell.h"
 #import <UIImageView+WebCache.h>
 #import "ApiConstants.h"
-
+#import "FileModal.h"
 
 @protocol FeedMainDelegate <NSObject>
 
 -(void)delCameraClicked:(NSIndexPath *)indexPath;
+-(void)delImageCellClicked:(NSIndexPath *)indexPath;
 
 @end
 
@@ -41,6 +42,8 @@
 @property (weak, nonatomic) IBOutlet UIView *viewShadow;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightMap;
 
+
+-(void)setDataAndDelegateNil;
 -(void)setDelegateAndData;
 - (IBAction)actionCamera:(id)sender;
 

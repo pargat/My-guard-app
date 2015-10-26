@@ -27,6 +27,7 @@
 @property (nonatomic,strong) NSString *userPhoneNumber;
 @property (nonatomic,strong) NSString *userUserName;
 
++(NSMutableArray *)parseDictToModal : (NSArray *)tempArr;
 +(void)callAPIForCommunityUser : (NSString *)urlStr  Params : (NSDictionary *)paramsDict success : (void(^)(NSMutableArray *safetyArr))success failure : (void(^)(NSString *errorStr))failure;
 
 @end

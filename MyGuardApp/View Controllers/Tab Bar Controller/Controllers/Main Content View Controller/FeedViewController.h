@@ -18,7 +18,9 @@
 #import "UIImage+Extras.h"
 #import <SVPullToRefresh.h>
 #import <JTMaterialSpinner.h>
-
+#import "MapViewController.h"
+#import "ImageVideoViewController.h"
+#import "BaseViewController.h"
 
 @protocol FeedDelegate
 
@@ -27,7 +29,7 @@
 
 @end
 
-@interface FeedViewController : UIViewController <XLPagerTabStripChildItem,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,FeedMainDelegate,UIActionSheetDelegate>
+@interface FeedViewController : BaseViewController <XLPagerTabStripChildItem,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,FeedMainDelegate,UIActionSheetDelegate>
 
 @property (nonatomic,strong) NSIndexPath *selectedIndex;
 @property int pageIndex;

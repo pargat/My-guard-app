@@ -10,5 +10,7 @@
 
 @interface FeedImageCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewM;
+@property (weak, nonatomic) IBOutlet UIButton *btnVideo;
+@property (weak, nonatomic) IBOutlet UIButton *btnComments;
 
 @end

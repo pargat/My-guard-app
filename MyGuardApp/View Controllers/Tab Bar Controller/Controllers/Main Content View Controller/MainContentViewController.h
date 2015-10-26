@@ -16,7 +16,7 @@
 @protocol MainContentDelegate <NSObject>
 
 -(void)delChangeNavButton:(BOOL)showOptional;
-
+-(void)delNobutton;
 @end
 
 @interface MainContentViewController : XLButtonBarPagerTabStripViewController<FeedDelegate,SafetyDelegate,InfoVideosDelegate>

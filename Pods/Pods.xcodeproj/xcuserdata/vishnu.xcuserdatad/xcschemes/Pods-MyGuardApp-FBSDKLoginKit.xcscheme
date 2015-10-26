@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7CA748CD44F57563D1D3FC3F"
+               BlueprintIdentifier = "DFCCD1363AFBD43A5D53777B"
                BuildableName = "libPods-MyGuardApp-FBSDKLoginKit.a"
                BlueprintName = "Pods-MyGuardApp-FBSDKLoginKit"
                ReferencedContainer = "container:Pods.xcodeproj">

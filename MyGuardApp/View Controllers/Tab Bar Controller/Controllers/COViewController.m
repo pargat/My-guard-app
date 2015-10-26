@@ -45,8 +45,11 @@
     [self.navigationItem setTitle:NSLocalizedString(@"tb_co", nil)];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
+    Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://api.firesonar.com/FireSonar/timthumb.php?src=uploads/iSf0mKHUG5vgEt2pncuW.jpeg"]];
+        NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:modal.profileImageFullLink]];
+
+//        NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://api.firesonar.//com/FireSonar/timthumb.php?src=uploads/iSf0mKHUG5vgEt2pncuW.jpeg"]];
         UIImage *image = [UIImage imageWithData:tmpdata];
         image = [image circularScaleAndCropImage:CGRectMake(0, 0, 32, 32)];
         image = [image imageByScalingAndCroppingForSize:CGSizeMake(32, 32)];
@@ -80,8 +83,7 @@
     {
         UIBarButtonItem *btnAddSafetyMeasure = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_safety"] style:UIBarButtonItemStylePlain target:self action:@selector(actionAddSafety)];
         [btnAddSafetyMeasure setTintColor:[UIColor whiteColor]];
-        self.navigationItem.rightBarButtonItem = nil;
-        self.navigationItem.rightBarButtonItems = @[btnSearch, btnAddSafetyMeasure];
+        self.navigationItem.rightBarButtonItem = btnAddSafetyMeasure;
     }
     else
     {
@@ -89,11 +91,16 @@
         self.navigationItem.rightBarButtonItem = btnSearch;
     }
 }
+
 #pragma mark -
 #pragma mark - Main Content Delegate
 -(void)delChangeNavButton:(BOOL)showOptional
 {
     [self addNavbuttons:showOptional];
+}
+-(void)delNobutton
+{
+    self.navigationItem.rightBarButtonItem = nil;
 }
 
 
@@ -125,7 +132,8 @@
 
 -(void)actionProfile
 {
-    
+    [self performSegueWithIdentifier:KMyProfileSegue sender:nil];
+
 }
 
 #pragma mark -

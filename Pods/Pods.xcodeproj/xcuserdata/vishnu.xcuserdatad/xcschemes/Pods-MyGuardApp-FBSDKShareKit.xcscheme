@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4EFB5C28D0642AA3840F6F54"
+               BlueprintIdentifier = "6002146040734F23B9F96264"
                BuildableName = "libPods-MyGuardApp-FBSDKShareKit.a"
                BlueprintName = "Pods-MyGuardApp-FBSDKShareKit"
                ReferencedContainer = "container:Pods.xcodeproj">

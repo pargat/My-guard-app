@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "iOSRequest.h"
 #import "ApiConstants.h"
+#import "UIButtonRound.h"
 
 @protocol waveAnimationDelegate
 
@@ -21,6 +21,7 @@
 @property(nonatomic,assign)id<waveAnimationDelegate>delegate ;
 
 #pragma mark - Outlets
+@property MAINTAB currentTab;
 
 @property (strong, nonatomic) IBOutlet UIImageView *overlay_AnimationImg;
 @property (strong, nonatomic) IBOutlet UIView *overlay_background;
@@ -28,6 +29,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btnNotify;
 
+@property (weak, nonatomic) IBOutlet UIButtonRound *btnHush;
 #pragma mark - Actions
 - (IBAction)cancelAct:(id)sender;
 - (IBAction)actionFalseAlarm:(id)sender;

@@ -39,6 +39,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-MyGuardApp-RMActionController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-MyGuardApp-RMDateSelectionViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-MyGuardApp-RMPickerViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-MyGuardApp-SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,62 +82,77 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0572360B61402BA213397F6D</key>
+		<key>5341F5AA9E27ABCAEA62EC62</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>104AF2244C7AAA2EFB467CA6</key>
+		<key>59BFB65A0B8665064646AE64</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>15493D088CD03139921C8443</key>
+		<key>6002146040734F23B9F96264</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1F43369379B652DCBF207660</key>
+		<key>75C650BD65B87AD7C35A7617</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>416D4C91D2692FF0BEA6B0F4</key>
+		<key>8405A455D57D332F6764C487</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4EFB5C28D0642AA3840F6F54</key>
+		<key>9619A79A61B5BB3DC00ADDA3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>555051116566BDA2E0BED1F1</key>
+		<key>A722A8C64C2FDB1CB6079F1B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5DCCE6EA81A114236DB23D2C</key>
+		<key>AC11B72E6ADB4AFFE2CFB790</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7CA748CD44F57563D1D3FC3F</key>
+		<key>C9CF6A4B41BF414B48EE8E50</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9BE97977225FE939C8CC85E3</key>
+		<key>DBAE9BEB08200F7461BDAB9A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AE883C77BB7EC486660A29A6</key>
+		<key>DCC26A8F143EAC5BC27FE8BE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D376E863C500A53F352254AE</key>
+		<key>DFCCD1363AFBD43A5D53777B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E066C25A75C0A449D4F42049</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F9B606AE6C09C71A714EC72C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FECD6E3774CEF85A39DCC591</key>
 		<dict>
 			<key>primary</key>
 			<true/>

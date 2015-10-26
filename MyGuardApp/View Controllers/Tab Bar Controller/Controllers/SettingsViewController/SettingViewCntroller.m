@@ -32,6 +32,10 @@
 -(void)setUpNavBar
 {
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    UIBarButtonItem *btnBack = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_back"] style:UIBarButtonItemStylePlain target:self action:@selector(actionBack)];
+    [btnBack setTintColor:[UIColor whiteColor]];
+    self.navigationItem.leftBarButtonItem = btnBack;
+    [self.navigationItem setTitle:NSLocalizedString(@"setting_title", nil)];
 }
 #pragma mark -
 #pragma mark - Table View Datasource
@@ -156,8 +160,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if(indexPath.row==3)
+    if(indexPath.row==0)
+    {
+        [self performSegueWithIdentifier:KSoundMainSegue sender:self];
+    }
+    else if (indexPath.row==1)
+    {
+        
+    }
+    else if (indexPath.row==2)
+    {
+        
+    }
+    else if(indexPath.row==3)
     {
         FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
         content.appLinkURL = [NSURL URLWithString:@"https://fb.me/727046074067178"];
@@ -172,7 +187,12 @@
     {
         [self mailComposer];
     }
-    else
+    else if (indexPath.row==5)
+    {
+        [self performSegueWithIdentifier:KTCSegue sender:self];
+        
+    }
+    else if(indexPath.row==6)
     {
         [self logOutClicked];
     }
@@ -264,6 +284,12 @@
 - (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error
 {
     
+}
+#pragma mark -
+#pragma mark - Button Actions
+-(void)actionBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -70,5 +70,22 @@
     
 }
 
++(void)callAPIForSafetyMeasureOfUserOther : (NSString *)urlStr  Params : (NSDictionary *)paramsDict success : (void(^)( NSMutableDictionary*dict))success failure : (void(^)(NSString *errorStr))failure
+{
+    
+    [iOSRequest getJsonResponse:urlStr success:^(NSDictionary *responseDict) {
+        
+        NSMutableArray *arraySafety = [SafetyMeasure parseDictToModal:[responseDict valueForKey:@"safety_measures"]];
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:arraySafety forKey:@"array"];
+        Profile *prf = [[Profile alloc] initWithAttributes:[responseDict valueForKey:@"profile"]];
+        [dict setObject:prf forKey:@"profile"];
+        success(dict);
+    } failure:^(NSString *errorString) {
+        failure(errorString);
+    }];
+    
+}
+
 
 @end

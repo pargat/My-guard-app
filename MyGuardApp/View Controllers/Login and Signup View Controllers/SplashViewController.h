@@ -12,6 +12,7 @@
 #import <FBSDKCoreKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <JTMaterialSpinner.h>
+#import "Register1ViewController.h"
 
 @interface SplashViewController : UIViewController<CLLocationManagerDelegate>
 
@@ -20,5 +21,6 @@
 
 - (IBAction)actionLogin:(id)sender;
 - (IBAction)actionFB:(id)sender;
+- (IBAction)actionRegister:(id)sender;
 
 @end

@@ -10,8 +10,9 @@
 #import "ApiConstants.h"
 #import <SZTextView.h>
 #import <JTMaterialSpinner.h>
+#import "BaseViewController.h"
 
-@interface AddSafetyViewController : UIViewController
+@interface AddSafetyViewController : BaseViewController
 
 
 @property MAINTAB currentTab;

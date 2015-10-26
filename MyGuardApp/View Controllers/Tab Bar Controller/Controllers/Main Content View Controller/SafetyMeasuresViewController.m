@@ -9,6 +9,9 @@
 #import "SafetyMeasuresViewController.h"
 
 @interface SafetyMeasuresViewController ()
+{
+    JTMaterialSpinner *loaderObj ;
+}
 
 @end
 
@@ -38,6 +41,7 @@
     self.pageIndex = 0;
     [self.tableViewSafety setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     // Do any additional setup after loading the view.
+    [self setUpLoaderView];
     [self getSafetyMeasures:YES];
 
 }
@@ -58,9 +62,11 @@
         [weakSelf.tableViewSafety reloadData];
         [self.tableViewSafety.infiniteScrollingView stopAnimating];
         [self.tableViewSafety.pullToRefreshView stopAnimating];
+        [self removeLoaderView];
     } failure:^(NSString *errorStr) {
         [self.tableViewSafety.infiniteScrollingView stopAnimating];
         [self.tableViewSafety.pullToRefreshView stopAnimating];
+        [self removeLoaderView];
 
     }];
 }
@@ -99,6 +105,7 @@
 {
     SafetyMeasureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SafetyMeasureCell"];
     [self configureSafetyCell:cell atIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
      
@@ -128,7 +135,11 @@
     return size.height+1;
 
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.indexPathSelected = indexPath;
+    [self performSegueWithIdentifier:KSafetyDetailSegue sender:self];
+}
 
 #pragma mark -
 #pragma mark - Scroll View Delegate
@@ -145,7 +156,35 @@
     }
     
 }
+#pragma mark - Hide Unhide Loader View
 
+-(void)setUpLoaderView
+{
+    [loaderObj removeFromSuperview];
+    loaderObj = [[JTMaterialSpinner alloc] init];
+    loaderObj.frame = CGRectMake(self.view.frame.size.width/2-20, self.view.frame.size.height/2-20, 40, 40);
+    loaderObj.circleLayer.lineWidth = 2.0;
+    if([self.feedType isEqualToString:@"1"])
+    {
+        loaderObj.circleLayer.strokeColor = KOrangeColor.CGColor;
+    }
+    else if ([self.feedType isEqualToString:@"3"])
+    {
+        loaderObj.circleLayer.strokeColor = KRedColor.CGColor;
+    }
+    else
+    {
+        loaderObj.circleLayer.strokeColor = KGreenColor.CGColor;
+    }
+    [[UIApplication sharedApplication].keyWindow addSubview:loaderObj];
+    [loaderObj beginRefreshing];
+}
+
+-(void)removeLoaderView
+{
+    [loaderObj removeFromSuperview];
+    [loaderObj endRefreshing];
+}
 
 #pragma mark - Navigation
 
@@ -153,6 +192,13 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:KSafetyDetailSegue])
+    {
+        SafetyDetailViewController *safetyVC = (SafetyDetailViewController *)segue.destinationViewController;
+        SafetyMeasure *modal = [self.arraySafetyMeasures objectAtIndex:self.indexPathSelected.row];
+        safetyVC.currentTab = self.feedType;
+        safetyVC.stringSafety = modal.safetyDescription;
+    }
 }
 
 

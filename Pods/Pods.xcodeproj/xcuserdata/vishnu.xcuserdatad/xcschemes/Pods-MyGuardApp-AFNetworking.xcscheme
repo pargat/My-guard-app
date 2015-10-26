@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "416D4C91D2692FF0BEA6B0F4"
+               BlueprintIdentifier = "8405A455D57D332F6764C487"
                BuildableName = "libPods-MyGuardApp-AFNetworking.a"
                BlueprintName = "Pods-MyGuardApp-AFNetworking"
                ReferencedContainer = "container:Pods.xcodeproj">

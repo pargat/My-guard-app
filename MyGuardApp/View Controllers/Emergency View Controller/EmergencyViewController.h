@@ -11,9 +11,14 @@
 #import "EmergencyCell1.h"
 #import "EmergencyCell2.h"
 #import "EmergencyCellContact.h"
+#import <AddressBookUI/AddressBookUI.h>
+#import "ContactsData.h"
+#import <MessageUI/MessageUI.h>
 
-@interface EmergencyViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface EmergencyViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,ABPeoplePickerNavigationControllerDelegate,MFMessageComposeViewControllerDelegate,UIActionSheetDelegate>
 
+@property (nonatomic,strong) NSIndexPath *selectedIndex;
+@property (nonatomic, strong) ABPeoplePickerNavigationController *addressBookController;
 @property(nonatomic, strong) NSMutableArray *arrayEmergencyContacts;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewEmergency;
 

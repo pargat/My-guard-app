@@ -17,6 +17,7 @@
 @property (nonatomic,strong) NSString *videoImageName;
 @property (nonatomic,strong) NSString *videoLink;
 @property (nonatomic,strong) NSString *videoDisplayTime;
+@property (nonatomic,strong) NSString *videoDuration;
 
 +(void)callAPIForVideos : (NSString *)urlStr  Params : (NSDictionary *)paramsDict success : (void(^)(NSMutableArray *videoArr))success failure : (void(^)(NSString *errorStr))failure;
 

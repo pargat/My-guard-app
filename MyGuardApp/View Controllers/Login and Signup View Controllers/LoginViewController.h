@@ -12,12 +12,14 @@
 #import <JTMaterialSpinner.h>
 #import "Profile.h"
 #import "NSUserDefaults+RMSaveCustomObject.h"
+#import "BaseViewController.h"
 
-@interface LoginViewController : UIViewController<CLLocationManagerDelegate,UITextFieldDelegate>
+@interface LoginViewController : BaseViewController<CLLocationManagerDelegate,UITextFieldDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong) CLLocationManager *locationManager;
 
 @property (weak, nonatomic) IBOutlet UITextField *tfEmail;
 @property (weak, nonatomic) IBOutlet UITextField *tfPassword;
+- (IBAction)actionForgotPassword:(id)sender;
 
 @end

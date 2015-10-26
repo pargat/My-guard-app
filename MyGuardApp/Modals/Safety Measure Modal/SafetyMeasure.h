@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "iOSRequest.h"
+#import "Profile.h"
 
 @interface SafetyMeasure : NSObject
 
@@ -26,6 +27,7 @@
 +(NSMutableArray *)parseDictToModal : (NSArray *)tempArr;
 +(void)callAPIForSafetyMeasure : (NSString *)urlStr  Params : (NSDictionary *)paramsDict success : (void(^)(NSMutableArray *safetyArr))success failure : (void(^)(NSString *errorStr))failure;
 +(void)callAPIForSafetyMeasureOfUserSelf : (NSString *)urlStr  Params : (NSDictionary *)paramsDict success : (void(^)(NSMutableArray *safetyArr))success failure : (void(^)(NSString *errorStr))failure;
++(void)callAPIForSafetyMeasureOfUserOther : (NSString *)urlStr  Params : (NSDictionary *)paramsDict success : (void(^)( NSMutableDictionary*dict))success failure : (void(^)(NSString *errorStr))failure;
 
 
 @end

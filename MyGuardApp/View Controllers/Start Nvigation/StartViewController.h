@@ -11,4 +11,7 @@
 
 @interface StartViewController : UIViewController
 
+
+- (IBAction)unwindToStartViewController:(UIStoryboardSegue *)unwindSegue;
+
 @end

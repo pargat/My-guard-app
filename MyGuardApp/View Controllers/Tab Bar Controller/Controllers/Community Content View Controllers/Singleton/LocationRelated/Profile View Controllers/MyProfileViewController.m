@@ -105,7 +105,12 @@
 #pragma mark - Table View Datasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1+self.arraySafety.count;
+    if(self.arraySafety.count==0)
+    {
+        return 2;
+    }
+    else
+        return 1+self.arraySafety.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,10 +124,21 @@
     }
     else
     {
-        SafetyProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SafetyProfileCell"];
-        [self configureSafetyCell:cell atIndexPath:indexPath];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+        if(self.arraySafety.count==0)
+        {
+            CommunityNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
+            [cell.labelNoUsers setText:@"No safety measures shared yet"];
+            return cell;
+
+        }
+        else
+        {
+            SafetyProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SafetyProfileCell"];
+            [self configureSafetyCell:cell atIndexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+
+        }
     }
 }
 
@@ -194,25 +210,51 @@
     }
     else
     {
-        static SafetyProfileCell *sizingCell = nil;
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            sizingCell = [tableView dequeueReusableCellWithIdentifier:@"SafetyProfileCell"];
-        });
-        
-        [self configureSafetyCell:sizingCell atIndexPath:indexPath];
-        CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        return size.height+1;
+        if(self.arraySafety.count==0)
+        {
+            static CommunityNoCell *sizingCell = nil;
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                sizingCell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
+            });
+            
+            CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            return size.height+1;
+            
+        }
+        else
+        {
+            static SafetyProfileCell *sizingCell = nil;
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                sizingCell = [tableView dequeueReusableCellWithIdentifier:@"SafetyProfileCell"];
+            });
+            
+            [self configureSafetyCell:sizingCell atIndexPath:indexPath];
+            CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            return size.height+1;
+        }
     }
     
 }
 
-
+#pragma mark -
+#pragma mark - Action Sheet Delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 0)
+    {
+        [self performSegueWithIdentifier:KEditProfileSegue sender:self];
+    }
+}
 
 #pragma mark -
 #pragma mark - Button Actions
 -(void)actionMore
 {
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit Profile", nil];
+    [actionSheet showInView:self.view];
     
 }
 -(void)actionBack

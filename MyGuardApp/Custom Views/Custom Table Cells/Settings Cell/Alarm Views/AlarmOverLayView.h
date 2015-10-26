@@ -12,7 +12,7 @@
 @protocol alarmOverlayDelegate
 
 -(void)disarmClicked ;
--(void)delegateSendImmediate;
+-(void)delegateSendImmediate:(MAINTAB)currentTab;
 
 @end
 

@@ -43,14 +43,24 @@
 }
 #pragma mark -
 #pragma mark - Helpers
+-(void)setDataAndDelegateNil
+{
+    [self.collectionViewImages setDelegate:nil];
+    [self.collectionViewImages setDataSource:nil];
+}
 -(void)setDelegateAndData
 {
     [self.collectionViewImages setDelegate:self];
     [self.collectionViewImages setDataSource:self];
+    [self.collectionViewImages reloadData];
 }
 
 #pragma mark - 
 #pragma mark - Collection View Datasource functions
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.delegate delImageCellClicked:self.selectedPath];
+}
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.arrayFiles.count;
@@ -72,16 +82,21 @@
 }
 -(void)configureCell:(FeedImageCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *dictTemp = [self.arrayFiles objectAtIndex:indexPath.row];
-    if([[dictTemp valueForKey:@"thumb"] isEqualToString:@""])
+    FileModal *modal = [self.arrayFiles objectAtIndex:indexPath.row];
+    if(modal.fileType)
     {
-
-        [cell.imageViewM sd_setImageWithURL:[NSURL URLWithString:[dictTemp valueForKey:@"files"]] placeholderImage:[UIImage imageNamed:@"defaultImg80.png"]];
+        [cell.imageViewM sd_setImageWithURL:[NSURL URLWithString:modal.fileThumbCumImageLink] placeholderImage:[UIImage imageNamed:@"video.png"]];
+        [cell.btnVideo setHidden:NO];
+        [cell.btnVideo setTitle:modal.fileDuration forState:UIControlStateNormal];
+    
     }
     else
     {
-        [cell.imageViewM sd_setImageWithURL:[NSURL URLWithString:[dictTemp valueForKey:@"thumb"]] placeholderImage:[UIImage imageNamed:@"video.png"]];
+        [cell.imageViewM sd_setImageWithURL:[NSURL URLWithString:modal.fileThumbCumImageLink] placeholderImage:[UIImage imageNamed:@"defaultImg80.png"]];
+        [cell.btnVideo setHidden:YES];
+
     }
+    [cell.btnComments setTitle:modal.fileNumberOfComments forState:UIControlStateNormal];
 
     
 }

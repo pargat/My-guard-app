@@ -14,8 +14,9 @@
 #import <UIImageView+WebCache.h>
 #import "SafetyMeasure.h"
 #import "FireViewController.h"
+#import "CommunityNoCell.h"
 
-@interface MyProfileViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,ZoomTransitionProtocol>
+@interface MyProfileViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,ZoomTransitionProtocol,UIActionSheetDelegate>
 
 
 @property (nonatomic,strong) Profile *myProfile;

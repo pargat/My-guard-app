@@ -74,7 +74,9 @@
             {
                 if ([[NSString stringWithFormat:@"%@" , [responseDict valueForKey:@"success"]] isEqualToString:@"1"])
                 {
-
+                    Profile *selfProfile = [[Profile alloc] initWithAttributes:[responseDict valueForKey:@"profile"]];
+                    [[NSUserDefaults standardUserDefaults] rm_setCustomObject:selfProfile forKey:@"profile"];
+                    [self performSegueWithIdentifier:KtabSegue sender:self];
                 }
             }
             
@@ -136,7 +138,7 @@
             {
                 [self setUpLoaderView];
                 NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-                [parameters setValue:@"id,name,email,birthday" forKey:@"fields"];
+                [parameters setValue:@"id,name,first_name,email,birthday,last_name,gender" forKey:@"fields"];
                 [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters: parameters]
                  startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
                      if(!error)
@@ -151,4 +153,25 @@
     }];
 
 }
+
+- (IBAction)actionRegister:(id)sender {
+    [self performSegueWithIdentifier:KRegister1Segue sender:self];
+}
+
+
+#pragma mark -
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:KRegister1Segue])
+    {
+        
+        Register1ViewController *regStep1VC = (Register1ViewController *)segue.destinationViewController;
+        regStep1VC.dictFb = self.dictFB;
+    }
+}
+
 @end

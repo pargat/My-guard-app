@@ -12,6 +12,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [self.btnCall911 setTitle:NSLocalizedString(@"call_911", nil) forState:UIControlStateNormal];
+    [self.btnSms setTitle:NSLocalizedString(@"sms", nil) forState:UIControlStateNormal];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

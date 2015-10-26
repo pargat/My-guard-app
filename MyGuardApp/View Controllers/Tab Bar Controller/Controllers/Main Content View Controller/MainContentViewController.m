@@ -99,6 +99,10 @@
 {
     [self.delegate1 delChangeNavButton:showOptional];
 }
+-(void)delNobutton
+{
+    [self.delegate1 delNobutton];
+}
 -(void)delHideShowHeader:(BOOL)hide
 {
     if(hide&&self.heightExtra.constant==100)

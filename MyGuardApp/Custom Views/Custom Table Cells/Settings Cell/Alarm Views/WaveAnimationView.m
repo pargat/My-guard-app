@@ -30,6 +30,8 @@
     if (self)
     {
         self = [[[NSBundle mainBundle] loadNibNamed:@"WaveAnimationView" owner:self options:nil] lastObject];
+        self.overlay_background.layer.cornerRadius = 8.0;
+        self.overlay_background.clipsToBounds = YES;
     }
     [self localizeFun];
     return self;
@@ -37,15 +39,28 @@
 
 -(void)startOverlayAnimation
 {
+    if(self.currentTab==FIRE)
+    {
+        [self.overlay_background setBackgroundColor:KOrangeColor];
+        [self.btnHush setTitleColor:KOrangeColor forState:UIControlStateNormal];
+    }
+    else if (self.currentTab==GUN)
+    {
+        [self.overlay_background setBackgroundColor:KRedColor];
+          [self.btnHush setTitleColor:KRedColor forState:UIControlStateNormal];
+    }
+    else
+    {
+         [self.btnHush setTitleColor:KGreenColor forState:UIControlStateNormal];
+        [self.overlay_background setBackgroundColor:KGreenColor];
+    }
     NSArray *animationArray=[NSArray arrayWithObjects:
-                             [UIImage imageNamed:@"animate_00.png"],
-                             [UIImage imageNamed:@"animate_01.png"],
-                             [UIImage imageNamed:@"animate_02.png"],
-                             [UIImage imageNamed:@"animate_03.png"],
-                             [UIImage imageNamed:@"animate_04.png"],
+                             [UIImage imageNamed:@"alarm_ringing_01.png"],
+                             [UIImage imageNamed:@"alarm_ringing_02.png"],
+                             [UIImage imageNamed:@"alarm_ringing_03.png"],
                              nil];
     self.overlay_AnimationImg.animationImages=animationArray;
-    self.overlay_AnimationImg.animationDuration=1.5;
+    self.overlay_AnimationImg.animationDuration=0.16;
     self.overlay_AnimationImg.animationRepeatCount=0;
     [self.overlay_AnimationImg startAnimating];
 }
@@ -83,8 +98,8 @@
     {
         [self.delegate waveAnimationTurnOff];
 
-        NSDictionary *userDetails = [[NSUserDefaults standardUserDefaults] valueForKey:@"userDetails"];
-        NSString *stringFalseAlarm = [NSString stringWithFormat:@"%@cancel_last_alarm.php?user_id=%@",KbaseUrl,[userDetails valueForKey:@"id"]];
+
+        NSString *stringFalseAlarm = [NSString stringWithFormat:@"%@cancel_last_alarm.php?user_id=%@",KbaseUrl,[Profile getCurrentProfileUserId]];
         
         [iOSRequest getJsonResponse:stringFalseAlarm success:^(NSDictionary *responseDict) {
             

@@ -11,6 +11,8 @@
 #import "SexOffender.h"
 #import "ApiConstants.h"
 #import <UIImageView+WebCache.h>
+#import <JTMaterialSpinner.h>
+
 
 @interface SexOffenderDetailViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 

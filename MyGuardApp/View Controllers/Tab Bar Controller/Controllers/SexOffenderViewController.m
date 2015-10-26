@@ -9,6 +9,9 @@
 #import "SexOffenderViewController.h"
 
 @interface SexOffenderViewController ()
+{
+    JTMaterialSpinner *loaderObj ;
+}
 
 @end
 
@@ -19,6 +22,7 @@
     [self.tableViewOffenders setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self.tableViewOffenders setDelegate:self];
     [self.tableViewOffenders setDataSource:self];
+    [self setUpLoaderView];
     [self getOffenders];
     // Do any additional setup after loading the view.
 }
@@ -43,8 +47,11 @@
     [SexOffender callAPIForSexOffenders:@"http://services.familywatchdog.us/json/json.asp?key=YOUR-KEY-HERE&lite=0&type=searchbylatlong&minlat=39.9537592&maxlat=39.9557592&minlong=-75.2694439&maxlong=-75.2654439" Params:nil success:^(NSMutableArray *offenderArr) {
         self.arraySexOffender = [NSMutableArray arrayWithArray:offenderArr];
         [self.tableViewOffenders reloadData];
-    } failure:^(NSString *errorStr) {
+        [self removeLoaderView];
         
+    } failure:^(NSString *errorStr) {
+        [self removeLoaderView];
+
     }];
 }
 -(void)setNavBarAndTab
@@ -62,8 +69,10 @@
     [navigationBar setShadowImage:[UIImage new]];
     [self.navigationItem setTitle:NSLocalizedString(@"tb_sex_offenders", nil)];
     
+    Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://api.firesonar.com/FireSonar/timthumb.php?src=uploads/iSf0mKHUG5vgEt2pncuW.jpeg"]];
+        NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:modal.profileImageFullLink]];
         UIImage *image = [UIImage imageWithData:tmpdata];
         image = [image circularScaleAndCropImage:CGRectMake(0, 0, 32, 32)];
         image = [image imageByScalingAndCroppingForSize:CGSizeMake(32, 32)];
@@ -103,7 +112,7 @@
 #pragma mark - Button Actions
 -(void)actionProfile
 {
-    
+    [self performSegueWithIdentifier:KMyProfileSegue sender:nil];
 }
 
 
@@ -118,7 +127,7 @@
 {
     SexOffenderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SexOffenderCell"];
     [self configureCell:cell atIndexPath:indexPath];
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
     
 }
@@ -132,7 +141,7 @@
 
     [self configureCell:sizingCell atIndexPath:indexPath];
     CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return size.height+1;
+    return size.height;
 }
 -(void)configureCell:(SexOffenderCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
@@ -152,10 +161,32 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
-    SexOffenderDetailViewController *sexVC = (SexOffenderDetailViewController *)segue.destinationViewController;
-    sexVC.sexOffenderModal = self.sexOffenderModal;
+    if([segue.identifier isEqualToString:KSexOffenderDetailSegue])
+    {
+        SexOffenderDetailViewController *sexVC = (SexOffenderDetailViewController *)segue.destinationViewController;
+        sexVC.sexOffenderModal = self.sexOffenderModal;
+    }
     
 
+}
+#pragma mark - Hide Unhide Loader View
+
+-(void)setUpLoaderView
+{
+    [loaderObj removeFromSuperview];
+    loaderObj = [[JTMaterialSpinner alloc] init];
+    loaderObj.frame = CGRectMake(self.view.frame.size.width/2-20, self.view.frame.size.height/2-20, 40, 40);
+    loaderObj.circleLayer.lineWidth = 2.0;
+    
+    loaderObj.circleLayer.strokeColor = KPurpleColor.CGColor;
+    [[UIApplication sharedApplication].keyWindow addSubview:loaderObj];
+    [loaderObj beginRefreshing];
+}
+
+-(void)removeLoaderView
+{
+    [loaderObj removeFromSuperview];
+    [loaderObj endRefreshing];
 }
 
 

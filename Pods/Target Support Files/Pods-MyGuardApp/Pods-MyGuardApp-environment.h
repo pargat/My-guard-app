@@ -132,6 +132,24 @@
 #define COCOAPODS_VERSION_MINOR_OpenTok 6
 #define COCOAPODS_VERSION_PATCH_OpenTok 0
 
+// RMActionController
+#define COCOAPODS_POD_AVAILABLE_RMActionController
+#define COCOAPODS_VERSION_MAJOR_RMActionController 1
+#define COCOAPODS_VERSION_MINOR_RMActionController 0
+#define COCOAPODS_VERSION_PATCH_RMActionController 4
+
+// RMDateSelectionViewController
+#define COCOAPODS_POD_AVAILABLE_RMDateSelectionViewController
+#define COCOAPODS_VERSION_MAJOR_RMDateSelectionViewController 2
+#define COCOAPODS_VERSION_MINOR_RMDateSelectionViewController 0
+#define COCOAPODS_VERSION_PATCH_RMDateSelectionViewController 1
+
+// RMPickerViewController
+#define COCOAPODS_POD_AVAILABLE_RMPickerViewController
+#define COCOAPODS_VERSION_MAJOR_RMPickerViewController 2
+#define COCOAPODS_VERSION_MINOR_RMPickerViewController 0
+#define COCOAPODS_VERSION_PATCH_RMPickerViewController 1
+
 // SDWebImage
 #define COCOAPODS_POD_AVAILABLE_SDWebImage
 #define COCOAPODS_VERSION_MAJOR_SDWebImage 3

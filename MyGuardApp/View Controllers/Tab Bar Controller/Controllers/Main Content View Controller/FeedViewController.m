@@ -21,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.pageIndex = 0;
+    [self setUpLoaderView];
     [self getFeed:YES];
     [self.tableViewFeeds setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self addRefreshAndInfinite];
@@ -41,7 +42,11 @@
     [super viewDidAppear:animated];
 
 }
-
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self removeLoaderView];
+}
 
 #pragma mark -
 #pragma mark - api related and helper function
@@ -79,9 +84,9 @@
         }
         [self.tableViewFeeds reloadData];
 
-        
+        [self removeLoaderView];
     } failure:^(NSString *errorStr) {
-        
+        [self removeLoaderView];
     }];
    
 }
@@ -114,6 +119,11 @@
 
 #pragma mark -
 #pragma mark - Feed main cell delegate
+-(void)delImageCellClicked:(NSIndexPath *)indexPath
+{
+    self.selectedIndex = indexPath;
+    [self performSegueWithIdentifier:KImageVideoSegue sender:self];
+}
 -(void)delCameraClicked:(NSIndexPath *)indexPath
 {
     self.selectedIndex = indexPath;
@@ -137,7 +147,19 @@
     cell.selectedPath = indexPath;
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     [cell setDelegate:self];
- 
+    FeedModal *modal = [self.arrayFeeds objectAtIndex:indexPath.row];
+    
+    if(modal.feed_files.count==0)
+    {
+        [cell setDataAndDelegateNil];
+    }
+    else
+    {
+        [cell setDelegateAndData];
+        
+    }
+
+    
     return cell;
 }
 
@@ -170,22 +192,21 @@
     FeedModal *modal = [self.arrayFeeds objectAtIndex:indexPath.row];
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:KBaseTimbthumbUrl,modal.feed_imageName,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.width*DisplayScale]]];
     [cell.labelName setText:modal.feed_fullname];
-    [cell.labelDistance setText:@"2 miles away"];
-    [cell.labelTimeSince setText:@"2 m"];
-    cell.arrayFiles = [modal.feed_files copy];
+    [cell.labelDistance setText:[NSString stringWithFormat:@"%@ away",modal.feed_distance]];
+    [cell.labelTimeSince setText:modal.feed_time_passed];
 
     
     if(modal.feed_files.count==0)
     {
         cell.heightCollctionView.constant = 0;
         [cell.collectionViewImages setHidden:YES];
+        cell.arrayFiles = [[NSMutableArray alloc] init];
     }
     else
     {
         cell.heightCollctionView.constant = 100;
         [cell.collectionViewImages setHidden:NO];
-        [cell setDelegateAndData];
-
+        cell.arrayFiles = [modal.feed_files mutableCopy];
     }
     
     
@@ -197,8 +218,7 @@
     }
     else
         [cell.labelAddress setText:modal.feed_address];
-    //[cell.labelTimeDetail setText:modal.feed_time_passed];
-    [cell.labelTimeDetail setText:@"09 Sept • 08:30 pm"];
+    [cell.labelTimeDetail setText:modal.feed_full_time];
     if(self.feedType==1)
     {
         [cell.labelEmergencyName setText:@"Fire"];
@@ -265,6 +285,8 @@
     }];
 
 }
+
+#pragma mark -
 #pragma mark - image picker delegate
 -(UIImage *)generateThumbImage : (NSURL *)url
 {
@@ -300,11 +322,11 @@
         imageOriginal = [imageOriginal imageByScalingAndCroppingForSize:size];
         NSData *imageData = UIImageJPEGRepresentation(imageOriginal, 0.5);
         
-        NSDictionary *dict = @{@"id":feed.feed_id};
+        NSDictionary *dict = @{@"id":feed.feed_id,@"user_id":[Profile getCurrentProfileUserId]};
         [iOSRequest postImageAlarm:[NSString stringWithFormat:KUpdateAlarm,KbaseUrl] parameters:dict imageData:imageData success:^(NSDictionary *responseStr) {
             
             NSMutableArray *arrayMut = [NSMutableArray arrayWithArray:feed.feed_files];
-            [arrayMut insertObject:[[responseStr valueForKey:@"data"] objectAtIndex:0] atIndex:0];
+            [arrayMut insertObject:[[FileModal alloc] initWithAttributes:[[responseStr valueForKey:@"data"] objectAtIndex:0] ]  atIndex:0];
             feed.feed_files = [NSArray arrayWithArray:arrayMut];
             [self.tableViewFeeds reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
             [loaderObj removeFromSuperview];
@@ -348,7 +370,8 @@
                     NSLog(@"Successful!");
                     
                     NSData *videoData = [NSData dataWithContentsOfFile:tmpFile];
-                    NSDictionary *dict = @{@"id":feed.feed_id};
+                    NSDictionary *dict = @{@"id":feed.feed_id,@"user_id":[Profile getCurrentProfileUserId],@"duration":[NSString stringWithFormat:@"%f",CMTimeGetSeconds(avAsset.duration)
+                                                                                                                        ]};
                     [[NSFileManager defaultManager] removeItemAtPath:tmpFile error:nil];
                     
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -360,7 +383,8 @@
                             [iOSRequest postVideoAlarm:[NSString stringWithFormat:KUpdateAlarm,KbaseUrl] parameters:dict videoData:videoData thumbData:thumbData success:^(NSDictionary *responseStr) {
                                 
                                 NSMutableArray *arrayMut = [NSMutableArray arrayWithArray:feed.feed_files];
-                                [arrayMut insertObject:[[responseStr valueForKey:@"data"] objectAtIndex:0] atIndex:0];
+                                [arrayMut insertObject:[[FileModal alloc] initWithAttributes:[[responseStr valueForKey:@"data"] objectAtIndex:0] ]  atIndex:0];
+
                                 feed.feed_files = [NSArray arrayWithArray:arrayMut];
                                 [self.tableViewFeeds reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
                                 [loaderObj removeFromSuperview];
@@ -394,6 +418,11 @@
 
 #pragma mark -
 #pragma mark -  Table View Delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.selectedIndex = indexPath;
+    [self performSegueWithIdentifier:KMapFeedSegue sender:self];
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
@@ -416,10 +445,22 @@
 {
     [loaderObj removeFromSuperview];
     loaderObj = [[JTMaterialSpinner alloc] init];
-    loaderObj.frame = CGRectMake(self.view.frame.size.width/2-20, self.view.frame.size.height/2-20, 40, 40);
+    CGSize size = [UIScreen mainScreen].bounds.size;
+    loaderObj.frame = CGRectMake(size.width/2-20, size.height/2-20, 40, 40);
     loaderObj.circleLayer.lineWidth = 2.0;
-    loaderObj.circleLayer.strokeColor = KPurpleColor.CGColor;
-    [self.view addSubview:loaderObj];
+    if(self.feedType==1)
+    {
+        loaderObj.circleLayer.strokeColor = KOrangeColor.CGColor;
+    }
+    else if (self.feedType==3)
+    {
+        loaderObj.circleLayer.strokeColor = KRedColor.CGColor;
+    }
+    else
+    {
+        loaderObj.circleLayer.strokeColor = KGreenColor.CGColor;
+    }
+    [[UIApplication sharedApplication].keyWindow addSubview:loaderObj];
     [loaderObj beginRefreshing];
 }
 
@@ -429,14 +470,25 @@
     [loaderObj endRefreshing];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:KMapFeedSegue])
+    {
+        MapViewController *mapVC = (MapViewController *)segue.destinationViewController;
+        mapVC.feed = [self.arrayFeeds objectAtIndex:self.selectedIndex.row];
+    }
+    else
+    {
+        ImageVideoViewController *imageVc = (ImageVideoViewController *)segue.destinationViewController;
+        imageVc.feedModal = [self.arrayFeeds objectAtIndex:self.selectedIndex.row];
+        imageVc.currentTab = self.feedType;
+    }
 }
-*/
+
 
 @end

@@ -13,7 +13,8 @@
 #import "ApiConstants.h"
 #import <UIImageView+WebCache.h>
 #import <SVPullToRefresh.h>
-
+#import <JTMaterialSpinner.h>
+#import "SafetyDetailViewController.h"
 
 @protocol SafetyDelegate
 
@@ -25,6 +26,7 @@
 
 @interface SafetyMeasuresViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic,strong) NSIndexPath *indexPathSelected;
 @property int pageIndex;
 @property (nonatomic,weak) id<SafetyDelegate> delegate;
 @property (nonatomic,strong) NSMutableArray *arraySafetyMeasures;

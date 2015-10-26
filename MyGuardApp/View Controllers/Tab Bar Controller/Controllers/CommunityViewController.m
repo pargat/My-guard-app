@@ -17,15 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.isProgressiveIndicator = YES;
-    self.isElasticIndicatorLimit = NO;
-    [self.buttonBarView.selectedBar setBackgroundColor:[UIColor whiteColor]];
-    [self.buttonBarView setSelectedBarHeight:3];
+    [self viewHelpers];
     
     
-    
-    
-
     
 }
 
@@ -42,6 +36,18 @@
 
 #pragma mark -
 #pragma mark - View helpers
+-(void)viewHelpers
+{
+    self.isProgressiveIndicator = YES;
+    self.isElasticIndicatorLimit = NO;
+    [self.buttonBarView.selectedBar setBackgroundColor:[UIColor whiteColor]];
+    [self.buttonBarView setSelectedBarHeight:3];
+    
+    self.sBar = [[UISearchBar alloc]init];
+    self.sBar.delegate = self;
+    self.sBar.showsCancelButton = YES;
+    [self.sBar setTintColor:[UIColor whiteColor]];
+}
 -(void)initialiseVCs
 {
     self.community1 = [self.storyboard instantiateViewControllerWithIdentifier:KCommunityContent];
@@ -50,8 +56,7 @@
     self.community2.currentTab = FAMILY;
     self.community3 = [self.storyboard instantiateViewControllerWithIdentifier:KCommunityContent];
     self.community3.currentTab = FRIENDS;
-    self.community4 = [self.storyboard instantiateViewControllerWithIdentifier:KCommunityContent];
-    self.community4.currentTab = SEARCH;
+    self.community4 = [self.storyboard instantiateViewControllerWithIdentifier:KCommunitySearchContent];
 }
 
 
@@ -69,51 +74,133 @@
     
     [navigationBar setShadowImage:[UIImage new]];
     [self.navigationItem setTitle:NSLocalizedString(@"community", nil)];
-
+    
     
     UIBarButtonItem *btnSearch = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(actionSearch)];
     [btnSearch setTintColor:[UIColor whiteColor]];
     self.navigationItem.rightBarButtonItem = btnSearch;
-
     
+    Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://api.firesonar.com/FireSonar/timthumb.php?src=uploads/iSf0mKHUG5vgEt2pncuW.jpeg"]];
+        NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:modal.profileImageFullLink]];
         UIImage *image = [UIImage imageWithData:tmpdata];
         image = [image circularScaleAndCropImage:CGRectMake(0, 0, 32, 32)];
         image = [image imageByScalingAndCroppingForSize:CGSizeMake(32, 32)];
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            UIButton *btnProfileA = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
-            [btnProfileA setImage:image forState:UIControlStateNormal];
-            [btnProfileA addTarget:self action:@selector(actionProfile) forControlEvents:UIControlEventTouchUpInside];
-            btnProfileA.layer.cornerRadius = btnProfileA.frame.size.width/2;
-            btnProfileA.layer.borderColor = [[UIColor whiteColor] CGColor];
-            btnProfileA.layer.borderWidth = 1.0;
-            
-            
-            UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
-            [btnProfile setTintColor:[UIColor whiteColor]];
-            self.navigationItem.leftBarButtonItem = btnProfile;
+            if(self.isSearching==false)
+            {
+                UIButton *btnProfileA = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+                [btnProfileA setImage:image forState:UIControlStateNormal];
+                [btnProfileA addTarget:self action:@selector(actionProfile) forControlEvents:UIControlEventTouchUpInside];
+                btnProfileA.layer.cornerRadius = btnProfileA.frame.size.width/2;
+                btnProfileA.layer.borderColor = [[UIColor whiteColor] CGColor];
+                btnProfileA.layer.borderWidth = 1.0;
+                
+                
+                UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
+                [btnProfile setTintColor:[UIColor whiteColor]];
+                self.navigationItem.leftBarButtonItem = btnProfile;
+            }
         });
         
     });
-
-
+    
+    
 }
 
+#pragma mark -
+#pragma mark - Search helpers
+-(void)searchInCommunity
+{
+    {
+        NSMutableArray *arrayCommunity = self.community1.arrayCommunity;
+        self.community1.arraySearch = [[NSMutableArray alloc] init];
+        for (User *tempUser in arrayCommunity) {
+            
+            if([tempUser.userFirstName respondsToSelector:@selector(localizedCaseInsensitiveContainsString:)])
+            {
+                if([tempUser.userFirstName localizedCaseInsensitiveContainsString:self.sBar.text])
+                {
+                    [self.community1.arraySearch addObject:tempUser];
+                }
+            }
+            else
+            {
+                if([tempUser.userFirstName rangeOfString:self.sBar.text options:1].length!=0)
+                {
+                    [self.community1.arraySearch addObject:tempUser];
+                }
+            }
+        }
+        [self.community1.tableViewCommunity reloadData];
+    }
+    {
+        NSMutableArray *arrayCommunity = self.community2.arrayCommunity;
+        self.community2.arraySearch = [[NSMutableArray alloc] init];
+        for (User *tempUser in arrayCommunity) {
+            
+            if([tempUser.userFirstName respondsToSelector:@selector(localizedCaseInsensitiveContainsString:)])
+            {
+                if([tempUser.userFirstName localizedCaseInsensitiveContainsString:self.sBar.text])
+                {
+                    [self.community2.arraySearch addObject:tempUser];
+                }
+            }
+            else
+            {
+                if([tempUser.userFirstName rangeOfString:self.sBar.text options:1].length!=0)
+                {
+                    [self.community2.arraySearch addObject:tempUser];
+                }
+            }
+        }
+        [self.community2.tableViewCommunity reloadData];
+    }
+    {
+        NSMutableArray *arrayCommunity = self.community3.arrayCommunity;
+        self.community3.arraySearch = [[NSMutableArray alloc] init];
+        for (User *tempUser in arrayCommunity) {
+            
+            if([tempUser.userFirstName respondsToSelector:@selector(localizedCaseInsensitiveContainsString:)])
+            {
+                if([tempUser.userFirstName localizedCaseInsensitiveContainsString:self.sBar.text])
+                {
+                    [self.community3.arraySearch addObject:tempUser];
+                }
+            }
+            else
+            {
+                if([tempUser.userFirstName rangeOfString:self.sBar.text options:1].length!=0)
+                {
+                    [self.community3.arraySearch addObject:tempUser];
+                }
+            }
+        }
+        [self.community3.tableViewCommunity reloadData];
+    }
+    {
+        [self.community4 searchUser];
+    }
+    
+}
 
 #pragma mark -
-#pragma mark - Search bar delegate
--(void)actionSearch
+#pragma mark - Search bar delegate and buttons
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    UISearchBar  *sBar = [[UISearchBar alloc]initWithFrame:CGRectMake(10,10,self.navigationController.navigationBar.bounds.size.width-20,self.navigationController.navigationBar.bounds.size.height/2)];
-    sBar.showsCancelButton = YES;
-    sBar.delegate = self;
-    [sBar setTintColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar addSubview:sBar];
-    self.navigationItem.rightBarButtonItem = nil;
-    [sBar becomeFirstResponder];
-    
+    self.isSearching = false;
+    self.navigationItem.titleView = nil;
+    [self setNavBarAndTab];
+    [self.community1.tableViewCommunity reloadData];
+    [self.community2.tableViewCommunity reloadData];
+    [self.community3.tableViewCommunity reloadData];
+    self.community4.arrayCommunity = nil;
+    [self.community4.tableViewCommunity reloadData];
+}
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    self.isSearching = true;
+    [self searchInCommunity];
 }
 
 #pragma mark -
@@ -124,8 +211,23 @@
     return @[self.community1,self.community2,self.community3,self.community4];
 }
 
+
+
+#pragma mark -
+#pragma mark - Button Actions
+-(void)actionSearch
+{
+    [self.sBar becomeFirstResponder];
+    
+    self.navigationItem.titleView  = self.sBar;
+    self.navigationItem.leftBarButtonItem = nil;
+    self.navigationItem.rightBarButtonItem = nil;
+    
+}
+
 -(void)actionProfile
 {
+    [self performSegueWithIdentifier:KMyProfileSegue sender:nil];
     
 }
 
@@ -133,13 +235,13 @@
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

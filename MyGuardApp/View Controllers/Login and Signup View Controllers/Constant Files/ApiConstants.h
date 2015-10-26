@@ -26,17 +26,31 @@ typedef enum : NSUInteger {
 } MAINTAB;
 
 
+
 //General Constants
+#define KInternetNotAvailable @"Internet is not available"
+#define EmergencyDefaultKey @"emergencyContacts"
 #define DisplayScale [[UIScreen mainScreen] scale]
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 #define TIMEOFFSET [[NSTimeZone localTimeZone] secondsFromGMT]
 
-#define KBaseTimbthumbUrl @"http://api.firesonar.com/FireSonar/timthumb.php?src=uploads/%@&w=%f&h=%f"
+//Image extra apis
+#define KRemoveFilesApi @"%@remove_files_v2.php?user_id=%@&alarm_id=%@&image_ids=%@"
+
+
 #define KGetSafetyMeasure @"%@get_safety_measures.php?user_id=%@&type=%@&page=%d&length=%d"
-#define KbaseUrl @"http://api.firesonar.com/FireSonar/api/"
+#define KbaseUrl @"http://api.firesonar.com/FireSonar/apiv2/"
 #define KLoginApi @"%@login_new.php?email=%@&password=%@&lat=%f&lng=%f&zone=%ld"
 #define KFbRegister @"%@fb_register_new.php?email=%@&lat=%f&lng=%f&zone=%ld"
-#define KBaseTimbthumbUrl @"http://api.firesonar.com/FireSonar/timthumb.php?src=uploads/%@&w=%f&h=%f"
+#define KBaseTimbthumbUrl @"http://api.firesonar.com/FireSonar/timthumb.php?src=%@&w=%f&h=%f"
+
+//Comment Screen
+#define KAddComment @"%@add_image_comment.php?user_id=%@&image_id=%@&comment=%@"
+#define KGetCommentApi @"%@get_image_comments.php?user_id=%@&image_id=%@"
+
+//Register screen
+#define KIsEmailAvailable @"%@is_email_available.php?email=%@"
+
 
 //Adding Safety Measure
 #define KAddSafetyMeasureApi @"%@post_safety_measure.php?user_id=%@&type=%@&description=%@"
@@ -47,6 +61,7 @@ typedef enum : NSUInteger {
 #define KGetAlarms @"%@get_alarms.php?user_id=%@&type=%d&page=%d&length=10&zone=%ld"
 
 //Community
+#define KSearchUsers @"%@list_search_users.php?user_id=%@&key=%@"
 #define KListFamily @"%@list_all_family.php?user_id=%@"
 #define KListFriends @"%@list_all_friends.php?user_id=%@"
 #define KListNeighbours @"%@list_all_neighbours.php?user_id=%@&latitude=%f&longitude=%f"
@@ -61,6 +76,9 @@ typedef enum : NSUInteger {
 
 //push admin message
 #define KGetMessage @"%@view_broadcast.php?user_id=%@&id=%@"
+
+//Edit Profile
+#define KEditProfile @"%@edit_profile.php"
 
 //Profile fetching
 #define KGetProfile @"%@get_other_profile.php?uid=%@&mid=%@"
@@ -77,7 +95,7 @@ typedef enum : NSUInteger {
 #define KScreenInfoVideos @"%@get_informational_videos.php?user_id=%@&type=%@&page=%d&length=10"
 
 #define kListAllUsers @"%@list_all_users.php?user_id=%@"
-#define KUpdateAlarm @"%@update_alarm.php"
+#define KUpdateAlarm @"%@update_alarm_v2.php"
 
 
 //Map marker icon

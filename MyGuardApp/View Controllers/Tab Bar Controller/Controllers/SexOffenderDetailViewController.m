@@ -9,6 +9,9 @@
 #import "SexOffenderDetailViewController.h"
 
 @interface SexOffenderDetailViewController ()
+{
+    JTMaterialSpinner *loaderObj ;
+}
 
 @end
 
@@ -24,7 +27,12 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.view setNeedsLayout];
+    [self.view layoutIfNeeded];
+}
 #pragma mark -
 #pragma mark - Helpers
 - (BOOL)hidesBottomBarWhenPushed
@@ -113,6 +121,28 @@
     }
 
 }
+
+
+#pragma mark - Hide Unhide Loader View
+
+-(void)setUpLoaderView
+{
+    [loaderObj removeFromSuperview];
+    loaderObj = [[JTMaterialSpinner alloc] init];
+    loaderObj.frame = CGRectMake(self.view.frame.size.width/2-20, self.view.frame.size.height/2-20, 40, 40);
+    loaderObj.circleLayer.lineWidth = 2.0;
+    
+    loaderObj.circleLayer.strokeColor = KPurpleColor.CGColor;
+    [[UIApplication sharedApplication].keyWindow addSubview:loaderObj];
+    [loaderObj beginRefreshing];
+}
+
+-(void)removeLoaderView
+{
+    [loaderObj removeFromSuperview];
+    [loaderObj endRefreshing];
+}
+
 
 #pragma mark -
 #pragma mark - Buton Actions

@@ -13,6 +13,9 @@ pod 'FBSDKShareKit'
 pod 'FBSDKLoginKit'
 pod 'JTMaterialSpinner'
 pod 'SZTextView'
+
+pod "RMPickerViewController"
+pod "RMDateSelectionViewController"
 end
 
 target 'MyGuardAppTests' do

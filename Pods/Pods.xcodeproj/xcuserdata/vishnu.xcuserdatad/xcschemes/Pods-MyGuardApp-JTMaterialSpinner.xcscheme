@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AE883C77BB7EC486660A29A6"
+               BlueprintIdentifier = "FECD6E3774CEF85A39DCC591"
                BuildableName = "libPods-MyGuardApp-JTMaterialSpinner.a"
                BlueprintName = "Pods-MyGuardApp-JTMaterialSpinner"
                ReferencedContainer = "container:Pods.xcodeproj">

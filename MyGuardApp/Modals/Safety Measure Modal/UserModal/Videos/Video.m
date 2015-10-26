@@ -26,6 +26,7 @@
         self.videoTitle = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"title"]];
         self.videoType = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"type"]];
  ;
+        self.videoDuration = [NSString stringWithFormat:@"%@",[tempDict valueForKey:@"duration"]];
     }
     return self;
 }

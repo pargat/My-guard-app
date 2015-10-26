@@ -94,6 +94,15 @@
 }
 
 
+- (IBAction)actionForgotPassword:(id)sender {
+    UIAlertView* dialog = [[UIAlertView alloc] initWithTitle:nil message:@"Enter your email id" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
+    dialog.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [dialog show];
+    
+}
+
+
+
 #pragma mark - Hide Unhide Loader View
 
 -(void)setUpLoaderView
@@ -118,8 +127,34 @@
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
-    [self showStaticAlert:@"Error" message:@"Please reset your location settings."];
-    [self removeLoaderView];
+//    [self showStaticAlert:@"Error" message:@"Please reset your location settings."];
+//    [self removeLoaderView];
+    
+    [self setUpLoaderView];
+    NSInteger secondsFromGMT = [[NSTimeZone localTimeZone] secondsFromGMT];
+    NSString *urlStr = [NSString stringWithFormat:KLoginApi , KbaseUrl , self.tfEmail.text ,self.tfPassword.text,30.0f,76.0f,(long)secondsFromGMT];
+    [iOSRequest getJsonResponse:urlStr success:^(NSDictionary *responseDict)
+     {
+         NSLog(@"%@" ,responseDict);
+         
+         if ([[NSString stringWithFormat:@"%@" , [responseDict valueForKey:@"success"]] isEqualToString:@"1"])
+         {
+             Profile *selfProfile = [[Profile alloc] initWithAttributes:[responseDict valueForKey:@"profile"]];
+             [[NSUserDefaults standardUserDefaults] rm_setCustomObject:selfProfile forKey:@"profile"];
+             [self performSegueWithIdentifier:KtabSegue sender:self];
+         }
+         else
+         {
+             [self showStaticAlert:NSLocalizedString(@"error", nil) message:NSLocalizedString(@"invalid_email_password", nil)];
+         }
+         [self removeLoaderView];
+         
+         
+     } failure:^(NSString  *errorString) {
+         [self showStaticAlert:NSLocalizedString(@"error", nil) message:errorString];
+         [self removeLoaderView];
+     }];
+
     
 }
 
@@ -165,14 +200,54 @@
     }
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - 
+#pragma mark - validation
+- (BOOL)validateEmailWithString:(NSString*)email
+{
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:email];
 }
-*/
+
+
+#pragma mark -
+#pragma mark -  Alert View Delegates
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
+{
+    UITextField *textField = [alertView textFieldAtIndex:0];
+    if (![self validateEmailWithString:textField.text]||[textField.text length]==0){
+        return NO;
+    }
+    return YES;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Ok"])
+    {
+        UITextField *tfEmail = [alertView textFieldAtIndex:0];
+        
+        
+        [self setUpLoaderView];
+        NSString *stringForgotPassword = [NSString stringWithFormat:@"%@forgot_password.php?email=%@",KbaseUrl,tfEmail.text];
+        [iOSRequest getJsonResponse:stringForgotPassword success:^(NSDictionary *responseDict) {
+            if([[NSString stringWithFormat:@"%@",[responseDict valueForKey:@"success"]] isEqualToString:@"1"])
+            [self showStaticAlert:@"Success" message:@"Password instructions sent to email id"];
+
+            else
+                [self showStaticAlert:@"Error" message:@"Email doesn't exist"];
+
+            [loaderObj removeFromSuperview];
+        } failure:^(NSString *errorString) {
+            [loaderObj removeFromSuperview];
+                    }];
+        
+        //}
+    }
+    
+    
+}
+
 
 @end

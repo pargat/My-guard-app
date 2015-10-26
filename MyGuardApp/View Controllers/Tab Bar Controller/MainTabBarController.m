@@ -64,7 +64,6 @@ int previousFreq=0;
 
 @property AlarmOverLayView *AlarmObj ;
 @property WaveAnimationView *waveObj ;
-@property NSTimer *threeSecTimer;
 @property NSTimer *twoHunMSTimer;
 
 @end
@@ -117,6 +116,22 @@ int previousFreq=0;
     self.twoHunMSTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(TwoHundredMSSampling) userInfo:nil repeats:YES];
     
     [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(setOffAlarmViaNotification:) name:@"alarmOff" object:nil];
+    
+    
+    
+    //push notification
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)])
+    {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        
+    }
+    else
+    {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+        
+    }
+    
+    [self locationInitialiser];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -342,46 +357,6 @@ int previousFreq=0;
         
     }
     
-    //    if (kiddeFireMeanArray.count < 15)
-    //    {
-    //        [kiddeFireMeanArray addObject:[self meanOf:kiddeFireArray]];
-    //    }
-    //
-    //    else
-    //    {
-    //        // shift
-    //
-    //        [kiddeFireMeanArray removeObjectAtIndex:0];
-    //        [kiddeFireMeanArray addObject:[self meanOf:kiddeFireArray]];
-    //
-    //
-    //        NSMutableArray *mainFireMeanDiffArray = [[self meanDeviationOf:kiddeFireMeanArray : 0.8] mutableCopy] ;
-    //
-    //
-    //        NSString *original =  [mainFireMeanDiffArray componentsJoinedByString:@""];
-    //        NSString *replaceOnesWithX = [original stringByReplacingOccurrencesOfString:@"[1]+"
-    //                                                                         withString:@"x"
-    //                                                                            options:NSRegularExpressionSearch
-    //                                                                              range:NSMakeRange(0, original.length)];
-    //
-    //        NSString *replaceOnesWithY = [replaceOnesWithX stringByReplacingOccurrencesOfString:@"[0]+"
-    //                                                                                 withString:@"y"
-    //                                                                                    options:NSRegularExpressionSearch
-    //
-    //                                                                                      range:NSMakeRange(0, replaceOnesWithX.length)];
-    //
-    //        if ( ([replaceOnesWithY hasPrefix:@"xyxyx"]||[replaceOnesWithY hasPrefix:@"yxyxy"]) && !ISOVERLAYSHOWING && !ISWAVEOVERLAYSHOWING && [[NSUserDefaults standardUserDefaults] valueForKey:@"userDetails"] != nil)
-    //        {
-    //            int times =(int) [[original componentsSeparatedByString:@"1"] count]-1;
-    //            if(times>=6)
-    //            {
-    //                NSDictionary *temp = @{@"type":@"1"};
-    //                [self setOffAlarmViaNotification1:temp];
-    //                return;
-    //            }
-    //        }
-    //
-    //    }
     
     if (CherrieFireMeanArray.count < 15)
     {
@@ -593,7 +568,6 @@ int previousFreq=0;
     _A.realp = (float *) malloc(nOver2*sizeof(float));
     _A.imagp = (float *) malloc(nOver2*sizeof(float));
 }
-
 -(void)updateFFTWithBufferSize:(float)bufferSize withAudioData:(float*)data
 {
     _fftBufIndex=0;
@@ -741,8 +715,157 @@ int previousFreq=0;
     
     
     
-    
 }
+
+//-(void)updateFFTWithBufferSize:(float)bufferSize withAudioData:(float*)data
+//{
+//    _fftBufIndex=0;
+//    // For an FFT, numSamples must be a power of 2, i.e. is always even
+//    int nOver2 = bufferSize/2;
+//    
+//    // Pack samples:
+//    // C(re) -> A[n], C(im) -> A[n+1]
+//    vDSP_ctoz((COMPLEX*)data, 2, &_A, 1, nOver2);
+//    
+//    // Perform a forward FFT using fftSetup and A
+//    // Results are returned in A
+//    vDSP_fft_zrip(_FFTSetup, &_A, 1, _log2n, FFT_FORWARD);
+//    
+//    // Convert COMPLEX_SPLIT A result to magnitudes
+//    float maxMag = 0;
+//    
+//    
+//    
+//    int _i_max = 0;
+//    for(int i=0; i<nOver2; i++)
+//    {
+//        // Calculate the magnitude
+//        float mag = _A.realp[i]*_A.realp[i]+_A.imagp[i]*_A.imagp[i];
+//        if(maxMag < mag) {
+//            _i_max = i;
+//        }
+//        maxMag = mag > maxMag ? mag : maxMag;
+//    }
+//    
+//    
+//    
+//    
+//    float frequency = _i_max / bufferSize * 44100.0;
+//    
+//    //iphone 6 vishnu  7:40 15july
+//    //fire 3273 debugging,  one code smoke similar
+//    //alana 3229
+//    //co1 3531
+//    //co2 3488
+//    //cherrie 3186
+//    //homie 2971 and photo
+//    
+//    
+//    int freq = frequency ;
+//    if(freq>2000)
+//        NSLog(@"Freq %d",freq);
+//    if (freq==3273)
+//    {
+//        if(freq==previousFreq)
+//        {
+//            [getsFireArray addObject:[NSNumber numberWithFloat:maxMag]];
+//        }
+//        else
+//        {
+//            [getsFireArray removeLastObject];
+//        }
+//    }
+//    else
+//        [getsFireArray addObject:[NSNumber numberWithFloat:0.0]];
+//    
+//    
+//    if (freq==2971)
+//    {
+//        //        if(freq==previousFreq)
+//        //        {
+//        [homieAndPhotoFireArray addObject:[NSNumber numberWithFloat:maxMag]];
+//        // }
+//        //        else
+//        //        {
+//        //            [homieAndPhotoFireArray removeLastObject];
+//        //        }
+//    }
+//    else
+//        [homieAndPhotoFireArray addObject:[NSNumber numberWithFloat:0.0]];
+//    
+//    
+//    //culprit 3617-9 times,3488-4times,3574-5times,3531-3times
+//    
+//    if (freq==3531||freq==3488||freq==7062||freq==6976)
+//    {
+//        if(freq==previousFreq)
+//        {
+//            [ambiguousArray addObject:[NSNumber numberWithFloat:maxMag]];
+//        }
+//        else
+//        {
+//            [ambiguousArray removeLastObject];
+//        }
+//        
+//    }
+//    
+//    else
+//        [ambiguousArray addObject:[NSNumber numberWithFloat:0.0]];
+//    
+//    
+//    //    if (freq==3531)
+//    //    {
+//    ////        if(freq==previousFreq)
+//    ////        {
+//    //            [kiddeFireArray addObject:[NSNumber numberWithFloat:maxMag]];
+//    //        //}
+//    ////        else
+//    ////        {
+//    ////            [kiddeFireArray removeLastObject];
+//    ////
+//    ////        }
+//    //
+//    //    }
+//    //    else
+//    //        [kiddeFireArray addObject:[NSNumber numberWithFloat:0.0]];
+//    
+//    
+//    if (freq==3229)
+//    {
+//        if(freq==previousFreq)
+//        {
+//            [alanaFireArray addObject:[NSNumber numberWithFloat:maxMag]];
+//        }
+//        else
+//        {
+//            [alanaFireArray addObject:[NSNumber numberWithFloat:0.0]];
+//            
+//        }
+//        
+//    }
+//    else
+//        [alanaFireArray addObject:[NSNumber numberWithFloat:0.0]];
+//    
+//    if (freq==3186)
+//    {
+//        if(freq==previousFreq)
+//            [CherrieFireArray addObject:[NSNumber numberWithFloat:maxMag]];
+//        else
+//            [CherrieFireArray addObject:[NSNumber numberWithFloat:0.0]];
+//    }
+//    
+//    else
+//        [CherrieFireArray addObject:[NSNumber numberWithFloat:0.0]];
+//    
+//    
+//    previousFreq = freq;
+//    
+//    
+//    
+//    
+//    
+//    
+//}
 
 #pragma mark - 
 #pragma mark - EZMicrophoneDelegate
@@ -769,13 +892,18 @@ int previousFreq=0;
                    });
 }
 
-
+#pragma mark -
+#pragma mark - Push Handling
+-(void)performActionForPush
+{
+    
+}
 #pragma mark -
 #pragma mark - Set Off Alarm
--(void)delegateSendImmediate
+-(void)delegateSendImmediate:(MAINTAB)currentTab
 {
     [self removeAlarmOverlay];
-    [self startWaveAnimation];
+    [self startWaveAnimation:currentTab];
     [self sendPushToCommunity];
     
 }
@@ -844,21 +972,24 @@ int previousFreq=0;
     self.type = [n valueForKey:@"type"];
     self.AlarmObj = [[AlarmOverLayView alloc] init];
     
+    self.AlarmObj = [[AlarmOverLayView alloc] init];
+    
     if([self.type isEqualToString:@"1"])
     {
-        [self.AlarmObj.labelRaisingAlarm setText:NSLocalizedString(@"raising_fire", nil)];
+        self.AlarmObj.currentTab = FIRE;
+        
     }
     else if ([self.type isEqualToString:@"2"])
     {
-        [self.AlarmObj.labelRaisingAlarm setText:NSLocalizedString(@"raising_gun", nil)];
+        self.AlarmObj.currentTab = GUN;
         
     }
     else
     {
-        [self.AlarmObj.labelRaisingAlarm setText:NSLocalizedString(@"raising_co", nil)];
+        self.AlarmObj.currentTab = CO;
         
     }
-    
+    [self.AlarmObj viewColorSetter];
     self.AlarmObj.delegate = self;
     [[[UIApplication sharedApplication] keyWindow]addSubview:self.AlarmObj];
     alarmCount = 0 ;
@@ -866,16 +997,30 @@ int previousFreq=0;
     alarmTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
     
     
-    
+//    NSString *type;
+//    if(self.currentTab==FIRE)
+//    {
+//        type = @"1";
+//    }
+//    else if (self.currentTab == GUN)
+//    {
+//        type = @"2";
+//    }
+//    else
+//    {
+//        type = @"3";
+//    }
+
 }
 
 
 -(void)handleTimer : (NSTimer *)timer
 {
-    if ([self.AlarmObj.overlay_timerLabel.text isEqualToString:@"0"])
+    if (alarmCount==30)
     {
+        alarmCount=0;
         [self removeAlarmOverlay];
-        [self startWaveAnimation];
+        [self startWaveAnimation:(self.AlarmObj.currentTab)];
         [self sendPushToCommunity];
         
         return ;
@@ -957,10 +1102,25 @@ int previousFreq=0;
 -(void)disarmClicked
 {
     
+    
     [audioPlayer pause];
     audioPlayer = nil;
     [self removeAlarmOverlay];
     ISOVERLAYSHOWING = NO;
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    NSError *error;
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+    if (error)
+    {
+        NSLog(@"Error setting up audio session category: %@", error.localizedDescription);
+    }
+    [session setActive:YES error:&error];
+    if (error)
+    {
+        NSLog(@"Error setting up audio session active: %@", error.localizedDescription);
+    }
+
+
 }
 
 -(void)removeAlarmOverlay
@@ -985,9 +1145,10 @@ int previousFreq=0;
 }
 
 #pragma mark - Wave Animation View
--(void)startWaveAnimation
+-(void)startWaveAnimation:(MAINTAB)tab
 {
     self.waveObj = [WaveAnimationView new];
+    self.waveObj.currentTab = tab;
     self.waveObj.delegate = self;
     [[[UIApplication sharedApplication] keyWindow]addSubview:self.waveObj];
     [self.waveObj startOverlayAnimation];
@@ -1039,10 +1200,8 @@ int previousFreq=0;
         {
             addressString = @"";
         }
-        
-        NSDictionary *dict = [[NSUserDefaults standardUserDefaults] valueForKey:@"userDetails"];
-        
-        NSDictionary *dictPara = @{@"user_id":[dict valueForKey:@"id"],@"latitude":[NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude ],@"longitude":[NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude ],@"description":@"",@"type":self.type,@"place":addressString};
+                
+        NSDictionary *dictPara = @{@"user_id":[Profile getCurrentProfileUserId],@"latitude":[NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude ],@"longitude":[NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude ],@"description":@"",@"type":self.type,@"place":addressString};
         NSString *finalUrl = [NSString stringWithFormat:KOpenTok,KbaseUrl] ;
         [self hitApi:dictPara str:finalUrl];
         
@@ -1063,7 +1222,7 @@ int previousFreq=0;
 -(void)hitApi:(NSDictionary *)dictPara str:(NSString *)urlStr
 {
     [iOSRequest postNormalData:dictPara :urlStr success:^(NSDictionary *responseDict) {
-        [self stopMicrophone];
+        [self.waveObj removeFromSuperview];
         [[NSUserDefaults standardUserDefaults] setObject:[responseDict valueForKey:@"token"] forKey:@"token"];
         [[NSUserDefaults standardUserDefaults] setObject:[responseDict valueForKey:@"sessionId"] forKey:@"sessionId"];
         VideoStreamViewController *vStreamVC = [[VideoStreamViewController alloc] init];

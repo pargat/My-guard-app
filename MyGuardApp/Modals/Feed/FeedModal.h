@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ApiConstants.h"
+#import "FileModal.h"
 
 @interface FeedModal : NSObject
 
@@ -28,6 +29,8 @@
 @property(nonatomic,retain)NSString *feed_address;
 
 //Changes
+@property (nonatomic,retain)NSString *feed_distance;
+@property (nonatomic,retain)NSString *feed_full_time;
 @property (nonatomic,retain)NSString *feed_time_passed;
 @property (nonatomic,retain)NSArray *feed_files;
 

@@ -72,7 +72,7 @@
 
 }
 - (IBAction)actionSendImmidiate:(id)sender {
-    [self.delegate delegateSendImmediate];
+    [self.delegate delegateSendImmediate:self.currentTab];
 }
 
 - (IBAction)cancelAct:(id)sender

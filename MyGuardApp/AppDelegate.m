@@ -20,6 +20,12 @@
      [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     
+    
+    if([launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey]!=nil)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey] forKey:@"pushInfo"];
+    }
+    [GMSServices provideAPIKey:@"AIzaSyD34jykbce1qf8oS-EqqkTx-NvtPXX8M6w"];
     // Override point for customization after application launch.
     return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 }
@@ -133,6 +139,130 @@
             abort();
         }
     }
+}
+
+
+
+
+#pragma mark -
+#pragma mark - Push Notification functions
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    //register to receive notifications
+    [application registerForRemoteNotifications];
+    
+}
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken
+{
+    
+    
+    application.applicationIconBadgeNumber = 0;
+    
+    // Get Bundle Info for Remote Registration (handy if you have more than one app)
+    NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    
+    
+    // Set the defaults to disabled unless we find otherwise...
+    NSString *pushBadge ;
+    NSString *pushAlert;
+    NSString *pushSound ;
+    
+    NSUInteger rntypes;
+    
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)])
+    {
+        //returns UIRemoteNotificationType typedef for nsuinteger
+        UIUserNotificationSettings * notificationSettings;
+        notificationSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+        rntypes = [notificationSettings types];
+        pushBadge = (rntypes & UIUserNotificationTypeBadge) ? @"enabled" : @"disabled";
+        pushAlert = (rntypes & UIUserNotificationTypeAlert) ? @"enabled" : @"disabled";
+        pushSound = (rntypes & UIUserNotificationTypeSound) ? @"enabled" : @"disabled";
+        
+    }
+    else
+    {
+        rntypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+        pushBadge = (rntypes & UIRemoteNotificationTypeBadge) ? @"enabled" : @"disabled";
+        pushAlert = (rntypes & UIRemoteNotificationTypeAlert) ? @"enabled" : @"disabled";
+        pushSound = (rntypes & UIRemoteNotificationTypeSound) ? @"enabled" : @"disabled";
+        
+    }
+    
+    // Get the users Device Model, Display Name, Unique ID, Token & Version Number
+    
+    UIDevice *dev = [UIDevice currentDevice];
+    
+    NSString *deviceUuid = [[[[devToken description]
+                              stringByReplacingOccurrencesOfString:@"<"withString:@""]
+                             stringByReplacingOccurrencesOfString:@">" withString:@""]
+                            stringByReplacingOccurrencesOfString: @" " withString: @""];;
+    
+    NSString *deviceName = dev.name;
+    NSString *deviceModel = dev.model;
+    NSString *deviceSystemVersion = dev.systemVersion;
+    
+    // Prepare the Device Token for Registration (remove spaces and < >)
+    NSString *deviceToken = [[[[devToken description]
+                               stringByReplacingOccurrencesOfString:@"<"withString:@""]
+                              stringByReplacingOccurrencesOfString:@">" withString:@""]
+                             stringByReplacingOccurrencesOfString: @" " withString: @""];
+    
+    // Build URL String for Registration
+    // !!! CHANGE "www.mywebsite.com" TO YOUR WEBSITE. Leave out the http://
+    // !!! SAMPLE: "secure.awesomeapp.com"
+    
+    NSString *host = @"api.firesonar.com/FireSonar/apiv2/easyapns/";
+    
+    // !!! CHANGE "/apns.php?" TO THE PATH TO WHERE apns.php IS INSTALLED
+    // !!! ( MUST START WITH / AND END WITH ? ).
+    // !!! SAMPLE: "/path/to/apns.php?"
+    NSString *urlString = [NSString stringWithFormat:@"/apns.php?task=%@&appname=%@&appversion=%@&deviceuid=%@&devicetoken=%@&devicename=%@&devicemodel=%@&deviceversion=%@&pushbadge=%@&pushalert=%@&pushsound=%@", @"register", appName,appVersion, [deviceUuid substringToIndex:38], deviceToken, deviceName, deviceModel, deviceSystemVersion, pushBadge, pushAlert, pushSound];
+    
+    
+    
+    
+    // Register the Device Data
+    // !!! CHANGE "http" TO "https" IF YOU ARE USING HTTPS PROTOCOL
+    NSURL *url = [[NSURL alloc] initWithScheme:@"http" host:host path:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *urlR, NSData *returnData, NSError *e) {
+                               
+                               
+                               if (e == nil) {
+                                   // NSLog(@"Return Data: %@", returnData);
+                                   NSDictionary *dict = [[NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingMutableLeaves error:nil] mutableCopy];
+                                   NSString *apn_id = [dict valueForKey:@"id"];
+                                   [[NSUserDefaults standardUserDefaults] setObject:apn_id forKey:@"apn_id"];
+                                   
+                              
+                                   if([Profile getCurrentProfileUserId]!=nil)
+                                   {
+                                       NSString *stringApn = [NSString stringWithFormat:@"%@set_apnid.php?user_id=%@&apnid=%@",KbaseUrl,[Profile getCurrentProfileUserId],apn_id];
+                                       [iOSRequest getJsonResponse:stringApn success:^(NSDictionary *responseDict) {
+                                           
+                                       } failure:^(NSString *errorString) {
+                                           
+                                       }];
+                                   }
+                                   
+                                   
+                               }
+                           }];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    NSLog(@"Failed to register remote notifications");
+}
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    
+    
+    
 }
 
 @end

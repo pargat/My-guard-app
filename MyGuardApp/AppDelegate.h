@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import <FBSDKCoreKit.h>
-
+#import "iOSRequest.h"
+#import "ApiConstants.h"
+#import "Profile.h"
+#import <GoogleMaps/GoogleMaps.h>
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

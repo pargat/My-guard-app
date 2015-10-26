@@ -17,6 +17,7 @@
     if(self!=nil)
     {
         
+        self.feed_full_time = [dict valueForKey:@"nice_time"];
         self.feed_id = [dict  valueForKey:@"id"];
         self.feed_username = [dict valueForKey:@"username"];
         self.feed_userid = [dict  valueForKey:@"user_id"];
@@ -29,9 +30,18 @@
         self.feed_desc = [dict  valueForKey:@"description"];
         self.feed_place = [dict  valueForKey:@"place"];
         self.feed_imageName = [dict  valueForKey:@"image_name"];
-        self.feed_time_passed = [dict valueForKey:@"nice_time"];
-        self.feed_files = (NSArray *)[dict valueForKey:@"files"];
+        self.feed_time_passed = [dict valueForKey:@"n_time"];
+        
+        if(((NSArray *)[dict valueForKey:@"files"]).count==0)
+        {
+            self.feed_files = [[NSMutableArray alloc] init];
+        }
+        else
+        {
+            self.feed_files = [FileModal parseDictToFeed:[dict valueForKey:@"files"]];
+        }
         self.feed_address = [dict valueForKey:@"place"];
+        self.feed_distance = [dict valueForKey:@"distance"];
         if([dict valueForKey:@"lastname"]!=nil)
             self.feed_fullname = [NSString stringWithFormat:@"%@ %@",[dict valueForKey:@"firstname"],[dict valueForKey:@"lastname"]];
         else
