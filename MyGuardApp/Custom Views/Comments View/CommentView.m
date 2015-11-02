@@ -17,10 +17,7 @@
     if (self)
     {
         self = [[[NSBundle mainBundle] loadNibNamed:@"CommentView" owner:self options:nil] lastObject];
-        self.layer.cornerRadius = 10;
-        self.clipsToBounds = YES;
      
-        //[self tapAdder];
     }
     
     return self;
@@ -28,7 +25,14 @@
 }
 -(void)setter
 {
+    [self.btnSend setEnabled:NO];
     [self.textFieldComment setDelegate:self];
+    [self.tableViewComments setDelegate:self];
+    [self.tableViewComments setDataSource:self];
+    [self fetchComments];
+    [self registerForKeyboardNotifications];
+    [self tapAdder];
+
 }
 - (void)scrollToBottom
 {
@@ -37,17 +41,59 @@
         [self.tableViewComments setContentOffset:bottomOffset animated:NO];
     }
 }
+
+#pragma mark - 
+#pragma mark - Api related functions
+-(void)fetchComments
+{
+    [CommentModal callAPIForComments:[NSString stringWithFormat:KGetCommentApi,KbaseUrl,[Profile getCurrentProfileUserId],self.image_id,self.feed_id] Params:nil success:^(NSMutableArray *commentsArr) {
+        self.arrayComments = [commentsArr mutableCopy];
+        [self.tableViewComments reloadData];;
+    } failure:^(NSString *errorStr) {
+        
+    }];
+}
+
 #pragma mark -
-#pragma mark - KeyBoard Handling
+#pragma mark - Text Field Delegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if([string isEqualToString:@""])
+    {
+        if (textField.text.length==1) {
+            [self.btnSend setEnabled:NO];
+        }
+        else if (textField.text.length>1&&[[textField.text substringToIndex:textField.text.length-1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length>0)
+        {
+            [self.btnSend setEnabled:YES];
+        }
+        else
+        {
+            [self.btnSend setEnabled:NO];
+        }
+    }
+    else
+    {
+        NSString *str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+        if([str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length>0)
+        {
+            [self.btnSend setEnabled:YES];
+        }
+    }
+    return YES;
+}
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self.textFieldComment resignFirstResponder];
     return YES;
 }
+
+#pragma mark -
+#pragma mark - KeyBoard Handling
 -(void)tapAdder
 {
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler)];
-    [tapGesture setCancelsTouchesInView:NO];
+    [tapGesture setCancelsTouchesInView:YES];
     [self addGestureRecognizer:tapGesture];
     
 }
@@ -109,7 +155,7 @@
 
 {
     
-    self.layoutBottomSpace.constant = 0;
+    self.layoutBottomSpace.constant = 54;
     [UIView animateWithDuration:0.5 animations:^{
         [self layoutIfNeeded];
     }];
@@ -135,6 +181,19 @@
         [self.labelNoComments setHidden:YES];
     }
     
+
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static CommentCell *sizingCell = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sizingCell =[[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:kNilOptions] lastObject];
+    });
+    
+    [self configureCell:sizingCell atIndexPath:indexPath];
+    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height;
 
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -189,13 +248,11 @@
         [self.btnSend setEnabled:NO];
         [self.textFieldComment setTextColor:[UIColor lightGrayColor]];
         [self.textFieldComment setEnabled:NO];
-        [iOSRequest getJsonResponse:[NSString stringWithFormat:KAddComment,KbaseUrl,[Profile getCurrentProfileUserId],self.feed_id,self.textFieldComment.text] success:^(NSDictionary *responseDict) {
+        [iOSRequest getJsonResponse:[NSString stringWithFormat:KAddComment,KbaseUrl,[Profile getCurrentProfileUserId],self.image_id,self.feed_id,self.textFieldComment.text] success:^(NSDictionary *responseDict) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-
-                
-                
+                self.arrayComments = [CommentModal parseDictToModal:[responseDict valueForKey:@"comments"]];
                 [self.btnSend setEnabled:YES];
                 [self.textFieldComment setEnabled:YES];
                 [self.textFieldComment setText:@""];
@@ -216,16 +273,17 @@
 
 - (IBAction)actionBAck:(id)sender {
     [self.textFieldComment resignFirstResponder];
-    [self removeKeyboardObservers];
-    [self.textFieldComment setDelegate:nil];
     
-    [UIView animateWithDuration:0.5 animations:^{
-        [self setFrame:CGRectMake(self.rect.origin.x+self.rect.size.width/2, self.rect.origin.y+self.rect.size.height/2, 0, 0)];
-
-    } completion:^(BOOL finished) {
+    
+//    [UIView animateWithDuration:0.5 animations:^{
+//        [self setFrame:self.rectToDisappear];
+//
+//    } completion:^(BOOL finished) {
+        [self removeKeyboardObservers];
+        [self.textFieldComment setDelegate:nil];
         [self removeFromSuperview];
  
-    }];
+    //}];
 
 }
 @end

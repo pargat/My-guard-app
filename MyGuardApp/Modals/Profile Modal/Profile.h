@@ -11,6 +11,9 @@
 
 @interface Profile : NSObject
 
+@property (nonatomic,strong) NSString *profileFStatus;
+@property (nonatomic,strong) NSString *profileIsFriend;
+@property (nonatomic,strong) NSString *profileIsFamily;
 @property (nonatomic,strong) NSString *profileAddress;
 @property (nonatomic,strong) NSString *profileIsBlocked;
 @property (nonatomic,strong) NSString *profileDisability;

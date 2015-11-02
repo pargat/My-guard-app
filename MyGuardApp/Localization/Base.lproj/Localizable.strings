@@ -6,6 +6,21 @@
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
 
+//User
+
+//Notification Screen
+"alert" = "Alerts";
+"clear_all" = "Clear All";
+
+//Profile Screen
+"add_friend" = "Add friend";
+"add_family" = "Add family";
+"friends_p" = "Friends";
+"family_p" = "Family";
+"friend_r" = "Requested";
+"friend_pen" = "Confirm Friend";
+"family_r" = "Requested";
+"family_pen" = "Confirm Family";
 
 
 //Demo Screens

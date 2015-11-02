@@ -31,7 +31,9 @@
         self.profilePhoneNumber = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"phone_no"]];
         self.profileUserId = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"id"]];
         self.profileUserName = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"username"]];
-
+        self.profileIsFamily = [tempDict valueForKey:@"is_family"];
+        self.profileIsFriend = [tempDict valueForKey:@"is_friend"];
+        self.profileFStatus = [tempDict valueForKey:@"fstatus"];
         
     }
     return self;

@@ -20,6 +20,8 @@
     self.isElasticIndicatorLimit = NO;
     [self.buttonBarView.selectedBar setBackgroundColor:[UIColor whiteColor]];
     [self.buttonBarView setSelectedBarHeight:3];
+    [self.buttonBarView setLabelFont:[UIFont boldSystemFontOfSize:13]];
+
     // Do any additional setup after loading the view.
     [self viewColorThemeSelector];
     // Do any additional setup after loading the view.

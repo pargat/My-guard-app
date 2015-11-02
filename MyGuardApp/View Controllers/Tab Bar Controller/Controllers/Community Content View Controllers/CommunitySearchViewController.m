@@ -30,6 +30,12 @@
     [self.tableViewCommunity setTableFooterView:[[UIView alloc] init]];
     
 }
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self removeLoaderView];
+}
+
 #pragma mark -
 #pragma mark - View Helpers
 -(void)searchUser

@@ -10,9 +10,7 @@
 
 @interface FeedViewController ()
 
-{
-    JTMaterialSpinner *loaderObj ;
-}
+
 
 @end
 
@@ -21,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.pageIndex = 0;
-    [self setUpLoaderView];
+    [self setUpLoaderView1];
     [self getFeed:YES];
     [self.tableViewFeeds setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self addRefreshAndInfinite];
@@ -279,7 +277,10 @@
         pickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie,nil];
         
     }
-    
+    if(buttonIndex==4)
+    {
+        return;
+    }
     [self presentViewController:pickerController animated:YES completion:^{
         
     }];
@@ -307,7 +308,7 @@
 
     FeedModal *feed = [self.arrayFeeds objectAtIndex:self.selectedIndex.row];
     
-    [self setUpLoaderView];
+    [self setUpLoaderView1];
     [picker dismissViewControllerAnimated:YES completion:nil];
     
     NSString *mediaType = [info valueForKey:UIImagePickerControllerMediaType];
@@ -329,11 +330,10 @@
             [arrayMut insertObject:[[FileModal alloc] initWithAttributes:[[responseStr valueForKey:@"data"] objectAtIndex:0] ]  atIndex:0];
             feed.feed_files = [NSArray arrayWithArray:arrayMut];
             [self.tableViewFeeds reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [loaderObj removeFromSuperview];
+            [self removeLoaderView];
             
         } failure:^(NSError *error) {
-            [loaderObj removeFromSuperview];
-        }];
+            [self removeLoaderView];        }];
     }
     
     else
@@ -387,9 +387,9 @@
 
                                 feed.feed_files = [NSArray arrayWithArray:arrayMut];
                                 [self.tableViewFeeds reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
-                                [loaderObj removeFromSuperview];
+                                    [self removeLoaderView];
                             } failure:^(NSError *error) {
-                                [loaderObj removeFromSuperview];
+                                [self removeLoaderView];
                             }];
                             
                             
@@ -441,34 +441,24 @@
 
 #pragma mark - Hide Unhide Loader View
 
--(void)setUpLoaderView
+-(void)setUpLoaderView1
 {
-    [loaderObj removeFromSuperview];
-    loaderObj = [[JTMaterialSpinner alloc] init];
-    CGSize size = [UIScreen mainScreen].bounds.size;
-    loaderObj.frame = CGRectMake(size.width/2-20, size.height/2-20, 40, 40);
-    loaderObj.circleLayer.lineWidth = 2.0;
+    UIColor *colorProfile;
     if(self.feedType==1)
     {
-        loaderObj.circleLayer.strokeColor = KOrangeColor.CGColor;
+        colorProfile = KOrangeColor;
     }
     else if (self.feedType==3)
     {
-        loaderObj.circleLayer.strokeColor = KRedColor.CGColor;
+        colorProfile = KRedColor;
     }
     else
     {
-        loaderObj.circleLayer.strokeColor = KGreenColor.CGColor;
+        colorProfile = KGreenColor;
     }
-    [[UIApplication sharedApplication].keyWindow addSubview:loaderObj];
-    [loaderObj beginRefreshing];
+    [self setUpLoaderView:colorProfile];
 }
 
--(void)removeLoaderView
-{
-    [loaderObj removeFromSuperview];
-    [loaderObj endRefreshing];
-}
 
 
 #pragma mark - Navigation

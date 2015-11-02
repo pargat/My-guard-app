@@ -13,6 +13,13 @@
 #import "UIImage+Extras.h"
 #import "AddSafetyViewController.h"
 #import "ZoomInteractiveTransition.h"
+#import "OtherProfileViewController.h"
+#import "SafetyDetailViewController.h"
+#import "MapViewController.h"
+#import "FalseAlarmViewController.h"
+#import "SearchMainViewController.h"
+
+
 @interface FireViewController : UIViewController<ZoomTransitionProtocol,MainContentDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *viewContainer;

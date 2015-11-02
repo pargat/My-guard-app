@@ -12,6 +12,8 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface YoutubeViewController : BaseViewController<UIWebViewDelegate>
+
+@property (nonatomic ,strong) UIColor *colorLoader;
 @property(nonatomic,strong) NSString *stringLink;
 @property (weak, nonatomic) IBOutlet UIWebView *webViewVideo;
 @end

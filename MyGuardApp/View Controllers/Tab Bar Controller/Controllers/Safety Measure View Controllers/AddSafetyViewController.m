@@ -29,6 +29,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self removeLoaderView];
+}
 -(void)loader
 {
     self.textViewDescription.placeholder = NSLocalizedString(@"type_here", nil);

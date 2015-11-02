@@ -24,5 +24,11 @@
 @property (nonatomic, strong) NSMutableArray *arraySafety;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewProfile;
+@property (weak, nonatomic) IBOutlet UIView *viewButtonHolder;
+@property (weak, nonatomic) IBOutlet UIButton *btnAddFriend;
+@property (weak, nonatomic) IBOutlet UIButton *btnAddFamily;
+- (IBAction)actionAddFamily:(id)sender;
+
+- (IBAction)actionAddFriend:(id)sender;
 
 @end

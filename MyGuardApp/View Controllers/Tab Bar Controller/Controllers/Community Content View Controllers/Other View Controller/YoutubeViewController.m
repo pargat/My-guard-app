@@ -74,7 +74,7 @@
         // handle error
     }
     [self removeLoaderView];
-    [self setUpLoaderView];
+    [self setUpLoaderView:self.colorLoader];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {

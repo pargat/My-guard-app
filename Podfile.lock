@@ -48,12 +48,18 @@ PODS:
   - GoogleMaps (1.10.2)
   - JTMaterialSpinner (1.0.1)
   - OpenTok (2.6.0)
+  - RMActionController (1.0.4)
+  - RMDateSelectionViewController (2.0.1):
+    - RMActionController (~> 1.0.0)
+  - RMPickerViewController (1.3.3)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
   - SVPullToRefresh (0.4.1)
   - SZTextView (1.2.1)
   - TPCircularBuffer (0.0.1)
+  - UIActivityIndicator-for-SDWebImage (1.2):
+    - SDWebImage (~> 3.7)
 
 DEPENDENCIES:
   - AFNetworking
@@ -63,9 +69,12 @@ DEPENDENCIES:
   - GoogleMaps
   - JTMaterialSpinner
   - OpenTok
+  - RMDateSelectionViewController (~> 2.0.0)
+  - RMPickerViewController
   - SDWebImage
   - SVPullToRefresh
   - SZTextView
+  - UIActivityIndicator-for-SDWebImage
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
@@ -77,9 +86,13 @@ SPEC CHECKSUMS:
   GoogleMaps: 5c92e599b07b0a2a9b367c5dd128edc629bddfea
   JTMaterialSpinner: 4e025e1511dc2b06975a3b8d758005ec765e9338
   OpenTok: 2b99bd75055554f4028735fa84e4242e4932d245
+  RMActionController: 19423654600d40ca15132a4e548d005042d68f09
+  RMDateSelectionViewController: 027bdeeaacb78b2b528808ed21efd697490d2b4e
+  RMPickerViewController: 1a64e211e86ac3d961214c9c376de7c0241ac25b
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   SZTextView: 906df45afd3c1b24fc5252088d5ef8061513c238
   TPCircularBuffer: 949e9632b9fb99b7274d7b2296ee22bff5841e35
+  UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.39.0

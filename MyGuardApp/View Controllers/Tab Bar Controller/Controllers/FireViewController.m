@@ -109,7 +109,9 @@
     [self addChildViewController:self.mainVC];
     [self.mainVC didMoveToParentViewController:self];
     
-    
+    if([[NSUserDefaults standardUserDefaults] valueForKey:@"pushInfo"]!=nil)
+        [self performActionForPush];
+
 //    self.transition = [[ZoomInteractiveTransition alloc] initWithNavigationController:self.navigationController];
 }
 
@@ -131,12 +133,37 @@
 }
 -(void)actionSearch
 {
-    
+    [self performSegueWithIdentifier:KSearchMainSegue sender:self];
 }
 -(void)actionProfile
 {
     
     [self performSegueWithIdentifier:KMyProfileSegue sender:nil];
+}
+#pragma mark -
+#pragma mark - Push Handling
+-(void)performActionForPush
+{
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] valueForKeyPath:@"pushInfo.C"];
+    NSString *str = [dict valueForKey:@"type"];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"pushInfo"];
+    
+    if([str isEqualToString:@"1"])
+    {
+        [self performSegueWithIdentifier:KMapFeedSegue sender:dict];
+    }
+    else if([str isEqualToString:@"2"])
+    {
+        [self performSegueWithIdentifier:KFalseAlarmSegue sender:dict];
+    }
+    else if([str isEqualToString:@"6"]||[str isEqualToString:@"7"]||[str isEqualToString:@"8"]||[str isEqualToString:@"9"])
+    {
+        [self performSegueWithIdentifier:KOtherProfileSegue sender:dict];
+    }
+    else if ([str isEqualToString:@"10"])
+    {
+        [self performSegueWithIdentifier:KSafetyDetailSegue sender:dict];
+    }
 }
 
 
@@ -156,12 +183,35 @@
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSDictionary *)sender {
+     
      if([segue.identifier isEqualToString:KAddSafetySegue])
      {
          AddSafetyViewController *addSafetyVC = (AddSafetyViewController *)segue.destinationViewController;
          addSafetyVC.currentTab = FIRE;
      }
+     else if([segue.identifier isEqualToString:KOtherProfileSegue])
+     {
+         OtherProfileViewController *otherVc = (OtherProfileViewController *)segue.destinationViewController;
+         otherVc.stringUserId = [sender valueForKey:@"id"];
+     }
+     else if([segue.identifier isEqualToString:KSafetyDetailSegue])
+     {
+         SafetyDetailViewController *safetyDetailVC = (SafetyDetailViewController *)segue.destinationViewController;
+         safetyDetailVC.stringId = [sender valueForKey:@"id"];
+     }
+     else if ([segue.identifier isEqualToString:KMapFeedSegue])
+     {
+         MapViewController *mapVC = (MapViewController *)segue.destinationViewController;
+         mapVC.dictInfo = sender;
+         
+     }
+     else if ([segue.identifier isEqualToString:KFalseAlarmSegue])
+     {
+         FalseAlarmViewController *falseVC = (FalseAlarmViewController *)segue.destinationViewController;
+         falseVC.dictInfo  = sender;
+     }
+
  }
 
 

@@ -36,4 +36,12 @@
 {
     
 }
+- (IBAction)actionDpFull:(id)sender {
+    
+    Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+    ImageBigView *img = [[ImageBigView alloc] init];
+    [img setFrame:[[UIScreen mainScreen] bounds]];
+    [img setImage:[NSURL URLWithString:modal.profileImageFullLink]];
+    [[[UIApplication sharedApplication] keyWindow] addSubview:img];
+}
 @end

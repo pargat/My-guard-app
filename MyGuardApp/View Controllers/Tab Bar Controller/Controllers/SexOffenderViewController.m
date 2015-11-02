@@ -37,6 +37,11 @@
     [self setNavBarAndTab];
     
 }
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self removeLoaderView];
+}
 
 
 
@@ -64,6 +69,7 @@
     [navigationBar setBackgroundImage:[UIImage new]
                        forBarPosition:UIBarPositionAny
                            barMetrics:UIBarMetricsDefault];
+    
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 
     [navigationBar setShadowImage:[UIImage new]];

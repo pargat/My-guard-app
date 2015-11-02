@@ -22,4 +22,11 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)actionDpBig:(id)sender {
+    ImageBigView *img = [[ImageBigView alloc] init];
+    [img setFrame:[[UIScreen mainScreen] bounds]];
+    [img setImage:[NSURL URLWithString:self.stringUrl]];
+    [[[UIApplication sharedApplication] keyWindow] addSubview:img];
+
+}
 @end

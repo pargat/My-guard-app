@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface SexOffenderCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewDp;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelDescription;

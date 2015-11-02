@@ -38,4 +38,21 @@
     return commentArr;
 }
 
+#pragma mark -
+#pragma mark - api hit
+
++(void)callAPIForComments : (NSString *)urlStr  Params : (NSDictionary *)paramsDict success : (void(^)(NSMutableArray *commentsArr))success failure : (void(^)(NSString *errorStr))failure
+{
+    
+    [iOSRequest getJsonResponse:urlStr success:^(NSDictionary *responseDict) {
+        
+        NSMutableArray *arrayComments = [CommentModal parseDictToModal:[responseDict valueForKeyPath:@"comments"]];
+        success(arrayComments);
+    } failure:^(NSString *errorString) {
+        failure(errorString);
+    }];
+    
+}
+
+
 @end

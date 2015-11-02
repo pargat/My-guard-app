@@ -13,6 +13,7 @@
 #import <UIImageView+WebCache.h>
 #import <JTMaterialSpinner.h>
 #import "YoutubeViewController.h"
+#import "BaseViewController.h"
 
 @protocol InfoVideosDelegate
 
@@ -22,7 +23,7 @@
 @end
 
 
-@interface InfoVideosViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface InfoVideosViewController : BaseViewController<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) NSString *stringLink;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewVideos;
 

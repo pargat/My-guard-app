@@ -12,6 +12,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.myProfile = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
     [self.tableViewProfile setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self setNavBarAndTab];
@@ -35,7 +36,6 @@
     ProfileHeaderMyCell *cell = [self.tableViewProfile cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     return cell.imageViewDp;
 }
-
 
 #pragma mark -
 #pragma mark - Helpers
@@ -128,6 +128,7 @@
         {
             CommunityNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
             [cell.labelNoUsers setText:@"No safety measures shared yet"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
 
         }
@@ -168,7 +169,7 @@
 -(void)configureProfileHeaderCell:(ProfileHeaderMyCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     
-    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:KBaseTimbthumbUrl,self.myProfile.profileImageName,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
+    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:KBaseTimbthumbUrl,self.myProfile.profileImageFullLink,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
     [cell.labelName setText:self.myProfile.profileFirstName];
     [cell.labelPhoneNumber setText:self.myProfile.profilePhoneNumber];
     [cell.labelAddress setText:self.myProfile.profileAddress];

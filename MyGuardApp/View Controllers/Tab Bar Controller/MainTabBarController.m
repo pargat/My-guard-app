@@ -132,6 +132,7 @@ int previousFreq=0;
     }
     
     [self locationInitialiser];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -893,12 +894,6 @@ int previousFreq=0;
 }
 
 #pragma mark -
-#pragma mark - Push Handling
--(void)performActionForPush
-{
-    
-}
-#pragma mark -
 #pragma mark - Set Off Alarm
 -(void)delegateSendImmediate:(MAINTAB)currentTab
 {
@@ -1239,14 +1234,15 @@ int previousFreq=0;
 
 
 
-/*
- #pragma mark - Navigation
+#pragma mark -
+#pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSDictionary *)sender {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
+     
  }
- */
+
 
 @end

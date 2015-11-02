@@ -87,7 +87,7 @@
     
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"False Alarm" message:@"Are you sure?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     [alertView show];
-    NSLog(@"cool");
+    NSLog(@"coo2222l");
 }
 
 #pragma mark -

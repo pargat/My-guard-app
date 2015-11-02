@@ -17,8 +17,10 @@
 #import <JTMaterialSpinner.h>
 #import "CommunityNoCell.h"
 #import "CommunityViewController.h"
+#import "BaseViewController.h"
 
-@interface CommunityContentViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+
+@interface CommunityContentViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) NSMutableArray *arraySearch;
 @property NSInteger selectedIndex;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ApiConstants.h"
-#import <FBSDKLoginKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <JTMaterialSpinner.h>

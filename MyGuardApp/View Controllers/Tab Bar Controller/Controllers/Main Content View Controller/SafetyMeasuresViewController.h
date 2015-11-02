@@ -15,6 +15,7 @@
 #import <SVPullToRefresh.h>
 #import <JTMaterialSpinner.h>
 #import "SafetyDetailViewController.h"
+#import "BaseViewController.h"
 
 @protocol SafetyDelegate
 
@@ -24,7 +25,7 @@
 @end
 
 
-@interface SafetyMeasuresViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface SafetyMeasuresViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) NSIndexPath *indexPathSelected;
 @property int pageIndex;

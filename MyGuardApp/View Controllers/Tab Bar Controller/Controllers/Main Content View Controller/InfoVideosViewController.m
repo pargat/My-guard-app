@@ -9,16 +9,13 @@
 #import "InfoVideosViewController.h"
 
 @interface InfoVideosViewController ()
-{
-    JTMaterialSpinner *loaderObj ;
-}
 @end
 
 @implementation InfoVideosViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUpLoaderView];
+    [self setUpLoaderView1];
     [self getVideos];
     [self.tableViewVideos setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     self.tableViewVideos.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -35,6 +32,12 @@
     [super viewWillAppear:animated];
     [self.delegate delNobutton];
 }
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self removeLoaderView];
+}
+
 
 
 #pragma mark -
@@ -125,32 +128,22 @@
 
 #pragma mark - Hide Unhide Loader View
 
--(void)setUpLoaderView
+-(void)setUpLoaderView1
 {
-    [loaderObj removeFromSuperview];
-    loaderObj = [[JTMaterialSpinner alloc] init];
-    loaderObj.frame = CGRectMake(self.view.frame.size.width/2-20, self.view.frame.size.height/2-20, 40, 40);
-    loaderObj.circleLayer.lineWidth = 2.0;
+    UIColor *colorProfile;
     if([self.feedType isEqualToString:@"1"])
     {
-        loaderObj.circleLayer.strokeColor = KOrangeColor.CGColor;
+        colorProfile = KOrangeColor;
     }
     else if ([self.feedType isEqualToString:@"3"])
     {
-        loaderObj.circleLayer.strokeColor = KRedColor.CGColor;
+        colorProfile = KRedColor;
     }
     else
     {
-        loaderObj.circleLayer.strokeColor = KGreenColor.CGColor;
+        colorProfile = KGreenColor;
     }
-    [[UIApplication sharedApplication].keyWindow addSubview:loaderObj];
-    [loaderObj beginRefreshing];
-}
-
--(void)removeLoaderView
-{
-    [loaderObj removeFromSuperview];
-    [loaderObj endRefreshing];
+    [self setUpLoaderView:colorProfile];
 }
 
 #pragma mark - 
@@ -162,6 +155,19 @@
     {
         YoutubeViewController *yVC = (YoutubeViewController *)segue.destinationViewController;
         yVC.stringLink = self.stringLink;
+        if([self.feedType isEqualToString:@"1"])
+        {
+            yVC.colorLoader = KOrangeColor;
+        }
+        else if ([self.feedType isEqualToString:@"3"])
+        {
+            yVC.colorLoader = KRedColor;
+        }
+        else
+        {
+            yVC.colorLoader = KGreenColor;
+        }
+
     }
 }
 

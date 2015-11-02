@@ -23,17 +23,17 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n67-x5-tCj">
-                        <rect key="frame" x="64" y="8" width="42" height="21"/>
+                        <rect key="frame" x="64" y="8" width="40" height="20"/>
                         <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYh-RR-CSM">
-                        <rect key="frame" x="64" y="37" width="322" height="81"/>
+                        <rect key="frame" x="64" y="32" width="322" height="86"/>
                         <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.83723078547297303" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5w-x0-vXL">
@@ -46,7 +46,7 @@
                 </subviews>
                 <animations/>
                 <constraints>
-                    <constraint firstItem="IYh-RR-CSM" firstAttribute="top" secondItem="n67-x5-tCj" secondAttribute="bottom" constant="8" id="4Xb-sx-0A5"/>
+                    <constraint firstItem="IYh-RR-CSM" firstAttribute="top" secondItem="n67-x5-tCj" secondAttribute="bottom" constant="4" id="4Xb-sx-0A5"/>
                     <constraint firstAttribute="bottom" secondItem="IYh-RR-CSM" secondAttribute="bottom" constant="16" id="9f0-Pt-yy3"/>
                     <constraint firstItem="n67-x5-tCj" firstAttribute="top" secondItem="xCn-pk-fsy" secondAttribute="top" id="BWg-0s-HOQ"/>
                     <constraint firstItem="A5w-x0-vXL" firstAttribute="centerY" secondItem="n67-x5-tCj" secondAttribute="centerY" id="GWo-LS-Wit"/>

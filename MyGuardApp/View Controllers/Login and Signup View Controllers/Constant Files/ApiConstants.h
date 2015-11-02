@@ -42,18 +42,18 @@ typedef enum : NSUInteger {
 #define KbaseUrl @"http://api.firesonar.com/FireSonar/apiv2/"
 #define KLoginApi @"%@login_new.php?email=%@&password=%@&lat=%f&lng=%f&zone=%ld"
 #define KFbRegister @"%@fb_register_new.php?email=%@&lat=%f&lng=%f&zone=%ld"
-#define KBaseTimbthumbUrl @"http://api.firesonar.com/FireSonar/timthumb.php?src=%@&w=%f&h=%f"
+#define KBaseTimbthumbUrl @"%@&w=%f&h=%f"
 
 //Comment Screen
-#define KAddComment @"%@add_image_comment.php?user_id=%@&image_id=%@&comment=%@"
-#define KGetCommentApi @"%@get_image_comments.php?user_id=%@&image_id=%@"
+#define KAddComment @"%@add_image_comment.php?user_id=%@&image_id=%@&alarm_id=%@&comment=%@"
+#define KGetCommentApi @"%@get_image_comments.php?user_id=%@&image_id=%@&alarm_id=%@"
 
 //Register screen
 #define KIsEmailAvailable @"%@is_email_available.php?email=%@"
 
 
 //Adding Safety Measure
-#define KAddSafetyMeasureApi @"%@post_safety_measure.php?user_id=%@&type=%@&description=%@"
+#define KAddSafetyMeasureApi @"%@post_safety_measure_v2.php?user_id=%@&type=%@&description=%@"
 
 
 //feeds
@@ -83,9 +83,18 @@ typedef enum : NSUInteger {
 //Profile fetching
 #define KGetProfile @"%@get_other_profile.php?uid=%@&mid=%@"
 
+//Notification apis
+#define KGetNotificationApi @"%@get_notifications_v2.php?user_id=%@&page=%d"
+#define KMarkNotificationApi @"%@mark_notification_read.php?user_id=%@&notification_id=%@"
+
+//Safety measure
+#define KViewSafetyMeasure @"%@view_safety_measure.php?id=%@"
+
 //Settings
 #define KLogoutApi  @"%@logout.php?user_id=%@"
 
+//Search api
+#define KSearchNewApi @"%@new_search.php?user_id=%@&keyword=%@&flag=%@"
 
 // Sign Up Screen
 #define KSignUpScreen @"%@signup_new.php"
@@ -97,6 +106,11 @@ typedef enum : NSUInteger {
 #define kListAllUsers @"%@list_all_users.php?user_id=%@"
 #define KUpdateAlarm @"%@update_alarm_v2.php"
 
+//Friend and  family api
+#define KAcceptRequest @"%@accept_request.php?user_id=%@&other_id=%@&type=%@"
+#define KCancelRequest @"%@remove_link.php?user_id=%@&other_id=%@"
+#define KAddFriendApi @"%@add_as_friend_v2.php?user_id=%@&friend_id=%@"
+#define KAddFamilyApi @"%@add_as_family_v2.php?user_id=%@&family_id=%@"
 
 //Map marker icon
 #define KFireIcon @"http://api.firesonar.com/FireSonar/uploads/pin_fire.png"

@@ -42,6 +42,8 @@
     self.isElasticIndicatorLimit = NO;
     [self.buttonBarView.selectedBar setBackgroundColor:[UIColor whiteColor]];
     [self.buttonBarView setSelectedBarHeight:3];
+    [self.buttonBarView setLabelFont:[UIFont boldSystemFontOfSize:13]];
+
     
     self.sBar = [[UISearchBar alloc]init];
     self.sBar.delegate = self;

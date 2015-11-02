@@ -16,6 +16,7 @@
 #import "FireViewController.h"
 #import "CommunityNoCell.h"
 
+
 @interface MyProfileViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,ZoomTransitionProtocol,UIActionSheetDelegate>
 
 

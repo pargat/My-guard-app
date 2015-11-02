@@ -4,7 +4,7 @@
 target 'MyGuardApp' do
 
 pod 'SDWebImage'
-pod "AFNetworking"
+pod 'AFNetworking'
 pod 'EZAudio'
 pod 'SVPullToRefresh'
 pod 'GoogleMaps'
@@ -13,9 +13,9 @@ pod 'FBSDKShareKit'
 pod 'FBSDKLoginKit'
 pod 'JTMaterialSpinner'
 pod 'SZTextView'
-
-pod "RMPickerViewController"
-pod "RMDateSelectionViewController"
+pod 'UIActivityIndicator-for-SDWebImage'
+pod 'RMPickerViewController'
+pod 'RMDateSelectionViewController','~> 2.0.0'
 end
 
 target 'MyGuardAppTests' do

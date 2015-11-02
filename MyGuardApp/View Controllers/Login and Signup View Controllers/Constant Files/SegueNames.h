@@ -10,6 +10,8 @@
 
 
 //Segue names
+#define KSearchMainSegue @"SearchMainSegue"
+#define KFalseAlarmSegue @"FalseAlarmSegue"
 #define KImageVideoDetailSegue @"ImageVideoDetailSegue"
 #define KYoutubeVideoSegue @"YoutubeSegue"
 #define KEditProfileSegue @"EditProfileSegue"
@@ -37,3 +39,7 @@
 #define KSafetyVC @"safety"
 #define KInfoVC @"info"
 #define KMainVC @"main"
+
+#define KSearchFeedVC @"SearchFeed"
+#define KSearchSafetyVC @"SearchSafety"
+#define KSearchUserVC @"SearchUser"

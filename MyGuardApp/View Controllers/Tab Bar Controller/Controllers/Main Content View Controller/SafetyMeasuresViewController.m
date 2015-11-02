@@ -9,9 +9,6 @@
 #import "SafetyMeasuresViewController.h"
 
 @interface SafetyMeasuresViewController ()
-{
-    JTMaterialSpinner *loaderObj ;
-}
 
 @end
 
@@ -32,6 +29,11 @@
     [super viewWillAppear:animated];
     [self.delegate delChangeNavButton:YES];
 }
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self removeLoaderView];
+}
 
 
 #pragma mark -
@@ -41,7 +43,7 @@
     self.pageIndex = 0;
     [self.tableViewSafety setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     // Do any additional setup after loading the view.
-    [self setUpLoaderView];
+    [self setUpLoaderView1];
     [self getSafetyMeasures:YES];
 
 }
@@ -117,7 +119,7 @@
     [cell.labelName setText:mesaure.safetyFirstName];
     [cell.labelDescription setText:mesaure.safetyDescription];
     [cell.labelTime setText:mesaure.safetyDisplayTime];
-    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:KBaseTimbthumbUrl,mesaure.safetyImageName,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
+    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",mesaure.safetyImageName,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
 
 }
 #pragma mark -
@@ -158,33 +160,24 @@
 }
 #pragma mark - Hide Unhide Loader View
 
--(void)setUpLoaderView
+-(void)setUpLoaderView1
 {
-    [loaderObj removeFromSuperview];
-    loaderObj = [[JTMaterialSpinner alloc] init];
-    loaderObj.frame = CGRectMake(self.view.frame.size.width/2-20, self.view.frame.size.height/2-20, 40, 40);
-    loaderObj.circleLayer.lineWidth = 2.0;
+    UIColor *colorProfile;
     if([self.feedType isEqualToString:@"1"])
     {
-        loaderObj.circleLayer.strokeColor = KOrangeColor.CGColor;
+        colorProfile = KOrangeColor;
     }
     else if ([self.feedType isEqualToString:@"3"])
     {
-        loaderObj.circleLayer.strokeColor = KRedColor.CGColor;
+        colorProfile = KRedColor;
     }
     else
     {
-        loaderObj.circleLayer.strokeColor = KGreenColor.CGColor;
+        colorProfile = KGreenColor;
     }
-    [[UIApplication sharedApplication].keyWindow addSubview:loaderObj];
-    [loaderObj beginRefreshing];
+    [self setUpLoaderView:colorProfile];
 }
 
--(void)removeLoaderView
-{
-    [loaderObj removeFromSuperview];
-    [loaderObj endRefreshing];
-}
 
 #pragma mark - Navigation
 

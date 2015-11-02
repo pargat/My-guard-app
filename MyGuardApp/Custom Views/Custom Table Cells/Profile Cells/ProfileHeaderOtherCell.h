@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ImageBigView.h"
 
 @interface ProfileHeaderOtherCell : UITableViewCell
-
+@property (nonatomic,strong) NSString *stringUrl;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewDp;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelPhoneNumber;
 @property (weak, nonatomic) IBOutlet UILabel *labelAddress;
 @property (weak, nonatomic) IBOutlet UIView *viewBottomLine;
+- (IBAction)actionDpBig:(id)sender;
 
 @end

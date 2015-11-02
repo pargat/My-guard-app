@@ -15,6 +15,7 @@
 
 @interface CommentView : UIView <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
+@property CGRect rectToDisappear;
 @property (nonatomic,strong) NSString *image_id;
 @property (nonatomic,strong) NSString *feed_id;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewComments;
@@ -26,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutBottomSpace;
 @property (weak, nonatomic) IBOutlet UIButton *btnSend;
 @property CGRect rect;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewLeft;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewRight;
 
 -(void)setter;
 -(void)removeKeyboardObservers;

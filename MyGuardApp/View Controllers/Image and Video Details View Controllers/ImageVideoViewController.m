@@ -29,7 +29,7 @@
 {
     [super viewWillAppear:animated];
     [self setNavBar];
-
+    [self.collectionViewMain reloadData];
     [self.view setNeedsLayout];
     [self.view layoutIfNeeded];
 }
@@ -37,7 +37,7 @@
 #pragma mark- view helpers
 -(void)deleteMedia
 {
-    [self setUpLoaderView];
+    [self setupLoaderView1];
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (NSIndexPath *index in self.collectionViewMain.indexPathsForSelectedItems) {
         FileModal *modal = [self.arrayFiles objectAtIndex:index.row];
@@ -46,8 +46,9 @@
     NSString *stringIds = [array componentsJoinedByString:@","];
     [iOSRequest getJsonResponse:[NSString stringWithFormat:KRemoveFilesApi,KbaseUrl,[Profile getCurrentProfileUserId],self.feedModal.feed_id,stringIds] success:^(NSDictionary *responseDict) {
         
-        
+        self.arrayFiles = [FileModal parseDictToFeed:[responseDict valueForKey:@"data"]];
         [self removeLoaderView];
+        [self.collectionViewMain reloadData];
     } failure:^(NSString *errorString) {
         [self removeLoaderView];
         
@@ -175,11 +176,12 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGSize sizeMake = CGSizeMake(self.view.frame.size.width/3-5, self.view.frame.size.width/3-5);
+    CGSize sizeMake = CGSizeMake(self.view.frame.size.width/3, self.view.frame.size.width/3);
     return sizeMake;
 }
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     ImageAndVideoCell *cell = (ImageAndVideoCell *)[self.collectionViewMain cellForItemAtIndexPath:indexPath];
     [cell.imageViewSelected setHidden:YES];
     if(self.isEditing == NO)
@@ -200,6 +202,7 @@
         }
         else
         {
+            self.selectedIndex = indexPath;
             [self performSegueWithIdentifier:KImageVideoDetailSegue sender:self];
         }
     }
@@ -226,6 +229,7 @@
         }
         else
         {
+            self.selectedIndex = indexPath;
             [self performSegueWithIdentifier:KImageVideoDetailSegue sender:self];
         }
     }
@@ -258,8 +262,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    
-    [self setUpLoaderView];
+    [self setupLoaderView1];
     [picker dismissViewControllerAnimated:YES completion:nil];
     
     NSString *mediaType = [info valueForKey:UIImagePickerControllerMediaType];
@@ -360,6 +363,50 @@
     
     
 }
+#pragma mark -
+#pragma mark - Action Sheet Delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+    [pickerController setDelegate:self];
+    
+    if(buttonIndex==0)
+    {
+        pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        
+        pickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
+        
+    }
+    
+    if(buttonIndex==1)
+    {
+        pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary|UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        
+        pickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
+    }
+    if(buttonIndex==2)
+    {
+        pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        pickerController.videoQuality = UIImagePickerControllerQualityTypeMedium;
+        pickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie,nil];
+    }
+    if(buttonIndex==3)
+    {
+        
+        pickerController.videoQuality = UIImagePickerControllerQualityTypeMedium;
+        pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary|UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        pickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie,nil];
+        
+    }
+    if(buttonIndex==4)
+    {
+        return;
+    }
+    [self presentViewController:pickerController animated:YES completion:^{
+        
+    }];
+    
+}
 
 
 #pragma mark -
@@ -389,6 +436,27 @@
     
 }
 
+#pragma mark - 
+#pragma mark - loader
+-(void)setupLoaderView1
+{
+    UIColor *colorProfile ;
+    if(self.currentTab==1)
+    {
+        colorProfile = KOrangeColor;
+    }
+    else if (self.currentTab==3)
+    {
+        colorProfile = KRedColor;
+    }
+    else
+    {
+        colorProfile = KGreenColor;
+    }
+    
+    [self setUpLoaderView:colorProfile];
+
+}
 
 #pragma mark -
  #pragma mark - Navigation
@@ -397,6 +465,7 @@
      if([segue.identifier isEqualToString:KImageVideoDetailSegue])
      {
          ImageVideoDetailViewController *imageVc = (ImageVideoDetailViewController *)segue.destinationViewController;
+         imageVc.indexToScroll = self.selectedIndex;
          imageVc.arrayFiles = self.arrayFiles;
          imageVc.feed_id = self.feedModal.feed_id;
      }

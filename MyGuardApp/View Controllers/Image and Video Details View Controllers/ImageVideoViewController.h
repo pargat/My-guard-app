@@ -19,8 +19,9 @@
 #import "Profile.h"
 #import <AVFoundation/AVFoundation.h>
 #import "ImageVideoDetailViewController.h"
-@interface ImageVideoViewController : BaseViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIActionSheetDelegate>
+@interface ImageVideoViewController : BaseViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
+@property (nonatomic,strong) NSIndexPath *selectedIndex;
 @property int currentTab;
 @property BOOL isEditing;
 @property (nonatomic,strong) FeedModal *feedModal;

@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <RMDateSelectionViewController.h>
 #import "BaseViewController.h"
 #import "LOcationUpdater.h"
+#import <RMDateSelectionViewController.h>
+#import <RMPickerViewController.h>
 
 @interface RegisterStep2ViewController : BaseViewController<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
 

@@ -9,12 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "SettingCell.h"
 #import "SettingCellDescriptionCell.h"
-#import <FBSDKShareKit.h>
 #import <MessageUI/MessageUI.h>
 #import "ApiConstants.h"
 #import "Profile.h"
 #import <JTMaterialSpinner.h>
-
+#import <FBSDKShareKit/FBSDKShareKit.h>
 @interface SettingViewCntroller : UIViewController<UITableViewDataSource,UITableViewDelegate,FBSDKAppInviteDialogDelegate,MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) NSArray *arraySettings;

@@ -16,8 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.textViewDescription setText:self.stringSafety];
     [self setUpNavBAr];
+    [self viewHelper];
     // Do any additional setup after loading the view.
 }
 
@@ -25,9 +25,38 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self removeLoaderView];
+}
 
 #pragma mark - 
 #pragma mark - View Helpers
+-(void)viewHelper
+{
+    [self.textViewDescription setText:@""];
+    if(self.stringId.length>0)
+    {
+        [self apiHit];
+    }
+    else
+    {
+        [self.textViewDescription setText:self.stringSafety];
+
+    }
+}
+-(void)apiHit
+{
+    [self setUpLoaderView];
+    [iOSRequest getJsonResponse:[NSString stringWithFormat:KViewSafetyMeasure,KbaseUrl,self.stringId] success:^(NSDictionary *responseDict) {
+        self.safetyModal = [[SafetyMeasure alloc] initWithAttributes:[responseDict valueForKey:@"data"]];
+        [self.textViewDescription setText:self.safetyModal.safetyDescription];
+        [self removeLoaderView];
+    } failure:^(NSString *errorString) {
+        [self removeLoaderView];
+    }];
+}
 - (BOOL)hidesBottomBarWhenPushed
 {
     return YES;

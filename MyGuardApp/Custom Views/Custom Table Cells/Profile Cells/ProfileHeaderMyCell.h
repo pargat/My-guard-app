@@ -7,14 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ImageBigView.h"
+#import "Profile.h"
 
 @interface ProfileHeaderMyCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewDp;
-
-- (IBAction)actionSettings:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelPhoneNumber;
 @property (weak, nonatomic) IBOutlet UILabel *labelAddress;
 @property (weak, nonatomic) IBOutlet UIView *viewBottomLine;
+
+- (IBAction)actionDpFull:(id)sender;
+- (IBAction)actionSettings:(id)sender;
 
 @end

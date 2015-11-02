@@ -16,7 +16,8 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 #import "VideoStreamViewController.h"
-
+#import "OtherProfileViewController.h"
+#import "SafetyDetailViewController.h"
 
 @interface MainTabBarController : UITabBarController<CLLocationManagerDelegate,alarmOverlayDelegate,waveAnimationDelegate,EZMicrophoneDelegate>
 

@@ -63,6 +63,8 @@
 {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBarHidden = NO;
+    self.synth.delegate = nil;
+    self.synth = nil;
 }
 #pragma mark - 
 #pragma mark - View Helpers
@@ -168,7 +170,7 @@
         typeString = @"Fire";
         [self.btnHush setBackgroundColor:KOrangeColor];
     }
-    else if ([[self.dictInfo valueForKey:@"y"] isEqualToString:@"2"])
+    else if ([[self.dictInfo valueForKey:@"y"] isEqualToString:@"3"])
     {
         imageString = @"tb_gun_pressed.png";
         typeString = @"Gun Shot";
@@ -191,7 +193,7 @@
     
     
     
-    NSAttributedString *stringFlag = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" is in a possible emergency %@  environment",typeString] attributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:14]}];
+    NSAttributedString *stringFlag = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" is in a possible emergency %@ environment",typeString] attributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:14]}];
     
     [stringMut appendAttributedString:stringAtt];
     [stringMut appendAttributedString:stringFlag];
@@ -251,7 +253,7 @@
     
     AVSpeechUtterance *utterance = [AVSpeechUtterance
                                     speechUtteranceWithString:self.stringSpeech];
-    utterance.rate = AVSpeechUtteranceMinimumSpeechRate;
+    utterance.rate = AVSpeechUtteranceDefaultSpeechRate;
     
     self.synth = [[AVSpeechSynthesizer alloc] init];
     self.synth.delegate = self;
