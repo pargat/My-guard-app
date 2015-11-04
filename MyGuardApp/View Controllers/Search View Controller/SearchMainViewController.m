@@ -25,7 +25,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+    [self.searchBar becomeFirstResponder];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+#pragma mark -
 #pragma mark - View Helpers
 -(void)viewHelper
 {
@@ -35,51 +46,69 @@
     [self.buttonBarView setSelectedBarHeight:3];
     [self.buttonBarView setLabelFont:[UIFont boldSystemFontOfSize:13]];
     
-
+    
     UIBezierPath *shadowPath  = [UIBezierPath bezierPathWithRect:self.buttonBarView.bounds];
     self.buttonBarView.layer.masksToBounds = NO;
     self.buttonBarView.layer.shadowColor = [UIColor lightGrayColor].CGColor;
     self.buttonBarView.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
     self.buttonBarView.layer.shadowOpacity = 0.75f;
     self.buttonBarView.layer.shadowPath = shadowPath.CGPath;
-
+    
+    self.searchBar.delegate = self;
 }
 -(void)initialiseVCs
 {
+    
     self.searchFeedVC = [self.storyboard instantiateViewControllerWithIdentifier:KSearchFeedVC];
     self.searchSafetyVC = [self.storyboard instantiateViewControllerWithIdentifier:KSearchSafetyVC];
     self.searchUserVC = [self.storyboard instantiateViewControllerWithIdentifier:KSearchUserVC];
-
+    
 }
 #pragma mark -
 #pragma mark - XLPagerDatasourec
 -(NSArray *)childViewControllersForPagerTabStripViewController:(XLPagerTabStripViewController *)pagerTabStripViewController
 {
+    
     [self initialiseVCs];
     return @[self.searchFeedVC,self.searchSafetyVC,self.searchUserVC];
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - Search bar delegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    [self.delegate delSearch];
+    if(![[searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""])
+    {
+        self.searchFeedVC.stringToSearch = searchBar.text;
+        self.searchSafetyVC.stringToSearch = searchBar.text;
+        self.searchUserVC.stringToSearch = searchBar.text;
+        
+        if (self.currentIndex==0) {
+            [self.searchFeedVC apiSearch:searchBar.text];
+        }
+        else if (self.currentIndex==1)
+        {
+            [self.searchSafetyVC apiSearch:searchBar.text];
+        }
+        else
+        {
+            [self.searchUserVC apiSearch:searchBar.text];
+        }
+    }
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

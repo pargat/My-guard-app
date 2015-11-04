@@ -26,6 +26,15 @@
 }
 #pragma mark -
 #pragma mark - View Helpers
+-(void)readNotif:(NSString *)idNotif
+{    
+    [iOSRequest getJsonResponse:[NSString stringWithFormat:KMarkNotificationApi,KbaseUrl,[Profile getCurrentProfileUserId],idNotif] success:^(NSDictionary *responseDict) {
+        
+    } failure:^(NSString *errorString) {
+        
+    }];
+}
+
 -(void)readNotif
 {
     NotificationModal *modal = [self.arrayNotifs objectAtIndex:self.selectedIndexPath.row];
@@ -64,7 +73,7 @@
     {
         self.pageIndex++;
     }
-    [NotificationModal callAPIForNotifications:[NSString stringWithFormat:KGetNotificationApi,KbaseUrl,@"766",self.pageIndex] Params:nil success:^(NSMutableArray *notifArr) {
+    [NotificationModal callAPIForNotifications:[NSString stringWithFormat:KGetNotificationApi,KbaseUrl,[Profile getCurrentProfileUserId],self.pageIndex] Params:nil success:^(NSMutableArray *notifArr) {
         if(refresh)
         {
             self.arrayNotifs = notifArr;
@@ -85,6 +94,33 @@
         [self removeLoaderView];
     }];
 }
+
+#pragma mark - 
+#pragma mark - Request delegate
+-(void)delAcceptOrReject:(BOOL)accept atIndexPath:(NSIndexPath *)indexPath
+{
+    NotificationModal *modal = [self.arrayNotifs objectAtIndex:indexPath.row];
+    NSString *type;
+    if([modal.notifType isEqualToString:@"1"])
+    {
+        type = @"1";
+    }
+    else
+    {
+        type = @"2";
+    }
+     NSString *familyUrl = [NSString stringWithFormat:KAcceptRequest,KbaseUrl,[Profile getCurrentProfileUserId],modal.notifFromUser,type];
+    [iOSRequest getJsonResponse:familyUrl success:^(NSDictionary *responseDict) {
+        
+    } failure:^(NSString *errorString) {
+        
+    }];
+    [self.arrayNotifs removeObjectAtIndex:indexPath.row];
+    [self.tableViewNotifs reloadData];
+    [self readNotif:modal.notifId];
+
+}
+
 #pragma mark -
 #pragma mark - Table View Delegate and datasource function
 
@@ -102,7 +138,7 @@
     if(self.arrayNotifs.count==0)
     {
         CommunityNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
-        [cell.labelNoUsers setText:@"No users"];
+        [cell.labelNoUsers setText:@"No new notifications"];
         cell.separatorInset = UIEdgeInsetsZero;
         return cell;
     }
@@ -196,7 +232,9 @@
 }
 -(void)configureCellRequest:(NotificationRequestCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+    cell.selectedIndex = indexPath;
     NotificationModal *modal = [self.arrayNotifs objectAtIndex:indexPath.row];
+    cell.delegate = self;
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",modal.notifDp,cell.imageViewDp.frame.size.width,cell.imageViewDp.frame.size.height]]];
     [cell.labelTitle setText:modal.notifTitle];
     [cell.labelTimePassed setText:modal.notifTimePassed];
@@ -232,7 +270,13 @@
 }
 -(void)actionClearAll
 {
-    
+    [iOSRequest getJsonResponse:[NSString stringWithFormat:KClearAllNotifs,KbaseUrl,[Profile getCurrentProfileUserId]] success:^(NSDictionary *responseDict) {
+        
+    } failure:^(NSString *errorString) {
+        
+    }];
+    self.arrayNotifs = [[NSMutableArray alloc] init];
+    [self.tableViewNotifs reloadData];
 }
 
 #pragma mark - Navigation

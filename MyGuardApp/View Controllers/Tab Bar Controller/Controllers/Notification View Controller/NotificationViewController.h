@@ -17,7 +17,7 @@
 #import <SVPullToRefresh.h>
 #import "SafetyDetailViewController.h"
 
-@interface NotificationViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
+@interface NotificationViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,NotificationDelegate>
 
 @property (nonatomic,strong) NSIndexPath *selectedIndexPath;
 @property (nonatomic,strong) NSMutableArray *arrayNotifs;

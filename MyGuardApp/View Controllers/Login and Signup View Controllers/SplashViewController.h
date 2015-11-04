@@ -13,6 +13,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <JTMaterialSpinner.h>
 #import "Register1ViewController.h"
+#import "MainTabBarController.h"
 
 @interface SplashViewController : UIViewController<CLLocationManagerDelegate>
 

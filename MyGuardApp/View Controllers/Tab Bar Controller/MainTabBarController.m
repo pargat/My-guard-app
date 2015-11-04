@@ -58,7 +58,7 @@ int previousFreq=0;
     
     
     AVAudioPlayer *audioPlayer;
-
+    
     int alarmCount ;
 }
 
@@ -88,7 +88,7 @@ int previousFreq=0;
     {
         NSLog(@"Error setting up audio session active: %@", error.localizedDescription);
     }
-
+    
     
     getsFireArray = [[NSMutableArray alloc] init];
     
@@ -132,6 +132,8 @@ int previousFreq=0;
     }
     
     [self locationInitialiser];
+    _fftBuf = (float *)malloc(sizeof(float)*FFTLEN);
+    
     
 }
 
@@ -145,11 +147,28 @@ int previousFreq=0;
     self.navigationItem.hidesBackButton = YES;
     [self setTitleAndImages];
     [self.navigationController.navigationBar setHidden:YES];
+    [self showVideoPermission];
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+
+
+#pragma mark -
+#pragma mark - View Helpers
+-(void)showVideoPermission
+{
+    if(self.isFirstTime)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"video_permission", nil) delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [alertView show];
+        self.isFirstTime = NO;
+    }
+    
 }
 -(void)setTitleAndImages
 {
@@ -164,7 +183,7 @@ int previousFreq=0;
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:2] setSelectedImage:[UIImage imageNamed:@"tb_co_pressed"]];
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:3] setSelectedImage:[UIImage imageNamed:@"tb_sex_offenders_pressed"]];
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:4] setSelectedImage:[UIImage imageNamed:@"tb_community_pressed"]];
-
+    
     
     
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:0] setTitle:NSLocalizedString(@"fire", nil)];
@@ -173,9 +192,21 @@ int previousFreq=0;
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:4] setTitle:NSLocalizedString(@"community", nil)];
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:3] setTitle:NSLocalizedString(@"tb_sex_offenders", nil)];
     
-
+    
 }
 
+#pragma mark -
+#pragma mark - alert view delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==0) {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"video_permission"];
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"video_permission"];
+    }
+}
 
 #pragma mark - Two Hundred's Milliseconds / Three Seconds Sampling
 -(void)TwoHundredMSSampling
@@ -227,11 +258,11 @@ int previousFreq=0;
                                                                                       range:NSMakeRange(0, replaceOnesWithX.length)];
         
         
-        if ( [replaceOnesWithY hasPrefix:@"xyxyxy"] && !ISOVERLAYSHOWING && !ISWAVEOVERLAYSHOWING && [[NSUserDefaults standardUserDefaults] valueForKey:@"userDetails"] != nil)
+        if ( [replaceOnesWithY hasPrefix:@"xyxyxy"] && !ISOVERLAYSHOWING && !ISWAVEOVERLAYSHOWING && [[NSUserDefaults standardUserDefaults] valueForKey:@"profile"] != nil)
         {
             
             int times = (int)[[original componentsSeparatedByString:@"1"] count]-1;
-            if(times>=6)
+            if(times>=5)
             {
                 NSDictionary *temp = @{@"type":@"1"};
                 [self setOffAlarmViaNotification1:temp];
@@ -300,7 +331,7 @@ int previousFreq=0;
                                                                                       range:NSMakeRange(0, replaceOnesWithX.length)];
         
         
-        if ( [replaceOnesWithY hasPrefix:@"xyxyxy"] && !ISOVERLAYSHOWING && !ISWAVEOVERLAYSHOWING && [[NSUserDefaults standardUserDefaults] valueForKey:@"userDetails"] != nil)
+        if ( [replaceOnesWithY hasPrefix:@"xyxyxy"] && !ISOVERLAYSHOWING && !ISWAVEOVERLAYSHOWING && [[NSUserDefaults standardUserDefaults] valueForKey:@"profile"] != nil)
         {
             int times =(int) [[original componentsSeparatedByString:@"1"] count]-1;
             if(times>=6)
@@ -345,7 +376,7 @@ int previousFreq=0;
                                                                                       range:NSMakeRange(0, replaceOnesWithX.length)];
         
         
-        if ( [replaceOnesWithY hasPrefix:@"xyxyxy"] && !ISOVERLAYSHOWING && !ISWAVEOVERLAYSHOWING && [[NSUserDefaults standardUserDefaults] valueForKey:@"userDetails"] != nil)
+        if ( [replaceOnesWithY hasPrefix:@"xyxyxy"] && !ISOVERLAYSHOWING && !ISWAVEOVERLAYSHOWING && [[NSUserDefaults standardUserDefaults] valueForKey:@"profile"] != nil)
         {
             int times =(int) [[original componentsSeparatedByString:@"1"] count]-1;
             if(times>=6)
@@ -388,7 +419,7 @@ int previousFreq=0;
                                                                                       range:NSMakeRange(0, replaceOnesWithX.length)];
         
         
-        if ( [replaceOnesWithY hasPrefix:@"xyxyxy"] && !ISOVERLAYSHOWING && !ISWAVEOVERLAYSHOWING && [[NSUserDefaults standardUserDefaults] valueForKey:@"userDetails"] != nil)
+        if ( [replaceOnesWithY hasPrefix:@"xyxyxy"] && !ISOVERLAYSHOWING && !ISWAVEOVERLAYSHOWING && [[NSUserDefaults standardUserDefaults] valueForKey:@"profile"] != nil)
         {
             
             int times = (int)[[original componentsSeparatedByString:@"1"] count]-1;
@@ -433,7 +464,7 @@ int previousFreq=0;
                                                                                       range:NSMakeRange(0, replaceOnesWithX.length)];
         
         
-        if ( [replaceOnesWithY hasPrefix:@"xyxyxy"] && !ISOVERLAYSHOWING && !ISWAVEOVERLAYSHOWING && [[NSUserDefaults standardUserDefaults] valueForKey:@"userDetails"] != nil)
+        if ( [replaceOnesWithY hasPrefix:@"xyxyxy"] && !ISOVERLAYSHOWING && !ISWAVEOVERLAYSHOWING && [[NSUserDefaults standardUserDefaults] valueForKey:@"profile"] != nil)
         {
             int times = (int)[[original componentsSeparatedByString:@"1"] count]-1;
             if(times>=6)
@@ -478,7 +509,7 @@ int previousFreq=0;
                                                                                       range:NSMakeRange(0, replaceOnesWithX.length)];
         
         
-        if ( [replaceOnesWithY hasPrefix:@"xyxyxy"] && !ISOVERLAYSHOWING && !ISWAVEOVERLAYSHOWING && [[NSUserDefaults standardUserDefaults] valueForKey:@"userDetails"] != nil)
+        if ( [replaceOnesWithY hasPrefix:@"xyxyxy"] && !ISOVERLAYSHOWING && !ISWAVEOVERLAYSHOWING && [[NSUserDefaults standardUserDefaults] valueForKey:@"profile"] != nil)
         {
             int times = (int)[[original componentsSeparatedByString:@"1"] count]-1;
             if(times>=6)
@@ -500,7 +531,21 @@ int previousFreq=0;
 #pragma mark - Micophone open and closing
 -(void)stopMicrophone
 {
+    
     [self.microphone stopFetchingAudio];
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    NSError *error;
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+    if (error)
+    {
+        NSLog(@"Error setting up audio session category: %@", error.localizedDescription);
+    }
+    [session setActive:YES error:&error];
+    if (error)
+    {
+        NSLog(@"Error setting up audio session active: %@", error.localizedDescription);
+    }
+    
 }
 -(void)startMicrophone
 {
@@ -718,157 +763,8 @@ int previousFreq=0;
     
 }
 
-//-(void)updateFFTWithBufferSize:(float)bufferSize withAudioData:(float*)data
-//{
-//    _fftBufIndex=0;
-//    // For an FFT, numSamples must be a power of 2, i.e. is always even
-//    int nOver2 = bufferSize/2;
-//    
-//    // Pack samples:
-//    // C(re) -> A[n], C(im) -> A[n+1]
-//    vDSP_ctoz((COMPLEX*)data, 2, &_A, 1, nOver2);
-//    
-//    // Perform a forward FFT using fftSetup and A
-//    // Results are returned in A
-//    vDSP_fft_zrip(_FFTSetup, &_A, 1, _log2n, FFT_FORWARD);
-//    
-//    // Convert COMPLEX_SPLIT A result to magnitudes
-//    float maxMag = 0;
-//    
-//    
-//    
-//    int _i_max = 0;
-//    for(int i=0; i<nOver2; i++)
-//    {
-//        // Calculate the magnitude
-//        float mag = _A.realp[i]*_A.realp[i]+_A.imagp[i]*_A.imagp[i];
-//        if(maxMag < mag) {
-//            _i_max = i;
-//        }
-//        maxMag = mag > maxMag ? mag : maxMag;
-//    }
-//    
-//    
-//    
-//    
-//    float frequency = _i_max / bufferSize * 44100.0;
-//    
-//    //iphone 6 vishnu  7:40 15july
-//    //fire 3273 debugging,  one code smoke similar
-//    //alana 3229
-//    //co1 3531
-//    //co2 3488
-//    //cherrie 3186
-//    //homie 2971 and photo
-//    
-//    
-//    int freq = frequency ;
-//    if(freq>2000)
-//        NSLog(@"Freq %d",freq);
-//    if (freq==3273)
-//    {
-//        if(freq==previousFreq)
-//        {
-//            [getsFireArray addObject:[NSNumber numberWithFloat:maxMag]];
-//        }
-//        else
-//        {
-//            [getsFireArray removeLastObject];
-//        }
-//    }
-//    else
-//        [getsFireArray addObject:[NSNumber numberWithFloat:0.0]];
-//    
-//    
-//    if (freq==2971)
-//    {
-//        //        if(freq==previousFreq)
-//        //        {
-//        [homieAndPhotoFireArray addObject:[NSNumber numberWithFloat:maxMag]];
-//        // }
-//        //        else
-//        //        {
-//        //            [homieAndPhotoFireArray removeLastObject];
-//        //        }
-//    }
-//    else
-//        [homieAndPhotoFireArray addObject:[NSNumber numberWithFloat:0.0]];
-//    
-//    
-//    //culprit 3617-9 times,3488-4times,3574-5times,3531-3times
-//    
-//    if (freq==3531||freq==3488||freq==7062||freq==6976)
-//    {
-//        if(freq==previousFreq)
-//        {
-//            [ambiguousArray addObject:[NSNumber numberWithFloat:maxMag]];
-//        }
-//        else
-//        {
-//            [ambiguousArray removeLastObject];
-//        }
-//        
-//    }
-//    
-//    else
-//        [ambiguousArray addObject:[NSNumber numberWithFloat:0.0]];
-//    
-//    
-//    //    if (freq==3531)
-//    //    {
-//    ////        if(freq==previousFreq)
-//    ////        {
-//    //            [kiddeFireArray addObject:[NSNumber numberWithFloat:maxMag]];
-//    //        //}
-//    ////        else
-//    ////        {
-//    ////            [kiddeFireArray removeLastObject];
-//    ////
-//    ////        }
-//    //
-//    //    }
-//    //    else
-//    //        [kiddeFireArray addObject:[NSNumber numberWithFloat:0.0]];
-//    
-//    
-//    if (freq==3229)
-//    {
-//        if(freq==previousFreq)
-//        {
-//            [alanaFireArray addObject:[NSNumber numberWithFloat:maxMag]];
-//        }
-//        else
-//        {
-//            [alanaFireArray addObject:[NSNumber numberWithFloat:0.0]];
-//            
-//        }
-//        
-//    }
-//    else
-//        [alanaFireArray addObject:[NSNumber numberWithFloat:0.0]];
-//    
-//    if (freq==3186)
-//    {
-//        if(freq==previousFreq)
-//            [CherrieFireArray addObject:[NSNumber numberWithFloat:maxMag]];
-//        else
-//            [CherrieFireArray addObject:[NSNumber numberWithFloat:0.0]];
-//    }
-//    
-//    else
-//        [CherrieFireArray addObject:[NSNumber numberWithFloat:0.0]];
-//    
-//    
-//    previousFreq = freq;
-//    
-//    
-//    
-//    
-//    
-//    
-//}
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - EZMicrophoneDelegate
 -(void)    microphone:(EZMicrophone *)microphone
      hasAudioReceived:(float **)buffer
@@ -915,7 +811,7 @@ int previousFreq=0;
     if([self.type isEqualToString:@"1"])
     {
         self.AlarmObj.currentTab = FIRE;
- 
+        
     }
     else if ([self.type isEqualToString:@"2"])
     {
@@ -992,20 +888,7 @@ int previousFreq=0;
     alarmTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
     
     
-//    NSString *type;
-//    if(self.currentTab==FIRE)
-//    {
-//        type = @"1";
-//    }
-//    else if (self.currentTab == GUN)
-//    {
-//        type = @"2";
-//    }
-//    else
-//    {
-//        type = @"3";
-//    }
-
+    
 }
 
 
@@ -1036,7 +919,7 @@ int previousFreq=0;
     if([self.type isEqualToString:@"1"])
     {
         NSString *stringType = [[NSUserDefaults standardUserDefaults] valueForKey:@"FireSound"];
-        if([stringType isEqualToString:@"FireDefault.mp3"])
+        if([stringType isEqualToString:@"FireDefault.mp3"]||[[NSUserDefaults standardUserDefaults] valueForKey:@"FireSound"]==nil)
         {
             yourMusicFile = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"FireDefault" ofType:@"mp3"]];
         }
@@ -1049,7 +932,7 @@ int previousFreq=0;
     else if ([self.type isEqualToString:@"2"])
     {
         NSString *stringType = [[NSUserDefaults standardUserDefaults] valueForKey:@"GunSound"];
-        if([stringType isEqualToString:@"GunDefault.mp3"])
+        if([stringType isEqualToString:@"GunDefault.mp3"]||[[NSUserDefaults standardUserDefaults] valueForKey:@"GunSound"]==nil)
         {
             yourMusicFile = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"GunDefault" ofType:@"mp3"]];
         }
@@ -1061,7 +944,7 @@ int previousFreq=0;
     else
     {
         NSString *stringType = [[NSUserDefaults standardUserDefaults] valueForKey:@"COSound"];
-        if([stringType isEqualToString:@"CODefault.mp3"])
+        if([stringType isEqualToString:@"CODefault.mp3"]||[[NSUserDefaults standardUserDefaults] valueForKey:@"COSound"]==nil)
         {
             yourMusicFile = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"CODefault" ofType:@"mp3"]];
         }
@@ -1114,8 +997,8 @@ int previousFreq=0;
     {
         NSLog(@"Error setting up audio session active: %@", error.localizedDescription);
     }
-
-
+    
+    
 }
 
 -(void)removeAlarmOverlay
@@ -1142,6 +1025,7 @@ int previousFreq=0;
 #pragma mark - Wave Animation View
 -(void)startWaveAnimation:(MAINTAB)tab
 {
+    ISWAVEOVERLAYSHOWING = YES;
     self.waveObj = [WaveAnimationView new];
     self.waveObj.currentTab = tab;
     self.waveObj.delegate = self;
@@ -1195,7 +1079,7 @@ int previousFreq=0;
         {
             addressString = @"";
         }
-                
+        
         NSDictionary *dictPara = @{@"user_id":[Profile getCurrentProfileUserId],@"latitude":[NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude ],@"longitude":[NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude ],@"description":@"",@"type":self.type,@"place":addressString};
         NSString *finalUrl = [NSString stringWithFormat:KOpenTok,KbaseUrl] ;
         [self hitApi:dictPara str:finalUrl];
@@ -1216,15 +1100,24 @@ int previousFreq=0;
 }
 -(void)hitApi:(NSDictionary *)dictPara str:(NSString *)urlStr
 {
+    
     [iOSRequest postNormalData:dictPara :urlStr success:^(NSDictionary *responseDict) {
         [self.waveObj removeFromSuperview];
         [[NSUserDefaults standardUserDefaults] setObject:[responseDict valueForKey:@"token"] forKey:@"token"];
         [[NSUserDefaults standardUserDefaults] setObject:[responseDict valueForKey:@"sessionId"] forKey:@"sessionId"];
-        VideoStreamViewController *vStreamVC = [[VideoStreamViewController alloc] init];
-        [vStreamVC.view setFrame:self.view.frame];
-        [self presentViewController:vStreamVC animated:YES completion:^{
-            
-        }];
+        if([[NSUserDefaults standardUserDefaults] boolForKey:@"video_permission"]==YES)
+        {
+            [self waveAnimationTurnOff];
+            [self stopMicrophone];
+            VideoStreamViewController *vStreamVC = [[VideoStreamViewController alloc] init];
+            [vStreamVC.view setFrame:self.view.frame];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self presentViewController:vStreamVC animated:YES completion:^{
+                    
+                }];
+            });
+        }
         
     } failure:^(NSError *error) {
         
@@ -1236,13 +1129,13 @@ int previousFreq=0;
 
 #pragma mark -
 #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSDictionary *)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
-     
- }
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSDictionary *)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    
+}
 
 
 @end

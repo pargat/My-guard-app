@@ -9,7 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "XLPagerTabStripViewController.h"
 #import "ApiConstants.h"
+#import <UIImageView+WebCache.h>
+#import "FeedMainCell.h"
+#import "FeedModal.h"
+#import "MapViewController.h"
+#import "ImageVideoViewController.h"
 
-@interface SearchFeedViewController : UIViewController
+@class SearchMainViewController;
+@interface SearchFeedViewController : UIViewController<FeedMainDelegate,UIActionSheetDelegate,UINavigationBarDelegate,UIImagePickerControllerDelegate>
 
+@property (nonatomic,strong) NSIndexPath *selectedIndex;
+@property (nonatomic,strong) NSString *stringToSearch;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewSearch;
+@property (nonatomic,strong) NSMutableArray *arraySearch;
+
+-(void)apiSearch:(NSString *)str;
 @end

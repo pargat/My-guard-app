@@ -32,7 +32,7 @@
 {
     [super viewDidAppear:animated];
     [self.collectionViewMain scrollToItemAtIndexPath:self.indexToScroll atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
-
+    
 }
 #pragma mark -
 #pragma mark - View helpers
@@ -73,16 +73,16 @@
         self.commentView.rectToDisappear = CGRectMake([[UIScreen mainScreen] bounds].size.width-32, [[UIScreen mainScreen] bounds].size.height-64, 0, 0);
         [self.commentView.imageViewRight setHidden:NO];
         [self.commentView.imageViewLeft setHidden:YES];
-
+        
     }
     [UIView animateWithDuration:0.50 animations:^{
         [self.commentView setFrame:[[UIScreen mainScreen] bounds]];
-
+        
     }];
     
     [[[UIApplication sharedApplication] keyWindow] addSubview:self.commentView];
     [self.commentView setter];
-
+    
 }
 
 
@@ -121,25 +121,41 @@
 {
 }
 
+#pragma mark -
+#pragma mark - Action sheet delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex==0)
+    {
+        NSIndexPath *indexPath = [[self.collectionViewMain indexPathsForVisibleItems] lastObject];
+        FileModal *modal = [self.arrayFiles objectAtIndex:indexPath.row];
+        [iOSRequest getJsonResponse:[NSString stringWithFormat:KReportImageApi,KbaseUrl,[Profile getCurrentProfileUserId],modal.fileId] success:^(NSDictionary *responseDict) {
+            [self showStaticAlert:@"Success" message:@"Reported successfully"];
+        } failure:^(NSString *errorString) {
+            
+        }];
+    }
+}
 
 #pragma mark -
 #pragma mark - Button actions
 -(void)actionMore
 {
-    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Report this post", nil];
+    [actionSheet showInView:self.view];
 }
 -(void)actionBack
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

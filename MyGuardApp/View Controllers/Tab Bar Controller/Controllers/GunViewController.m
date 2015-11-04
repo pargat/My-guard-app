@@ -130,7 +130,7 @@
 
 -(void)actionSearch
 {
-    
+    [self performSegueWithIdentifier:KSearchMainSegue sender:self];
 }
 -(void)actionProfile
 {

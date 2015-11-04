@@ -13,6 +13,8 @@
 @interface FeedModal : NSObject
 
 
+@property(nonatomic,retain)NSString *feed_description;
+@property(nonatomic,retain)NSString *feed_is_fake;
 @property(nonatomic,retain)NSString *feed_fullname;
 @property(nonatomic,retain)NSString *feed_id ;
 @property(nonatomic,retain)NSString *feed_userid ;
@@ -36,6 +38,7 @@
 
 
 //Functions
++(NSMutableArray *)parseDictToFeed : (NSArray *)arrFeed;
 +(void)callAPIForFeed : (NSString *)urlStr  Params : (NSDictionary *)paramsDict success : (void(^)(NSMutableArray *feedArr))success failure : (void(^)(NSString *errorStr))failure;
 -(id)initWithAttributes:(NSDictionary *)dict;
 +(void)callApIForUploadPic : (NSString *)urlStr  Params : (NSDictionary *)paramsDict success : (void(^)(bool success))success failure : (void(^)(NSString *errorStr))failure;

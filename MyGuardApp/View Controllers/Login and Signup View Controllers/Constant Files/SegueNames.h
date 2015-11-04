@@ -10,6 +10,7 @@
 
 
 //Segue names
+#define KPostAlarmSegue @"PostAlarmSegue"
 #define KSearchMainSegue @"SearchMainSegue"
 #define KFalseAlarmSegue @"FalseAlarmSegue"
 #define KImageVideoDetailSegue @"ImageVideoDetailSegue"

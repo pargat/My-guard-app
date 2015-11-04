@@ -15,6 +15,7 @@
 #import "SafetyMeasure.h"
 #import "BaseViewController.h"
 #import "CommunityNoCell.h"
+#import "SafetyDetailViewController.h"
 
 @interface OtherProfileViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
 

@@ -9,7 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "XLPagerTabStripViewController.h"
 #import "ApiConstants.h"
+#import "CommunityCell.h"
+#import "CommunityNoCell.h"
+#import "User.h"
+#import <UIImageView+WebCache.h>
+#import "OtherProfileViewController.h"
 
 @interface SearchUserViewController : UIViewController
 
+@property (nonatomic,strong) NSString *stringToSearch;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewSearch;
+@property (nonatomic,strong) NSMutableArray *arraySearch;
+
+-(void)apiSearch:(NSString *)str;
 @end

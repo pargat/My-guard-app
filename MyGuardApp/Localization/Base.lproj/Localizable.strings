@@ -6,6 +6,13 @@
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
 
+//general
+"video_permission" = "Do you want us to send live video feed when alarm is raised?";
+
+//Post
+"new_post" = "New Post";
+"post" = "Post";
+
 //User
 
 //Notification Screen
@@ -74,13 +81,26 @@
 "demo" = "Demo";
 "custom_alert_description" = "Customize alert sound for fire, gunshot and co.";
 "user_guide_des" = "Having trouble using the app?";
+
 //Walk Through
-"wt_emergency_title" = "Lorem Ipsum";
-"wt_alarm_title" = "Lorem Ipsum";
-"wt_quick_title" = "Lorem Ipsum";
-"wt_emergency_desc" = "Lorem Ipsum";
-"wt_alarm_desc" = "Lorem Ipsum";
-"wt_quick_desc" = "Lorem Ipsum";
+"fire_walk_t" = "Fire";
+"gun_walk_t" = "Gun Shot";
+"co_walk_t" = "Carbon Monoxide";
+"sex_walk_t" = "Sex Offenders";
+
+"fire_walk" = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
+"gun_walk" = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
+"co_walk" = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
+"sex_walk" = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
+
+
+
+"wt_emergency_title" = "Emergency phone";
+"wt_alarm_title" = "Manual alarm";
+"wt_quick_title" = "Quick emergency buttons";
+"wt_emergency_desc" = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
+"wt_alarm_desc" = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
+"wt_quick_desc" = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
 
 //tab
 "tb_co" = "CO";
@@ -93,7 +113,6 @@
 "error" = "Error";
 "invalid_email_password" = "Email or password is invalid";
 "no_internet" = "THere might be problem in your internet connection";
-"fire_walk" = "Fire walk fire walk through fire walk through";
 "skip_walkthrough_btn" = "Skip walkthrough";
 "action_settings" = "Settings";
 "hello_blank_fragment"= "Hello blank fragment";

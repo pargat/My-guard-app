@@ -26,6 +26,8 @@ typedef enum : NSUInteger {
 } MAINTAB;
 
 
+//Post
+#define KPostAlarmApi @"%@post_fake_alarm.php"
 
 //General Constants
 #define KInternetNotAvailable @"Internet is not available"
@@ -33,6 +35,10 @@ typedef enum : NSUInteger {
 #define DisplayScale [[UIScreen mainScreen] scale]
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 #define TIMEOFFSET [[NSTimeZone localTimeZone] secondsFromGMT]
+
+//reporting
+#define KReportImageApi @"%@report_image.php?user_id=%@&image_id=%@"
+
 
 //Image extra apis
 #define KRemoveFilesApi @"%@remove_files_v2.php?user_id=%@&alarm_id=%@&image_ids=%@"
@@ -84,6 +90,7 @@ typedef enum : NSUInteger {
 #define KGetProfile @"%@get_other_profile.php?uid=%@&mid=%@"
 
 //Notification apis
+#define KClearAllNotifs @"%@clear_all_notifications.php?user_id=%@"
 #define KGetNotificationApi @"%@get_notifications_v2.php?user_id=%@&page=%d"
 #define KMarkNotificationApi @"%@mark_notification_read.php?user_id=%@&notification_id=%@"
 

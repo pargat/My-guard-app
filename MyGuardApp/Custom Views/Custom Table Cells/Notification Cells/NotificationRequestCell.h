@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol NotificationDelegate <NSObject>
+
+-(void)delAcceptOrReject:(BOOL)accept atIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
 @interface NotificationRequestCell : UITableViewCell
+@property (nonatomic,assign) id<NotificationDelegate> delegate;
+@property (nonatomic,strong) NSIndexPath *selectedIndex;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewDp;
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 @property (weak, nonatomic) IBOutlet UIView *viewOverlauy;

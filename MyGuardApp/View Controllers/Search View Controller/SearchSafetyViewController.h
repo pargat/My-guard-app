@@ -11,10 +11,16 @@
 #import "SafetyProfileCell.h"
 #import "ApiConstants.h"
 #import "SearchMainViewController.h"
+#import "SafetyMeasure.h"
+#import "CommunityNoCell.h"
+#import "SafetyDetailViewController.h"
 
+@interface SearchSafetyViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 
-@interface SearchSafetyViewController : UIViewController
-
+@property (nonatomic,strong) NSString *stringToSearch;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewSearch;
+@property (nonatomic,strong) NSMutableArray *arraySearch;
+
+-(void)apiSearch:(NSString *)str;
 
 @end

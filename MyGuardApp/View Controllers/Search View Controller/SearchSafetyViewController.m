@@ -16,7 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self viewHelper];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,15 +25,32 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if(self.stringToSearch!=nil)
+    {
+        [self apiSearch:self.stringToSearch];
+    }
+}
+
+
 #pragma mark - 
 #pragma mark -  View helpers
--(void)apiSearch
+-(void)viewHelper
 {
-    SearchMainViewController *searchMain = (SearchMainViewController *)self.parentViewController;
-    NSString * stringSearchSafety = [NSString stringWithFormat:KSearchNewApi,KbaseUrl,[Profile getCurrentProfileUserId],searchMain.searchBar.text,@"2"];
+    [self.tableViewSearch setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    [self.tableViewSearch setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
+    [self.tableViewSearch setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+}
+
+-(void)apiSearch:(NSString *)str
+{
+    NSString * stringSearchSafety = [NSString stringWithFormat:KSearchNewApi,KbaseUrl,[Profile getCurrentProfileUserId],str,@"2"];
     
     [iOSRequest getJsonResponse:stringSearchSafety success:^(NSDictionary *responseDict) {
-        
+        self.arraySearch = [SafetyMeasure parseDictToModal:[responseDict valueForKey:@"data"]];
+        [self.tableViewSearch reloadData];
     } failure:^(NSString *errorString) {
         
     }];
@@ -41,6 +59,9 @@
 #pragma mark - 
 #pragma mark - Delegate
 -(void)del
+{
+    
+}
 
 #pragma mark -
 #pragma mark - XlChild
@@ -48,6 +69,110 @@
 - (NSString *)titleForPagerTabStripViewController:(XLPagerTabStripViewController *)pagerTabStripViewController
 {
     return NSLocalizedString(@"safety_measures", nil);
+}
+
+#pragma mark -
+#pragma mark - Table view delegate and datasource function
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(self.arraySearch.count!=0)
+    {
+        [self performSegueWithIdentifier:KSafetyDetailSegue sender:[self.arraySearch objectAtIndex:indexPath.row]];
+    }
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if(self.arraySearch.count==0)
+    {
+        return 1;
+    }
+    else
+        return self.arraySearch.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+            if(self.arraySearch.count==0)
+        {
+            CommunityNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
+            [cell.labelNoUsers setText:@"No safety measures found"];
+            return cell;
+            
+        }
+        else
+        {
+            SafetyProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SafetyProfileCell"];
+            [self configureSafetyCell:cell atIndexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+            
+        }
+}
+
+-(void)configureSafetyCell:(SafetyProfileCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    SafetyMeasure *modal = [self.arraySearch objectAtIndex:indexPath.row];
+    [cell.labelDescription setText:modal.safetyDescription];
+    [cell.labelDescription setPreferredMaxLayoutWidth:self.view.frame.size.width - 82];
+    if([modal.safetyType isEqualToString:@"1"])
+    {
+        [cell.imageViewType setImage:[UIImage imageNamed:@"tb_fire_pressed"]];
+        [cell.labelTitle setText:@"Shared a safety measure in Fire Safety"];
+    }
+    else if ([modal.safetyType isEqualToString:@"2"])
+    {
+        [cell.imageViewType setImage:[UIImage imageNamed:@"tb_co_pressed"]];
+        [cell.labelTitle setText:@"Shared a safety measure in CO"];
+    }
+    else
+    {
+        [cell.imageViewType setImage:[UIImage imageNamed:@"tb_gun_pressed"]];
+        [cell.labelTitle setText:@"Shared a safety measure in Gun Safety"];
+    }
+    [cell.labelTitle setHidden:NO];
+    [cell.labelDisplayTime setText:modal.safetyDisplayTime];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+        if(self.arraySearch.count==0)
+        {
+            static CommunityNoCell *sizingCell = nil;
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                sizingCell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
+            });
+            
+            CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            return size.height+1;
+            
+        }
+        else
+        {
+            static SafetyProfileCell *sizingCell = nil;
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                sizingCell = [tableView dequeueReusableCellWithIdentifier:@"SafetyProfileCell"];
+            });
+            
+            [self configureSafetyCell:sizingCell atIndexPath:indexPath];
+            CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            return size.height+1;
+        }
+    
+    
+}
+#pragma mark -
+#pragma mark - Navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:KSafetyDetailSegue])
+    {
+        SafetyDetailViewController *safetyVC = (SafetyDetailViewController *)segue.destinationViewController;
+        SafetyMeasure *modal = (SafetyMeasure *)sender;
+        safetyVC.stringSafety = modal.safetyDescription;
+    }
 }
 
 

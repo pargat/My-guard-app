@@ -25,6 +25,7 @@
     {
         self = [[[NSBundle mainBundle] loadNibNamed:@"WalkThroughLastView" owner:self options:nil] lastObject];
         [self setFrame:frame];
+        [self setBackgroundColor:KPurpleColor];
         //[self initializeUI];
     }
     

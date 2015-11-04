@@ -23,8 +23,10 @@
 }
 
 - (IBAction)actionReject:(id)sender {
+    [self.delegate delAcceptOrReject:false atIndexPath:self.selectedIndex];
 }
 
 - (IBAction)actionAccept:(id)sender {
+    [self.delegate delAcceptOrReject:true atIndexPath:self.selectedIndex];
 }
 @end

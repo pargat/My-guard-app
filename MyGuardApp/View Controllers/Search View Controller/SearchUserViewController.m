@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self viewHelper];
     // Do any additional setup after loading the view.
 }
 
@@ -23,6 +24,37 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if(self.stringToSearch!=nil)
+    {
+        [self apiSearch:self.stringToSearch];
+    }
+}
+
+#pragma mark -
+#pragma mark -  View helpers
+-(void)viewHelper
+{
+    [self.tableViewSearch setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    [self.tableViewSearch setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
+
+}
+
+-(void)apiSearch:(NSString *)str
+{
+    NSString * stringSearchSafety = [NSString stringWithFormat:KSearchNewApi,KbaseUrl,[Profile getCurrentProfileUserId],str,@"2"];
+    
+    [iOSRequest getJsonResponse:stringSearchSafety success:^(NSDictionary *responseDict) {
+        self.arraySearch = [User parseDictToModal:[responseDict valueForKey:@"data"]];
+        [self.tableViewSearch reloadData];
+    } failure:^(NSString *errorString) {
+        
+    }];
+}
+
 #pragma mark -
 #pragma mark - XlChild
 
@@ -31,14 +63,97 @@
     return NSLocalizedString(@"safety_measures", nil);
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+#pragma mark -
+#pragma mark - Table View Delegate and datasource function
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    if(self.arraySearch.count==0)
+        return 1;
+    else
+    {
+        return self.arraySearch.count;
+        
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(self.arraySearch.count==0)
+    {
+        CommunityNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
+        [cell.labelNoUsers setText:@"No users"];
+        cell.separatorInset = UIEdgeInsetsZero;
+        return cell;
+    }
+    else
+    {
+        CommunityCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityCell"];
+        [self configureCell:cell atIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
+    
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(self.arraySearch.count==0)
+    {
+        
+        static CommunityNoCell *sizingCell = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            sizingCell = [self.tableViewSearch dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
+        });
+        
+        CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        return size.height;
+    }
+    else
+    {
+        static CommunityCell *sizingCell = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            sizingCell = [self.tableViewSearch dequeueReusableCellWithIdentifier:@"CommunityCell"];
+        });
+        
+        [self configureCell:sizingCell atIndexPath:indexPath];
+        CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        return size.height;
+    }
+    
+}
+
+-(void)configureCell:(CommunityCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    User *tempuser= [self.arraySearch objectAtIndex:indexPath.row];
+        
+    
+    
+    [cell.labelDistance setText:@"1"];
+    [cell.labelName setText:tempuser.userFirstName];
+    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",tempuser.userImageName,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+        [self performSegueWithIdentifier:KOtherProfileSegue sender:[self.arraySearch objectAtIndex:indexPath.row]];
+    
+}
+
+#pragma mark -
+#pragma mark - Navigation related
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    User *modal = (User *)sender;
+    
+    OtherProfileViewController *otherVC = (OtherProfileViewController *)segue.destinationViewController;
+    otherVC.stringUserId = modal.userUserId;
+    otherVC.stringUsername = modal.userUserName;
 }
-*/
 
 @end

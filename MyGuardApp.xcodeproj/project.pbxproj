@@ -107,6 +107,8 @@
 		27C5EE881BD112610010061E /* Register1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C5EE871BD112610010061E /* Register1ViewController.m */; };
 		27C5EE8B1BD112E60010061E /* RegisterStep2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C5EE8A1BD112E60010061E /* RegisterStep2ViewController.m */; };
 		27C5EED01BD22D710010061E /* WaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C5EECF1BD22D710010061E /* WaveformView.m */; };
+		27DD67681BE8E8A7001CDDBB /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DD67671BE8E8A7001CDDBB /* PostViewController.m */; };
+		27DD676B1BE9246B001CDDBB /* FeedFakeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DD676A1BE9246A001CDDBB /* FeedFakeCell.m */; };
 		27DE4E031BBA6AB100135DF6 /* AlarmOverLayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DE4E011BBA6AB100135DF6 /* AlarmOverLayView.m */; };
 		27DE4E041BBA6AB100135DF6 /* AlarmOverLayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DE4E021BBA6AB100135DF6 /* AlarmOverLayView.xib */; };
 		27DE4E0B1BBA95AE00135DF6 /* UIView+Snapshotting.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DE4E071BBA95AE00135DF6 /* UIView+Snapshotting.m */; };
@@ -341,6 +343,10 @@
 		27C5EE8A1BD112E60010061E /* RegisterStep2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterStep2ViewController.m; sourceTree = "<group>"; };
 		27C5EECE1BD22D710010061E /* WaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveformView.h; sourceTree = "<group>"; };
 		27C5EECF1BD22D710010061E /* WaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveformView.m; sourceTree = "<group>"; };
+		27DD67661BE8E8A7001CDDBB /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
+		27DD67671BE8E8A7001CDDBB /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
+		27DD67691BE9246A001CDDBB /* FeedFakeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedFakeCell.h; sourceTree = "<group>"; };
+		27DD676A1BE9246A001CDDBB /* FeedFakeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedFakeCell.m; sourceTree = "<group>"; };
 		27DE4E001BBA6AB100135DF6 /* AlarmOverLayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmOverLayView.h; sourceTree = "<group>"; };
 		27DE4E011BBA6AB100135DF6 /* AlarmOverLayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmOverLayView.m; sourceTree = "<group>"; };
 		27DE4E021BBA6AB100135DF6 /* AlarmOverLayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlarmOverLayView.xib; sourceTree = "<group>"; };
@@ -611,6 +617,8 @@
 				2771B0AA1BBD51DC002DE1E2 /* FeedMainCell.m */,
 				2771B0AD1BBD5581002DE1E2 /* FeedImageCell.h */,
 				2771B0AE1BBD5581002DE1E2 /* FeedImageCell.m */,
+				27DD67691BE9246A001CDDBB /* FeedFakeCell.h */,
+				27DD676A1BE9246A001CDDBB /* FeedFakeCell.m */,
 			);
 			name = "Feed Cells";
 			path = "Settings Cell/Alarm Views/Feed Cells";
@@ -767,6 +775,7 @@
 		278210C01B9AE87D000EA90B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				27DD67651BE8E88E001CDDBB /* Post View Controllers */,
 				2780F6D41BE51ECF0086449B /* Search View Controller */,
 				2780F6D01BE4D61A0086449B /* False Alarm View Controller */,
 				2701146D1BDD5AC400E8FE95 /* Demo View Controllers */,
@@ -1132,6 +1141,15 @@
 			path = "Register View Controllers";
 			sourceTree = "<group>";
 		};
+		27DD67651BE8E88E001CDDBB /* Post View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				27DD67661BE8E8A7001CDDBB /* PostViewController.h */,
+				27DD67671BE8E8A7001CDDBB /* PostViewController.m */,
+			);
+			path = "Post View Controllers";
+			sourceTree = "<group>";
+		};
 		27DE4DFF1BBA6AA800135DF6 /* Alarm Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1459,6 +1477,7 @@
 				278711891BAAAC8500F9CA16 /* Profile.m in Sources */,
 				27C137C01BCBB1570072EDB6 /* SexOffenderDetailViewController.m in Sources */,
 				2780F6D31BE4E1F40086449B /* FalseAlarmViewController.m in Sources */,
+				27DD676B1BE9246B001CDDBB /* FeedFakeCell.m in Sources */,
 				276088601BCF77A6009F1E18 /* SoundMainViewController.m in Sources */,
 				270114581BDCF79000E8FE95 /* ImageVideoDetailViewController.m in Sources */,
 				2782109F1B9AE822000EA90B /* MyGuardApp.xcdatamodeld in Sources */,
@@ -1485,6 +1504,7 @@
 				27FBA6E11BA93A9C00F373E4 /* COViewController.m in Sources */,
 				276088711BCFC3FF009F1E18 /* ImageVideoViewController.m in Sources */,
 				274E8E8F1BD578C600171C5C /* CommonFunctions.m in Sources */,
+				27DD67681BE8E8A7001CDDBB /* PostViewController.m in Sources */,
 				277A8EBA1BB293E500A7C347 /* SafetyProfileCell.m in Sources */,
 				2771B0AF1BBD5581002DE1E2 /* FeedImageCell.m in Sources */,
 				2771B0B31BBD58ED002DE1E2 /* FeedModal.m in Sources */,
@@ -1703,14 +1723,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyGuardApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "031d839c-81bc-42df-a5ec-1e7b53f206f2";
+				PROVISIONING_PROFILE = "c2f72bda-1340-4b4e-9dd1-7cc4ab166316";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyGuardApp/sounds/MyGuardApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1723,14 +1743,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyGuardApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "031d839c-81bc-42df-a5ec-1e7b53f206f2";
+				PROVISIONING_PROFILE = "c2f72bda-1340-4b4e-9dd1-7cc4ab166316";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyGuardApp/sounds/MyGuardApp-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

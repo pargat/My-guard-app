@@ -172,6 +172,12 @@
         Register1ViewController *regStep1VC = (Register1ViewController *)segue.destinationViewController;
         regStep1VC.dictFb = self.dictFB;
     }
+    else if([segue.identifier isEqualToString:KtabSegue])
+    {
+        MainTabBarController *mainVC = (MainTabBarController *)segue.destinationViewController;
+        mainVC.isFirstTime = true;
+    }
+
 }
 
 @end

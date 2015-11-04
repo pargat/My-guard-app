@@ -210,7 +210,7 @@
 -(NSArray *)childViewControllersForPagerTabStripViewController:(XLPagerTabStripViewController *)pagerTabStripViewController
 {
     [self initialiseVCs];
-    return @[self.community1,self.community2,self.community3,self.community4];
+    return @[self.community1,self.community2,self.community3];
 }
 
 
@@ -219,12 +219,12 @@
 #pragma mark - Button Actions
 -(void)actionSearch
 {
-    [self.sBar becomeFirstResponder];
-    
-    self.navigationItem.titleView  = self.sBar;
-    self.navigationItem.leftBarButtonItem = nil;
-    self.navigationItem.rightBarButtonItem = nil;
-    
+//    [self.sBar becomeFirstResponder];
+//    
+//    self.navigationItem.titleView  = self.sBar;
+//    self.navigationItem.leftBarButtonItem = nil;
+//    self.navigationItem.rightBarButtonItem = nil;
+    [self performSegueWithIdentifier:KSearchMainSegue sender:self];    
 }
 
 -(void)actionProfile

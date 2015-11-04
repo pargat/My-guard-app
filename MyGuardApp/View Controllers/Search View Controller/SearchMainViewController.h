@@ -13,18 +13,12 @@
 #import "SearchSafetyViewController.h"
 #import "ApiConstants.h"
 
-@protocol SearchMainDelegate <NSObject>
-
--(void)delSearch;
-
-@end
 
 @class SearchFeedViewController;
 @class SearchSafetyViewController;
 @class SearchUserViewController;
 @interface SearchMainViewController : XLButtonBarPagerTabStripViewController<XLPagerTabStripViewControllerDataSource,UISearchBarDelegate>
 
-@property (nonatomic,assign) id<SearchMainDelegate> delegate;
 @property (nonatomic,strong) SearchUserViewController *searchUserVC;
 @property (nonatomic,strong) SearchSafetyViewController *searchSafetyVC;
 @property (nonatomic,strong) SearchFeedViewController *searchFeedVC;

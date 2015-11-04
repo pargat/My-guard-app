@@ -12,18 +12,18 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xbr-Mv-MxC">
-                    <rect key="frame" x="0.0" y="32" width="600" height="441"/>
+                    <rect key="frame" x="0.0" y="32" width="600" height="425"/>
                     <animations/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fire" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrI-32-PSk">
-                    <rect key="frame" x="285" y="481" width="30" height="22"/>
+                    <rect key="frame" x="284" y="473" width="32" height="22"/>
                     <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BO9-6f-KVw">
-                    <rect key="frame" x="16" y="519" width="568" height="17"/>
+                    <rect key="frame" x="16" y="511" width="568" height="17"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -34,13 +34,13 @@
             <color key="backgroundColor" red="0.0" green="0.74901960779999999" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Xbr-Mv-MxC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="32" id="KT4-Ml-bVj"/>
-                <constraint firstItem="qrI-32-PSk" firstAttribute="top" secondItem="Xbr-Mv-MxC" secondAttribute="bottom" constant="8" id="LeR-jm-ReG"/>
+                <constraint firstItem="qrI-32-PSk" firstAttribute="top" secondItem="Xbr-Mv-MxC" secondAttribute="bottom" constant="16" id="LeR-jm-ReG"/>
                 <constraint firstItem="Xbr-Mv-MxC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="MU8-cR-5d6"/>
                 <constraint firstAttribute="trailing" secondItem="Xbr-Mv-MxC" secondAttribute="trailing" id="SFq-cr-Uda"/>
                 <constraint firstAttribute="trailing" secondItem="BO9-6f-KVw" secondAttribute="trailing" constant="16" id="Y48-iE-DKD"/>
                 <constraint firstItem="BO9-6f-KVw" firstAttribute="top" secondItem="qrI-32-PSk" secondAttribute="bottom" constant="16" id="ax3-YN-fJo"/>
                 <constraint firstAttribute="centerX" secondItem="qrI-32-PSk" secondAttribute="centerX" id="sJU-gi-mXR"/>
-                <constraint firstAttribute="bottom" secondItem="BO9-6f-KVw" secondAttribute="bottom" constant="64" id="tLJ-qh-Ask"/>
+                <constraint firstAttribute="bottom" secondItem="BO9-6f-KVw" secondAttribute="bottom" constant="72" id="tLJ-qh-Ask"/>
                 <constraint firstItem="BO9-6f-KVw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="uwR-u8-IRH"/>
             </constraints>
             <connections>

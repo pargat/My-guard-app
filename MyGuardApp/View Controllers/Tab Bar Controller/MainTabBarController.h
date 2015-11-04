@@ -19,8 +19,9 @@
 #import "OtherProfileViewController.h"
 #import "SafetyDetailViewController.h"
 
-@interface MainTabBarController : UITabBarController<CLLocationManagerDelegate,alarmOverlayDelegate,waveAnimationDelegate,EZMicrophoneDelegate>
+@interface MainTabBarController : UITabBarController<CLLocationManagerDelegate,alarmOverlayDelegate,waveAnimationDelegate,EZMicrophoneDelegate,UIAlertViewDelegate>
 
+@property BOOL isFirstTime;
 @property (nonatomic,strong)NSString *type;
 @property (nonatomic,strong) EZMicrophone *microphone;
 @property (nonatomic,strong) CLLocationManager *locationManager;

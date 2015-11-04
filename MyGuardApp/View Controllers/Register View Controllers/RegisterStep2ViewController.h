@@ -11,6 +11,7 @@
 #import "LOcationUpdater.h"
 #import <RMDateSelectionViewController.h>
 #import <RMPickerViewController.h>
+#import "MainTabBarController.h"
 
 @interface RegisterStep2ViewController : BaseViewController<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
 

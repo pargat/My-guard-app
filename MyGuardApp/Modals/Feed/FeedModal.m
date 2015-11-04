@@ -17,6 +17,8 @@
     if(self!=nil)
     {
         
+        
+        
         self.feed_full_time = [dict valueForKey:@"nice_time"];
         self.feed_id = [dict  valueForKey:@"id"];
         self.feed_username = [dict valueForKey:@"username"];
@@ -31,7 +33,8 @@
         self.feed_place = [dict  valueForKey:@"place"];
         self.feed_imageName = [dict  valueForKey:@"image_name"];
         self.feed_time_passed = [dict valueForKey:@"n_time"];
-        
+        self.feed_is_fake = [dict valueForKey:@"is_fake"];
+        self.feed_description = [dict valueForKey:@"description"];
         if(((NSArray *)[dict valueForKey:@"files"]).count==0)
         {
             self.feed_files = [[NSMutableArray alloc] init];

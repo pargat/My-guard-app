@@ -238,7 +238,11 @@
     }
     
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row>0)
+    [self performSegueWithIdentifier:KSafetyDetailSegue sender:[self.arraySafety objectAtIndex:indexPath.row-1]];
+}
 #pragma mark -
 #pragma mark - Action Sheet Delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -264,4 +268,17 @@
     
 }
 
+
+#pragma mark - 
+#pragma mark - Navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:KSafetyDetailSegue])
+    {
+        SafetyDetailViewController *safetyVC = (SafetyDetailViewController *)segue.destinationViewController;
+        SafetyMeasure *modal = (SafetyMeasure *)sender;
+        safetyVC.stringSafety = modal.safetyDescription;
+    }
+}
 @end

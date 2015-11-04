@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self viewHelper];
     self.pageIndex = 0;
     [self setUpLoaderView1];
     [self getFeed:YES];
@@ -38,7 +39,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
+    
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -48,6 +49,26 @@
 
 #pragma mark -
 #pragma mark - api related and helper function
+-(void)viewHelper
+{
+    if(self.feedType ==1)
+    {
+        [self.btnPostFeed setBackgroundColor:KOrangeColor];
+        
+    }
+    else if (self.feedType==3)
+    {
+        [self.btnPostFeed setBackgroundColor:KRedColor];
+        
+    }
+    else
+    {
+        [self.btnPostFeed setBackgroundColor:KGreenColor];
+        
+    }
+    self.btnPostFeed.layer.cornerRadius = self.btnPostFeed.frame.size.width/2;
+    self.btnPostFeed.clipsToBounds = YES;
+}
 -(void)addRefreshAndInfinite
 {
     [self.tableViewFeeds addPullToRefreshWithActionHandler:^{
@@ -63,7 +84,7 @@
 }
 -(void)getFeed : (BOOL)refresh
 {
- 
+    
     
     Profile *profileD = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
     NSString *strUrl = [NSString stringWithFormat:KGetAlarms,KbaseUrl,profileD.profileUserId,self.feedType,self.pageIndex,TIMEOFFSET];
@@ -81,12 +102,12 @@
             [self.tableViewFeeds.infiniteScrollingView stopAnimating];
         }
         [self.tableViewFeeds reloadData];
-
+        
         [self removeLoaderView];
     } failure:^(NSString *errorStr) {
         [self removeLoaderView];
     }];
-   
+    
 }
 
 
@@ -95,7 +116,7 @@
 
 - (NSString *)titleForPagerTabStripViewController:(XLPagerTabStripViewController *)pagerTabStripViewController
 {
-
+    
     return NSLocalizedString(@"feed", nil);
 }
 
@@ -127,7 +148,7 @@
     self.selectedIndex = indexPath;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo",@"Choose photo from gallery",@"Take Video",@"Choose Video from gallery",nil];
     [actionSheet showInView:self.view];
-
+    
 }
 
 #pragma mark -
@@ -139,42 +160,77 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FeedMainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedMainCell"];
-    
-    [self configureMapCell:cell atIndexPath:indexPath];
-    cell.selectedPath = indexPath;
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    [cell setDelegate:self];
     FeedModal *modal = [self.arrayFeeds objectAtIndex:indexPath.row];
     
-    if(modal.feed_files.count==0)
+    if([modal.feed_is_fake isEqualToString:@"0"])
     {
-        [cell setDataAndDelegateNil];
+        
+        FeedMainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedMainCell"];
+        
+        [self configureMapCell:cell atIndexPath:indexPath];
+        cell.selectedPath = indexPath;
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        [cell setDelegate:self];
+        FeedModal *modal = [self.arrayFeeds objectAtIndex:indexPath.row];
+        
+        if(modal.feed_files.count==0)
+        {
+            [cell setDataAndDelegateNil];
+        }
+        else
+        {
+            [cell setDelegateAndData];
+            
+        }
+        
+        
+        return cell;
     }
     else
     {
-        [cell setDelegateAndData];
+        FeedFakeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedFakeCell"];
+        
+        [self configureFakeCell:cell atIndexPath:indexPath];
+        cell.selectedPath = indexPath;
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        [cell setDelegate:self];
+        FeedModal *modal = [self.arrayFeeds objectAtIndex:indexPath.row];
+        
+        if(modal.feed_files.count==0)
+        {
+            [cell setDataAndDelegateNil];
+        }
+        else
+        {
+            [cell setDelegateAndData];
+            
+        }
+        
+        
+        return cell;
         
     }
-
-    
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(FeedMainCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    FeedModal *modal = [self.arrayFeeds objectAtIndex:indexPath.row];
+    
+    
     [self.view setNeedsLayout];
     [self.view layoutIfNeeded];
     
     
-
     
-    UIBezierPath *shadowPath  = [UIBezierPath bezierPathWithRect:cell.viewOverlay.bounds];
-    cell.viewOverlay.layer.masksToBounds = NO;
-    cell.viewOverlay.layer.shadowColor = [UIColor lightGrayColor].CGColor;
-    cell.viewOverlay.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    cell.viewOverlay.layer.shadowOpacity = 0.75f;
-    cell.viewOverlay.layer.shadowPath = shadowPath.CGPath;
+    if([modal.feed_is_fake isEqualToString:@"0"])
+    {
+        UIBezierPath *shadowPath  = [UIBezierPath bezierPathWithRect:cell.viewOverlay.bounds];
+        cell.viewOverlay.layer.masksToBounds = NO;
+        cell.viewOverlay.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+        cell.viewOverlay.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
+        cell.viewOverlay.layer.shadowOpacity = 0.75f;
+        cell.viewOverlay.layer.shadowPath = shadowPath.CGPath;
+    }
     
     UIBezierPath *shadowPath1 = [UIBezierPath bezierPathWithRect:cell.viewShadow.bounds];
     cell.viewShadow.layer.masksToBounds = NO;
@@ -192,7 +248,7 @@
     [cell.labelName setText:modal.feed_fullname];
     [cell.labelDistance setText:[NSString stringWithFormat:@"%@ away",modal.feed_distance]];
     [cell.labelTimeSince setText:modal.feed_time_passed];
-
+    
     
     if(modal.feed_files.count==0)
     {
@@ -209,7 +265,7 @@
     
     
     [cell.heightMap setConstant:12*[[UIScreen mainScreen] bounds].size.width/16];
-
+    
     if([modal.feed_address isEqualToString:@""]||modal.feed_address==nil)
     {
         [cell.labelAddress setText:@"N.A."];
@@ -221,7 +277,7 @@
     {
         [cell.labelEmergencyName setText:@"Fire"];
         [cell.labelEmergencyName setTextColor:KOrangeColor];
-
+        
     }
     else if (self.feedType==3)
     {
@@ -232,27 +288,65 @@
     {
         [cell.labelEmergencyName setText:@"CO Emergency"];
         [cell.labelEmergencyName setTextColor:KGreenColor];
- 
+        
     }
     [cell.labelAddress setPreferredMaxLayoutWidth:self.view.frame.size.width - 192];
     
-
+    
     
     [cell.imageViewMap sd_setImageWithURL:[NSURL URLWithString:[[NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?center=%@,%@&zoom=14&size=%dx%d&markers=icon:%@|label:C|size=mid|%@,%@",modal.feed_lat,modal.feed_lng,(int)(cell.imageViewMap.frame.size.width*DisplayScale),(int)(cell.imageViewMap.frame.size.height*DisplayScale),self.markerUrl,modal.feed_lat,modal.feed_lng] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-
+    
+}
+-(void)configureFakeCell:(FeedFakeCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    FeedModal *modal = [self.arrayFeeds objectAtIndex:indexPath.row];
+    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:KBaseTimbthumbUrl,modal.feed_imageName,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.width*DisplayScale]]];
+    [cell.labelName setText:modal.feed_fullname];
+    [cell.labelDistance setText:[NSString stringWithFormat:@"%@ away",modal.feed_distance]];
+    [cell.labelTimeSince setText:modal.feed_time_passed];
+    [cell.labelDescription setText:modal.feed_description];
+    [cell.labelDescription setPreferredMaxLayoutWidth:self.view.frame.size.width-48];
+    if(modal.feed_files.count<2)
+    {
+        cell.heightCollctionView.constant = 0;
+        [cell.collectionViewImages setHidden:YES];
+        cell.arrayFiles = [[NSMutableArray alloc] init];
+    }
+    else
+    {
+        cell.heightCollctionView.constant = 100;
+        [cell.collectionViewImages setHidden:NO];
+        cell.arrayFiles = [modal.feed_files mutableCopy];
+        [cell.arrayFiles removeObjectAtIndex:0];
+    }
+    
+    
+    [cell.heightMap setConstant:12*[[UIScreen mainScreen] bounds].size.width/16-44];
+    FileModal *fileModal = [modal.feed_files firstObject];
+    if(fileModal.fileType)
+    {
+        [cell.btnVideo setHidden:NO];
+    }
+    else
+    {
+        [cell.btnVideo setHidden:YES];
+    }
+    [cell.imageViewMap sd_setImageWithURL:[NSURL URLWithString:fileModal.fileThumbCumImageLink]];
+    
 }
 
-#pragma mark - 
+
+#pragma mark -
 #pragma mark - Action Sheet Delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
     [pickerController setDelegate:self];
-
+    
     if(buttonIndex==0)
     {
         pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-
+        
         pickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
         
     }
@@ -260,7 +354,7 @@
     if(buttonIndex==1)
     {
         pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary|UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-
+        
         pickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
     }
     if(buttonIndex==2)
@@ -271,7 +365,7 @@
     }
     if(buttonIndex==3)
     {
-
+        
         pickerController.videoQuality = UIImagePickerControllerQualityTypeMedium;
         pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary|UIImagePickerControllerSourceTypeSavedPhotosAlbum;
         pickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie,nil];
@@ -284,7 +378,7 @@
     [self presentViewController:pickerController animated:YES completion:^{
         
     }];
-
+    
 }
 
 #pragma mark -
@@ -305,7 +399,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     
-
+    
     FeedModal *feed = [self.arrayFeeds objectAtIndex:self.selectedIndex.row];
     
     [self setUpLoaderView1];
@@ -384,10 +478,10 @@
                                 
                                 NSMutableArray *arrayMut = [NSMutableArray arrayWithArray:feed.feed_files];
                                 [arrayMut insertObject:[[FileModal alloc] initWithAttributes:[[responseStr valueForKey:@"data"] objectAtIndex:0] ]  atIndex:0];
-
+                                
                                 feed.feed_files = [NSArray arrayWithArray:arrayMut];
                                 [self.tableViewFeeds reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
-                                    [self removeLoaderView];
+                                [self removeLoaderView];
                             } failure:^(NSError *error) {
                                 [self removeLoaderView];
                             }];
@@ -420,22 +514,49 @@
 #pragma mark -  Table View Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    FeedModal *modal = [self.arrayFeeds objectAtIndex:indexPath.row];
     self.selectedIndex = indexPath;
+
+    if([modal.feed_is_fake isEqualToString:@"1"])
+    {
+        [self performSegueWithIdentifier:KImageVideoSegue sender:nil];
+    }
+    else
+    {
     [self performSegueWithIdentifier:KMapFeedSegue sender:self];
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    static FeedMainCell *sizingCell = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sizingCell = [self.tableViewFeeds dequeueReusableCellWithIdentifier:@"FeedMainCell"];
-    });
+    FeedModal *modal = [self.arrayFeeds objectAtIndex:indexPath.row];
     
-    [self configureMapCell:sizingCell atIndexPath:indexPath];
-    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return size.height+1;
-
+    if([modal.feed_is_fake isEqualToString:@"0"])
+    {
+        static FeedMainCell *sizingCell = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            sizingCell = [tableView dequeueReusableCellWithIdentifier:@"FeedMainCell"];
+        });
+        
+        [self configureMapCell:sizingCell atIndexPath:indexPath];
+        CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        return size.height;
+    }
+    else
+    {
+        static FeedFakeCell *sizingCell = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            sizingCell = [tableView dequeueReusableCellWithIdentifier:@"FeedFakeCell"];
+        });
+        
+        [self configureFakeCell:sizingCell atIndexPath:indexPath];
+        [sizingCell setNeedsLayout];
+        [sizingCell layoutIfNeeded];
+        CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        return size.height+1;
+        
+    }
 }
 
 
@@ -472,13 +593,24 @@
         MapViewController *mapVC = (MapViewController *)segue.destinationViewController;
         mapVC.feed = [self.arrayFeeds objectAtIndex:self.selectedIndex.row];
     }
-    else
+    else if([segue.identifier isEqualToString:KImageVideoSegue])
     {
         ImageVideoViewController *imageVc = (ImageVideoViewController *)segue.destinationViewController;
         imageVc.feedModal = [self.arrayFeeds objectAtIndex:self.selectedIndex.row];
         imageVc.currentTab = self.feedType;
     }
+    else if ([segue.identifier isEqualToString:KPostAlarmSegue])
+    {
+        PostViewController *postVC = (PostViewController *)segue.destinationViewController;
+        postVC.feedType = self.feedType;
+    }
 }
 
 
+#pragma mark -
+#pragma mark - Button Actions
+- (IBAction)actionPostFeed:(id)sender {
+    
+    [self performSegueWithIdentifier:KPostAlarmSegue sender:self];
+}
 @end

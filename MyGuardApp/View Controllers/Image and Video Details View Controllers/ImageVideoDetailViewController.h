@@ -12,9 +12,9 @@
 #import "ApiConstants.h"
 #import <UIImageView+WebCache.h>
 #import "CommentView.h"
+#import "BaseViewController.h"
 
-
-@interface ImageVideoDetailViewController : UIViewController<ImageVideoDetailDelegate>
+@interface ImageVideoDetailViewController : BaseViewController<ImageVideoDetailDelegate,UIActionSheetDelegate>
 
 @property (nonatomic,strong) NSIndexPath *indexToScroll;
 @property (nonatomic,strong) CommentView *commentView;
