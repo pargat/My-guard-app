@@ -19,6 +19,8 @@
 #import "Profile.h"
 #import <AVFoundation/AVFoundation.h>
 #import "ImageVideoDetailViewController.h"
+#import "CommonFunctions.h"
+
 @interface ImageVideoViewController : BaseViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @property (nonatomic,strong) NSIndexPath *selectedIndex;

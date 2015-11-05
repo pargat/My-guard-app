@@ -17,6 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.tableViewCommunity addPullToRefreshWithActionHandler:^{
+        [self searchUser];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -139,7 +142,7 @@
     
     
     [cell.labelDistance setText:@"1"];
-    [cell.labelName setText:tempuser.userFirstName];
+    [cell.labelName setText:tempuser.userUserName];
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:KBaseTimbthumbUrl,tempuser.userImageName,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
 }
 

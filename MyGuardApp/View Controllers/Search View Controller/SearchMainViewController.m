@@ -18,6 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self viewHelper];
+    [self fetchAd];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,6 +39,25 @@
 }
 #pragma mark -
 #pragma mark - View Helpers
+-(void)fetchAd
+{
+    [iOSRequest getJsonResponse:[NSString stringWithFormat:KGetAdvertisment,KbaseUrl] success:^(NSDictionary *responseDict) {
+        if([responseDict valueForKeyPath:@"data.image"] !=(id)[NSNull null])
+        {
+            [self.imageViewAd sd_setImageWithURL:[NSURL URLWithString:[responseDict valueForKeyPath:@"data.image"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                [self setUpAd:responseDict];
+                
+            }];
+        }
+    } failure:^(NSString *errorString) {
+        
+    }];
+}
+-(void)setUpAd:(NSDictionary *)dict
+{
+    self.layoutHeightAd.constant = self.view.frame.size.width/5;
+    self.dictAd = dict;
+}
 -(void)viewHelper
 {
     self.isProgressiveIndicator = YES;
@@ -45,7 +65,6 @@
     [self.buttonBarView.selectedBar setBackgroundColor:KPurpleColor];
     [self.buttonBarView setSelectedBarHeight:3];
     [self.buttonBarView setLabelFont:[UIFont boldSystemFontOfSize:13]];
-    
     
     UIBezierPath *shadowPath  = [UIBezierPath bezierPathWithRect:self.buttonBarView.bounds];
     self.buttonBarView.layer.masksToBounds = NO;
@@ -55,6 +74,9 @@
     self.buttonBarView.layer.shadowPath = shadowPath.CGPath;
     
     self.searchBar.delegate = self;
+    
+    [self moveToViewControllerAtIndex:self.currentTab];
+    
 }
 -(void)initialiseVCs
 {
@@ -83,17 +105,22 @@
         self.searchSafetyVC.stringToSearch = searchBar.text;
         self.searchUserVC.stringToSearch = searchBar.text;
         
-        if (self.currentIndex==0) {
-            [self.searchFeedVC apiSearch:searchBar.text];
-        }
-        else if (self.currentIndex==1)
-        {
-            [self.searchSafetyVC apiSearch:searchBar.text];
-        }
-        else
-        {
-            [self.searchUserVC apiSearch:searchBar.text];
-        }
+        //        if (self.currentIndex==0) {
+        //            [self.searchFeedVC apiSearch:searchBar.text];
+        //        }
+        //        else if (self.currentIndex==1)
+        //        {
+        //            [self.searchSafetyVC apiSearch:searchBar.text];
+        //        }
+        //        else
+        //        {
+        //            [self.searchUserVC apiSearch:searchBar.text];
+        //        }
+        [self setUpLoaderView];
+        [self.searchFeedVC apiSearch:searchBar.text];
+        [self.searchUserVC apiSearch:searchBar.text];
+        [self.searchSafetyVC apiSearch:searchBar.text];
+        
     }
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -111,4 +138,11 @@
  }
  */
 
+
+#pragma mark -
+#pragma mark - Button Actions
+- (IBAction)actionAdClicked:(id)sender {
+    if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[self.dictAd valueForKeyPath:@"data.link"]]])
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self.dictAd valueForKeyPath:@"data.link"]]];
+}
 @end

@@ -27,14 +27,18 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if([[NSUserDefaults standardUserDefaults] valueForKey:@"profile"]==nil)
+   // [[NSUserDefaults standardUserDefaults] valueForKey:@"FirstWalk"]
+    if([[NSUserDefaults standardUserDefaults] valueForKey:@"profile"]!=nil)
     {
-        [self performSegueWithIdentifier:KWalkSegue sender:nil];
+        [self performSegueWithIdentifier:KtabSegue sender:self];
+    }
+    else if([[NSUserDefaults standardUserDefaults] valueForKey:@"FirstWalk"]!=nil)
+    {
+        [self performSegueWithIdentifier:KSplashSegue sender:nil];
     }
     else
     {
-        [self performSegueWithIdentifier:KtabSegue sender:self];
-        
+        [self performSegueWithIdentifier:KWalkSegue sender:nil];
     }
 
     

@@ -28,10 +28,11 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if(self.stringToSearch!=nil)
-    {
-        [self apiSearch:self.stringToSearch];
-    }
+    [self.tableViewSearch reloadData];
+    //    if(self.stringToSearch!=nil)
+    //    {
+    //        [self apiSearch:self.stringToSearch];
+    //    }
 }
 
 #pragma mark -
@@ -40,18 +41,37 @@
 {
     [self.tableViewSearch setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self.tableViewSearch setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
-
+    
 }
 
 -(void)apiSearch:(NSString *)str
 {
-    NSString * stringSearchSafety = [NSString stringWithFormat:KSearchNewApi,KbaseUrl,[Profile getCurrentProfileUserId],str,@"2"];
+    NSString * stringSearchSafety = [NSString stringWithFormat:KSearchNewApi,KbaseUrl,[Profile getCurrentProfileUserId],str,@"3"];
     
     [iOSRequest getJsonResponse:stringSearchSafety success:^(NSDictionary *responseDict) {
         self.arraySearch = [User parseDictToModal:[responseDict valueForKey:@"data"]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+        if(self.tableViewSearch.delegate == nil)
+        {
+            [self.tableViewSearch setDelegate:self];
+            [self.tableViewSearch setDataSource:self];
+        }
+        });
+
+
         [self.tableViewSearch reloadData];
+        if([[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] isKindOfClass:[JTMaterialSpinner class]])
+        {
+            [[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] removeFromSuperview];
+            
+        }
     } failure:^(NSString *errorString) {
-        
+        if([[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] isKindOfClass:[JTMaterialSpinner class]])
+        {
+            [[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] removeFromSuperview];
+            
+        }
     }];
 }
 
@@ -60,7 +80,7 @@
 
 - (NSString *)titleForPagerTabStripViewController:(XLPagerTabStripViewController *)pagerTabStripViewController
 {
-    return NSLocalizedString(@"safety_measures", nil);
+    return NSLocalizedString(@"user_search", nil);
 }
 
 
@@ -86,6 +106,7 @@
         CommunityNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
         [cell.labelNoUsers setText:@"No users"];
         cell.separatorInset = UIEdgeInsetsZero;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else
@@ -129,16 +150,17 @@
 -(void)configureCell:(CommunityCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     User *tempuser= [self.arraySearch objectAtIndex:indexPath.row];
-        
     
     
-    [cell.labelDistance setText:@"1"];
-    [cell.labelName setText:tempuser.userFirstName];
+    
+    [cell.labelDistance setText:@""];
+    [cell.labelName setText:tempuser.userUserName];
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",tempuser.userImageName,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(self.arraySearch.count!=0)
         [self performSegueWithIdentifier:KOtherProfileSegue sender:[self.arraySearch objectAtIndex:indexPath.row]];
     
 }

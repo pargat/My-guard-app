@@ -12,5 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewMain;
 @property (weak, nonatomic) IBOutlet UIButton *btnVideo;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewSelected;
+@property (weak, nonatomic) IBOutlet UIButton *btnComments;
+@property (weak, nonatomic) IBOutlet UIButton *btnDuration;
 
 @end

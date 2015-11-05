@@ -13,8 +13,12 @@
 -(void)awakeFromNib
 {
     [super awakeFromNib];
-    [self.scrollViewMain setDelegate:self];
+   // [self.scrollViewMain setDelegate:self];
 }
+- (IBAction)actionVideoDelegate:(id)sender {
+    [self.delegate delVideo:self.indexPath];
+}
+
 - (IBAction)actionCommentRight:(id)sender {
     
     [self.delegate delCommentClicked:NO indexPath:self.indexPath];

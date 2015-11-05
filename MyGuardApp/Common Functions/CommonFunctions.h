@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface CommonFunctions : NSObject
+
++(void)videoPlay;
 
 @end

@@ -16,8 +16,9 @@
 #import "BaseViewController.h"
 #import "CommunityNoCell.h"
 #import "SafetyDetailViewController.h"
+#import "ImageFullViewController.h"
 
-@interface OtherProfileViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
+@interface OtherProfileViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,ProfileOtherDelegate>
 
 @property (nonatomic,strong) NSString *stringUsername;
 @property (nonatomic,strong) NSString *stringUserId;

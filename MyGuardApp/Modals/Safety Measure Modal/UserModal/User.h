@@ -11,6 +11,7 @@
 
 @interface User : NSObject
 
+@property (nonatomic,strong) NSString *userDistance;
 @property (nonatomic,strong) NSString *userAddress;
 @property (nonatomic,strong) NSString *userUserId;
 @property (nonatomic,strong) NSString *userIsFamily;

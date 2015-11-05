@@ -18,7 +18,9 @@
 #import "MapViewController.h"
 #import "FalseAlarmViewController.h"
 #import "SearchMainViewController.h"
-
+#import "ImageVideoDetailViewController.h"
+#import "AdminMessageViewController.h"
+#import "LOcationUpdater.h"
 
 @interface FireViewController : UIViewController<ZoomTransitionProtocol,MainContentDelegate>
 

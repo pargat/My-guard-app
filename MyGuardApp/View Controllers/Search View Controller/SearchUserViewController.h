@@ -14,8 +14,10 @@
 #import "User.h"
 #import <UIImageView+WebCache.h>
 #import "OtherProfileViewController.h"
+#import <JTMaterialSpinner.h>
 
-@interface SearchUserViewController : UIViewController
+
+@interface SearchUserViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) NSString *stringToSearch;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewSearch;

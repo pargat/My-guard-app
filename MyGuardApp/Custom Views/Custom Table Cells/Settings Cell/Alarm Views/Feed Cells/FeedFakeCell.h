@@ -33,14 +33,15 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightCollctionView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewDp;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
-@property (weak, nonatomic) IBOutlet UILabel *labelDistance;
 @property (weak, nonatomic) IBOutlet UILabel *labelTimeSince;
 @property (weak, nonatomic) IBOutlet UILabel *labelDescription;
-@property (weak, nonatomic) IBOutlet UIButton *btnVideo;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutBottomDescription;
 
 @property (weak, nonatomic) IBOutlet UIView *viewGradient;
 @property (weak, nonatomic) IBOutlet UIView *viewShadow;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightMap;
+@property (weak, nonatomic) IBOutlet UIButton *btnDuration;
+@property (weak, nonatomic) IBOutlet UIButton *btnCommentCount;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnCamera;
 

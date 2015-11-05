@@ -10,6 +10,11 @@
 
 
 //Segue names
+#define KDemo1Segue @"Demo1Segue"
+#define KAdminSegue @"AdminSegue"
+#define KImageFullSegue @"ImageFullSegue"
+#define KSplashSegue @"SplashSegue"
+#define KUserGuideSegue @"UserGuideSegue"
 #define KPostAlarmSegue @"PostAlarmSegue"
 #define KSearchMainSegue @"SearchMainSegue"
 #define KFalseAlarmSegue @"FalseAlarmSegue"

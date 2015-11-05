@@ -13,6 +13,9 @@
 #import "CommunitySearchViewController.h"
 #import "UIImage+Extras.h"
 #import "User.h"
+#import "SearchMainViewController.h"
+#import "LOcationUpdater.h"
+
 @class CommunitySearchViewController;
 @class CommunityContentViewController;
 @interface CommunityViewController : XLButtonBarPagerTabStripViewController<UISearchBarDelegate>

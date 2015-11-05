@@ -13,8 +13,15 @@
 #import "ApiConstants.h"
 #import "iOSRequest.h"
 
+@protocol CommentDelegate <NSObject>
+
+-(void)delCommentPosted;
+
+@end
+
 @interface CommentView : UIView <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
+@property (nonatomic,assign) id<CommentDelegate> delegate;
 @property CGRect rectToDisappear;
 @property (nonatomic,strong) NSString *image_id;
 @property (nonatomic,strong) NSString *feed_id;

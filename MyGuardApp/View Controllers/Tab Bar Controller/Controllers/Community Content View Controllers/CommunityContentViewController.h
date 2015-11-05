@@ -18,7 +18,7 @@
 #import "CommunityNoCell.h"
 #import "CommunityViewController.h"
 #import "BaseViewController.h"
-
+#import <SVPullToRefresh.h>
 
 @interface CommunityContentViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
 

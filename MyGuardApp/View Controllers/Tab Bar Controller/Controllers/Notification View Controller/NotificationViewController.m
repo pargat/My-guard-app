@@ -14,10 +14,14 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setNavBar];
     [self viewHelper];
     [self setUpLoaderView];
     [self getNotifs:YES];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setNavBar];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -27,7 +31,7 @@
 #pragma mark -
 #pragma mark - View Helpers
 -(void)readNotif:(NSString *)idNotif
-{    
+{
     [iOSRequest getJsonResponse:[NSString stringWithFormat:KMarkNotificationApi,KbaseUrl,[Profile getCurrentProfileUserId],idNotif] success:^(NSDictionary *responseDict) {
         
     } failure:^(NSString *errorString) {
@@ -52,11 +56,12 @@
 }
 -(void)setNavBar
 {
+    [self.navigationController.navigationBar setBarTintColor:KPurpleColorNav];
     [self.navigationItem setTitle:NSLocalizedString(@"alert", nil)];
     UIBarButtonItem *btnBack = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_back"] style:UIBarButtonItemStylePlain target:self action:@selector(actionBack)];
     [btnBack setTintColor:[UIColor whiteColor]];
     self.navigationItem.leftBarButtonItem = btnBack;
-         
+    
     UIBarButtonItem *btnClearAll = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"clear_all", nil) style:UIBarButtonItemStylePlain target:self action:@selector(actionClearAll)];
     [btnClearAll setTintColor:[UIColor whiteColor]];
     self.navigationItem.rightBarButtonItem = btnClearAll;
@@ -87,7 +92,10 @@
             [self.tableViewNotifs setDelegate:self];
             [self.tableViewNotifs setDataSource:self];
         }
-
+        if(self.arrayNotifs.count == 0)
+        {
+            self.navigationItem.rightBarButtonItem = nil;
+        }
         [self.tableViewNotifs reloadData];
         [self removeLoaderView];
     } failure:^(NSString *errorStr) {
@@ -95,7 +103,7 @@
     }];
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - Request delegate
 -(void)delAcceptOrReject:(BOOL)accept atIndexPath:(NSIndexPath *)indexPath
 {
@@ -109,7 +117,7 @@
     {
         type = @"2";
     }
-     NSString *familyUrl = [NSString stringWithFormat:KAcceptRequest,KbaseUrl,[Profile getCurrentProfileUserId],modal.notifFromUser,type];
+    NSString *familyUrl = [NSString stringWithFormat:KAcceptRequest,KbaseUrl,[Profile getCurrentProfileUserId],modal.notifFromUser,type];
     [iOSRequest getJsonResponse:familyUrl success:^(NSDictionary *responseDict) {
         
     } failure:^(NSString *errorString) {
@@ -118,7 +126,7 @@
     [self.arrayNotifs removeObjectAtIndex:indexPath.row];
     [self.tableViewNotifs reloadData];
     [self readNotif:modal.notifId];
-
+    
 }
 
 #pragma mark -
@@ -145,7 +153,7 @@
     else
     {
         NotificationModal *modal = [self.arrayNotifs objectAtIndex:indexPath.row];
-
+        
         if([modal.notifType isEqualToString:@"1"]||[modal.notifType isEqualToString:@"2"])
         {
             NotificationRequestCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationRequestCell"];
@@ -193,7 +201,7 @@
             [self configureCellRequest:sizingCell atIndexPath:indexPath];
             CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             return size.height;
-
+            
         }
         else
         {
@@ -206,9 +214,9 @@
             [self configureCell:sizingCell atIndexPath:indexPath];
             CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             return size.height;
-
+            
         }
-
+        
     }
     
 }
@@ -216,9 +224,13 @@
 -(void)configureCell:(NotificationSimpleCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     NotificationModal *modal = [self.arrayNotifs objectAtIndex:indexPath.row];
-    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",modal.notifDp,cell.imageViewDp.frame.size.width,cell.imageViewDp.frame.size.height]]];
-    [cell.labelTitlw setText:modal.notifTitle];
-    [cell.labelDescription setText:modal.notifText];
+    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",modal.notifDp,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
+    
+    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[modal.notifTitle dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+    
+    [cell.labelTitlw setAttributedText:attrStr];
+    [cell.labelTitlw setFont:[UIFont systemFontOfSize:14]];
+    [cell.labelDescription setText:@""];
     [cell.labelTimePassed setText:modal.notifTimePassed];
     if([modal.notifIsRead isEqualToString:@"y"])
     {
@@ -228,15 +240,22 @@
     {
         [cell.viewOverlay setHidden:NO];
     }
-
+    
 }
 -(void)configureCellRequest:(NotificationRequestCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+    
+    
+    
     cell.selectedIndex = indexPath;
     NotificationModal *modal = [self.arrayNotifs objectAtIndex:indexPath.row];
     cell.delegate = self;
-    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",modal.notifDp,cell.imageViewDp.frame.size.width,cell.imageViewDp.frame.size.height]]];
-    [cell.labelTitle setText:modal.notifTitle];
+    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",modal.notifDp,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
+    
+    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[modal.notifTitle dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+    
+    [cell.labelTitle setAttributedText:attrStr];
+    [cell.labelTitle setFont:[UIFont systemFontOfSize:14]];
     [cell.labelTimePassed setText:modal.notifTimePassed];
     if([modal.notifIsRead isEqualToString:@"y"])
     {
@@ -250,16 +269,31 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.selectedIndexPath = indexPath;
-    NotificationModal *modal = [self.arrayNotifs objectAtIndex:indexPath.row];
-    if([modal.notifType isEqualToString:@"5"])
+    if(self.arrayNotifs.count!=0)
     {
-        [self performSegueWithIdentifier:KSafetyDetailSegue sender:self];
+        self.selectedIndexPath = indexPath;
+        NotificationModal *modal = [self.arrayNotifs objectAtIndex:indexPath.row];
+        if([modal.notifType isEqualToString:@"5"])
+        {
+            [self performSegueWithIdentifier:KSafetyDetailSegue sender:self];
+        }
+        else if ([modal.notifType isEqualToString:@"3"]||[modal.notifType isEqualToString:@"1"]||[modal.notifType isEqualToString:@"2"])
+        {
+            [self performSegueWithIdentifier:KOtherProfileSegue sender:modal];
+        }
+        else if ([modal.notifType isEqualToString:@"4"]||[modal.notifType isEqualToString:@"6"])
+        {
+            [self performSegueWithIdentifier:KImageVideoDetailSegue sender:@{@"id":modal.notifAlarmId,@"mid":modal.notifRefId}];
+        }
+        else if ([modal.notifType isEqualToString:@"7"])
+        {
+            [self performSegueWithIdentifier:KImageVideoDetailSegue sender:@{@"id":modal.notifAlarmId,@"mid":modal.notifRefId,@"Comment":@"yes"}];
+        }
+        
+        [self readNotif];
+        modal.notifIsRead = @"y";
+        [self.tableViewNotifs reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-    
-    
-    
-    [self readNotif];
 }
 
 #pragma mark -
@@ -290,6 +324,22 @@
     {
         SafetyDetailViewController *safetyVC = (SafetyDetailViewController *)segue.destinationViewController;
         safetyVC.stringId = modal.notifRefId;
+        
+    }
+    else if ([segue.identifier isEqualToString:KOtherProfileSegue])
+    {
+        OtherProfileViewController *otherVC = (OtherProfileViewController *)segue.destinationViewController;
+        NotificationModal *modal = (NotificationModal *)sender;
+        otherVC.stringUserId = modal.notifId;
+        otherVC.stringUsername = modal.notifFirstName;
+    }
+    else if ([segue.identifier isEqualToString:KImageVideoDetailSegue])
+    {
+        ImageVideoDetailViewController *imageVideoDetailVc = (ImageVideoDetailViewController *)segue.destinationViewController;
+        imageVideoDetailVc.stringFeedId = [sender valueForKey:@"id"];
+        imageVideoDetailVc.stringPostId = [sender valueForKey:@"mid"];
+        if([sender valueForKey:@"Comment"]!=nil)
+            imageVideoDetailVc.isCommentShow = YES;
         
     }
 }

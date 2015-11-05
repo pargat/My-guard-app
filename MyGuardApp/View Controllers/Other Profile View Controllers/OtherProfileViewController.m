@@ -26,6 +26,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark -
+#pragma mark - ProfileMyDelegate
+-(void)delBigView
+{
+    [self performSegueWithIdentifier:KImageFullSegue sender:nil];
+}
 
 #pragma mark -
 #pragma mark - Helpers
@@ -100,9 +106,9 @@
     [self.navigationItem setTitle:self.stringUsername];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    UIBarButtonItem *btnMore = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_more"] style:UIBarButtonItemStylePlain target:self action:@selector(actionMore)];
-    [btnMore setTintColor:[UIColor whiteColor]];
-    self.navigationItem.rightBarButtonItem = btnMore;
+//    UIBarButtonItem *btnMore = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_more"] style:UIBarButtonItemStylePlain target:self action:@selector(actionMore)];
+//    [btnMore setTintColor:[UIColor whiteColor]];
+//    self.navigationItem.rightBarButtonItem = btnMore;
     
     UIBarButtonItem *btnBack = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_back"] style:UIBarButtonItemStylePlain target:self action:@selector(actionBack)];
     [btnBack setTintColor:[UIColor whiteColor]];
@@ -159,6 +165,8 @@
         {
             CommunityNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
             [cell.labelNoUsers setText:@"No safety measures shared yet"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
             return cell;
             
         }
@@ -198,9 +206,10 @@
 }
 -(void)configureProfileHeaderCell:(ProfileHeaderOtherCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+    cell.delegate = self;
     cell.stringUrl = self.myProfile.profileImageFullLink;
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",self.myProfile.profileImageName,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
-    [cell.labelName setText:self.myProfile.profileFirstName];
+    [cell.labelName setText:self.myProfile.profileUserName];
     [cell.labelPhoneNumber setText:self.myProfile.profilePhoneNumber];
     [cell.labelAddress setText:self.myProfile.profileAddress];
 }
@@ -209,7 +218,8 @@
 #pragma mark - Table view delegates
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row>0)
+    
+    if(indexPath.row>0&&self.arraySafety.count!=0)
         [self performSegueWithIdentifier:KSafetyDetailSegue sender:[self.arraySafety objectAtIndex:indexPath.row-1]];
 }
 
@@ -388,6 +398,13 @@
         SafetyMeasure *modal = (SafetyMeasure *)sender;
         safetyVC.stringSafety = modal.safetyDescription;
     }
+    else if ([segue.identifier isEqualToString:KImageFullSegue])
+    {
+        ImageFullViewController *imageVc = (ImageFullViewController *)segue.destinationViewController;
+        imageVc.username = self.myProfile.profileUserName;
+        imageVc.imageLink = self.myProfile.profileImageName;
+    }
+
 }
 
 

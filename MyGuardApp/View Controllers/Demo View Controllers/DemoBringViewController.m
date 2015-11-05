@@ -16,12 +16,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.labelDemoString setText:NSLocalizedString(@"bring_your_phone", nil)];
     // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
 }
 
 /*
@@ -34,4 +45,13 @@
 }
 */
 
+
+#pragma mark -
+#pragma mark - Button Action
+- (IBAction)actionCloseDemo:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)actionNext:(id)sender {
+}
 @end

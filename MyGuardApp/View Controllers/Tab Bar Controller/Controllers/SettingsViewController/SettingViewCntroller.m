@@ -21,6 +21,11 @@
     [self setUpNavBar];
     
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:NO];
+}
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -166,11 +171,11 @@
     }
     else if (indexPath.row==1)
     {
-        
+        [self performSegueWithIdentifier:KUserGuideSegue sender:self];
     }
     else if (indexPath.row==2)
     {
-        
+        [self performSegueWithIdentifier:KDemo1Segue sender:nil];
     }
     else if(indexPath.row==3)
     {

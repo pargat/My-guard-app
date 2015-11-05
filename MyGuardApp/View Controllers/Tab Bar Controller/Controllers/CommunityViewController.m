@@ -82,15 +82,36 @@
     [btnSearch setTintColor:[UIColor whiteColor]];
     self.navigationItem.rightBarButtonItem = btnSearch;
     
-    Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:modal.profileImageFullLink]];
-        UIImage *image = [UIImage imageWithData:tmpdata];
-        image = [image circularScaleAndCropImage:CGRectMake(0, 0, 32, 32)];
-        image = [image imageByScalingAndCroppingForSize:CGSizeMake(32, 32)];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if(self.isSearching==false)
-            {
+    LOcationUpdater *locationUpdater = [LOcationUpdater sharedManager];
+    if(locationUpdater.imageDp!=nil)
+    {
+        UIButton *btnProfileA = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+        [btnProfileA setImage:locationUpdater.imageDp forState:UIControlStateNormal];
+        [btnProfileA addTarget:self action:@selector(actionProfile) forControlEvents:UIControlEventTouchUpInside];
+        btnProfileA.layer.cornerRadius = btnProfileA.frame.size.width/2;
+        btnProfileA.layer.borderColor = [[UIColor whiteColor] CGColor];
+        btnProfileA.layer.borderWidth = 1.0;
+        
+        
+        UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
+        [btnProfile setTintColor:[UIColor whiteColor]];
+        self.navigationItem.leftBarButtonItem = btnProfile;
+        
+    }
+    else
+    {
+        Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            
+            NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:modal.profileImageName]];
+            
+            UIImage *image = [UIImage imageWithData:tmpdata];
+            image = [image circularScaleAndCropImage:CGRectMake(0, 0, image.size.width, image.size.width)];
+            image = [image imageByScalingAndCroppingForSize:CGSizeMake(image.size.width, image.size.width)];
+            locationUpdater.imageDp = image;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
                 UIButton *btnProfileA = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
                 [btnProfileA setImage:image forState:UIControlStateNormal];
                 [btnProfileA addTarget:self action:@selector(actionProfile) forControlEvents:UIControlEventTouchUpInside];
@@ -102,10 +123,10 @@
                 UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
                 [btnProfile setTintColor:[UIColor whiteColor]];
                 self.navigationItem.leftBarButtonItem = btnProfile;
-            }
+            });
+            
         });
-        
-    });
+    }
     
     
 }
@@ -119,16 +140,16 @@
         self.community1.arraySearch = [[NSMutableArray alloc] init];
         for (User *tempUser in arrayCommunity) {
             
-            if([tempUser.userFirstName respondsToSelector:@selector(localizedCaseInsensitiveContainsString:)])
+            if([tempUser.userUserName respondsToSelector:@selector(localizedCaseInsensitiveContainsString:)])
             {
-                if([tempUser.userFirstName localizedCaseInsensitiveContainsString:self.sBar.text])
+                if([tempUser.userUserName localizedCaseInsensitiveContainsString:self.sBar.text])
                 {
                     [self.community1.arraySearch addObject:tempUser];
                 }
             }
             else
             {
-                if([tempUser.userFirstName rangeOfString:self.sBar.text options:1].length!=0)
+                if([tempUser.userUserName rangeOfString:self.sBar.text options:1].length!=0)
                 {
                     [self.community1.arraySearch addObject:tempUser];
                 }
@@ -141,16 +162,16 @@
         self.community2.arraySearch = [[NSMutableArray alloc] init];
         for (User *tempUser in arrayCommunity) {
             
-            if([tempUser.userFirstName respondsToSelector:@selector(localizedCaseInsensitiveContainsString:)])
+            if([tempUser.userUserName respondsToSelector:@selector(localizedCaseInsensitiveContainsString:)])
             {
-                if([tempUser.userFirstName localizedCaseInsensitiveContainsString:self.sBar.text])
+                if([tempUser.userUserName localizedCaseInsensitiveContainsString:self.sBar.text])
                 {
                     [self.community2.arraySearch addObject:tempUser];
                 }
             }
             else
             {
-                if([tempUser.userFirstName rangeOfString:self.sBar.text options:1].length!=0)
+                if([tempUser.userUserName rangeOfString:self.sBar.text options:1].length!=0)
                 {
                     [self.community2.arraySearch addObject:tempUser];
                 }
@@ -163,16 +184,16 @@
         self.community3.arraySearch = [[NSMutableArray alloc] init];
         for (User *tempUser in arrayCommunity) {
             
-            if([tempUser.userFirstName respondsToSelector:@selector(localizedCaseInsensitiveContainsString:)])
+            if([tempUser.userUserName respondsToSelector:@selector(localizedCaseInsensitiveContainsString:)])
             {
-                if([tempUser.userFirstName localizedCaseInsensitiveContainsString:self.sBar.text])
+                if([tempUser.userUserName localizedCaseInsensitiveContainsString:self.sBar.text])
                 {
                     [self.community3.arraySearch addObject:tempUser];
                 }
             }
             else
             {
-                if([tempUser.userFirstName rangeOfString:self.sBar.text options:1].length!=0)
+                if([tempUser.userUserName rangeOfString:self.sBar.text options:1].length!=0)
                 {
                     [self.community3.arraySearch addObject:tempUser];
                 }
@@ -236,14 +257,19 @@
 
 
 
-/*
+#pragma mark -
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
+     if([segue.identifier isEqualToString:KSearchMainSegue])
+     {
+         SearchMainViewController *searchVc= (SearchMainViewController *)segue.destinationViewController;
+         searchVc.currentTab = 2;
+     }
  }
- */
+ 
 
 @end

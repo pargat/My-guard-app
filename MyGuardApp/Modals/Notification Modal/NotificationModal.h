@@ -11,6 +11,7 @@
 
 @interface NotificationModal : NSObject
 
+@property (nonatomic, strong) NSString *notifAlarmId;
 @property (nonatomic, strong) NSString *notifFirstName;
 @property (nonatomic, strong) NSString *notifId;
 @property (nonatomic, strong) NSString *notifRefId;

@@ -15,6 +15,7 @@
 #import <UIImageView+WebCache.h>
 #import "SexOffenderDetailViewController.h"
 #import <JTMaterialSpinner.h>
+#import "LOcationUpdater.h"
 
 @interface SexOffenderViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 

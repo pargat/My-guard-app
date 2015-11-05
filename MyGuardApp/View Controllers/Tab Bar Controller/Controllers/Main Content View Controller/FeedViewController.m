@@ -35,6 +35,7 @@
 {
     [super viewWillAppear:animated];
     [self.delegate delChangeNavButton:NO];
+     //[self getFeed:YES];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -49,8 +50,20 @@
 
 #pragma mark -
 #pragma mark - api related and helper function
+-(void)updateFeed:(NSNotification *)notification
+{
+    if(notification.object!=nil)
+    {
+    FeedModal *modal = [self.arrayFeeds objectAtIndex:self.selectedIndex.row];
+    modal.feed_files = notification.object;
+    [self.arrayFeeds replaceObjectAtIndex:self.selectedIndex.row withObject:modal];
+    [self.tableViewFeeds reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
 -(void)viewHelper
 {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFeed:) name:@"updateFeed" object:nil];
     if(self.feedType ==1)
     {
         [self.btnPostFeed setBackgroundColor:KOrangeColor];
@@ -302,9 +315,16 @@
     FeedModal *modal = [self.arrayFeeds objectAtIndex:indexPath.row];
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:KBaseTimbthumbUrl,modal.feed_imageName,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.width*DisplayScale]]];
     [cell.labelName setText:modal.feed_fullname];
-    [cell.labelDistance setText:[NSString stringWithFormat:@"%@ away",modal.feed_distance]];
     [cell.labelTimeSince setText:modal.feed_time_passed];
     [cell.labelDescription setText:modal.feed_description];
+    if(modal.feed_description.length==0)
+    {
+        cell.layoutBottomDescription.constant = 0;
+    }
+    else
+    {
+        cell.layoutBottomDescription.constant = 16;
+    }
     [cell.labelDescription setPreferredMaxLayoutWidth:self.view.frame.size.width-48];
     if(modal.feed_files.count<2)
     {
@@ -325,12 +345,14 @@
     FileModal *fileModal = [modal.feed_files firstObject];
     if(fileModal.fileType)
     {
-        [cell.btnVideo setHidden:NO];
+        [cell.btnDuration setHidden:NO];
+        [cell.btnDuration setTitle:[NSString stringWithFormat:@" %@",fileModal.fileDuration] forState:UIControlStateNormal];
     }
     else
     {
-        [cell.btnVideo setHidden:YES];
+        [cell.btnDuration setHidden:YES];
     }
+    [cell.btnCommentCount setTitle:[NSString stringWithFormat:@" %@",fileModal.fileNumberOfComments] forState:UIControlStateNormal];
     [cell.imageViewMap sd_setImageWithURL:[NSURL URLWithString:fileModal.fileThumbCumImageLink]];
     
 }
@@ -471,6 +493,7 @@
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
                         UIImage *thumbImage = [self generateThumbImage:[info objectForKey:
                                                                         UIImagePickerControllerMediaURL]];
+                        thumbImage = [thumbImage imageByScalingAndCroppingForSize:thumbImage.size];
                         NSData *thumbData = UIImageJPEGRepresentation(thumbImage, 1);
                         dispatch_async(dispatch_get_main_queue(), ^{
                             

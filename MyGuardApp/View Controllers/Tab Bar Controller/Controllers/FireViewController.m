@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self viewHelper];
-    
+    [self showUseGuide];
     // Do any additional setup after loading the view.
     
 }
@@ -33,6 +33,14 @@
 }
 #pragma mark -
 #pragma mark - Helpers
+-(void)showUseGuide
+{
+    if([[NSUserDefaults standardUserDefaults] valueForKey:@"FirstGuide"]==nil)
+    {
+        [self performSegueWithIdentifier:KUserGuideSegue sender:self];
+        [[NSUserDefaults standardUserDefaults] setObject:@"Yes" forKey:@"FirstGuide"];
+    }
+}
 -(void)setNavBarAndTab
 {
     [self.tabBarController.tabBar setTintColor:KOrangeColor];
@@ -53,15 +61,34 @@
     
     
     
+    LOcationUpdater *locationUpdater = [LOcationUpdater sharedManager];
+    if(locationUpdater.imageDp!=nil)
+    {
+        UIButton *btnProfileA = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+        [btnProfileA setImage:locationUpdater.imageDp forState:UIControlStateNormal];
+        [btnProfileA addTarget:self action:@selector(actionProfile) forControlEvents:UIControlEventTouchUpInside];
+        btnProfileA.layer.cornerRadius = btnProfileA.frame.size.width/2;
+        btnProfileA.layer.borderColor = [[UIColor whiteColor] CGColor];
+        btnProfileA.layer.borderWidth = 1.0;
+        
+        
+        UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
+        [btnProfile setTintColor:[UIColor whiteColor]];
+        self.navigationItem.leftBarButtonItem = btnProfile;
+
+    }
+    else
+    {
     Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-//        NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://api.firesonar.//com/FireSonar/timthumb.php?src=uploads/iSf0mKHUG5vgEt2pncuW.jpeg"]];
-        NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:modal.profileImageFullLink]];
+
+        NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:modal.profileImageName]];
 
         UIImage *image = [UIImage imageWithData:tmpdata];
-        image = [image circularScaleAndCropImage:CGRectMake(0, 0, 32, 32)];
-        image = [image imageByScalingAndCroppingForSize:CGSizeMake(32, 32)];
+        image = [image circularScaleAndCropImage:CGRectMake(0, 0, image.size.width, image.size.width)];
+        image = [image imageByScalingAndCroppingForSize:CGSizeMake(image.size.width, image.size.width)];
+        locationUpdater.imageDp = image;
         dispatch_async(dispatch_get_main_queue(), ^{
             
             UIButton *btnProfileA = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
@@ -78,6 +105,10 @@
         });
         
     });
+    }
+    
+    
+    
     [self addNavbuttons:NO];
     
 }
@@ -91,7 +122,7 @@
     {
         UIBarButtonItem *btnAddSafetyMeasure = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_safety"] style:UIBarButtonItemStylePlain target:self action:@selector(actionAddSafety)];
         [btnAddSafetyMeasure setTintColor:[UIColor whiteColor]];
-        self.navigationItem.rightBarButtonItem = btnAddSafetyMeasure;
+        self.navigationItem.rightBarButtonItems = @[btnSearch,btnAddSafetyMeasure];
     }
     else
     {
@@ -124,6 +155,7 @@
 -(void)delNobutton
 {
     self.navigationItem.rightBarButtonItem = nil;
+    self.navigationItem.rightBarButtonItems = nil;
 }
 #pragma mark -
 #pragma mark - Button Actions
@@ -163,6 +195,20 @@
     else if ([str isEqualToString:@"10"])
     {
         [self performSegueWithIdentifier:KSafetyDetailSegue sender:dict];
+    }
+    else if([str isEqualToString:@"11"])
+    {
+        [self performSegueWithIdentifier:KImageVideoDetailSegue sender:dict];
+    }
+    else if ([str isEqualToString:@"13"])
+    {
+        NSMutableDictionary *dictPush = [NSMutableDictionary dictionaryWithDictionary:dict];
+        [dictPush setObject:@"Yes" forKey:@"Comment"];
+        [self performSegueWithIdentifier:KImageVideoDetailSegue sender:dictPush];
+    }
+    else if ([str isEqualToString:@"5"])
+    {
+        [self performSegueWithIdentifier:KAdminSegue sender:dict];
     }
 }
 
@@ -211,6 +257,34 @@
          FalseAlarmViewController *falseVC = (FalseAlarmViewController *)segue.destinationViewController;
          falseVC.dictInfo  = sender;
      }
+     else     if([segue.identifier isEqualToString:KSearchMainSegue])
+     {
+         SearchMainViewController *searchVc= (SearchMainViewController *)segue.destinationViewController;
+         if(self.mainVC.currentIndex==1)
+         {
+             searchVc.currentTab = 1;
+             
+         }
+         else
+         {
+             searchVc.currentTab = 0;
+         }
+     }
+     else if ([segue.identifier isEqualToString:KImageVideoDetailSegue])
+     {
+         ImageVideoDetailViewController *imageVideoDetailVc = (ImageVideoDetailViewController *)segue.destinationViewController;
+         imageVideoDetailVc.stringFeedId = [sender valueForKey:@"id"];
+         imageVideoDetailVc.stringPostId = [sender valueForKey:@"mid"];
+         if([sender valueForKey:@"Comment"]!=nil)
+             imageVideoDetailVc.isCommentShow = YES;
+     }
+     else if ([segue.identifier isEqualToString:KAdminSegue])
+     {
+         AdminMessageViewController *adminVC = (AdminMessageViewController *)segue.destinationViewController;
+         adminVC.messageId = [sender valueForKey:@"id"];
+         adminVC.messageId = [sender valueForKey:@"m"];
+     }
+
 
  }
 

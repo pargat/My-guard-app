@@ -11,6 +11,7 @@
 
 @interface Profile : NSObject
 
+@property (nonatomic,strong) NSString *profileUnreadCount;
 @property (nonatomic,strong) NSString *profileFStatus;
 @property (nonatomic,strong) NSString *profileIsFriend;
 @property (nonatomic,strong) NSString *profileIsFamily;

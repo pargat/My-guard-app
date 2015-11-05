@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollViewMain;
 @property (weak, nonatomic) IBOutlet UIButton *btnLoginRegister;
 @property (weak, nonatomic) IBOutlet UIButton *btnStartDemo;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControlMain;
 
 @end

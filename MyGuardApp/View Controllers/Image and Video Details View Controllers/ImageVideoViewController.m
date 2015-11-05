@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self viewHelper];
-
+    
     // Do any additional setup after loading the view.
 }
 
@@ -85,12 +85,12 @@
     {
         [self.navigationController.navigationBar setBarTintColor:KGreenColor];
     }
-
+    
     
 }
 -(void)setNavDone
 {
-    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(actionDone)];
+    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Delete" style:UIBarButtonItemStylePlain target:self action:@selector(actionDone)];
     [btnDone setTintColor:[UIColor whiteColor]];
     [btnDone setEnabled:NO];
     self.navigationItem.rightBarButtonItem = btnDone;
@@ -99,21 +99,21 @@
 {
     self.btnCamera.layer.cornerRadius = self.btnCamera.frame.size.width/2;
     self.btnCamera.clipsToBounds = YES;
-
-    self.btnCamera.layer.masksToBounds = YES;
-    if(self.currentTab==1)
-    {
-        self.btnCamera.layer.borderColor = KOrangeColor.CGColor;
-    }
-    else if (self.currentTab==3)
-    {
-        self.btnCamera.layer.borderColor = KRedColor.CGColor;
-    }
-    else
-    {
-        self.btnCamera.layer.borderColor = KGreenColor.CGColor;
-    }
     
+    self.btnCamera.layer.masksToBounds = YES;
+    //    if(self.currentTab==1)
+    //    {
+    //        self.btnCamera.layer.borderColor = KOrangeColor.CGColor;
+    //    }
+    //    else if (self.currentTab==3)
+    //    {
+    //        self.btnCamera.layer.borderColor = KRedColor.CGColor;
+    //    }
+    //    else
+    //    {
+    //        self.btnCamera.layer.borderColor = KGreenColor.CGColor;
+    //    }
+    self.btnCamera.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.btnCamera.layer.borderWidth = 1.0;
     
     self.collectionViewMain.allowsMultipleSelection = true;
@@ -145,22 +145,36 @@
 {
     FileModal *modal = [self.arrayFiles objectAtIndex:indexPath.row];
     [cell.imageViewMain sd_setImageWithURL:[NSURL URLWithString:modal.fileThumbCumImageLink]];
-    if(modal.fileType)
-    {
-        [cell.btnVideo setHidden:NO];
-    }
-    else
-    {
-        [cell.btnVideo setHidden:YES];
-    }
     if(self.isEditing&&cell.isSelected)
     {
         [cell.imageViewSelected setHidden:NO];
+        [cell.btnDuration setHidden:YES];
+        [cell.btnComments setHidden:YES];
+        
     }
     else
     {
         [cell.imageViewSelected setHidden:YES];
+        [cell.btnDuration setHidden:NO];
+        [cell.btnComments setHidden:NO];
+        
     }
+    
+    if(modal.fileType)
+    {
+        [cell.btnVideo setHidden:NO];
+        [cell.btnDuration setHidden:NO];
+        [cell.btnDuration setTitle:[NSString stringWithFormat:@" %@",modal.fileDuration] forState:UIControlStateNormal];
+        
+    }
+    else
+    {
+        [cell.btnVideo setHidden:YES];
+        [cell.btnDuration setHidden:YES];
+        
+    }
+    
+    [cell.btnComments setTitle:[NSString stringWithFormat:@" %@",modal.fileNumberOfComments] forState:UIControlStateNormal];
     if(self.currentTab==1)
     {
         [cell.imageViewSelected setImage:[UIImage imageNamed:@"tick_fire.png"]];
@@ -187,26 +201,11 @@
     if(self.isEditing == NO)
     {
         FileModal *fileModal = [self.arrayFiles objectAtIndex:indexPath.row];
-        if(fileModal.fileType)
-        {
-            MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:fileModal.fileVideoLink]];
-            
-            
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                
-                [self presentViewController:moviePlayer animated:YES completion:^{
-                    
-                }];
-            });
-            
-        }
-        else
-        {
-            self.selectedIndex = indexPath;
-            [self performSegueWithIdentifier:KImageVideoDetailSegue sender:self];
-        }
+        self.selectedIndex = indexPath;
+        [self performSegueWithIdentifier:KImageVideoDetailSegue sender:fileModal];
+        
     }
-
+    
     
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -214,24 +213,9 @@
     if(self.isEditing == NO)
     {
         FileModal *fileModal = [self.arrayFiles objectAtIndex:indexPath.row];
-        if(fileModal.fileType)
-        {
-            MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:fileModal.fileVideoLink]];
-            
-            
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                
-                [self presentViewController:moviePlayer animated:YES completion:^{
-                    
-                }];
-            });
-            
-        }
-        else
-        {
-            self.selectedIndex = indexPath;
-            [self performSegueWithIdentifier:KImageVideoDetailSegue sender:self];
-        }
+        self.selectedIndex = indexPath;
+        [self performSegueWithIdentifier:KImageVideoDetailSegue sender:fileModal];
+        
     }
     else
     {
@@ -425,6 +409,7 @@
 }
 -(void)actionBack
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateFeed" object:self.arrayFiles userInfo:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)actionDone
@@ -436,7 +421,7 @@
     
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - loader
 -(void)setupLoaderView1
 {
@@ -455,22 +440,22 @@
     }
     
     [self setUpLoaderView:colorProfile];
-
+    
 }
 
 #pragma mark -
- #pragma mark - Navigation
- 
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     if([segue.identifier isEqualToString:KImageVideoDetailSegue])
-     {
-         ImageVideoDetailViewController *imageVc = (ImageVideoDetailViewController *)segue.destinationViewController;
-         imageVc.indexToScroll = self.selectedIndex;
-         imageVc.arrayFiles = self.arrayFiles;
-         imageVc.feed_id = self.feedModal.feed_id;
-     }
+#pragma mark - Navigation
 
- }
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([segue.identifier isEqualToString:KImageVideoDetailSegue])
+    {
+        ImageVideoDetailViewController *imageVc = (ImageVideoDetailViewController *)segue.destinationViewController;
+        imageVc.indexToScroll = self.selectedIndex;
+        imageVc.arrayFiles = self.arrayFiles;
+        imageVc.feed_id = self.feedModal.feed_id;
+    }
+    
+}
 
 
 @end

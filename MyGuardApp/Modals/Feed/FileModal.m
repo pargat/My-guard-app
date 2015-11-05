@@ -28,8 +28,8 @@
         {
             self.fileType = true;
             self.fileThumbCumImageLink = [dict valueForKey:@"thumb"];
-            self.fileVideoLink = [dict valueForKey:@"files"];
-            self.fileDuration =[NSString stringWithFormat:@"%.2f",[[dict valueForKey:@"duration"] floatValue]];
+            self.fileVideoLink = [dict valueForKey:@"media"];
+            self.fileDuration =[NSString stringWithFormat:@"%ld",[[dict valueForKey:@"duration"] integerValue]];
         }
         
     }

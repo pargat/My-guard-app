@@ -71,6 +71,7 @@
     {
         EmergencyCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"EmergencyCell1"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        cell.delegate = self;
         return cell;
     }
     else if (indexPath.row==1)
@@ -245,6 +246,23 @@
 
 #pragma mark - 
 #pragma mark - Contacts helper
+-(void)callContact : (NSString *)phoneNo
+{
+    
+    
+    
+    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",phoneNo]];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
+        [[UIApplication sharedApplication] openURL:phoneUrl];
+    } else
+    {
+        [self showAlert:@"Call facility is not available"];
+    }
+    
+    
+}
+
 -(void)saveContact : (ABRecordRef)person
 {
     
@@ -354,6 +372,25 @@
     return NO;
 }
 
+#pragma mark - 
+#pragma mark - Emergency cell delegate
+-(void)delCall911
+{
+    [self callContact:@"911"];
+}
+-(void)delSms
+{
+    MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init] ;
+    if([MFMessageComposeViewController canSendText])
+    {
+        controller.body = @"Help! I'm in danger";
+        controller.recipients = [self getContactNos];
+        controller.messageComposeDelegate = self;
+        
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+
+}
 
 #pragma mark -
 #pragma mark - Button Actions

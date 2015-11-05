@@ -217,14 +217,11 @@
 {
     CommentModal *commentM = [self.arrayComments objectAtIndex:indexPath.row];
     
-    cell.labelComment.preferredMaxLayoutWidth = self.frame.size.width - 80;
+    cell.labelComment.preferredMaxLayoutWidth = self.frame.size.width - 120;
     [cell.labelComment setText:commentM.commentContent];
     [cell.labelName setText:commentM.commentName];
     [cell.labelTimePassed setText:commentM.commentTimePassed];
-    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:KBaseTimbthumbUrl,commentM.commentDp,cell.imageViewDp.frame.size.width,cell.imageViewDp.frame.size.height]]];
-    
-
-    
+    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:commentM.commentDp]];
     
 }
 
@@ -262,6 +259,7 @@
                 [self.tableViewComments reloadData];
                 [self scrollToBottom];
                 [self.textFieldComment setTextColor:[UIColor blackColor]];
+                [self.delegate delCommentPosted];
             });
         } failure:^(NSString *stringError) {
             [self.btnSend setEnabled:YES];

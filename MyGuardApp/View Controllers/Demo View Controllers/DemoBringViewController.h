@@ -10,4 +10,9 @@
 
 @interface DemoBringViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *labelDemoString;
+
+- (IBAction)actionCloseDemo:(id)sender;
+- (IBAction)actionNext:(id)sender;
+
 @end

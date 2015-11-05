@@ -26,8 +26,12 @@ typedef enum : NSUInteger {
 } MAINTAB;
 
 
+#define KGetAdvertisment @"%@get_advertisement.php"
+
 //Post
 #define KPostAlarmApi @"%@post_fake_alarm.php"
+#define KViewMediaApi @"%@view_media.php?alarm_id=%@&image_id=%@"
+
 
 //General Constants
 #define KInternetNotAvailable @"Internet is not available"
@@ -39,6 +43,8 @@ typedef enum : NSUInteger {
 //reporting
 #define KReportImageApi @"%@report_image.php?user_id=%@&image_id=%@"
 
+//general apis
+#define KViewAlarm @"%@view_alarm.php?user_id=%@&alarm_id=%@"
 
 //Image extra apis
 #define KRemoveFilesApi @"%@remove_files_v2.php?user_id=%@&alarm_id=%@&image_ids=%@"

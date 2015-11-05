@@ -261,7 +261,7 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"pushForeground" object:userInfo];
     
 }
 

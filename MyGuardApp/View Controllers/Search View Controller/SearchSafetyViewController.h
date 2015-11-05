@@ -14,8 +14,11 @@
 #import "SafetyMeasure.h"
 #import "CommunityNoCell.h"
 #import "SafetyDetailViewController.h"
+#import "BaseViewController.h"
+#import <JTMaterialSpinner.h>
 
-@interface SearchSafetyViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+
+@interface SearchSafetyViewController : BaseViewController <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) NSString *stringToSearch;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewSearch;

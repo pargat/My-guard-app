@@ -91,7 +91,8 @@
 #pragma mark - Button Actions
 -(void)actionDone
 {
-    
+    if([self.textViewDescription.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length>0)
+    {
     [self setUpLoaderView];
     NSString *type;
     if(self.currentTab== FIRE)
@@ -116,6 +117,11 @@
         [self removeLoaderView];
 
     }];
+    }
+    else
+    {
+        [self showStaticAlert:nil message:@"Description can't be empty"];
+    }
 }
 -(void)actionBack
 {

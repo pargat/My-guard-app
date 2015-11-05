@@ -17,8 +17,6 @@
     if(self!=nil)
     {
         
-        
-        
         self.feed_full_time = [dict valueForKey:@"nice_time"];
         self.feed_id = [dict  valueForKey:@"id"];
         self.feed_username = [dict valueForKey:@"username"];

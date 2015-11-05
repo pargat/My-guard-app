@@ -11,7 +11,7 @@
 @interface RegisterStep2ViewController ()
 {
     UITextField *activeField;
-
+    
 }
 @end
 
@@ -103,9 +103,10 @@
             Profile *selfProfile = [[Profile alloc] initWithAttributes:[responseStr valueForKey:@"profile"]];
             [[NSUserDefaults standardUserDefaults] rm_setCustomObject:selfProfile forKey:@"profile"];
             [self performSegueWithIdentifier:KtabSegue sender:self];
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"FirstGuide"];
         }
         [self removeLoaderView];
-
+        
     } failure:^(NSError *error) {
         [self removeLoaderView];
     }];
@@ -127,7 +128,7 @@
     [formattedDict setObject:self.textFieldCode.text forKey:@"code"];
     [formattedDict setObject:(self.segmentedControlGender.selectedSegmentIndex == 0? @"male" : @"female") forKey:@"gender"];
     [formattedDict setObject:self.stringDob forKey:@"dob"];
-
+    
     LOcationUpdater *locMan = [LOcationUpdater sharedManager];
     CLLocation *cords = locMan.currentLoc;
     [formattedDict setObject:[NSString stringWithFormat:@"%f",cords.coordinate.latitude] forKey:@"latitude"];
@@ -165,7 +166,7 @@
         msg = @"Please enter first name" ;
     else if ([[self.textFieldLastName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length]  == 0)
         msg = @"Please enter last  name" ;
-
+    
     
     else if (self.stringDob==nil)
         msg = @"Please enter your date of birth" ;
@@ -216,7 +217,7 @@
     [self.textFieldFirstName setPlaceholder:NSLocalizedString(@"first_name", nil)];
     [self.textFieldLastName setPlaceholder:NSLocalizedString(@"last_name", nil)];
     [self.textFieldCode setPlaceholder:NSLocalizedString(@"code", nil)];
-
+    
     [self.textFieldUser setPlaceholder:NSLocalizedString(@"user", nil)];
     
     [self.textFieldUser setDelegate:self];
@@ -256,10 +257,10 @@
             });
             
         });
-
+        
         
     }
-
+    
 }
 
 -(void)tapped
@@ -278,18 +279,22 @@
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     picker.allowsEditing = YES;
-
+    
     if(buttonIndex==0)
     {
-            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:picker animated:YES completion:NULL];
-
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:picker animated:YES completion:^{
+            
+        }];
+        
     }
     else if (buttonIndex==1)
     {
-            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:picker animated:YES completion:NULL];
-
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:picker animated:YES completion:^{
+            
+        }];
+        
     }
     else if (buttonIndex==2)
     {
@@ -298,7 +303,7 @@
     }
     
     
-
+    
 }
 #pragma mark -
 #pragma mark - Button Actions
@@ -307,7 +312,17 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)actionDp:(id)sender {
-    UIActionSheet *Sheet = [[UIActionSheet alloc] initWithTitle:@"Select Picture from" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera" , @"Photo Library",@"Remove Photo", nil];
+    
+    UIActionSheet *Sheet;
+    if(self.isImageSelected)
+    {
+        Sheet = [[UIActionSheet alloc] initWithTitle:@"Select Picture from" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera" , @"Photo Library",@"Remove Photo", nil];
+    }
+    else
+    {
+        Sheet = [[UIActionSheet alloc] initWithTitle:@"Select Picture from" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera" , @"Photo Library", nil];
+    }
+    
     [Sheet showInView:self.view];
 }
 - (IBAction)actionDob:(id)sender {
@@ -333,7 +348,9 @@
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
     self.imageViewDp.image = chosenImage;
     self.isImageSelected = true;
-    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
     
 }
 
@@ -358,7 +375,7 @@
         NSDateFormatter *formatterDate1 = [[NSDateFormatter alloc] init];
         formatterDate1.dateFormat = @"yyyy-MM-dd";
         self.stringDob = [formatterDate1 stringFromDate:date];
-        
+        [self.btnDob setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
     }];
     
@@ -375,7 +392,7 @@
     NSDate *today = [NSDate date];
     dateSelectionController.datePicker.maximumDate = today;
     
- 
+    
     
     
     
@@ -387,16 +404,16 @@
 }
 
 
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     if([segue.identifier isEqualToString:KtabSegue])
-     {
-         MainTabBarController *mainVC = (MainTabBarController *)segue.destinationViewController;
-         mainVC.isFirstTime = true;
-     }
- }
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([segue.identifier isEqualToString:KtabSegue])
+    {
+        MainTabBarController *mainVC = (MainTabBarController *)segue.destinationViewController;
+        mainVC.isFirstTime = true;
+    }
+}
 
 
 

@@ -45,30 +45,51 @@
     [self.navigationItem setTitle:NSLocalizedString(@"tb_co", nil)];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:modal.profileImageFullLink]];
-
-//        NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://api.firesonar.//com/FireSonar/timthumb.php?src=uploads/iSf0mKHUG5vgEt2pncuW.jpeg"]];
-        UIImage *image = [UIImage imageWithData:tmpdata];
-        image = [image circularScaleAndCropImage:CGRectMake(0, 0, 32, 32)];
-        image = [image imageByScalingAndCroppingForSize:CGSizeMake(32, 32)];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            UIButton *btnProfileA = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
-            [btnProfileA setImage:image forState:UIControlStateNormal];
-            [btnProfileA addTarget:self action:@selector(actionProfile) forControlEvents:UIControlEventTouchUpInside];
-            btnProfileA.layer.cornerRadius = btnProfileA.frame.size.width/2;
-            btnProfileA.layer.borderColor = [[UIColor whiteColor] CGColor];
-            btnProfileA.layer.borderWidth = 1.0;
-            
-            
-            UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
-            [btnProfile setTintColor:[UIColor whiteColor]];
-            self.navigationItem.leftBarButtonItem = btnProfile;
-        });
+    LOcationUpdater *locationUpdater = [LOcationUpdater sharedManager];
+    if(locationUpdater.imageDp!=nil)
+    {
+        UIButton *btnProfileA = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+        [btnProfileA setImage:locationUpdater.imageDp forState:UIControlStateNormal];
+        [btnProfileA addTarget:self action:@selector(actionProfile) forControlEvents:UIControlEventTouchUpInside];
+        btnProfileA.layer.cornerRadius = btnProfileA.frame.size.width/2;
+        btnProfileA.layer.borderColor = [[UIColor whiteColor] CGColor];
+        btnProfileA.layer.borderWidth = 1.0;
         
-    });
+        
+        UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
+        [btnProfile setTintColor:[UIColor whiteColor]];
+        self.navigationItem.leftBarButtonItem = btnProfile;
+        
+    }
+    else
+    {
+        Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            
+            NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:modal.profileImageName]];
+            
+            UIImage *image = [UIImage imageWithData:tmpdata];
+            image = [image circularScaleAndCropImage:CGRectMake(0, 0, image.size.width, image.size.width)];
+            image = [image imageByScalingAndCroppingForSize:CGSizeMake(image.size.width, image.size.width)];
+            locationUpdater.imageDp = image;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                UIButton *btnProfileA = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+                [btnProfileA setImage:image forState:UIControlStateNormal];
+                [btnProfileA addTarget:self action:@selector(actionProfile) forControlEvents:UIControlEventTouchUpInside];
+                btnProfileA.layer.cornerRadius = btnProfileA.frame.size.width/2;
+                btnProfileA.layer.borderColor = [[UIColor whiteColor] CGColor];
+                btnProfileA.layer.borderWidth = 1.0;
+                
+                
+                UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
+                [btnProfile setTintColor:[UIColor whiteColor]];
+                self.navigationItem.leftBarButtonItem = btnProfile;
+            });
+            
+        });
+    }
     
     
     [self addNavbuttons:NO];
@@ -83,7 +104,7 @@
     {
         UIBarButtonItem *btnAddSafetyMeasure = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_safety"] style:UIBarButtonItemStylePlain target:self action:@selector(actionAddSafety)];
         [btnAddSafetyMeasure setTintColor:[UIColor whiteColor]];
-        self.navigationItem.rightBarButtonItem = btnAddSafetyMeasure;
+        self.navigationItem.rightBarButtonItems = @[btnSearch,btnAddSafetyMeasure];
     }
     else
     {
@@ -101,6 +122,7 @@
 -(void)delNobutton
 {
     self.navigationItem.rightBarButtonItem = nil;
+    self.navigationItem.rightBarButtonItems = nil;
 }
 
 
@@ -146,6 +168,20 @@
         AddSafetyViewController *addSafetyVC = (AddSafetyViewController *)segue.destinationViewController;
         addSafetyVC.currentTab = FIRE;
     }
+    else     if([segue.identifier isEqualToString:KSearchMainSegue])
+    {
+        SearchMainViewController *searchVc= (SearchMainViewController *)segue.destinationViewController;
+        if(self.mainVC.currentIndex==1)
+        {
+            searchVc.currentTab = 1;
+
+        }
+        else
+        {
+            searchVc.currentTab = 0;
+        }
+    }
+
 }
 
 

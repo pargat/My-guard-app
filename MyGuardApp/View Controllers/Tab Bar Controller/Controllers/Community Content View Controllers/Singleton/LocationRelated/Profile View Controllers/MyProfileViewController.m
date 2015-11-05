@@ -17,9 +17,6 @@
     [self.tableViewProfile setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self setNavBarAndTab];
     [self getSafetyMeasure];
-    [self.tableViewProfile reloadData];
-    [self.view setNeedsLayout];
-    [self.view layoutIfNeeded];
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -28,6 +25,13 @@
     
 }
 
+
+#pragma mark - 
+#pragma mark - View Helper
+-(void)afterApi
+{
+    
+}
 
 #pragma mark - 
 #pragma mark - Animation zoom
@@ -74,15 +78,31 @@
 }
 -(void)getSafetyMeasure
 {
-
-    [SafetyMeasure callAPIForSafetyMeasureOfUserSelf:[NSString stringWithFormat:KGetProfile,KbaseUrl,self.myProfile.profileUserId,self.myProfile.profileUserId] Params:nil success:^(NSMutableArray *safetyArr) {
-        
-        self.arraySafety = [[NSMutableArray alloc] initWithArray:safetyArr];
+    
+    [SafetyMeasure callAPIForSafetyMeasureOfUserOther:[NSString stringWithFormat:KGetProfile,KbaseUrl,self.myProfile.profileUserId,self.myProfile.profileUserId] Params:nil success:^(NSMutableDictionary *dict) {
+        self.arraySafety = [dict valueForKey:@"array"];
+        self.myProfile = [dict valueForKey:@"profile"];
         [self.tableViewProfile reloadData];
+        [self afterApi];
         
     } failure:^(NSString *errorStr) {
         
     }];
+
+//    [SafetyMeasure callAPIForSafetyMeasureOfUserSelf:[NSString stringWithFormat:KGetProfile,KbaseUrl,self.myProfile.profileUserId,self.myProfile.profileUserId] Params:nil success:^(NSMutableArray *safetyArr) {
+//        
+//        self.arraySafety = [[NSMutableArray alloc] initWithArray:safetyArr];
+//        [self.tableViewProfile reloadData];
+//        
+//    } failure:^(NSString *errorStr) {
+//        
+//    }];
+}
+#pragma mark -
+#pragma mark - ProfileMyDelegate
+-(void)delBigView
+{
+    [self performSegueWithIdentifier:KImageFullSegue sender:nil];
 }
 
 #pragma mark - 
@@ -168,11 +188,19 @@
 }
 -(void)configureProfileHeaderCell:(ProfileHeaderMyCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    
+    cell.delegate = self;
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:KBaseTimbthumbUrl,self.myProfile.profileImageFullLink,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
-    [cell.labelName setText:self.myProfile.profileFirstName];
+    [cell.labelName setText:self.myProfile.profileUserName];
     [cell.labelPhoneNumber setText:self.myProfile.profilePhoneNumber];
     [cell.labelAddress setText:self.myProfile.profileAddress];
+    if([self.myProfile.profileUnreadCount integerValue]>0)
+    {
+        [cell.btnNotif setImage:[UIImage imageNamed:@"ic_notifications_selected"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [cell.btnNotif setImage:[UIImage imageNamed:@"ic_notifications"] forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark -
@@ -240,8 +268,8 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row>0)
-    [self performSegueWithIdentifier:KSafetyDetailSegue sender:[self.arraySafety objectAtIndex:indexPath.row-1]];
+        if(indexPath.row>0&&self.arraySafety.count!=0)
+     [self performSegueWithIdentifier:KSafetyDetailSegue sender:[self.arraySafety objectAtIndex:indexPath.row-1]];
 }
 #pragma mark -
 #pragma mark - Action Sheet Delegate
@@ -279,6 +307,12 @@
         SafetyDetailViewController *safetyVC = (SafetyDetailViewController *)segue.destinationViewController;
         SafetyMeasure *modal = (SafetyMeasure *)sender;
         safetyVC.stringSafety = modal.safetyDescription;
+    }
+    else if ([segue.identifier isEqualToString:KImageFullSegue])
+    {
+        ImageFullViewController *imageVc = (ImageFullViewController *)segue.destinationViewController;
+        imageVc.username = self.myProfile.profileUserName;
+        imageVc.imageLink = self.myProfile.profileImageName;
     }
 }
 @end

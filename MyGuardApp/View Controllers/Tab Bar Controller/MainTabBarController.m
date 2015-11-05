@@ -134,6 +134,8 @@ int previousFreq=0;
     [self locationInitialiser];
     _fftBuf = (float *)malloc(sizeof(float)*FFTLEN);
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performPushForeground:) name:@"pushForeground" object:nil];
+    
     
 }
 
@@ -159,7 +161,27 @@ int previousFreq=0;
 
 
 #pragma mark -
-#pragma mark - View Helpers
+#pragma mark - View Helpers and observers
+-(void)performPushForeground:(NSNotification *)n
+{
+    NSDictionary *dict = [n.object valueForKey:@"C"];
+    NSString *str = [dict valueForKey:@"type"];
+    
+    if([str isEqualToString:@"1"])
+    {
+        [self performSegueWithIdentifier:KMapFeedSegue sender:dict];
+    }
+    else if([str isEqualToString:@"2"])
+    {
+        [self performSegueWithIdentifier:KFalseAlarmSegue sender:dict];
+    }
+    else if ([str isEqualToString:@"5"])
+    {
+        [self performSegueWithIdentifier:KAdminSegue sender:dict];
+    }
+
+}
+
 -(void)showVideoPermission
 {
     if(self.isFirstTime)
@@ -897,8 +919,9 @@ int previousFreq=0;
     if (alarmCount==30)
     {
         alarmCount=0;
-        [self removeAlarmOverlay];
         [self startWaveAnimation:(self.AlarmObj.currentTab)];
+
+        [self removeAlarmOverlay];
         [self sendPushToCommunity];
         
         return ;
@@ -1080,7 +1103,24 @@ int previousFreq=0;
             addressString = @"";
         }
         
-        NSDictionary *dictPara = @{@"user_id":[Profile getCurrentProfileUserId],@"latitude":[NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude ],@"longitude":[NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude ],@"description":@"",@"type":self.type,@"place":addressString};
+        NSString *typeString;
+        if([self.type isEqualToString:@"1"])
+        {
+            typeString = @"1";
+        }
+        else if ([self.type isEqualToString:@"2"])
+        {
+            typeString = @"3";
+            
+        }
+        else
+        {
+            typeString = @"2";
+            
+        }
+
+        
+        NSDictionary *dictPara = @{@"user_id":[Profile getCurrentProfileUserId],@"latitude":[NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude ],@"longitude":[NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude ],@"description":@"",@"type":typeString,@"place":addressString};
         NSString *finalUrl = [NSString stringWithFormat:KOpenTok,KbaseUrl] ;
         [self hitApi:dictPara str:finalUrl];
         
@@ -1105,10 +1145,11 @@ int previousFreq=0;
         [self.waveObj removeFromSuperview];
         [[NSUserDefaults standardUserDefaults] setObject:[responseDict valueForKey:@"token"] forKey:@"token"];
         [[NSUserDefaults standardUserDefaults] setObject:[responseDict valueForKey:@"sessionId"] forKey:@"sessionId"];
+        [self waveAnimationTurnOff];
+        [self stopMicrophone];
+
         if([[NSUserDefaults standardUserDefaults] boolForKey:@"video_permission"]==YES)
         {
-            [self waveAnimationTurnOff];
-            [self stopMicrophone];
             VideoStreamViewController *vStreamVC = [[VideoStreamViewController alloc] init];
             [vStreamVC.view setFrame:self.view.frame];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -1118,6 +1159,7 @@ int previousFreq=0;
                 }];
             });
         }
+        
         
     } failure:^(NSError *error) {
         
@@ -1134,7 +1176,24 @@ int previousFreq=0;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSDictionary *)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
+    if ([segue.identifier isEqualToString:KMapFeedSegue])
+    {
+        MapViewController *mapVC = (MapViewController *)segue.destinationViewController;
+        mapVC.dictInfo = sender;
+        
+    }
+    else if ([segue.identifier isEqualToString:KFalseAlarmSegue])
+    {
+        FalseAlarmViewController *falseVC = (FalseAlarmViewController *)segue.destinationViewController;
+        falseVC.dictInfo  = sender;
+    }
+    else if ([segue.identifier isEqualToString:KAdminSegue])
+    {
+        AdminMessageViewController *adminVC = (AdminMessageViewController *)segue.destinationViewController;
+        adminVC.messageId = [sender valueForKey:@"id"];
+        adminVC.messageId = [sender valueForKey:@"m"];
+    }
+
 }
 
 

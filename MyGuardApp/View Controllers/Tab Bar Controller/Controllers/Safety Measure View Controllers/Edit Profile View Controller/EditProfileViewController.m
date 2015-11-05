@@ -44,6 +44,7 @@
 #pragma mark - View Helper
 -(void)viewHelper
 {
+    [self.btnDonb setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     UITapGestureRecognizer *tapgesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
     tapgesture.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapgesture];
@@ -84,7 +85,7 @@
     [self.textFieldDisability setText:modal.profileDisability];
     [self.btnDonb setTitle:modal.profileDOB forState:UIControlStateNormal];
     
-    [self.imageViewDp sd_setImageWithURL:[NSURL URLWithString:modal.profileImageFullLink]];
+    [self.imageViewDp sd_setImageWithURL:[NSURL URLWithString:modal.profileImageName]];
     if([modal.profileGender isEqualToString:@"male"])
     {
         [self.segmentedControlGender setSelectedSegmentIndex:0];
@@ -136,7 +137,7 @@
     [formattedDict setObject:[NSString stringWithFormat:@"%f",cords.coordinate.latitude] forKey:@"latitude"];
     [formattedDict setObject:[NSString stringWithFormat:@"%f",cords.coordinate.longitude] forKey:@"longitude"];
     
-    if(self.isImageChanged!=0)
+    if(self.isImageChanged!=2)
     {
         Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
         [formattedDict setObject:modal.profileImageName forKey:@"old_image"];
@@ -285,10 +286,11 @@
         }
         
         [iOSRequest uploadData:[NSString stringWithFormat:KEditProfile,KbaseUrl] parameters:[self formatDataBeforeSending1] imageData:imageData success:^(NSDictionary *responseStr) {
-            
+            LOcationUpdater *loc = [LOcationUpdater sharedManager];
+            loc.imageDp = nil;
             Profile *selfProfile = [[Profile alloc] initWithAttributes:[responseStr valueForKey:@"profile"]];
             [[NSUserDefaults standardUserDefaults] rm_setCustomObject:selfProfile forKey:@"profile"];
-
+            [self showStaticAlert:@"Success" message:@"User details successfully updated"];
             [self removeLoaderView];
         } failure:^(NSError *error) {
             [self removeLoaderView];
@@ -324,7 +326,7 @@
         NSDateFormatter *formatterDate1 = [[NSDateFormatter alloc] init];
         formatterDate1.dateFormat = @"yyyy-MM-dd";
         self.stringDob = [formatterDate1 stringFromDate:date];
-        
+        [self.btnDonb setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
     }];
     
@@ -334,30 +336,47 @@
     }];
     
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-mm-dd"];
-    NSDate *date = [dateFormatter dateFromString:self.stringDob];
+    @try {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-mm-dd"];
+        NSDate *date = [dateFormatter dateFromString:self.stringDob];
+        
+        
+        
+        
+        //Create date selection view controller
+        RMDateSelectionViewController *dateSelectionController = [RMDateSelectionViewController actionControllerWithStyle:RMActionControllerStyleDefault selectAction:selectAction andCancelAction:cancelAction];
+        dateSelectionController.datePicker.datePickerMode = UIDatePickerModeDate;
+        dateSelectionController.datePicker.date = date;
+        
+        NSDate *today = [NSDate date];
+        dateSelectionController.datePicker.maximumDate = today;
+        dateSelectionController.title =  NSLocalizedString(@"select_dob", nil);
+        
+        //Now just present the date selection controller using the standard iOS presentation method
+        [self presentViewController:dateSelectionController animated:YES completion:nil];
+    }
+    @catch (NSException *exception) {
+        
+        //Create date selection view controller
+        RMDateSelectionViewController *dateSelectionController = [RMDateSelectionViewController actionControllerWithStyle:RMActionControllerStyleDefault selectAction:selectAction andCancelAction:cancelAction];
+        dateSelectionController.datePicker.datePickerMode = UIDatePickerModeDate;
+        
+        NSDate *today = [NSDate date];
+        dateSelectionController.datePicker.maximumDate = today;
+        dateSelectionController.title =  NSLocalizedString(@"select_dob", nil);
+        
+        //Now just present the date selection controller using the standard iOS presentation method
+        [self presentViewController:dateSelectionController animated:YES completion:nil];
+
+    }
     
     
     
     
-    //Create date selection view controller
-    RMDateSelectionViewController *dateSelectionController = [RMDateSelectionViewController actionControllerWithStyle:RMActionControllerStyleDefault selectAction:selectAction andCancelAction:cancelAction];
-    dateSelectionController.datePicker.datePickerMode = UIDatePickerModeDate;
-    dateSelectionController.datePicker.date = date;
-    
-    NSDate *today = [NSDate date];
-    dateSelectionController.datePicker.maximumDate = today;
     
     
-    
-    
-    
-    
-    dateSelectionController.title =  NSLocalizedString(@"select_dob", nil);
-    
-    //Now just present the date selection controller using the standard iOS presentation method
-    [self presentViewController:dateSelectionController animated:YES completion:nil];
+
 }
 
 #pragma mark -

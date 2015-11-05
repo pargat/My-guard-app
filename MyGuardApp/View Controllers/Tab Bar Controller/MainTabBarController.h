@@ -18,6 +18,9 @@
 #import "VideoStreamViewController.h"
 #import "OtherProfileViewController.h"
 #import "SafetyDetailViewController.h"
+#import "MapViewController.h"
+#import "FalseAlarmViewController.h"
+#import "AdminMessageViewController.h"
 
 @interface MainTabBarController : UITabBarController<CLLocationManagerDelegate,alarmOverlayDelegate,waveAnimationDelegate,EZMicrophoneDelegate,UIAlertViewDelegate>
 

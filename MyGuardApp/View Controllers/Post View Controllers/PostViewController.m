@@ -49,6 +49,7 @@
 
 -(void)viewHelper
 {
+    self.textViewContent.placeholder = @"Type here";
     self.btnCamera.layer.cornerRadius = self.btnCamera.frame.size.width/2;
     self.btnCamera.clipsToBounds = YES;
     
@@ -177,30 +178,6 @@
         
     }];
 }
-
-//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-//{
-//
-//    [picker dismissViewControllerAnimated:YES completion:nil];
-//    UIImage *imageOriginal = [info valueForKey:UIImagePickerControllerOriginalImage];
-//    self.imagePost = imageOriginal;
-//    self.imagePost = [imageOriginal imageByScalingAndCroppingForSize:CGSizeMake(self.imagePost.size.width/2, self.imagePost.size.height/2)];
-//    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
-//    NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-//    textAttachment.image = self.imagePost;
-//
-//    CGFloat oldWidth = textAttachment.image.size.width;
-//
-//    //I'm subtracting 10px to make the image display nicely, accounting
-//    //for the padding inside the textView
-//    CGFloat scaleFactor = oldWidth / (self.textViewContent.frame.size.width - 10);
-//    textAttachment.image = [UIImage imageWithCGImage:textAttachment.image.CGImage scale:scaleFactor orientation:UIImageOrientationUp];
-//    NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
-//    [attributedString appendAttributedString:attrStringWithImage];
-//    [attributedString appendAttributedString:[[NSAttributedString alloc ] initWithString:self.textViewContent.text]];
-//    self.textViewContent.attributedText = attributedString;
-//
-//}
 #pragma mark -
 #pragma mark - Action Sheet Delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -383,7 +360,7 @@
     {
         colorProfile = KOrangeColor;
     }
-    else if (self.feedType==3)
+    else if (self.feedType==2)
     {
         colorProfile = KGreenColor;
     }
@@ -403,7 +380,11 @@
         [dict setObject:[NSString stringWithFormat:@"%d",self.feedType] forKey:@"type"];
         [dict setObject:[NSString stringWithFormat:@"%d", self.duration] forKey:@"duration"];
         [iOSRequest postVideoAlarm:[NSString stringWithFormat:KPostAlarmApi,KbaseUrl] parameters:dict videoData:self.videoData thumbData:UIImageJPEGRepresentation(self.imagePost, 0.5) success:^(NSDictionary *responseStr) {
-            
+            [self showStaticAlert:@"Success" message:@"Media posted successfully"];
+            self.isPostVideo = false;
+            self.imagePost = nil;
+            self.videoData = nil;
+            self.navigationItem.rightBarButtonItem.enabled = NO;
              [self.textViewContent setText:@""];
             [self removeLoaderView];
         } failure:^(NSError *error) {
@@ -425,6 +406,11 @@
         
         NSData *dataImage = UIImageJPEGRepresentation(self.imagePost, 0.5);
         [iOSRequest postImageAlarm:[NSString stringWithFormat:KPostAlarmApi,KbaseUrl] parameters:dict imageData:dataImage success:^(NSDictionary *responseStr) {
+             [self showStaticAlert:@"Success" message:@"Media posted successfully"];
+            self.isPostVideo = false;
+            self.imagePost = nil;
+            self.videoData = nil;
+            self.navigationItem.rightBarButtonItem.enabled = NO;
             [self.textViewContent setText:@""];
             [self removeLoaderView];
             

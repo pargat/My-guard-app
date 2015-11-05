@@ -29,6 +29,7 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     [self walkSetter];
+    
 }
 
 
@@ -36,6 +37,8 @@
 #pragma mark - Setup Helper
 -(void)walkSetter
 {
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@"yes" forKey:@"FirstWalk"];
     CGRect rectScreen =  [[UIScreen mainScreen] bounds];
     WalkThroughView *view1 = [[WalkThroughView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [view1 setFrame:rectScreen];
@@ -89,6 +92,30 @@
         [self.btnSkipWalkThrough setHidden:NO];
 
     }
+    CGFloat floatDis = targetContentOffset->x;
+    if(floatDis<rectScreen.size.width)
+    {
+        [self.pageControlMain setCurrentPage:0];
+    }
+    else if(floatDis<rectScreen.size.width*2)
+    {
+        [self.pageControlMain setCurrentPage:1];
+    }
+    else if(floatDis<rectScreen.size.width*3)
+    {
+        [self.pageControlMain setCurrentPage:2];
+    }
+    else if(floatDis<rectScreen.size.width*4)
+    {
+        [self.pageControlMain setCurrentPage:3];
+    }
+    else
+    {
+        [self.pageControlMain setCurrentPage:4];
+    }
+
+
+    
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {

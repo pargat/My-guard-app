@@ -14,9 +14,13 @@
 #import "FeedModal.h"
 #import "MapViewController.h"
 #import "ImageVideoViewController.h"
+#import "FeedFakeCell.h"
+#import "BaseViewController.h"
+#import <JTMaterialSpinner.h>
+
 
 @class SearchMainViewController;
-@interface SearchFeedViewController : UIViewController<FeedMainDelegate,UIActionSheetDelegate,UINavigationBarDelegate,UIImagePickerControllerDelegate>
+@interface SearchFeedViewController : BaseViewController<FeedMainDelegate,UIActionSheetDelegate,UINavigationBarDelegate,UIImagePickerControllerDelegate,FeedFakeDelegate,UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) NSIndexPath *selectedIndex;
 @property (nonatomic,strong) NSString *stringToSearch;

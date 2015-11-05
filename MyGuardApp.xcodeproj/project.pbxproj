@@ -47,6 +47,9 @@
 		27795F591BD92AB700FDFF17 /* YoutubeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27795F581BD92AB700FDFF17 /* YoutubeViewController.m */; };
 		277A8EBA1BB293E500A7C347 /* SafetyProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 277A8EB91BB293E500A7C347 /* SafetyProfileCell.m */; };
 		277A8EBD1BB2B84500A7C347 /* ProfileHeaderMyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 277A8EBC1BB2B84500A7C347 /* ProfileHeaderMyCell.m */; };
+		277B6B5F1BEB3F1D00E862FB /* UserGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6B5E1BEB3F1D00E862FB /* UserGuideViewController.m */; };
+		277B6B621BEB86E400E862FB /* ImageFullViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6B611BEB86E400E862FB /* ImageFullViewController.m */; };
+		277B6B651BEBACAE00E862FB /* AdminMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6B641BEBACAE00E862FB /* AdminMessageViewController.m */; };
 		2780F6CF1BE4BC360086449B /* PushModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2780F6CE1BE4BC360086449B /* PushModal.m */; };
 		2780F6D31BE4E1F40086449B /* FalseAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2780F6D21BE4E1F40086449B /* FalseAlarmViewController.m */; };
 		2780F6D71BE51EDC0086449B /* SearchMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2780F6D61BE51EDC0086449B /* SearchMainViewController.m */; };
@@ -230,6 +233,12 @@
 		277A8EB91BB293E500A7C347 /* SafetyProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SafetyProfileCell.m; sourceTree = "<group>"; };
 		277A8EBB1BB2B84500A7C347 /* ProfileHeaderMyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileHeaderMyCell.h; sourceTree = "<group>"; };
 		277A8EBC1BB2B84500A7C347 /* ProfileHeaderMyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileHeaderMyCell.m; sourceTree = "<group>"; };
+		277B6B5D1BEB3F1D00E862FB /* UserGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserGuideViewController.h; sourceTree = "<group>"; };
+		277B6B5E1BEB3F1D00E862FB /* UserGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserGuideViewController.m; sourceTree = "<group>"; };
+		277B6B601BEB86E400E862FB /* ImageFullViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFullViewController.h; sourceTree = "<group>"; };
+		277B6B611BEB86E400E862FB /* ImageFullViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFullViewController.m; sourceTree = "<group>"; };
+		277B6B631BEBACAE00E862FB /* AdminMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdminMessageViewController.h; sourceTree = "<group>"; };
+		277B6B641BEBACAE00E862FB /* AdminMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdminMessageViewController.m; sourceTree = "<group>"; };
 		2780F6CD1BE4BC360086449B /* PushModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushModal.h; sourceTree = "<group>"; };
 		2780F6CE1BE4BC360086449B /* PushModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushModal.m; sourceTree = "<group>"; };
 		2780F6D11BE4E1F40086449B /* FalseAlarmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FalseAlarmViewController.h; sourceTree = "<group>"; };
@@ -640,6 +649,12 @@
 			children = (
 				27795F571BD92AB700FDFF17 /* YoutubeViewController.h */,
 				27795F581BD92AB700FDFF17 /* YoutubeViewController.m */,
+				277B6B5D1BEB3F1D00E862FB /* UserGuideViewController.h */,
+				277B6B5E1BEB3F1D00E862FB /* UserGuideViewController.m */,
+				277B6B601BEB86E400E862FB /* ImageFullViewController.h */,
+				277B6B611BEB86E400E862FB /* ImageFullViewController.m */,
+				277B6B631BEBACAE00E862FB /* AdminMessageViewController.h */,
+				277B6B641BEBACAE00E862FB /* AdminMessageViewController.m */,
 			);
 			name = "Other View Controller";
 			path = "Tab Bar Controller/Controllers/Community Content View Controllers/Other View Controller";
@@ -1502,6 +1517,7 @@
 				2760886A1BCF854C009F1E18 /* SoundMainCell2.m in Sources */,
 				279FBD451BB022CD007AEFCB /* CommunityCell.m in Sources */,
 				27FBA6E11BA93A9C00F373E4 /* COViewController.m in Sources */,
+				277B6B621BEB86E400E862FB /* ImageFullViewController.m in Sources */,
 				276088711BCFC3FF009F1E18 /* ImageVideoViewController.m in Sources */,
 				274E8E8F1BD578C600171C5C /* CommonFunctions.m in Sources */,
 				27DD67681BE8E8A7001CDDBB /* PostViewController.m in Sources */,
@@ -1513,6 +1529,7 @@
 				27C137A91BC54D480072EDB6 /* AddSafetyViewController.m in Sources */,
 				278418731BCCD4F90075B7C1 /* EmergencyViewController.m in Sources */,
 				27FBA6FF1BA94D5D00F373E4 /* MainContentViewController.m in Sources */,
+				277B6B5F1BEB3F1D00E862FB /* UserGuideViewController.m in Sources */,
 				278CAFB71BA6E909005814C6 /* WalkThroughView.m in Sources */,
 				270114641BDD46B300E8FE95 /* CommentCell.m in Sources */,
 				2745D1961BAFE692002261B0 /* Video.m in Sources */,
@@ -1569,6 +1586,7 @@
 				27FBA6FB1BA94C4200F373E4 /* XLPagerTabStripViewController.m in Sources */,
 				278210991B9AE822000EA90B /* main.m in Sources */,
 				27F361511BD6C4B50042C8AA /* CommunityNoCell.m in Sources */,
+				277B6B651BEBACAE00E862FB /* AdminMessageViewController.m in Sources */,
 				2784187D1BCCE1380075B7C1 /* EmergencyCellContact.m in Sources */,
 				279FBD421BB01F0B007AEFCB /* CommunityContentViewController.m in Sources */,
 				27F3614A1BD651EA0042C8AA /* SafetyDetailViewController.m in Sources */,
@@ -1723,14 +1741,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyGuardApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c2f72bda-1340-4b4e-9dd1-7cc4ab166316";
+				PROVISIONING_PROFILE = "031d839c-81bc-42df-a5ec-1e7b53f206f2";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyGuardApp/sounds/MyGuardApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1743,14 +1761,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyGuardApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c2f72bda-1340-4b4e-9dd1-7cc4ab166316";
+				PROVISIONING_PROFILE = "031d839c-81bc-42df-a5ec-1e7b53f206f2";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyGuardApp/sounds/MyGuardApp-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

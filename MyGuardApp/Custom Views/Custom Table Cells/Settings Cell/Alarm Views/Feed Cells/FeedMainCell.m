@@ -24,22 +24,6 @@
 -(void)layoutSubviews
 {
      [super layoutSubviews];
-    
-    
-//        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.viewOverlay.bounds];
-//        self.viewOverlay.layer.masksToBounds = NO;
-//        self.viewOverlay.layer.shadowColor = [UIColor lightGrayColor].CGColor;
-//        self.viewOverlay.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
-//        self.viewOverlay.layer.shadowOpacity = 0.75f;
-//        self.viewOverlay.layer.shadowPath = shadowPath.CGPath;
-//    
-//        UIBezierPath *shadowPath1 = [UIBezierPath bezierPathWithRect:self.viewShadow.bounds];
-//        self.viewShadow.layer.masksToBounds = NO;
-//        self.viewShadow.layer.shadowColor = [UIColor lightGrayColor].CGColor;
-//        self.viewShadow.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
-//        self.viewShadow.layer.shadowOpacity = 0.75f;
-//        self.viewShadow.layer.shadowPath = shadowPath1.CGPath;
-
 }
 #pragma mark -
 #pragma mark - Helpers
@@ -96,7 +80,7 @@
         [cell.btnVideo setHidden:YES];
 
     }
-    [cell.btnComments setTitle:modal.fileNumberOfComments forState:UIControlStateNormal];
+    [cell.btnComments setTitle:[NSString stringWithFormat:@" %@",modal.fileNumberOfComments] forState:UIControlStateNormal];
 
     
 }

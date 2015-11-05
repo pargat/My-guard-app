@@ -15,7 +15,7 @@
 #import "ContactsData.h"
 #import <MessageUI/MessageUI.h>
 
-@interface EmergencyViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,ABPeoplePickerNavigationControllerDelegate,MFMessageComposeViewControllerDelegate,UIActionSheetDelegate>
+@interface EmergencyViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,ABPeoplePickerNavigationControllerDelegate,MFMessageComposeViewControllerDelegate,UIActionSheetDelegate,EmergencyCell1Delegate>
 
 @property (nonatomic,strong) NSIndexPath *selectedIndex;
 @property (nonatomic, strong) ABPeoplePickerNavigationController *addressBookController;

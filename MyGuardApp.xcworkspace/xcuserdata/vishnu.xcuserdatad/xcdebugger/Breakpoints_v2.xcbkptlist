@@ -19,28 +19,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MyGuardApp/Modals/Notification Modal/NotificationModal.m"
-            timestampString = "467723178.191979"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "+callAPIForNotifications:Params:success:failure:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "MyGuardApp/View Controllers/Other Profile View Controllers/OtherProfileViewController.m"
-            timestampString = "468237500.695546"
+            timestampString = "468421966.475349"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
+            startingLineNumber = "346"
+            endingLineNumber = "346"
             landmarkName = "-actionAddFamily:"
             landmarkType = "5">
             <Locations>
@@ -52,11 +36,11 @@
                   moduleName = "MyGuardApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/View%20Controllers/Other%20Profile%20View%20Controllers/OtherProfileViewController.m"
-                  timestampString = "468289221.545488"
+                  timestampString = "468458640.016033"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "338"
-                  endingLineNumber = "338"
+                  startingLineNumber = "348"
+                  endingLineNumber = "348"
                   offsetFromSymbolStart = "1776">
                </Location>
                <Location
@@ -67,59 +51,11 @@
                   moduleName = "MyGuardApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/View%20Controllers/Other%20Profile%20View%20Controllers/OtherProfileViewController.m"
-                  timestampString = "468289221.545864"
+                  timestampString = "468458640.016389"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "338"
-                  endingLineNumber = "338"
-                  offsetFromSymbolStart = "48">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyGuardApp/View Controllers/Other Profile View Controllers/OtherProfileViewController.m"
-            timestampString = "468237500.695546"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
-            landmarkName = "-actionAddFriend:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__46-[OtherProfileViewController actionAddFriend:]_block_invoke"
-                  moduleName = "MyGuardApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/View%20Controllers/Other%20Profile%20View%20Controllers/OtherProfileViewController.m"
-                  timestampString = "468289221.547644"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "375"
-                  endingLineNumber = "375"
-                  offsetFromSymbolStart = "56">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__46-[OtherProfileViewController actionAddFriend:]_block_invoke_2"
-                  moduleName = "MyGuardApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/View%20Controllers/Other%20Profile%20View%20Controllers/OtherProfileViewController.m"
-                  timestampString = "468289221.547944"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "375"
-                  endingLineNumber = "375"
+                  startingLineNumber = "348"
+                  endingLineNumber = "348"
                   offsetFromSymbolStart = "48">
                </Location>
             </Locations>
@@ -145,46 +81,142 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MyGuardApp/View Controllers/Tab Bar Controller/Controllers/Notification View Controller/NotificationViewController.m"
-            timestampString = "468279322.91765"
+            filePath = "MyGuardApp/View Controllers/Image and Video Details View Controllers/ImageVideoDetailViewController.m"
+            timestampString = "468443489.948469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "-readNotif:"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
+            landmarkName = "-collectionView:didSelectItemAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyGuardApp/Modals/Safety Measure Modal/SafetyMeasure.m"
+            timestampString = "468344840.865148"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "+callAPIForSafetyMeasureOfUserSelf:Params:success:failure:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyGuardApp/View Controllers/Tab Bar Controller/MainTabBarController.m"
+            timestampString = "468442693.195678"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "-performPushForeground:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyGuardApp/AppDelegate.m"
+            timestampString = "468440767.19649"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
+            landmarkName = "-application:didReceiveRemoteNotification:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyGuardApp/View Controllers/Tab Bar Controller/MainTabBarController.m"
+            timestampString = "468442693.195678"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "924"
+            endingLineNumber = "924"
+            landmarkName = "-handleTimer:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyGuardApp/Custom Views/Custom Table Cells/Settings Cell/Alarm Views/WaveAnimationView.m"
+            timestampString = "468444063.822281"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__40-[NotificationViewController readNotif:]_block_invoke"
+                  symbolName = "__52-[WaveAnimationView alertView:clickedButtonAtIndex:]_block_invoke"
                   moduleName = "MyGuardApp"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/View%20Controllers/Tab%20Bar%20Controller/Controllers/Notification%20View%20Controller/NotificationViewController.m"
-                  timestampString = "468289221.549674"
+                  urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/Custom%20Views/Custom%20Table%20Cells/Settings%20Cell/Alarm%20Views/WaveAnimationView.m"
+                  timestampString = "468458640.023455"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
                   offsetFromSymbolStart = "56">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__40-[NotificationViewController readNotif:]_block_invoke_2"
+                  symbolName = "__52-[WaveAnimationView alertView:clickedButtonAtIndex:]_block_invoke_2"
                   moduleName = "MyGuardApp"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/View%20Controllers/Tab%20Bar%20Controller/Controllers/Notification%20View%20Controller/NotificationViewController.m"
-                  timestampString = "468289221.54999"
+                  urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/Custom%20Views/Custom%20Table%20Cells/Settings%20Cell/Alarm%20Views/WaveAnimationView.m"
+                  timestampString = "468458640.023767"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
                   offsetFromSymbolStart = "48">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyGuardApp/Custom Views/Custom Table Cells/Settings Cell/Alarm Views/WaveAnimationView.m"
+            timestampString = "468444064.821869"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "-alertView:clickedButtonAtIndex:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

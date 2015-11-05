@@ -116,7 +116,7 @@
     SafetyMeasure *mesaure = [self.arraySafetyMeasures objectAtIndex:indexPath.row];
     
     [cell.labelDescription setPreferredMaxLayoutWidth:[[UIScreen mainScreen] bounds].size.width - 98];
-    [cell.labelName setText:mesaure.safetyFirstName];
+    [cell.labelName setText:mesaure.safetyUsername];
     [cell.labelDescription setText:mesaure.safetyDescription];
     [cell.labelTime setText:mesaure.safetyDisplayTime];
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",mesaure.safetyImageName,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];

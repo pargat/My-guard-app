@@ -16,6 +16,8 @@
 #import "BaseViewController.h"
 #import <SVPullToRefresh.h>
 #import "SafetyDetailViewController.h"
+#import "OtherProfileViewController.h"
+#import "ImageVideoDetailViewController.h"
 
 @interface NotificationViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,NotificationDelegate>
 

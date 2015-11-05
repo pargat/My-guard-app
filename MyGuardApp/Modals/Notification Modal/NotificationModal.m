@@ -14,7 +14,7 @@
     self = [super init];
     if(self!=nil)
     {
-        
+        self.notifAlarmId = [tempDict valueForKey:@"alarm_id"];
         self.notifDp = [tempDict valueForKey:@"image"];
         self.notifFirstName = [tempDict valueForKey:@"firstname"];
         self.notifFromUser = [tempDict valueForKey:@"from_user"];

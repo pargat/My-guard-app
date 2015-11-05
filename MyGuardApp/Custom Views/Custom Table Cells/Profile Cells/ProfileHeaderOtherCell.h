@@ -9,7 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "ImageBigView.h"
 
+@protocol ProfileOtherDelegate <NSObject>
+
+-(void)delBigView;
+
+@end
+
+
 @interface ProfileHeaderOtherCell : UITableViewCell
+
+@property (nonatomic,strong) id<ProfileOtherDelegate> delegate;
 @property (nonatomic,strong) NSString *stringUrl;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewDp;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;

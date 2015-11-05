@@ -11,14 +11,14 @@
 #import "BaseViewController.h"
 #import "UIImage+Extras.h"
 #import <AVFoundation/AVFoundation.h>
+#import <SZTextView.h>
 
 @interface PostViewController : BaseViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 
 @property int feedType;
 
-@property (weak, nonatomic) IBOutlet UITextView *textViewContent;
+@property (weak, nonatomic) IBOutlet SZTextView *textViewContent;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutTextView;
-@property (weak, nonatomic) IBOutlet UILabel *labelHide;
 @property (nonatomic,strong) UIImage *imagePost;
 @property BOOL isPostVideo;
 @property int duration;

@@ -15,7 +15,7 @@
     self = [super init];
     if(self!=nil)
     {
-        
+        self.userDistance = [tempDict valueForKey:@"distance"];
         self.userAddress = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"address"]];
         self.UserDisability = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"disability"]];
         self.userDOB = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"dob"]];

@@ -16,6 +16,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.tableViewCommunity addPullToRefreshWithActionHandler:^{
+        [self getCommunityUsers];
+    }];
     [self setUpLoaderView];
     [self getCommunityUsers];
     
@@ -68,8 +71,10 @@
         self.arrayCommunity = [[NSMutableArray alloc] initWithArray:userArr];
         [self.tableViewCommunity reloadData];
         [self removeLoaderView];
+        [self.tableViewCommunity.pullToRefreshView stopAnimating];
     } failure:^(NSString *errorStr) {
         [self removeLoaderView];
+         [self.tableViewCommunity.pullToRefreshView stopAnimating];
     }];
     
 }
@@ -186,8 +191,15 @@
 
     }
 
-        [cell.labelDistance setText:@"1"];
-    [cell.labelName setText:tempuser.userFirstName];
+    if(self.currentTab==NEIGHBOUR)
+    {
+        [cell.labelDistance setText:[NSString stringWithFormat:@"%@ miles away",tempuser.userDistance]];
+    }
+    else
+    {
+        [cell.labelDistance setText:@""];
+    }
+    [cell.labelName setText:tempuser.userUserName];
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",tempuser.userImageName,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
 }
 

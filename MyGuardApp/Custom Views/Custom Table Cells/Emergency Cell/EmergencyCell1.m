@@ -23,7 +23,9 @@
 }
 
 - (IBAction)actionSms:(id)sender {
+    [self.delegate delSms];
 }
 - (IBAction)actionCall911:(id)sender {
+    [self.delegate delCall911];
 }
 @end

@@ -7,7 +7,9 @@
 */
 
 //general
+"admin" = "Admin Message";
 "video_permission" = "Do you want us to send live video feed when alarm is raised?";
+"user_search" = "USERS";
 
 //Post
 "new_post" = "New Post";
@@ -32,7 +34,8 @@
 
 //Demo Screens
 "bring_your_phone" = "Bring your phone close to an alarm while it is buzzing and wait for the phone to detect the alarm.";
-
+"detect_alarm_title" = "Detecting alarm";
+"detect_alarm_description" = "Wait for the phone to detect the alarm.It might take few seconds.";
 
 //Info video screen and next screens
 
@@ -88,19 +91,19 @@
 "co_walk_t" = "Carbon Monoxide";
 "sex_walk_t" = "Sex Offenders";
 
-"fire_walk" = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
-"gun_walk" = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
-"co_walk" = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
-"sex_walk" = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
+"fire_walk" = "This is the screen where fire alarms are listed.";
+"gun_walk" = "This is the screen where gunshot alarms are listed.";
+"co_walk" = "This is the screen where carbon monoxide alarms are listed.";
+"sex_walk" = "This is the screen where sex offenders are listed.";
 
 
 
 "wt_emergency_title" = "Emergency phone";
 "wt_alarm_title" = "Manual alarm";
 "wt_quick_title" = "Quick emergency buttons";
-"wt_emergency_desc" = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
-"wt_alarm_desc" = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
-"wt_quick_desc" = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
+"wt_emergency_desc" = "Pressing this button will open the emergency contacts.";
+"wt_alarm_desc" = "Pressing this button will raise a manual alarm.";
+"wt_quick_desc" = "These two buttons can be used for quick help in case of emergency.";
 
 //tab
 "tb_co" = "CO";

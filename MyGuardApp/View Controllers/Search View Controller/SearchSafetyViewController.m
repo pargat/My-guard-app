@@ -28,10 +28,11 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if(self.stringToSearch!=nil)
-    {
-        [self apiSearch:self.stringToSearch];
-    }
+    [self.tableViewSearch reloadData];
+//    if(self.stringToSearch!=nil)
+//    {
+//        [self apiSearch:self.stringToSearch];
+//    }
 }
 
 
@@ -50,9 +51,25 @@
     
     [iOSRequest getJsonResponse:stringSearchSafety success:^(NSDictionary *responseDict) {
         self.arraySearch = [SafetyMeasure parseDictToModal:[responseDict valueForKey:@"data"]];
+        if(self.tableViewSearch.delegate == nil)
+        {
+            [self.tableViewSearch setDelegate:self];
+            [self.tableViewSearch setDataSource:self];
+        }
         [self.tableViewSearch reloadData];
+        if([[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] isKindOfClass:[JTMaterialSpinner class]])
+        {
+            [[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] removeFromSuperview];
+            
+        }
+
     } failure:^(NSString *errorString) {
-        
+        if([[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] isKindOfClass:[JTMaterialSpinner class]])
+        {
+            [[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] removeFromSuperview];
+            
+        }
+
     }];
 }
 
@@ -97,6 +114,7 @@
         {
             CommunityNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
             [cell.labelNoUsers setText:@"No safety measures found"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
             
         }
