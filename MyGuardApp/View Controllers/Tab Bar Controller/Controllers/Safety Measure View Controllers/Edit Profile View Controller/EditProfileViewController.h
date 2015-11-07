@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldDisability;
 @property (weak, nonatomic) IBOutlet UIButton *btnUpdateInfo;
 @property (weak, nonatomic) IBOutlet UIButton *btnDonb;
+@property (weak, nonatomic) IBOutlet UITextField *textFieldCode;
 
 - (IBAction)actionUpdateInfo:(id)sender;
 - (IBAction)actionDob:(id)sender;

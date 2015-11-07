@@ -16,7 +16,8 @@ typedef enum : NSUInteger {
     NEIGHBOUR,
     FAMILY,
     FRIENDS,
-    SEARCH
+    SEARCH,
+    GROUP
 } COMMUNITYTAB;
 
 typedef enum : NSUInteger {
@@ -73,6 +74,7 @@ typedef enum : NSUInteger {
 #define KGetAlarms @"%@get_alarms.php?user_id=%@&type=%d&page=%d&length=10&zone=%ld"
 
 //Community
+#define KListGroupApi @"%@list_all_group.php?user_id=%@"
 #define KSearchUsers @"%@list_search_users.php?user_id=%@&key=%@"
 #define KListFamily @"%@list_all_family.php?user_id=%@"
 #define KListFriends @"%@list_all_friends.php?user_id=%@"

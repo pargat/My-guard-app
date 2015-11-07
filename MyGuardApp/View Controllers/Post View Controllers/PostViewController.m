@@ -29,7 +29,7 @@
 {
     [super viewWillAppear:animated];
     [self registerForKeyboardNotifications];
-    [self.textViewContent becomeFirstResponder];
+    [self.textViewMessage becomeFirstResponder];
     
     
     
@@ -44,12 +44,14 @@
 #pragma mark - View Helpers
 -(void)resignKB
 {
-    [self.textViewContent resignFirstResponder];
+    [self.textViewMessage resignFirstResponder];
 }
 
 -(void)viewHelper
 {
-    self.textViewContent.placeholder = @"Type here";
+    self.imageViewMessage.clipsToBounds = YES;
+    [self.btnRemove setHidden:YES];
+    self.textViewMessage.placeholder = @"Type here";
     self.btnCamera.layer.cornerRadius = self.btnCamera.frame.size.width/2;
     self.btnCamera.clipsToBounds = YES;
     
@@ -142,14 +144,14 @@
     NSDictionary* info = [aNotification userInfo];
     
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    self.layoutTextView.constant = kbSize.height;
+    self.layoutTextView.constant = kbSize.height+16;
     
 }
 
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 
 {
-    self.layoutTextView.constant = 0;
+    self.layoutTextView.constant = 16;
 }
 
 
@@ -256,20 +258,9 @@
         //self.imagePost = [self.imagePost imageByScalingAndCroppingForSize:size];
         
         
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
-        NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-        textAttachment.image = [self.imagePost imageByScalingAndCroppingForSize:CGSizeMake(self.view.frame.size.width-64,self.view.frame.size.width-64)];
+        [self.imageViewMessage setImage:self.imagePost];
         
-        CGFloat oldWidth = textAttachment.image.size.width;
-        
-        //I'm subtracting 10px to make the image display nicely, accounting
-        //for the padding inside the textView
-        CGFloat scaleFactor = oldWidth / (self.textViewContent.frame.size.width - 10);
-        textAttachment.image = [UIImage imageWithCGImage:textAttachment.image.CGImage scale:scaleFactor orientation:UIImageOrientationUp];
-        NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
-        [attributedString appendAttributedString:attrStringWithImage];
-        [attributedString appendAttributedString:[[NSAttributedString alloc ] initWithString:self.textViewContent.text]];
-        self.textViewContent.attributedText = attributedString;
+       
     }
     
     else
@@ -311,23 +302,8 @@
                         self.videoData = [NSData dataWithContentsOfFile:tmpFile];
                         self.imagePost = [self generateThumbImage:[info objectForKey:
                                                                    UIImagePickerControllerMediaURL]];
+                        [self.imageViewMessage setImage:self.imagePost];
                         
-                        
-                        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
-                        NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-                        textAttachment.image = [self.imagePost imageByScalingAndCroppingForSize:CGSizeMake(self.view.frame.size.width-64,self.view.frame.size.width-64)];
-                        
-                        CGFloat oldWidth = textAttachment.image.size.width;
-                        
-                        //I'm subtracting 10px to make the image display nicely, accounting
-                        //for the padding inside the textView
-                        CGFloat scaleFactor = oldWidth / (self.textViewContent.frame.size.width - 10);
-                        textAttachment.image = [UIImage imageWithCGImage:textAttachment.image.CGImage scale:scaleFactor orientation:UIImageOrientationUp];
-                        NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
-                        [attributedString appendAttributedString:attrStringWithImage];
-                        [attributedString appendAttributedString:[[NSAttributedString alloc ] initWithString:self.textViewContent.text]];
-                        self.textViewContent.attributedText = attributedString;
-                            [self.textViewContent setFont:[UIFont systemFontOfSize:16]];
                     });
                 }
                     break;
@@ -341,14 +317,24 @@
         
         
     }
-    
-    [self.textViewContent setFont:[UIFont systemFontOfSize:16]];
+    [self.btnAddOrRemove setHidden:YES];
+    [self.btnRemove setHidden:NO];
     self.navigationItem.rightBarButtonItem.enabled = YES;
     
 }
 
 #pragma mark -
 #pragma mark - Button Actions
+- (IBAction)actionRemove:(id)sender {
+    [self.btnAddOrRemove setHidden:NO];
+    self.isPostVideo = false;
+    [self.imageViewMessage setImage:nil];
+    self.imagePost = nil;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+
+}
+
+
 - (IBAction)actionCamera:(id)sender {
     [self.view endEditing:YES];
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo",@"Choose photo from gallery",@"Take Video",@"Choose Video from gallery",nil];
@@ -373,10 +359,7 @@
     {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setObject:[Profile getCurrentProfileUserId] forKey:@"user_id"];
-        if(self.textViewContent.text.length>1)
-            [dict setObject:[self.textViewContent.text substringFromIndex:1] forKey:@"description"];
-        else
-            [dict setObject:@"" forKey:@"description"];
+        [dict setObject:[self.textViewMessage.text substringFromIndex:1] forKey:@"description"];
         [dict setObject:[NSString stringWithFormat:@"%d",self.feedType] forKey:@"type"];
         [dict setObject:[NSString stringWithFormat:@"%d", self.duration] forKey:@"duration"];
         [iOSRequest postVideoAlarm:[NSString stringWithFormat:KPostAlarmApi,KbaseUrl] parameters:dict videoData:self.videoData thumbData:UIImageJPEGRepresentation(self.imagePost, 0.5) success:^(NSDictionary *responseStr) {
@@ -385,8 +368,9 @@
             self.imagePost = nil;
             self.videoData = nil;
             self.navigationItem.rightBarButtonItem.enabled = NO;
-             [self.textViewContent setText:@""];
+            [self.textViewMessage setText:@""];
             [self removeLoaderView];
+            [self.imageViewMessage setImage:nil];
         } failure:^(NSError *error) {
             [self removeLoaderView];
         }];
@@ -397,10 +381,8 @@
         
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setObject:[Profile getCurrentProfileUserId] forKey:@"user_id"];
-        if(self.textViewContent.text.length>1)
-            [dict setObject:[self.textViewContent.text substringFromIndex:1] forKey:@"description"];
-        else
-            [dict setObject:@"" forKey:@"description"];
+        
+        [dict setObject:[self.textViewMessage.text substringFromIndex:1] forKey:@"description"];
         [dict setObject:[NSString stringWithFormat:@"%d",self.feedType] forKey:@"type"];
         
         
@@ -411,11 +393,12 @@
             self.imagePost = nil;
             self.videoData = nil;
             self.navigationItem.rightBarButtonItem.enabled = NO;
-            [self.textViewContent setText:@""];
+            [self.textViewMessage setText:@""];
             [self removeLoaderView];
             
         } failure:^(NSError *error) {
-            [self removeLoaderView];        }];
+            [self removeLoaderView];
+        }];
     }
     
     
@@ -423,7 +406,7 @@
 }
 
 - (void)actionBack {
-    [self.textViewContent resignFirstResponder];
+    [self.textViewMessage resignFirstResponder];
     [self.navigationController popViewControllerAnimated:YES];
 }
 @end

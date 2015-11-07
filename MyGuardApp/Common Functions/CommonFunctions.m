@@ -20,4 +20,16 @@
         // handle error
     }
 }
++(void)recordAudio
+{
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    
+    NSError *setCategoryError = nil;
+    if (![session setCategory:AVAudioSessionCategoryRecord
+                  withOptions:AVAudioSessionCategoryOptionMixWithOthers
+                        error:&setCategoryError]) {
+        // handle error
+    }
+
+}
 @end

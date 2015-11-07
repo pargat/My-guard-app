@@ -68,16 +68,19 @@
     if([self.currentTab isEqualToString:@"1"])
     {
         title = @"Safety measure for fire";
+        [self.navigationController.navigationBar setBarTintColor:KOrangeColor];
 
     }
     else if([self.currentTab isEqualToString:@"2"])
     {
         title = @"Safety measure for co";
+        [self.navigationController.navigationBar setBarTintColor:KGreenColor];
 
     }
     else if ([self.currentTab isEqualToString:@"3"])
     {
         title = @"Safety measure for gun";
+        [self.navigationController.navigationBar setBarTintColor:KRedColor];
    
     }
     [self.navigationItem setTitle:title];

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '622C1D46ADDEE7AEB88198F6'
+               BlueprintIdentifier = '30A64235975D80FBBE4B90E5'
                BlueprintName = 'JTMaterialSpinner'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libJTMaterialSpinner.a'>

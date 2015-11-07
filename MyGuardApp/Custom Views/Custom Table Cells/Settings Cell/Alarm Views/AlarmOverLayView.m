@@ -14,7 +14,6 @@
 -(void)layoutSubviews
 {
       self.frame = CGRectMake(0, 0, [[UIApplication sharedApplication] keyWindow].frame.size.width, [[UIApplication sharedApplication] keyWindow].frame.size.height );
-    
     [super layoutSubviews];
 }
 

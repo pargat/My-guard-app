@@ -30,7 +30,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="animate_00.png" translatesAutoresizingMaskIntoConstraints="NO" id="GI9-5o-z9T">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GI9-5o-z9T">
                             <rect key="frame" x="80" y="39" width="120" height="120"/>
                             <animations/>
                             <constraints>
@@ -127,7 +127,4 @@
             <point key="canvasLocation" x="285" y="424"/>
         </view>
     </objects>
-    <resources>
-        <image name="animate_00.png" width="160" height="160"/>
-    </resources>
 </document>

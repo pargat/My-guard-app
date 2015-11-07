@@ -242,15 +242,7 @@
 }
 -(void)speakUtteranceSetup
 {
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    
-    NSError *setCategoryError = nil;
-    if (![session setCategory:AVAudioSessionCategoryPlayback
-                  withOptions:AVAudioSessionCategoryOptionMixWithOthers
-                        error:&setCategoryError]) {
-        // handle error
-    }
-    
+    [CommonFunctions videoPlay];
     AVSpeechUtterance *utterance = [AVSpeechUtterance
                                     speechUtteranceWithString:self.stringSpeech];
     utterance.rate = AVSpeechUtteranceDefaultSpeechRate;

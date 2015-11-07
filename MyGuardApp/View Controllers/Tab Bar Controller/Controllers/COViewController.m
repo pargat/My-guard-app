@@ -67,7 +67,7 @@
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             
-            NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:modal.profileImageName]];
+            NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:modal.profileImageFullLink]];
             
             UIImage *image = [UIImage imageWithData:tmpdata];
             image = [image circularScaleAndCropImage:CGRectMake(0, 0, image.size.width, image.size.width)];

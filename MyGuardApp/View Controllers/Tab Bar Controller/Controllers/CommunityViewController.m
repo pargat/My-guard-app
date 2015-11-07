@@ -59,6 +59,8 @@
     self.community3 = [self.storyboard instantiateViewControllerWithIdentifier:KCommunityContent];
     self.community3.currentTab = FRIENDS;
     self.community4 = [self.storyboard instantiateViewControllerWithIdentifier:KCommunitySearchContent];
+    self.communityGroup = [self.storyboard instantiateViewControllerWithIdentifier:KCommunityContent];
+    self.communityGroup.currentTab = GROUP;
 }
 
 
@@ -104,7 +106,7 @@
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             
-            NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:modal.profileImageName]];
+            NSData *tmpdata = [NSData dataWithContentsOfURL:[NSURL URLWithString:modal.profileImageFullLink]];
             
             UIImage *image = [UIImage imageWithData:tmpdata];
             image = [image circularScaleAndCropImage:CGRectMake(0, 0, image.size.width, image.size.width)];
@@ -231,7 +233,11 @@
 -(NSArray *)childViewControllersForPagerTabStripViewController:(XLPagerTabStripViewController *)pagerTabStripViewController
 {
     [self initialiseVCs];
-    return @[self.community1,self.community2,self.community3];
+    Profile *profile = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+    if(![profile.profileCode isEqualToString:@""])
+        return @[self.community1,self.community2,self.community3,self.communityGroup];
+    else
+        return @[self.community1,self.community2,self.community3];
 }
 
 

@@ -83,9 +83,10 @@
     [self.textFieldLastName setText:modal.profileLastName];
     [self.textFieldUsername setText:modal.profileUserName];
     [self.textFieldDisability setText:modal.profileDisability];
+    [self.textFieldCode setText:modal.profileCode];
     [self.btnDonb setTitle:modal.profileDOB forState:UIControlStateNormal];
     
-    [self.imageViewDp sd_setImageWithURL:[NSURL URLWithString:modal.profileImageName]];
+    [self.imageViewDp sd_setImageWithURL:[NSURL URLWithString:modal.profileImageFullLink]];
     if([modal.profileGender isEqualToString:@"male"])
     {
         [self.segmentedControlGender setSelectedSegmentIndex:0];
@@ -136,11 +137,12 @@
     CLLocation *cords = locMan.currentLoc;
     [formattedDict setObject:[NSString stringWithFormat:@"%f",cords.coordinate.latitude] forKey:@"latitude"];
     [formattedDict setObject:[NSString stringWithFormat:@"%f",cords.coordinate.longitude] forKey:@"longitude"];
+    [formattedDict setObject:self.textFieldCode.text forKey:@"code"];
     
     if(self.isImageChanged!=2)
     {
         Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
-        [formattedDict setObject:modal.profileImageName forKey:@"old_image"];
+        [formattedDict setObject:modal.profileImageFullLink forKey:@"old_image"];
     }
     
     

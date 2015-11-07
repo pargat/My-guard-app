@@ -793,6 +793,8 @@ int previousFreq=0;
        withBufferSize:(UInt32)bufferSize
  withNumberOfChannels:(UInt32)numberOfChannels
 {
+    if([[NSUserDefaults standardUserDefaults] valueForKey:@"Demo"]==nil)
+    {
     dispatch_async(dispatch_get_main_queue(), ^
                    {
                        if (!timerFlag)
@@ -809,6 +811,7 @@ int previousFreq=0;
                            [self updateFFTWithBufferSize:bufferSize withAudioData:buffer[0]];
                        }
                    });
+    }
 }
 
 #pragma mark -
@@ -822,7 +825,8 @@ int previousFreq=0;
 }
 -(void)setOffAlarmViaNotification : (NSNotification *)n
 {
-    
+    [[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] endEditing:YES];
+
     
     
     ISOVERLAYSHOWING = YES ;
@@ -879,6 +883,8 @@ int previousFreq=0;
 }
 -(void)setOffAlarmViaNotification1 : (NSDictionary *)n
 {
+    [[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] endEditing:YES];
+
     [self resetArrays];
     
     ISOVERLAYSHOWING = YES ;
@@ -1189,9 +1195,10 @@ int previousFreq=0;
     }
     else if ([segue.identifier isEqualToString:KAdminSegue])
     {
+        [self.navigationController.navigationBar setHidden:NO];
         AdminMessageViewController *adminVC = (AdminMessageViewController *)segue.destinationViewController;
         adminVC.messageId = [sender valueForKey:@"id"];
-        adminVC.messageId = [sender valueForKey:@"m"];
+        adminVC.messageString = [sender valueForKey:@"m"];
     }
 
 }

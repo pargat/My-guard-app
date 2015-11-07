@@ -12,5 +12,6 @@
 @interface CommonFunctions : NSObject
 
 +(void)videoPlay;
++(void)recordAudio;
 
 @end

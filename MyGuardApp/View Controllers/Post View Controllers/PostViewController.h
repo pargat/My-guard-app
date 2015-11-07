@@ -16,14 +16,17 @@
 @interface PostViewController : BaseViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 
 @property int feedType;
-
-@property (weak, nonatomic) IBOutlet SZTextView *textViewContent;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutTextView;
 @property (nonatomic,strong) UIImage *imagePost;
 @property BOOL isPostVideo;
 @property int duration;
 @property (nonatomic,strong) NSData *videoData;
 @property (weak, nonatomic) IBOutlet UIButton *btnCamera;
+@property (weak, nonatomic) IBOutlet SZTextView *textViewMessage;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewMessage;
+@property (weak, nonatomic) IBOutlet UIButton *btnRemove;
+- (IBAction)actionRemove:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *btnAddOrRemove;
 
 
 - (IBAction)actionCamera:(id)sender;

@@ -12,6 +12,7 @@
 #import <MessageUI/MessageUI.h>
 #import "ApiConstants.h"
 #import "Profile.h"
+#import "LOcationUpdater.h"
 #import <JTMaterialSpinner.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
 @interface SettingViewCntroller : UIViewController<UITableViewDataSource,UITableViewDelegate,FBSDKAppInviteDialogDelegate,MFMailComposeViewControllerDelegate>

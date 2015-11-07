@@ -62,11 +62,12 @@
     {
         stringUrl = [NSString stringWithFormat:KListFriends,KbaseUrl,profile.profileUserId];
     }
-    else
+    else if(self.currentTab==GROUP)
     {
-        stringUrl = [NSString stringWithFormat:KListFriends,KbaseUrl,profile.profileUserId];
+        stringUrl = [NSString stringWithFormat:KListGroupApi,KbaseUrl,profile.profileUserId];
 
     }
+    
     [User callAPIForCommunityUser:stringUrl Params:nil success:^(NSMutableArray *userArr) {
         self.arrayCommunity = [[NSMutableArray alloc] initWithArray:userArr];
         [self.tableViewCommunity reloadData];
@@ -96,6 +97,10 @@
     {
         return NSLocalizedString(@"friends", nil);
         
+    }
+    else if (self.currentTab==GROUP)
+    {
+        return NSLocalizedString(@"group", nil);
     }
     else
     {

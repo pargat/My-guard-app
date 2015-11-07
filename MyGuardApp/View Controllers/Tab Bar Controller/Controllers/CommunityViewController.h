@@ -25,6 +25,7 @@
 @property (nonatomic,strong) CommunityContentViewController *community1;
 @property (nonatomic,strong) CommunityContentViewController *community2;
 @property (nonatomic,strong) CommunityContentViewController *community3;
+@property (nonatomic,strong) CommunityContentViewController *communityGroup;
 @property (nonatomic,strong) CommunitySearchViewController *community4;
 
 @end

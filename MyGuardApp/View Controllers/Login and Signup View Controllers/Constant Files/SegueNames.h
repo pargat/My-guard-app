@@ -10,6 +10,7 @@
 
 
 //Segue names
+#define KDemoHushSegue @"DemoHushSegue"
 #define KDemo1Segue @"Demo1Segue"
 #define KAdminSegue @"AdminSegue"
 #define KImageFullSegue @"ImageFullSegue"

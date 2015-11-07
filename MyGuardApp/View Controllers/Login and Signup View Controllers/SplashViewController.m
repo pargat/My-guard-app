@@ -31,7 +31,10 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:YES];
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)])
+        [self.navigationController.view removeGestureRecognizer:self.navigationController.interactivePopGestureRecognizer];
     [self locationInitialiser];
+    [self.view setBackgroundColor:KPurpleColor];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {

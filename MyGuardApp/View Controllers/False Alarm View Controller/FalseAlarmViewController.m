@@ -34,13 +34,39 @@
     [self.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:KBaseTimbthumbUrl,[self.dictInfo valueForKey:@"image"],DisplayScale*self.imageViewDp.frame.size.width,DisplayScale*self.imageViewDp.frame.size.height]]];
     [self.labelDescription setText:[self.dictInfo valueForKey:@"message"]];
     [self.labelUserName setText:[self.dictInfo valueForKey:@"username"]];
+    [self setUpNavBar];
 
 }
 -(void)setUpNavBar
 {
+    NSString *type = [self.dictInfo valueForKey:@"type"];
+    if([type isEqualToString:@"1"])
+    {
+        [self.navigationController.navigationBar setTintColor:KOrangeColor];
+    }
+    else if ([type isEqualToString:@"2"])
+    {
+        [self.navigationController.navigationBar setTintColor:KGreenColor];
+    }
+    else
+    {
+        [self.navigationController.navigationBar setTintColor:KRedColor];
+    }
+    UIBarButtonItem *btnBack = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_back"] style:UIBarButtonItemStylePlain target:self action:@selector(actionBack)];
+    [btnBack setTintColor:[UIColor whiteColor]];
+    self.navigationItem.leftBarButtonItem = btnBack;
     
+    [self.navigationItem setTitle:NSLocalizedString(@"false_alarm", nil)];
 }
 
+
+
+#pragma mark -
+#pragma mark - Button Actions
+-(void)actionBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 /*
 #pragma mark - Navigation
 

@@ -25,10 +25,13 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:NO];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"Demo"];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
+    
     [super viewDidAppear:animated];
+     [self.navigationController.navigationBar setHidden:NO];
     
 }
 
@@ -129,6 +132,8 @@
     [iOSRequest getJsonResponse:urlString success:^(NSDictionary *responseDict) {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"profile"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        LOcationUpdater *loc = [LOcationUpdater sharedManager];
+        loc.imageDp = nil;
         [loaderObj removeFromSuperview];
         
         [self performSegueWithIdentifier:KLogoutUnwindSegue sender:self];
@@ -175,6 +180,7 @@
     }
     else if (indexPath.row==2)
     {
+           [[NSUserDefaults standardUserDefaults] setObject:@"Yes" forKey:@"Demo"];
         [self performSegueWithIdentifier:KDemo1Segue sender:nil];
     }
     else if(indexPath.row==3)

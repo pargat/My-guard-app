@@ -52,12 +52,12 @@
 #pragma mark - api related and helper function
 -(void)updateFeed:(NSNotification *)notification
 {
-    if(notification.object!=nil)
+    if(notification.object!=nil&&self.selectedIndex!=nil)
     {
-    FeedModal *modal = [self.arrayFeeds objectAtIndex:self.selectedIndex.row];
-    modal.feed_files = notification.object;
-    [self.arrayFeeds replaceObjectAtIndex:self.selectedIndex.row withObject:modal];
-    [self.tableViewFeeds reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+        FeedModal *modal = [self.arrayFeeds objectAtIndex:self.selectedIndex.row];
+        modal.feed_files = notification.object;
+        [self.arrayFeeds replaceObjectAtIndex:self.selectedIndex.row withObject:modal];
+        [self.tableViewFeeds reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 -(void)viewHelper

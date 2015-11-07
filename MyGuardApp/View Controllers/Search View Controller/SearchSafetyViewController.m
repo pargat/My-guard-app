@@ -189,7 +189,23 @@
     {
         SafetyDetailViewController *safetyVC = (SafetyDetailViewController *)segue.destinationViewController;
         SafetyMeasure *modal = (SafetyMeasure *)sender;
-        safetyVC.stringSafety = modal.safetyDescription;
+        
+        
+        if([modal.safetyType isEqualToString:@"1"])
+        {
+            safetyVC.currentTab = @"1";
+
+        }
+        else if ([modal.safetyType isEqualToString:@"2"])
+        {
+            safetyVC.currentTab = @"2";
+        }
+        else
+        {
+            safetyVC.currentTab = @"3";
+        }
+
+                safetyVC.stringSafety = modal.safetyDescription;
     }
 }
 

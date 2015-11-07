@@ -15,14 +15,15 @@
     
     self.myProfile = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
     [self.tableViewProfile setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self setNavBarAndTab];
-    [self getSafetyMeasure];
+        [self getSafetyMeasure];
     
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [self.tableViewProfile reloadData];
+    [self setNavBarAndTab];
+
 }
 
 
@@ -82,6 +83,7 @@
     [SafetyMeasure callAPIForSafetyMeasureOfUserOther:[NSString stringWithFormat:KGetProfile,KbaseUrl,self.myProfile.profileUserId,self.myProfile.profileUserId] Params:nil success:^(NSMutableDictionary *dict) {
         self.arraySafety = [dict valueForKey:@"array"];
         self.myProfile = [dict valueForKey:@"profile"];
+        [[NSUserDefaults standardUserDefaults] rm_setCustomObject:self.myProfile forKey:@"profile"];
         [self.tableViewProfile reloadData];
         [self afterApi];
         
@@ -306,13 +308,29 @@
     {
         SafetyDetailViewController *safetyVC = (SafetyDetailViewController *)segue.destinationViewController;
         SafetyMeasure *modal = (SafetyMeasure *)sender;
+        if([modal.safetyType isEqualToString:@"1"])
+        {
+            safetyVC.currentTab = @"1";
+            
+        }
+        else if ([modal.safetyType isEqualToString:@"2"])
+        {
+            safetyVC.currentTab = @"2";
+        }
+        else
+        {
+            safetyVC.currentTab = @"3";
+        }
+        
+        safetyVC.stringSafety = modal.safetyDescription;
+
         safetyVC.stringSafety = modal.safetyDescription;
     }
     else if ([segue.identifier isEqualToString:KImageFullSegue])
     {
         ImageFullViewController *imageVc = (ImageFullViewController *)segue.destinationViewController;
         imageVc.username = self.myProfile.profileUserName;
-        imageVc.imageLink = self.myProfile.profileImageName;
+        imageVc.imageLink = self.myProfile.profileImageFullLink;
     }
 }
 @end

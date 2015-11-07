@@ -12,6 +12,7 @@
 #import "FeedModal.h"
 #import "ApiConstants.h"
 #import <UIImageView+WebCache.h>
+#import "CommonFunctions.h"
 
 @interface MapViewController : UIViewController<AVSpeechSynthesizerDelegate>
 

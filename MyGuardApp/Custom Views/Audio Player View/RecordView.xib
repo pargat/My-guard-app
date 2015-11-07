@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="RecordView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" alpha="0.29999999999999966" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7IQ-S2-k6x">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z5U-Jr-X7U">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vT-RH-5YO">
+                            <rect key="frame" x="104" y="16" width="112" height="112"/>
+                            <animations/>
+                            <state key="normal" image="ic_record_big">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="actionRecord:" destination="iN0-l3-epB" eventType="touchUpInside" id="2Xh-VD-9ah"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click here to record" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A94-qU-TYD">
+                            <rect key="frame" x="67" y="156" width="186" height="21"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="186" id="28t-j6-2wD"/>
+                                <constraint firstAttribute="height" constant="21" id="hvD-fh-Vm9"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHi-Xl-yVo">
+                            <rect key="frame" x="120" y="55" width="80" height="80"/>
+                            <animations/>
+                            <state key="normal" image="ic_pause_big.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="selected" image="ic_play_big.png"/>
+                            <connections>
+                                <action selector="actionRecordPlay:" destination="iN0-l3-epB" eventType="touchUpInside" id="M5h-qp-Qhf"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yi3-2a-EYT">
+                            <rect key="frame" x="126" y="17" width="69" height="35"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="f2b-Pm-Hr1"/>
+                                <constraint firstAttribute="width" constant="69" id="hiw-FQ-ezK"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="centerX" secondItem="1vT-RH-5YO" secondAttribute="centerX" id="B5Z-jX-U7b"/>
+                        <constraint firstItem="lHi-Xl-yVo" firstAttribute="top" secondItem="yi3-2a-EYT" secondAttribute="bottom" constant="3" id="EWN-4o-Tne"/>
+                        <constraint firstItem="A94-qU-TYD" firstAttribute="top" secondItem="1vT-RH-5YO" secondAttribute="bottom" constant="28" id="Hj0-E2-6w9"/>
+                        <constraint firstAttribute="centerX" secondItem="lHi-Xl-yVo" secondAttribute="centerX" id="LGE-BO-6Kv"/>
+                        <constraint firstAttribute="centerX" secondItem="A94-qU-TYD" secondAttribute="centerX" id="Mx6-Sf-vkl"/>
+                        <constraint firstItem="1vT-RH-5YO" firstAttribute="top" secondItem="z5U-Jr-X7U" secondAttribute="top" constant="16" id="kFf-UL-U2X"/>
+                        <constraint firstItem="yi3-2a-EYT" firstAttribute="top" secondItem="z5U-Jr-X7U" secondAttribute="top" constant="17" id="oz3-YK-1v3"/>
+                        <constraint firstAttribute="centerX" secondItem="yi3-2a-EYT" secondAttribute="centerX" id="rmX-bb-Zyv"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ClV-r4-vKU">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u3t-cE-hyo">
+                            <rect key="frame" x="120" y="16" width="80" height="80"/>
+                            <animations/>
+                            <state key="normal" image="ic_play_big.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="actionPlay1:" destination="iN0-l3-epB" eventType="touchUpInside" id="yIV-BR-R9J"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PAz-2R-oTL">
+                            <rect key="frame" x="94" y="112" width="133" height="30"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                            <state key="normal" title="Record new sound">
+                                <color key="titleColor" red="0.5568627451" green="0.2666666667" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="actionDelete1:" destination="iN0-l3-epB" eventType="touchUpInside" id="Nw7-He-Rjr"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="PAz-2R-oTL" firstAttribute="centerX" secondItem="ClV-r4-vKU" secondAttribute="centerX" id="DMe-R9-3yy"/>
+                        <constraint firstItem="u3t-cE-hyo" firstAttribute="top" secondItem="ClV-r4-vKU" secondAttribute="top" constant="16" id="jcz-PY-Rgu"/>
+                        <constraint firstAttribute="centerX" secondItem="u3t-cE-hyo" secondAttribute="centerX" id="jdN-mS-vLS"/>
+                        <constraint firstItem="PAz-2R-oTL" firstAttribute="top" secondItem="u3t-cE-hyo" secondAttribute="bottom" constant="16" id="tuE-XU-veA"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ClV-r4-vKU" secondAttribute="trailing" id="8OY-Ft-Vvf"/>
+                <constraint firstItem="ClV-r4-vKU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="APu-f7-JPL"/>
+                <constraint firstItem="z5U-Jr-X7U" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="BRm-lJ-ud2"/>
+                <constraint firstAttribute="bottom" secondItem="ClV-r4-vKU" secondAttribute="bottom" id="BdH-ou-mK1"/>
+                <constraint firstItem="7IQ-S2-k6x" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GIp-ux-Aar"/>
+                <constraint firstAttribute="bottom" secondItem="7IQ-S2-k6x" secondAttribute="bottom" id="O9l-uh-32b"/>
+                <constraint firstItem="ClV-r4-vKU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="RRF-KA-EPP"/>
+                <constraint firstAttribute="trailing" secondItem="z5U-Jr-X7U" secondAttribute="trailing" id="Tzo-oz-7E3"/>
+                <constraint firstAttribute="trailing" secondItem="7IQ-S2-k6x" secondAttribute="trailing" id="WQ5-XO-lfq"/>
+                <constraint firstItem="7IQ-S2-k6x" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XpV-oC-rec"/>
+                <constraint firstAttribute="bottom" secondItem="z5U-Jr-X7U" secondAttribute="bottom" id="aEQ-na-6h9"/>
+                <constraint firstItem="z5U-Jr-X7U" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aUf-eL-nQk"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="btnRecord" destination="1vT-RH-5YO" id="vdP-kZ-VGZ"/>
+                <outlet property="btnRecordPlay" destination="lHi-Xl-yVo" id="hVE-kC-uWI"/>
+                <outlet property="labelClickToRecord" destination="A94-qU-TYD" id="yKW-m5-tMS"/>
+                <outlet property="labelCount" destination="yi3-2a-EYT" id="lbC-e0-z3O"/>
+                <outlet property="viewRecordHolder" destination="z5U-Jr-X7U" id="WxK-14-Odc"/>
+                <outlet property="viewRecordHolder1" destination="ClV-r4-vKU" id="o04-cy-hFY"/>
+            </connections>
+            <point key="canvasLocation" x="263" y="109"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_pause_big.png" width="80" height="80"/>
+        <image name="ic_play_big.png" width="80" height="80"/>
+        <image name="ic_record_big" width="112" height="112"/>
+    </resources>
+</document>

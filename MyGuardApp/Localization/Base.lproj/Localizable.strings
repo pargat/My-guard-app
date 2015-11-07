@@ -7,6 +7,7 @@
 */
 
 //general
+"group" = "GROUP";
 "admin" = "Admin Message";
 "video_permission" = "Do you want us to send live video feed when alarm is raised?";
 "user_search" = "USERS";
@@ -22,6 +23,7 @@
 "clear_all" = "Clear All";
 
 //Profile Screen
+"friend" = "Friend";
 "add_friend" = "Add friend";
 "add_family" = "Add family";
 "friends_p" = "Friends";
@@ -33,6 +35,8 @@
 
 
 //Demo Screens
+"demo_recorder_title" = "Post recording";
+"demo_recorder" = "Please record the sound of the detector and mail it to us so that we can add support for it.";
 "bring_your_phone" = "Bring your phone close to an alarm while it is buzzing and wait for the phone to detect the alarm.";
 "detect_alarm_title" = "Detecting alarm";
 "detect_alarm_description" = "Wait for the phone to detect the alarm.It might take few seconds.";

@@ -60,6 +60,8 @@ PODS:
   - TPCircularBuffer (0.0.1)
   - UIActivityIndicator-for-SDWebImage (1.2):
     - SDWebImage (~> 3.7)
+  - ZLHistogramAudioPlot (0.0.1):
+    - EZAudio
 
 DEPENDENCIES:
   - AFNetworking
@@ -75,6 +77,7 @@ DEPENDENCIES:
   - SVPullToRefresh
   - SZTextView
   - UIActivityIndicator-for-SDWebImage
+  - ZLHistogramAudioPlot
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
@@ -94,5 +97,6 @@ SPEC CHECKSUMS:
   SZTextView: 906df45afd3c1b24fc5252088d5ef8061513c238
   TPCircularBuffer: 949e9632b9fb99b7274d7b2296ee22bff5841e35
   UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
+  ZLHistogramAudioPlot: aed6ae919a9b99132a7a27f8391932074597875e
 
 COCOAPODS: 0.39.0

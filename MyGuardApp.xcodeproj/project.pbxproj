@@ -50,6 +50,13 @@
 		277B6B5F1BEB3F1D00E862FB /* UserGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6B5E1BEB3F1D00E862FB /* UserGuideViewController.m */; };
 		277B6B621BEB86E400E862FB /* ImageFullViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6B611BEB86E400E862FB /* ImageFullViewController.m */; };
 		277B6B651BEBACAE00E862FB /* AdminMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6B641BEBACAE00E862FB /* AdminMessageViewController.m */; };
+		277B6B681BEC97E400E862FB /* DemoRecorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6B671BEC97E400E862FB /* DemoRecorderViewController.m */; };
+		277B6B6B1BEC987800E862FB /* DemoHushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6B6A1BEC987800E862FB /* DemoHushViewController.m */; };
+		277B6B701BED0F0B00E862FB /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6B6E1BED0F0B00E862FB /* RecordView.m */; };
+		277B6B711BED0F0B00E862FB /* RecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 277B6B6F1BED0F0B00E862FB /* RecordView.xib */; };
+		277B6B751BED269B00E862FB /* AudioPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6B731BED269B00E862FB /* AudioPlayerView.m */; };
+		277B6B761BED269B00E862FB /* AudioPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 277B6B741BED269B00E862FB /* AudioPlayerView.xib */; };
+		277B6B791BED437800E862FB /* UITextFieldRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6B781BED437800E862FB /* UITextFieldRect.m */; };
 		2780F6CF1BE4BC360086449B /* PushModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2780F6CE1BE4BC360086449B /* PushModal.m */; };
 		2780F6D31BE4E1F40086449B /* FalseAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2780F6D21BE4E1F40086449B /* FalseAlarmViewController.m */; };
 		2780F6D71BE51EDC0086449B /* SearchMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2780F6D61BE51EDC0086449B /* SearchMainViewController.m */; };
@@ -239,6 +246,18 @@
 		277B6B611BEB86E400E862FB /* ImageFullViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFullViewController.m; sourceTree = "<group>"; };
 		277B6B631BEBACAE00E862FB /* AdminMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdminMessageViewController.h; sourceTree = "<group>"; };
 		277B6B641BEBACAE00E862FB /* AdminMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdminMessageViewController.m; sourceTree = "<group>"; };
+		277B6B661BEC97E400E862FB /* DemoRecorderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoRecorderViewController.h; sourceTree = "<group>"; };
+		277B6B671BEC97E400E862FB /* DemoRecorderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoRecorderViewController.m; sourceTree = "<group>"; };
+		277B6B691BEC987800E862FB /* DemoHushViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoHushViewController.h; sourceTree = "<group>"; };
+		277B6B6A1BEC987800E862FB /* DemoHushViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoHushViewController.m; sourceTree = "<group>"; };
+		277B6B6D1BED0F0B00E862FB /* RecordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordView.h; sourceTree = "<group>"; };
+		277B6B6E1BED0F0B00E862FB /* RecordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordView.m; sourceTree = "<group>"; };
+		277B6B6F1BED0F0B00E862FB /* RecordView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordView.xib; sourceTree = "<group>"; };
+		277B6B721BED269B00E862FB /* AudioPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayerView.h; sourceTree = "<group>"; };
+		277B6B731BED269B00E862FB /* AudioPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioPlayerView.m; sourceTree = "<group>"; };
+		277B6B741BED269B00E862FB /* AudioPlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioPlayerView.xib; sourceTree = "<group>"; };
+		277B6B771BED437800E862FB /* UITextFieldRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextFieldRect.h; sourceTree = "<group>"; };
+		277B6B781BED437800E862FB /* UITextFieldRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextFieldRect.m; sourceTree = "<group>"; };
 		2780F6CD1BE4BC360086449B /* PushModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushModal.h; sourceTree = "<group>"; };
 		2780F6CE1BE4BC360086449B /* PushModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushModal.m; sourceTree = "<group>"; };
 		2780F6D11BE4E1F40086449B /* FalseAlarmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FalseAlarmViewController.h; sourceTree = "<group>"; };
@@ -463,6 +482,10 @@
 				2701146F1BDD5AD500E8FE95 /* DemoBringViewController.m */,
 				270114711BDD5AED00E8FE95 /* DemoDetectViewController.h */,
 				270114721BDD5AED00E8FE95 /* DemoDetectViewController.m */,
+				277B6B661BEC97E400E862FB /* DemoRecorderViewController.h */,
+				277B6B671BEC97E400E862FB /* DemoRecorderViewController.m */,
+				277B6B691BEC987800E862FB /* DemoHushViewController.h */,
+				277B6B6A1BEC987800E862FB /* DemoHushViewController.m */,
 			);
 			path = "Demo View Controllers";
 			sourceTree = "<group>";
@@ -673,6 +696,19 @@
 			path = "Profile Cells";
 			sourceTree = "<group>";
 		};
+		277B6B6C1BED0EC300E862FB /* Audio Player View */ = {
+			isa = PBXGroup;
+			children = (
+				277B6B721BED269B00E862FB /* AudioPlayerView.h */,
+				277B6B731BED269B00E862FB /* AudioPlayerView.m */,
+				277B6B741BED269B00E862FB /* AudioPlayerView.xib */,
+				277B6B6D1BED0F0B00E862FB /* RecordView.h */,
+				277B6B6E1BED0F0B00E862FB /* RecordView.m */,
+				277B6B6F1BED0F0B00E862FB /* RecordView.xib */,
+			);
+			path = "Audio Player View";
+			sourceTree = "<group>";
+		};
 		2780F6CC1BE4AC230086449B /* Push Modal */ = {
 			isa = PBXGroup;
 			children = (
@@ -833,6 +869,8 @@
 				278210C71B9B1CEB000EA90B /* UIButtonRound.m */,
 				2794EE951BABF7450036BB75 /* UIImageViewRound.h */,
 				2794EE961BABF7450036BB75 /* UIImageViewRound.m */,
+				277B6B771BED437800E862FB /* UITextFieldRect.h */,
+				277B6B781BED437800E862FB /* UITextFieldRect.m */,
 			);
 			path = "Sub Classes";
 			sourceTree = "<group>";
@@ -891,6 +929,7 @@
 		278CAFB31BA6E8D0005814C6 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				277B6B6C1BED0EC300E862FB /* Audio Player View */,
 				2703E8951BDF4357000BDD2C /* Image Full View */,
 				2701145C1BDD440F00E8FE95 /* Comments View */,
 				27DE4DFF1BBA6AA800135DF6 /* Alarm Views */,
@@ -1401,11 +1440,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				278E6D7F1BDA7A0D00B68BD8 /* CODefault.mp3 in Resources */,
+				277B6B711BED0F0B00E862FB /* RecordView.xib in Resources */,
 				27DE4E201BBABEB000135DF6 /* sound.mp3 in Resources */,
 				278CAFC11BA6F71E005814C6 /* Localizable.strings in Resources */,
 				278CAFF01BA82AD9005814C6 /* LoaderView.xib in Resources */,
 				278CAFCF1BA70B46005814C6 /* Images.xcassets in Resources */,
 				278CAFED1BA82AD9005814C6 /* orange@2x.png in Resources */,
+				277B6B761BED269B00E862FB /* AudioPlayerView.xib in Resources */,
 				27DE4E111BBAAF3100135DF6 /* WaveAnimationView.xib in Resources */,
 				278210A51B9AE822000EA90B /* Main.storyboard in Resources */,
 				278E6D7D1BDA79FD00B68BD8 /* SexOffender.mp3 in Resources */,
@@ -1520,6 +1561,7 @@
 				277B6B621BEB86E400E862FB /* ImageFullViewController.m in Sources */,
 				276088711BCFC3FF009F1E18 /* ImageVideoViewController.m in Sources */,
 				274E8E8F1BD578C600171C5C /* CommonFunctions.m in Sources */,
+				277B6B751BED269B00E862FB /* AudioPlayerView.m in Sources */,
 				27DD67681BE8E8A7001CDDBB /* PostViewController.m in Sources */,
 				277A8EBA1BB293E500A7C347 /* SafetyProfileCell.m in Sources */,
 				2771B0AF1BBD5581002DE1E2 /* FeedImageCell.m in Sources */,
@@ -1531,6 +1573,7 @@
 				27FBA6FF1BA94D5D00F373E4 /* MainContentViewController.m in Sources */,
 				277B6B5F1BEB3F1D00E862FB /* UserGuideViewController.m in Sources */,
 				278CAFB71BA6E909005814C6 /* WalkThroughView.m in Sources */,
+				277B6B6B1BEC987800E862FB /* DemoHushViewController.m in Sources */,
 				270114641BDD46B300E8FE95 /* CommentCell.m in Sources */,
 				2745D1961BAFE692002261B0 /* Video.m in Sources */,
 				278CAFF71BA8621A005814C6 /* WalkThroughLastView.m in Sources */,
@@ -1547,6 +1590,7 @@
 				27C5EE8B1BD112E60010061E /* RegisterStep2ViewController.m in Sources */,
 				27DE4E101BBAAF3100135DF6 /* WaveAnimationView.m in Sources */,
 				2771B0AB1BBD51DC002DE1E2 /* FeedMainCell.m in Sources */,
+				277B6B681BEC97E400E862FB /* DemoRecorderViewController.m in Sources */,
 				278CAFD21BA7F61B005814C6 /* LoginViewController.m in Sources */,
 				27FBA7051BA9519B00F373E4 /* SafetyMeasuresViewController.m in Sources */,
 				27E9B4111BE744E700C5EAAF /* SearchFeedViewController.m in Sources */,
@@ -1582,6 +1626,7 @@
 				274E8E871BD4D07000171C5C /* TCViewController.m in Sources */,
 				2760886D1BCF9DC5009F1E18 /* SoundRecordViewController.m in Sources */,
 				278CAFE31BA82A5D005814C6 /* UIImage+Extras.m in Sources */,
+				277B6B701BED0F0B00E862FB /* RecordView.m in Sources */,
 				278CAFE11BA82A5D005814C6 /* NSUserDefaults+RMSaveCustomObject.m in Sources */,
 				27FBA6FB1BA94C4200F373E4 /* XLPagerTabStripViewController.m in Sources */,
 				278210991B9AE822000EA90B /* main.m in Sources */,
@@ -1592,6 +1637,7 @@
 				27F3614A1BD651EA0042C8AA /* SafetyDetailViewController.m in Sources */,
 				273338D91BAD3E7E00BDECCA /* User.m in Sources */,
 				278210C41B9B1705000EA90B /* SplashViewController.m in Sources */,
+				277B6B791BED437800E862FB /* UITextFieldRect.m in Sources */,
 				2703E8991BDF54FF000BDD2C /* ImageBigView.m in Sources */,
 				2745D1991BAFED9D002261B0 /* InfoVideoCell.m in Sources */,
 				27FBA6F31BA94BEA00F373E4 /* XLButtonBarView.m in Sources */,
@@ -1741,14 +1787,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyGuardApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "031d839c-81bc-42df-a5ec-1e7b53f206f2";
+				PROVISIONING_PROFILE = "c2f72bda-1340-4b4e-9dd1-7cc4ab166316";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyGuardApp/sounds/MyGuardApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1761,14 +1807,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyGuardApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "031d839c-81bc-42df-a5ec-1e7b53f206f2";
+				PROVISIONING_PROFILE = "c2f72bda-1340-4b4e-9dd1-7cc4ab166316";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyGuardApp/sounds/MyGuardApp-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

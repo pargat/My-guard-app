@@ -25,7 +25,12 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setNavBarAndTab];
 
+}
 #pragma mark -
 #pragma mark - ProfileMyDelegate
 -(void)delBigView
@@ -38,7 +43,6 @@
 -(void)viewHelper
 {
     [self.tableViewProfile setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [self setNavBarAndTab];
     [self.tableViewProfile setDelegate:self];
     [self.tableViewProfile setDataSource:self];
     
@@ -208,7 +212,7 @@
 {
     cell.delegate = self;
     cell.stringUrl = self.myProfile.profileImageFullLink;
-    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",self.myProfile.profileImageName,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
+    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",self.myProfile.profileImageFullLink,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
     [cell.labelName setText:self.myProfile.profileUserName];
     [cell.labelPhoneNumber setText:self.myProfile.profilePhoneNumber];
     [cell.labelAddress setText:self.myProfile.profileAddress];
@@ -396,13 +400,29 @@
     {
         SafetyDetailViewController *safetyVC = (SafetyDetailViewController *)segue.destinationViewController;
         SafetyMeasure *modal = (SafetyMeasure *)sender;
+        if([modal.safetyType isEqualToString:@"1"])
+        {
+            safetyVC.currentTab = @"1";
+            
+        }
+        else if ([modal.safetyType isEqualToString:@"2"])
+        {
+            safetyVC.currentTab = @"2";
+        }
+        else
+        {
+            safetyVC.currentTab = @"3";
+        }
+        
+        safetyVC.stringSafety = modal.safetyDescription;
+
         safetyVC.stringSafety = modal.safetyDescription;
     }
     else if ([segue.identifier isEqualToString:KImageFullSegue])
     {
         ImageFullViewController *imageVc = (ImageFullViewController *)segue.destinationViewController;
         imageVc.username = self.myProfile.profileUserName;
-        imageVc.imageLink = self.myProfile.profileImageName;
+        imageVc.imageLink = self.myProfile.profileImageFullLink;
     }
 
 }
