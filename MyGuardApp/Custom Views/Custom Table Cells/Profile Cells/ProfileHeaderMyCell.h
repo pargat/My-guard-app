@@ -25,6 +25,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelAddress;
 @property (weak, nonatomic) IBOutlet UIView *viewBottomLine;
 @property (weak, nonatomic) IBOutlet UIButton *btnNotif;
+@property (weak, nonatomic) IBOutlet UIView *viewNotifCount;
+@property (weak, nonatomic) IBOutlet UILabel *labelNotifCount;
+
+
 
 - (IBAction)actionDpFull:(id)sender;
 - (IBAction)actionSettings:(id)sender;

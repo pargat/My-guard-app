@@ -76,8 +76,9 @@
 -(void)viewSetter
 {
     [self.btnHush setTitle:NSLocalizedString(@"hush", nil) forState:UIControlStateNormal];
-    [self.labelAddress setPreferredMaxLayoutWidth:[[UIScreen mainScreen] bounds].size.width-82];
-    [self.labelDescription1 setPreferredMaxLayoutWidth:[[UIScreen mainScreen] bounds].size.width-82];
+    [self.labelAddress setPreferredMaxLayoutWidth:[[UIScreen mainScreen] bounds].size.width-116];
+    [self.labelDescription1 setPreferredMaxLayoutWidth:[[UIScreen mainScreen] bounds].size.width-116
+];
     
     self.imageViewDp.layer.cornerRadius = self.imageViewDp.frame.size.width/2;
     self.imageViewDp.clipsToBounds = YES;
@@ -116,7 +117,7 @@
     
     
     
-    NSAttributedString *stringFlag = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" is in a possible emergency %@  environment",typeString] attributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:14]}];
+    NSAttributedString *stringFlag = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" is in a possible emergency %@ environment",typeString] attributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:14]}];
     
     [stringMut appendAttributedString:stringAtt];
     [stringMut appendAttributedString:stringFlag];

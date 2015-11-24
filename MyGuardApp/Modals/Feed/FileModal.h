@@ -12,6 +12,7 @@
 
 //0 for image 1 for video
 @property BOOL fileType;
+@property (nonatomic,strong) NSString *fileDescription;
 @property (nonatomic,strong) NSString *fileThumbCumImageLink;
 @property (nonatomic,strong) NSString *fileVideoLink;
 @property (nonatomic,strong) NSString *fileNumberOfComments;

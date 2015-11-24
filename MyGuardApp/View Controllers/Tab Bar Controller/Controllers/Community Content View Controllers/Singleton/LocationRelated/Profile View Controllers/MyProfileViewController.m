@@ -197,11 +197,12 @@
     [cell.labelAddress setText:self.myProfile.profileAddress];
     if([self.myProfile.profileUnreadCount integerValue]>0)
     {
-        [cell.btnNotif setImage:[UIImage imageNamed:@"ic_notifications_selected"] forState:UIControlStateNormal];
+        [cell.viewNotifCount setHidden:NO];
+        [cell.labelNotifCount setText:self.myProfile.profileUnreadCount];
     }
     else
     {
-        [cell.btnNotif setImage:[UIImage imageNamed:@"ic_notifications"] forState:UIControlStateNormal];
+        [cell.viewNotifCount setHidden:YES];
     }
 }
 

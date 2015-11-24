@@ -17,6 +17,7 @@
 #import "CommunityNoCell.h"
 #import "ImageFullViewController.h"
 #import <UIImageView+WebCache.h>
+#import "CustomBadge.h"
 
 @interface MyProfileViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,ZoomTransitionProtocol,UIActionSheetDelegate,ProfileMyDelegate>
 

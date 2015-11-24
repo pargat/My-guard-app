@@ -19,6 +19,7 @@
     // Do any additional setup after loading the view.
     [self setNavBar];
     [self viewHelper];
+    [self addTpHandler];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,11 +38,21 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self removeLoaderView];
     [self removeObservers];
 }
 
 #pragma mark -
 #pragma mark - View Helpers
+-(void)addTpHandler
+{
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
+    [self.view addGestureRecognizer:tapGesture];
+}
+-(void)tapped
+{
+    [self.view endEditing:YES];
+}
 -(void)resignKB
 {
     [self.textViewMessage resignFirstResponder];
@@ -54,7 +65,6 @@
     self.textViewMessage.placeholder = @"Type here";
     self.btnCamera.layer.cornerRadius = self.btnCamera.frame.size.width/2;
     self.btnCamera.clipsToBounds = YES;
-    
     if(self.feedType==1)
     {
         [self.btnCamera setBackgroundColor:KOrangeColor];
@@ -86,7 +96,14 @@
     }
     
     [navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    [self.navigationItem setTitle:NSLocalizedString(@"new_post", nil)];
+    if(self.stringFeedId.length>0)
+    {
+        [self.navigationItem setTitle:NSLocalizedString(@"add_media", nil)];
+    }
+    else
+    {
+        [self.navigationItem setTitle:NSLocalizedString(@"new_post", nil)];
+    }
     [navigationBar setBarStyle:UIBarStyleBlack];
     [navigationBar setTranslucent:NO];
     [navigationBar setBackgroundImage:[UIImage new]
@@ -101,7 +118,6 @@
     
     UIBarButtonItem *btnPost = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"post", nil) style:UIBarButtonItemStylePlain target:self action:@selector(actionPost)];
     [btnPost setTintColor:[UIColor whiteColor]];
-    btnPost.enabled = NO;
     self.navigationItem.rightBarButtonItem = btnPost;
 }
 #pragma mark -
@@ -260,7 +276,7 @@
         
         [self.imageViewMessage setImage:self.imagePost];
         
-       
+        
     }
     
     else
@@ -317,88 +333,127 @@
         
         
     }
-    [self.btnAddOrRemove setHidden:YES];
     [self.btnRemove setHidden:NO];
-    self.navigationItem.rightBarButtonItem.enabled = YES;
     
 }
 
 #pragma mark -
 #pragma mark - Button Actions
 - (IBAction)actionRemove:(id)sender {
-    [self.btnAddOrRemove setHidden:NO];
+    [self.btnRemove setHidden:YES];
     self.isPostVideo = false;
     [self.imageViewMessage setImage:nil];
     self.imagePost = nil;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
-
+    
 }
 
 
 - (IBAction)actionCamera:(id)sender {
     [self.view endEditing:YES];
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo",@"Choose photo from gallery",@"Take Video",@"Choose Video from gallery",nil];
-    [actionSheet showInView:self.view];}
+    [actionSheet showInView:self.view];
+}
 
 - (void)actionPost {
-    UIColor *colorProfile;
-    if(self.feedType==1)
+    
+    if(self.videoData!=nil||self.imagePost!=nil)
     {
-        colorProfile = KOrangeColor;
-    }
-    else if (self.feedType==2)
-    {
-        colorProfile = KGreenColor;
-    }
-    else
-    {
-        colorProfile = KRedColor;
-    }
-    [self setUpLoaderView:colorProfile];
-    if(self.isPostVideo)
-    {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:[Profile getCurrentProfileUserId] forKey:@"user_id"];
-        [dict setObject:[self.textViewMessage.text substringFromIndex:1] forKey:@"description"];
-        [dict setObject:[NSString stringWithFormat:@"%d",self.feedType] forKey:@"type"];
-        [dict setObject:[NSString stringWithFormat:@"%d", self.duration] forKey:@"duration"];
-        [iOSRequest postVideoAlarm:[NSString stringWithFormat:KPostAlarmApi,KbaseUrl] parameters:dict videoData:self.videoData thumbData:UIImageJPEGRepresentation(self.imagePost, 0.5) success:^(NSDictionary *responseStr) {
-            [self showStaticAlert:@"Success" message:@"Media posted successfully"];
-            self.isPostVideo = false;
-            self.imagePost = nil;
-            self.videoData = nil;
-            self.navigationItem.rightBarButtonItem.enabled = NO;
-            [self.textViewMessage setText:@""];
-            [self removeLoaderView];
-            [self.imageViewMessage setImage:nil];
-        } failure:^(NSError *error) {
-            [self removeLoaderView];
-        }];
-        
-    }
-    else
-    {
-        
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:[Profile getCurrentProfileUserId] forKey:@"user_id"];
-        
-        [dict setObject:[self.textViewMessage.text substringFromIndex:1] forKey:@"description"];
-        [dict setObject:[NSString stringWithFormat:@"%d",self.feedType] forKey:@"type"];
-        
-        
-        NSData *dataImage = UIImageJPEGRepresentation(self.imagePost, 0.5);
-        [iOSRequest postImageAlarm:[NSString stringWithFormat:KPostAlarmApi,KbaseUrl] parameters:dict imageData:dataImage success:^(NSDictionary *responseStr) {
-             [self showStaticAlert:@"Success" message:@"Media posted successfully"];
-            self.isPostVideo = false;
-            self.imagePost = nil;
-            self.videoData = nil;
-            self.navigationItem.rightBarButtonItem.enabled = NO;
-            [self.textViewMessage setText:@""];
-            [self removeLoaderView];
+        UIColor *colorProfile;
+        if(self.feedType==1)
+        {
+            colorProfile = KOrangeColor;
+        }
+        else if (self.feedType==2)
+        {
+            colorProfile = KGreenColor;
+        }
+        else
+        {
+            colorProfile = KRedColor;
+        }
+        [self setUpLoaderView:colorProfile];
+        if(self.isPostVideo)
+        {
+            if(self.stringFeedId.length>0)
+            {
+                
+                NSDictionary *dict = @{@"id":self.stringFeedId,@"user_id":[Profile getCurrentProfileUserId],@"duration":[NSString stringWithFormat:@"%d",self.duration]};
+                NSData *imageData = UIImageJPEGRepresentation(self.imagePost, 0.5);
+                [iOSRequest postVideoAlarm:[NSString stringWithFormat:KUpdateAlarm,KbaseUrl] parameters:dict videoData:self.videoData thumbData:imageData success:^(NSDictionary *responseStr) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"addFeed" object:nil userInfo:[[responseStr valueForKey:@"data"] objectAtIndex:0]];
+                    [self.navigationController popViewControllerAnimated:YES];
+
+                    [self removeLoaderView];
+                } failure:^(NSError *error) {
+                    [self removeLoaderView];
+                }];
+                
+            }
+
+            else
+            {
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+                [dict setObject:[Profile getCurrentProfileUserId] forKey:@"user_id"];
+                [dict setObject:[NSString stringWithFormat:@"%@",self.textViewMessage.text] forKey:@"description[0]"];
+                [dict setObject:[NSString stringWithFormat:@"%d",self.feedType] forKey:@"type"];
+                [dict setObject:[NSString stringWithFormat:@"%d", self.duration] forKey:@"duration"];
+                [iOSRequest postVideoAlarm:[NSString stringWithFormat:KPostAlarmApi,KbaseUrl] parameters:dict videoData:self.videoData thumbData:UIImageJPEGRepresentation(self.imagePost, 0.5) success:^(NSDictionary *responseStr) {
+                    [self showStaticAlert:@"Success" message:@"Media posted successfully"];
+                    self.isPostVideo = false;
+                    self.imagePost = nil;
+                    self.videoData = nil;
+                    [self.textViewMessage setText:@""];
+                    [self removeLoaderView];
+                    [self.imageViewMessage setImage:nil];
+                } failure:^(NSError *error) {
+                    [self removeLoaderView];
+                }];
+            }
             
-        } failure:^(NSError *error) {
-            [self removeLoaderView];
-        }];
+        }
+        else
+        {
+            if(self.stringFeedId.length>0)
+            {
+                
+                NSData *imageData = UIImageJPEGRepresentation(self.imagePost, 0.5);
+                NSDictionary *dict = @{@"id":self.stringFeedId,@"user_id":[Profile getCurrentProfileUserId]};
+                [iOSRequest postImageAlarm:[NSString stringWithFormat:KUpdateAlarm,KbaseUrl] parameters:dict imageData:imageData success:^(NSDictionary *responseStr) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"addFeed" object:nil userInfo:[[responseStr valueForKey:@"data"] objectAtIndex:0]];
+                    [self.navigationController popViewControllerAnimated:YES];
+                    [self removeLoaderView];
+                    
+                    
+                } failure:^(NSError *error) {
+                    [self removeLoaderView];
+                }];
+                
+            }
+
+            else
+            {
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+                [dict setObject:[Profile getCurrentProfileUserId] forKey:@"user_id"];
+                
+                [dict setObject:[NSString stringWithFormat:@"%@",self.textViewMessage.text] forKey:@"description"];
+                [dict setObject:[NSString stringWithFormat:@"%d",self.feedType] forKey:@"type"];
+                
+                
+                NSData *dataImage = UIImageJPEGRepresentation(self.imagePost, 0.5);
+                [iOSRequest postImageAlarm:[NSString stringWithFormat:KPostAlarmApi,KbaseUrl] parameters:dict imageData:dataImage success:^(NSDictionary *responseStr) {
+                    [self showStaticAlert:@"Success" message:@"Media posted successfully"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                    [self removeLoaderView];
+                    
+                } failure:^(NSError *error) {
+                    [self removeLoaderView];
+                }];
+            }
+        }
+    }
+    else
+    {
+        [self showStaticAlert:nil message:@"Please add a video or image"];
     }
     
     

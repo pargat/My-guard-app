@@ -30,6 +30,12 @@
 }
 #pragma mark -
 #pragma mark - View Helpers
+-(NSString *) stringByStrippingHTML:(NSString *)s {
+    NSRange r;
+    while ((r = [s rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
+        s = [s stringByReplacingCharactersInRange:r withString:@""];
+    return s;
+}
 -(void)readNotif:(NSString *)idNotif
 {
     [iOSRequest getJsonResponse:[NSString stringWithFormat:KMarkNotificationApi,KbaseUrl,[Profile getCurrentProfileUserId],idNotif] success:^(NSDictionary *responseDict) {
@@ -226,9 +232,8 @@
     NotificationModal *modal = [self.arrayNotifs objectAtIndex:indexPath.row];
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",modal.notifDp,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
     
-    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[modal.notifTitle dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
     
-    [cell.labelTitlw setAttributedText:attrStr];
+    [cell.labelTitlw setText:[self stringByStrippingHTML:modal.notifTitle]];
     [cell.labelTitlw setFont:[UIFont systemFontOfSize:14]];
     [cell.labelDescription setText:@""];
     [cell.labelTimePassed setText:modal.notifTimePassed];
@@ -252,9 +257,9 @@
     cell.delegate = self;
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",modal.notifDp,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
     
-    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[modal.notifTitle dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+   
     
-    [cell.labelTitle setAttributedText:attrStr];
+    [cell.labelTitle setText:[self stringByStrippingHTML:modal.notifTitle]];
     [cell.labelTitle setFont:[UIFont systemFontOfSize:14]];
     [cell.labelTimePassed setText:modal.notifTimePassed];
     if([modal.notifIsRead isEqualToString:@"y"])

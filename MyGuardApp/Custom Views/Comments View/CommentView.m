@@ -273,15 +273,15 @@
     [self.textFieldComment resignFirstResponder];
     
     
-//    [UIView animateWithDuration:0.5 animations:^{
-//        [self setFrame:self.rectToDisappear];
-//
-//    } completion:^(BOOL finished) {
+    [UIView animateWithDuration:0.25 animations:^{
+        [self setFrame:self.rectToDisappear];
+
+    } completion:^(BOOL finished) {
         [self removeKeyboardObservers];
         [self.textFieldComment setDelegate:nil];
         [self removeFromSuperview];
  
-    //}];
+    }];
 
 }
 @end

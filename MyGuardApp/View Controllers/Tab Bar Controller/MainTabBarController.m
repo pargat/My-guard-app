@@ -75,7 +75,7 @@ int previousFreq=0;
     [LOcationUpdater sharedManager];
     // Do any additional setup after loading the view.
     
-    
+    [self setDefaultSounds];
     AVAudioSession *session = [AVAudioSession sharedInstance];
     NSError *error;
     [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
@@ -162,6 +162,25 @@ int previousFreq=0;
 
 #pragma mark -
 #pragma mark - View Helpers and observers
+-(void)setDefaultSounds
+{
+    if([[NSUserDefaults standardUserDefaults] valueForKey:@"FireSound"]==nil)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:@"FireDefault.mp3" forKey:@"FireSound"];
+    }
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"GunSound"]==nil)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:@"GunDefault.mp3" forKey:@"GunSound"];
+
+    }
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"COSound"]==nil)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:@"CODefault.mp3" forKey:@"COSound"];
+
+    }
+
+    
+}
 -(void)performPushForeground:(NSNotification *)n
 {
     NSDictionary *dict = [n.object valueForKey:@"C"];
@@ -197,22 +216,22 @@ int previousFreq=0;
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:0] setImage:[UIImage imageNamed:@"tb_fire_normal"]];
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:1] setImage:[UIImage imageNamed:@"tb_gun_normal"]];
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:2] setImage:[UIImage imageNamed:@"tb_co_normal"]];
-    [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:3] setImage:[UIImage imageNamed:@"tb_sex_offenders_normal"]];
-    [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:4] setImage:[UIImage imageNamed:@"tb_community_normal"]];
+    [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:4] setImage:[UIImage imageNamed:@"tb_sex_offenders_normal"]];
+    [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:3] setImage:[UIImage imageNamed:@"tb_community_normal"]];
     
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:0] setSelectedImage:[UIImage imageNamed:@"tb_fire_pressed"]];
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:1] setSelectedImage:[UIImage imageNamed:@"tb_gun_pressed"]];
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:2] setSelectedImage:[UIImage imageNamed:@"tb_co_pressed"]];
-    [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:3] setSelectedImage:[UIImage imageNamed:@"tb_sex_offenders_pressed"]];
-    [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:4] setSelectedImage:[UIImage imageNamed:@"tb_community_pressed"]];
+    [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:4] setSelectedImage:[UIImage imageNamed:@"tb_sex_offenders_pressed"]];
+    [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:3] setSelectedImage:[UIImage imageNamed:@"tb_community_pressed"]];
     
     
     
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:0] setTitle:NSLocalizedString(@"fire", nil)];
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:2] setTitle:NSLocalizedString(@"co", nil)];
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:1] setTitle:NSLocalizedString(@"gunshot", nil)];
-    [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:4] setTitle:NSLocalizedString(@"community", nil)];
-    [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:3] setTitle:NSLocalizedString(@"tb_sex_offenders", nil)];
+    [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:3] setTitle:NSLocalizedString(@"community", nil)];
+    [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:4] setTitle:NSLocalizedString(@"tb_sex_offenders", nil)];
     
     
 }
@@ -1191,7 +1210,8 @@ int previousFreq=0;
     else if ([segue.identifier isEqualToString:KFalseAlarmSegue])
     {
         FalseAlarmViewController *falseVC = (FalseAlarmViewController *)segue.destinationViewController;
-        falseVC.dictInfo  = sender;
+        [[NSUserDefaults standardUserDefaults] setObject:sender forKey:@"false"];
+       // falseVC.dictInfo  = sender;
     }
     else if ([segue.identifier isEqualToString:KAdminSegue])
     {

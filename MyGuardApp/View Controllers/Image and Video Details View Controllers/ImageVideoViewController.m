@@ -35,6 +35,13 @@
 }
 #pragma mark-
 #pragma mark- view helpers
+-(void)addImage:(NSNotification *)notification
+{
+    FileModal *modal = [[FileModal alloc] initWithAttributes:notification.userInfo];
+    [self.arrayFiles addObject:modal];
+    [self.collectionViewMain reloadData];
+}
+
 -(void)deleteMedia
 {
     [self setupLoaderView1];
@@ -97,6 +104,7 @@
 }
 -(void)viewHelper
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addImage:) name:@"addFeed" object:nil];
     self.btnCamera.layer.cornerRadius = self.btnCamera.frame.size.width/2;
     self.btnCamera.clipsToBounds = YES;
     
@@ -396,8 +404,9 @@
 #pragma mark -
 #pragma mark - Button actions
 - (IBAction)actionCamera:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo",@"Choose photo from gallery",@"Take Video",@"Choose Video from gallery",nil];
-    [actionSheet showInView:self.view];
+    [self performSegueWithIdentifier:KPostAlarmSegue sender:nil];
+//    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo",@"Choose photo from gallery",@"Take Video",@"Choose Video from gallery",nil];
+//    [actionSheet showInView:self.view];
     
 }
 
@@ -453,6 +462,15 @@
         imageVc.indexToScroll = self.selectedIndex;
         imageVc.arrayFiles = self.arrayFiles;
         imageVc.feed_id = self.feedModal.feed_id;
+        imageVc.stringAddress = self.feedModal.feed_place;
+        imageVc.currentTab = self.currentTab;
+    }
+    else if ([segue.identifier isEqualToString:KPostAlarmSegue])
+    {
+        PostViewController *postVC = (PostViewController *)segue.destinationViewController;
+        postVC.feedType = self.currentTab;
+        postVC.stringFeedId = self.feedModal.feed_id;
+        
     }
     
 }

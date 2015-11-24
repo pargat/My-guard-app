@@ -22,7 +22,10 @@
 @property (weak, nonatomic) IBOutlet UITextView *textViewTC;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomSpace;
 @property (weak, nonatomic) IBOutlet UIButton *btnAlreadyMember;
+@property (weak, nonatomic) IBOutlet UIButton *btnCheckBox;
 
+
+- (IBAction)actionTerms:(id)sender;
 - (IBAction)actionAlreadyMember:(id)sender;
 - (IBAction)actionContinue:(id)sender;
 

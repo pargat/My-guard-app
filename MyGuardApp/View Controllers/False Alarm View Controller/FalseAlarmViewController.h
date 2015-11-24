@@ -14,7 +14,10 @@
 
 
 @property (nonatomic,strong) NSDictionary *dictInfo;
+@property (weak, nonatomic) IBOutlet UILabel *labelTitle;
+@property (weak, nonatomic) IBOutlet UIView *viewNav;
 
+- (IBAction)actionBack:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewDp;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserName;

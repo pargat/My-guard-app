@@ -20,6 +20,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "ImageVideoDetailViewController.h"
 #import "CommonFunctions.h"
+#import "PostViewController.h"
 
 @interface ImageVideoViewController : BaseViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 

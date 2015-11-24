@@ -29,6 +29,8 @@
 #pragma mark - View helper functions
 -(void)viewHelper
 {
+    self.dictInfo = [[NSUserDefaults standardUserDefaults] valueForKey:@"false"];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"false"];
     self.imageViewDp.layer.cornerRadius = self.imageViewDp.frame.size.width/2;
     self.imageViewDp.clipsToBounds = YES;
     [self.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:KBaseTimbthumbUrl,[self.dictInfo valueForKey:@"image"],DisplayScale*self.imageViewDp.frame.size.width,DisplayScale*self.imageViewDp.frame.size.height]]];
@@ -40,23 +42,31 @@
 -(void)setUpNavBar
 {
     NSString *type = [self.dictInfo valueForKey:@"type"];
+    
+
+
+    
     if([type isEqualToString:@"1"])
     {
-        [self.navigationController.navigationBar setTintColor:KOrangeColor];
+        [self.viewNav setBackgroundColor:KOrangeColor];
+        // [navigationBar setBackgroundColor:KOrangeColor];
     }
     else if ([type isEqualToString:@"2"])
     {
-        [self.navigationController.navigationBar setTintColor:KGreenColor];
+        [self.viewNav setBackgroundColor:KGreenColor];
+        // [navigationBar setBackgroundColor:KGreenColor];
+        
     }
     else
     {
-        [self.navigationController.navigationBar setTintColor:KRedColor];
+        [self.viewNav setBackgroundColor:KRedColor];
+        //[navigationBar setBackgroundColor:KRedColor];
+        
     }
-    UIBarButtonItem *btnBack = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_back"] style:UIBarButtonItemStylePlain target:self action:@selector(actionBack)];
-    [btnBack setTintColor:[UIColor whiteColor]];
-    self.navigationItem.leftBarButtonItem = btnBack;
     
-    [self.navigationItem setTitle:NSLocalizedString(@"false_alarm", nil)];
+    [self.labelTitle setText:NSLocalizedString(@"false_alarm", nil)];
+
+
 }
 
 
@@ -66,6 +76,9 @@
 -(void)actionBack
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 /*
 #pragma mark - Navigation
@@ -77,4 +90,11 @@
 }
 */
 
+- (IBAction)actionBack:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+
+}
 @end

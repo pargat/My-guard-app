@@ -44,8 +44,6 @@
     [self addChildViewController:self.mainVC];
     [self.mainVC didMoveToParentViewController:self];
     
-    
-    
 }
 
 -(void)setNavBarAndTab

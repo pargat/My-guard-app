@@ -380,6 +380,8 @@
 }
 -(void)delSms
 {
+    if(self.arrayEmergencyContacts.count>0)
+    {
     MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init] ;
     if([MFMessageComposeViewController canSendText])
     {
@@ -388,6 +390,11 @@
         controller.messageComposeDelegate = self;
         
         [self presentViewController:controller animated:YES completion:nil];
+    }
+    }
+    else
+    {
+        [self showAlert:@"Please add contacts in your emergency contact list."];
     }
 
 }

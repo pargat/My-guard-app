@@ -24,6 +24,12 @@
     [self.tableViewOffenders setDataSource:self];
     [self setUpLoaderView];
     [self getOffenders];
+    self.searchBar = [[UISearchBar alloc] init];
+    [self.searchBar setDelegate:self];
+    [self.searchBar setShowsCancelButton:YES];
+    [self.searchBar setTintColor:[UIColor whiteColor]];
+    [self.tableViewOffenders setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
+    [self setInAppThing];
     // Do any additional setup after loading the view.
 }
 
@@ -44,9 +50,93 @@
 }
 
 
+#pragma mark -
+#pragma mark - Search bar delegate
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    UIButton *btnCancel = [self.searchBar valueForKey:@"_cancelButton"];
+    [btnCancel setEnabled:YES];
+}
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    if(![[searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""])
+    {
+        
+        [self.searchBar resignFirstResponder];
+        // [self setUpLoaderView];
+        
+        self.arraySearch = [[NSMutableArray alloc] init];
+        for (SexOffender *modal in self.arraySexOffender) {
+            if([modal.offenderZipCode respondsToSelector:@selector(containsString:)])
+            {
+                if ([modal.offenderZipCode containsString:self.searchBar.text])
+                {
+                    
+                    [self.arraySearch addObject:modal];
+                    
+                }
+            }
+            else
+            {
+                
+                if ([modal.offenderZipCode rangeOfString:self.searchBar.text].length != 0) {
+                    
+                    [self.arraySearch addObject:modal];
+                    
+                }
+                
+            }
+            
+        }
+        
+        UIButton *btnCancel = [self.searchBar valueForKey:@"_cancelButton"];
+        [btnCancel setEnabled:YES];
+        [self.tableViewOffenders reloadData];
+        
+    }
+}
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self setNavBarAndTab];
+    [self.tableViewOffenders reloadData];
+    
+}
+
+
+#pragma mark -
+#pragma mark - In ap purchase functions
+- (void)fetchInAppPurchases {
+    [[MyGuardInAppHelper sharedInstance] requestProductWithCompletionHandler:^(BOOL success, NSArray *products) {
+        
+        
+        if (success) {
+            //sort products according to price
+//            NSSortDescriptor *lowestPriceToHighest = [NSSortDescriptor sortDescriptorWithKey:@"price" ascending:YES];
+//            NSArray *sortedProducts = [products sortedArrayUsingDescriptors:[NSArray arrayWithObject:lowestPriceToHighest]];
+            
+        }
+        else {
+        }
+        
+    }];
+}
+
 
 #pragma mark -
 #pragma mark - Helper functions
+-(void)setInAppThing
+{
+    self.btnBuy.layer.cornerRadius = 8.0;
+    self.btnBuy.clipsToBounds = YES;
+    self.btnRestore.layer.cornerRadius = 8.0;
+    self.btnRestore.clipsToBounds = YES;
+
+    [self.labelPremium setText:NSLocalizedString(@"sex_premium", nil)];
+    [self.btnRestore setTitle:NSLocalizedString(@"restore_purchase", nil) forState:UIControlStateNormal];
+    [self.labelPrimiumDes setText:NSLocalizedString(@"sex_description", nil)];
+    [self.btnBuy setTitle:[NSString stringWithFormat:@"%@ (%@)",NSLocalizedString(@"sex_activate", nil),@"$20"] forState:UIControlStateNormal];
+    [self fetchInAppPurchases];
+}
 -(void)getOffenders
 {
     [SexOffender callAPIForSexOffenders:@"http://services.familywatchdog.us/json/json.asp?key=YOUR-KEY-HERE&lite=0&type=searchbylatlong&minlat=39.9537592&maxlat=39.9557592&minlong=-75.2694439&maxlong=-75.2654439" Params:nil success:^(NSMutableArray *offenderArr) {
@@ -56,7 +146,7 @@
         
     } failure:^(NSString *errorStr) {
         [self removeLoaderView];
-
+        
     }];
 }
 -(void)setNavBarAndTab
@@ -71,7 +161,7 @@
                            barMetrics:UIBarMetricsDefault];
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-
+    
     [navigationBar setShadowImage:[UIImage new]];
     [self.navigationItem setTitle:NSLocalizedString(@"tb_sex_offenders", nil)];
     
@@ -120,7 +210,24 @@
             
         });
     }
-
+    
+    if([[NSUserDefaults standardUserDefaults] valueForKey:@"purchased"]!=nil)
+    {
+        UIBarButtonItem *btnSearch = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(actionSearch)];
+        [btnSearch setTintColor:[UIColor whiteColor]];
+        self.navigationItem.rightBarButtonItem = btnSearch;
+    }
+    
+    self.navigationItem.titleView = nil;
+    
+}
+-(void)setSearchInNavBar
+{
+    self.navigationItem.title = nil;
+    self.navigationItem.leftBarButtonItem = nil;
+    self.navigationItem.rightBarButtonItem = nil;
+    [self.navigationItem setTitleView:self.searchBar];
+    [self.searchBar becomeFirstResponder];
 }
 #pragma mark -
 #pragma mark - lat long calculating formula
@@ -143,12 +250,19 @@
     [self performSegueWithIdentifier:KMyProfileSegue sender:nil];
 }
 
+-(void)actionSearch
+{
+    [self setSearchInNavBar];
+}
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - Table View Delegate and datasource functions
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.arraySexOffender.count;
+    if(self.navigationItem.leftBarButtonItem==nil)
+        return self.arraySearch.count;
+    else
+        return self.arraySexOffender.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -166,14 +280,19 @@
     dispatch_once(&onceToken, ^{
         sizingCell = [self.tableViewOffenders dequeueReusableCellWithIdentifier:@"SexOffenderCell"];
     });
-
+    
     [self configureCell:sizingCell atIndexPath:indexPath];
     CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     return size.height;
 }
 -(void)configureCell:(SexOffenderCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    SexOffender *modal = [self.arraySexOffender objectAtIndex:indexPath.row];
+    SexOffender *modal;
+    if(self.navigationItem.leftBarButtonItem==nil)
+        modal = [self.arraySearch objectAtIndex:indexPath.row];
+    else
+        modal = [self.arraySexOffender objectAtIndex:indexPath.row];
+    
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:modal.offenderPhoto]];
     [cell.labelName setText:modal.offenderName];
     [cell.labelDescription setText:[NSString stringWithFormat:@"Age : %@ Sex : %@",modal.offenderAge,modal.offenderSex]];
@@ -188,34 +307,21 @@
 #pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
+    
     if([segue.identifier isEqualToString:KSexOffenderDetailSegue])
     {
         SexOffenderDetailViewController *sexVC = (SexOffenderDetailViewController *)segue.destinationViewController;
         sexVC.sexOffenderModal = self.sexOffenderModal;
     }
     
-
-}
-#pragma mark - Hide Unhide Loader View
-
--(void)setUpLoaderView
-{
-    [loaderObj removeFromSuperview];
-    loaderObj = [[JTMaterialSpinner alloc] init];
-    loaderObj.frame = CGRectMake(self.view.frame.size.width/2-20, self.view.frame.size.height/2-20, 40, 40);
-    loaderObj.circleLayer.lineWidth = 2.0;
     
-    loaderObj.circleLayer.strokeColor = KPurpleColor.CGColor;
-    [[UIApplication sharedApplication].keyWindow addSubview:loaderObj];
-    [loaderObj beginRefreshing];
-}
-
--(void)removeLoaderView
-{
-    [loaderObj removeFromSuperview];
-    [loaderObj endRefreshing];
 }
 
 
+
+- (IBAction)actionBuy:(id)sender {
+}
+
+- (IBAction)actionRestore:(id)sender {
+}
 @end

@@ -16,13 +16,25 @@
 #import "SexOffenderDetailViewController.h"
 #import <JTMaterialSpinner.h>
 #import "LOcationUpdater.h"
+#import "BaseViewController.h"
+#import "MyGuardInAppHelper.h"
 
-@interface SexOffenderViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface SexOffenderViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 
-
+@property (nonatomic,strong) NSMutableArray *arraySearch;
 @property (nonatomic,strong) NSMutableArray *arraySexOffender;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOffenders;
 @property (nonatomic,strong) SexOffender *sexOffenderModal;
+@property (strong, nonatomic)  UISearchBar *searchBar;
+
+@property (weak, nonatomic) IBOutlet UIView *viewInpp;
+@property (weak, nonatomic) IBOutlet UILabel *labelPremium;
+@property (weak, nonatomic) IBOutlet UILabel *labelPrimiumDes;
+@property (weak, nonatomic) IBOutlet UIButton *btnRestore;
+@property (weak, nonatomic) IBOutlet UIButton *btnBuy;
+- (IBAction)actionBuy:(id)sender;
+- (IBAction)actionRestore:(id)sender;
+
 
 
 @end

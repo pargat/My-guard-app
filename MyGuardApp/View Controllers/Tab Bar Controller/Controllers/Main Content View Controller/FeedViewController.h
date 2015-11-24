@@ -33,6 +33,7 @@
 
 @interface FeedViewController : BaseViewController <XLPagerTabStripChildItem,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,FeedMainDelegate,UIActionSheetDelegate,FeedFakeDelegate>
 
+@property (nonatomic,strong) NSString *stringUserID;
 @property (nonatomic,strong) NSIndexPath *selectedIndex;
 @property int pageIndex;
 @property int feedType;

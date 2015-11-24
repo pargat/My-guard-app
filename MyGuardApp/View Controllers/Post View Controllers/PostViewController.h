@@ -15,6 +15,8 @@
 
 @interface PostViewController : BaseViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 
+
+@property (nonatomic,strong) NSString *stringFeedId;
 @property int feedType;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutTextView;
 @property (nonatomic,strong) UIImage *imagePost;
@@ -26,7 +28,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewMessage;
 @property (weak, nonatomic) IBOutlet UIButton *btnRemove;
 - (IBAction)actionRemove:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *btnAddOrRemove;
 
 
 - (IBAction)actionCamera:(id)sender;

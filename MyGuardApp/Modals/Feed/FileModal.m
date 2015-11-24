@@ -31,7 +31,7 @@
             self.fileVideoLink = [dict valueForKey:@"media"];
             self.fileDuration =[NSString stringWithFormat:@"%ld",[[dict valueForKey:@"duration"] integerValue]];
         }
-        
+        self.fileDescription = [dict valueForKey:@"description"];
     }
     return self;
 }

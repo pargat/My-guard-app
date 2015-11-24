@@ -55,7 +55,7 @@
 }
 -(void)setUpAd:(NSDictionary *)dict
 {
-    self.layoutHeightAd.constant = self.view.frame.size.width/5;
+    self.layoutHeightAd.constant = self.view.frame.size.width/3;
     self.dictAd = dict;
 }
 -(void)viewHelper
@@ -97,6 +97,11 @@
 
 #pragma mark -
 #pragma mark - Search bar delegate
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    UIButton *btnCancel = [self.searchBar valueForKey:@"_cancelButton"];
+    [btnCancel setEnabled:YES];
+}
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     if(![[searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""])
@@ -105,27 +110,21 @@
         self.searchSafetyVC.stringToSearch = searchBar.text;
         self.searchUserVC.stringToSearch = searchBar.text;
         
-        //        if (self.currentIndex==0) {
-        //            [self.searchFeedVC apiSearch:searchBar.text];
-        //        }
-        //        else if (self.currentIndex==1)
-        //        {
-        //            [self.searchSafetyVC apiSearch:searchBar.text];
-        //        }
-        //        else
-        //        {
-        //            [self.searchUserVC apiSearch:searchBar.text];
-        //        }
+        [self.searchBar resignFirstResponder];
         [self setUpLoaderView];
         [self.searchFeedVC apiSearch:searchBar.text];
         [self.searchUserVC apiSearch:searchBar.text];
         [self.searchSafetyVC apiSearch:searchBar.text];
         
+        
+        UIButton *btnCancel = [self.searchBar valueForKey:@"_cancelButton"];
+        [btnCancel setEnabled:YES];
     }
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 /*

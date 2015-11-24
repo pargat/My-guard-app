@@ -111,7 +111,8 @@
     [iOSRequest getJsonResponse:[NSString stringWithFormat:KAddSafetyMeasureApi,KbaseUrl,[Profile getCurrentProfileUserId],type,[self.textViewDescription.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]] success:^(NSDictionary *responseDict) {
         [self removeLoaderView];
         [self showStaticAlert:@"Success" message:@"Safety measure added successfully"];
-        [self.textViewDescription setText:@""];
+        [self.navigationController popViewControllerAnimated:YES];
+//        [self.textViewDescription setText:@""];
 
     } failure:^(NSString *errorString) {
         [self removeLoaderView];

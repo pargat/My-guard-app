@@ -15,6 +15,8 @@
     self.imageViewDp.layer.cornerRadius = self.imageViewDp.frame.size.width/2;
     self.imageViewDp.clipsToBounds = YES;
     
+    self.viewNotifCount.layer.cornerRadius = self.viewNotifCount.frame.size.height/2;
+    self.viewNotifCount.clipsToBounds = YES;
     
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.viewBottomLine.bounds];
     self.viewBottomLine.layer.masksToBounds = NO;

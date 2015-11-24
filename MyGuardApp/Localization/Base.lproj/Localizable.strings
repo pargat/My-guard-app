@@ -6,6 +6,19 @@
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
 
+
+//sex offender
+"sex_premium" = "Premium Feature";
+"sex_description" = "This is a premium feature of My Guard. To activate , please buy the in-app purchase";
+"sex_activate" = "Activate";
+
+//Custom alert sound screens
+"alert_sound_for" = "Alert sound for";
+"customise_alert" = "Customise alerts";
+"customise_tap_below" = "Tap below to change default alerts.";
+"tap_to_change" = "Tap to record a new sound";
+"record" = "Record";
+
 //general
 "group" = "GROUP";
 "admin" = "Admin Message";
@@ -37,7 +50,7 @@
 //Demo Screens
 "demo_recorder_title" = "Post recording";
 "demo_recorder" = "Please record the sound of the detector and mail it to us so that we can add support for it.";
-"bring_your_phone" = "Bring your phone close to an alarm while it is buzzing and wait for the phone to detect the alarm.";
+"bring_your_phone" = "Bring your phone close to an alarm within 60 ft. while it is buzzing and wait for the phone to detect the alarm.";
 "detect_alarm_title" = "Detecting alarm";
 "detect_alarm_description" = "Wait for the phone to detect the alarm.It might take few seconds.";
 
@@ -68,6 +81,7 @@
 "emergency_screen_title" = "Emergency phone";
 
 //Sex offenders screen
+"restore_purchase" = "Restore purchase";
 "sex_offender_title" = "Sex Offender";
 
 //Alarm overlay
@@ -84,6 +98,8 @@
 "safety_co" = "Carbon Monoxide";
 
 // Settings
+"video_title" = "Live Video permission";
+"video_description" = "Allow us to send live video feed in case of emergency";
 "setting_title" = "Settings";
 "demo" = "Demo";
 "custom_alert_description" = "Customize alert sound for fire, gunshot and co.";
@@ -225,8 +241,8 @@
 "no_user_available" = "No user available";
 "yes"="Yes";
 "no"="No";
-"cancel_alert_now" = "CANCEL ALERT NOW";
-"send_alert_now" = "SEND ALERT NOW";
+"cancel_alert_now" = "Cancel alert";
+"send_alert_now" = "skip countdown and send alert now";
 "enter_file_name"="Enter file name";
 "raising_fire" = "Raising Fire Alarm";
 "raising_gun" = "Raising Gunshot Alarm";

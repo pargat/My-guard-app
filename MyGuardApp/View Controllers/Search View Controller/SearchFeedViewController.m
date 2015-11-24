@@ -28,6 +28,7 @@
 {
     [super viewWillAppear:animated];
     [self.tableViewSearch reloadData];
+    [self.tableViewSearch setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 //    if(self.stringToSearch!=nil)
 //    {
 //        [self apiSearch:self.stringToSearch];
@@ -37,6 +38,7 @@
 #pragma mark -  View helpers
 -(void)viewHelper
 {
+    self.stringUserID = [Profile getCurrentProfileUserId];
     [self.tableViewSearch setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self.tableViewSearch setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
 }
@@ -254,15 +256,6 @@
     
     
     
-    if([modal.feed_is_fake isEqualToString:@"0"])
-    {
-        UIBezierPath *shadowPath  = [UIBezierPath bezierPathWithRect:cell.viewOverlay.bounds];
-        cell.viewOverlay.layer.masksToBounds = NO;
-        cell.viewOverlay.layer.shadowColor = [UIColor lightGrayColor].CGColor;
-        cell.viewOverlay.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
-        cell.viewOverlay.layer.shadowOpacity = 0.75f;
-        cell.viewOverlay.layer.shadowPath = shadowPath.CGPath;
-    }
     
     UIBezierPath *shadowPath1 = [UIBezierPath bezierPathWithRect:cell.viewShadow.bounds];
     cell.viewShadow.layer.masksToBounds = NO;
@@ -298,35 +291,30 @@
     
     [cell.heightMap setConstant:12*[[UIScreen mainScreen] bounds].size.width/16];
     
-    if([modal.feed_address isEqualToString:@""]||modal.feed_address==nil)
-    {
-        [cell.labelAddress setText:@"N.A."];
-    }
-    else
-        [cell.labelAddress setText:modal.feed_address];
-    [cell.labelTimeDetail setText:modal.feed_full_time];
-    NSString *markerUrl;
+        NSString *markerUrl;
     if([modal.feed_type isEqualToString:@"1"])
     {
-        [cell.labelEmergencyName setText:@"Fire"];
-        [cell.labelEmergencyName setTextColor:KOrangeColor];
         markerUrl = KFireIcon;
         
     }
     else if ([modal.feed_type isEqualToString:@"3"])
     {
-        [cell.labelEmergencyName setText:@"Gun"];
-        [cell.labelEmergencyName setTextColor:KRedColor];
         markerUrl = KGunIcon;
     }
     else
     {
-        [cell.labelEmergencyName setText:@"CO Emergency"];
-        [cell.labelEmergencyName setTextColor:KGreenColor];
         markerUrl = KCOIcon;
         
     }
-    [cell.labelAddress setPreferredMaxLayoutWidth:self.view.frame.size.width - 192];
+    
+    if ([self.stringUserID isEqualToString:modal.feed_userid]) {
+        [cell.btnCamera setHidden:NO];
+    }
+    else
+    {
+        [cell.btnCamera setHidden:YES];
+    }
+
     
     
     

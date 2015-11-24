@@ -75,7 +75,7 @@
     [self.btnAlreadyMember setAttributedTitle:attributString forState:UIControlStateNormal];
     
     
-    NSMutableAttributedString *attTc = [[NSMutableAttributedString alloc] initWithAttributedString:[[NSAttributedString alloc] initWithString:@"By signing up you agree to the" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithWhite:0 alpha:0.4],NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}]];
+    NSMutableAttributedString *attTc = [[NSMutableAttributedString alloc] initWithAttributedString:[[NSAttributedString alloc] initWithString:@"I have read and agreed to" attributes:@{NSForegroundColorAttributeName:[UIColor colorWithWhite:0 alpha:0.4],NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}]];
     [attTc appendAttributedString:[[NSAttributedString alloc] initWithString:@" Terms & Conditions." attributes:@{NSForegroundColorAttributeName:[UIColor colorWithWhite:0 alpha:0.6],NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}]];
     
    
@@ -152,6 +152,10 @@
     {
         stringError = @"Password should be atleast 6 characters long.";
     }
+    else if(!self.btnCheckBox.isSelected)
+    {
+        stringError = @"Please agree to our terms and conditions.";
+    }
 
     return stringError;
 }
@@ -198,7 +202,7 @@
     characterIndex = [layoutManager characterIndexForPoint:location
                                            inTextContainer:textView.textContainer
                   fractionOfDistanceBetweenInsertionPoints:NULL];
-    if(characterIndex>29&&characterIndex<=self.textViewTC.text.length)
+    if(characterIndex>24&&characterIndex<=self.textViewTC.text.length)
     {
         [self performSegueWithIdentifier:KTCSegue sender:self];
     }
@@ -266,6 +270,10 @@
 
 #pragma mark -
 #pragma mark - Button Actions
+- (IBAction)actionTerms:(UIButton *)sender {
+    [sender setSelected:!sender.isSelected];
+}
+
 - (IBAction)actionAlreadyMember:(id)sender {
 }
 @end

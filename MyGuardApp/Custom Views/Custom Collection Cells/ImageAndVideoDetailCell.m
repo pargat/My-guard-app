@@ -19,15 +19,6 @@
     [self.delegate delVideo:self.indexPath];
 }
 
-- (IBAction)actionCommentRight:(id)sender {
-    
-    [self.delegate delCommentClicked:NO indexPath:self.indexPath];
-}
-
-- (IBAction)actionCommentLeft:(id)sender {
-    [self.delegate delCommentClicked:YES indexPath:self.indexPath];
-}
-
 
 #pragma mark -
 #pragma mark - Scroll view delegate

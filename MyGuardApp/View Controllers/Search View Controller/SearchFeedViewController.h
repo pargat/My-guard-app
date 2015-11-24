@@ -22,6 +22,7 @@
 @class SearchMainViewController;
 @interface SearchFeedViewController : BaseViewController<FeedMainDelegate,UIActionSheetDelegate,UINavigationBarDelegate,UIImagePickerControllerDelegate,FeedFakeDelegate,UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource>
 
+@property (nonatomic,strong) NSString *stringUserID;
 @property (nonatomic,strong) NSIndexPath *selectedIndex;
 @property (nonatomic,strong) NSString *stringToSearch;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewSearch;

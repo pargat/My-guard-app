@@ -32,12 +32,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewDp;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelDistance;
+@property (weak, nonatomic) IBOutlet UIButton *btnCamera;
 @property (weak, nonatomic) IBOutlet UILabel *labelTimeSince;
 
-@property (weak, nonatomic) IBOutlet UIView *viewOverlay;
-@property (weak, nonatomic) IBOutlet UILabel *labelEmergencyName;
-@property (weak, nonatomic) IBOutlet UILabel *labelAddress;
-@property (weak, nonatomic) IBOutlet UILabel *labelTimeDetail;
 @property (weak, nonatomic) IBOutlet UIView *viewGradient;
 @property (weak, nonatomic) IBOutlet UIView *viewShadow;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightMap;

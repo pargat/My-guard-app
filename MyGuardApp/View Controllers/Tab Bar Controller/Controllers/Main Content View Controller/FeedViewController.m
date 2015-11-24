@@ -19,11 +19,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self viewHelper];
-    self.pageIndex = 0;
-    [self setUpLoaderView1];
-    [self getFeed:YES];
-    [self.tableViewFeeds setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self addRefreshAndInfinite];
     // Do any additional setup after loading the view.
 }
 
@@ -50,6 +45,15 @@
 
 #pragma mark -
 #pragma mark - api related and helper function
+-(void)addImage:(NSNotification *)notification
+{
+    NSDictionary *dict = notification.userInfo;
+    FeedModal *feed = [self.arrayFeeds objectAtIndex:self.selectedIndex.row];
+    NSMutableArray *arrayMut = [NSMutableArray arrayWithArray:feed.feed_files];
+    [arrayMut insertObject:[[FileModal alloc] initWithAttributes:dict]   atIndex:0];
+    feed.feed_files = [NSArray arrayWithArray:arrayMut];
+    [self.tableViewFeeds reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
 -(void)updateFeed:(NSNotification *)notification
 {
     if(notification.object!=nil&&self.selectedIndex!=nil)
@@ -63,7 +67,16 @@
 -(void)viewHelper
 {
     
+    self.pageIndex = 0;
+    [self setUpLoaderView1];
+    [self getFeed:YES];
+    [self.tableViewFeeds setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self addRefreshAndInfinite];
+
+    self.stringUserID = [Profile getCurrentProfileUserId];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFeed:) name:@"updateFeed" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addImage:) name:@"addFeed" object:nil];
     if(self.feedType ==1)
     {
         [self.btnPostFeed setBackgroundColor:KOrangeColor];
@@ -159,8 +172,9 @@
 -(void)delCameraClicked:(NSIndexPath *)indexPath
 {
     self.selectedIndex = indexPath;
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo",@"Choose photo from gallery",@"Take Video",@"Choose Video from gallery",nil];
-    [actionSheet showInView:self.view];
+    [self performSegueWithIdentifier:KPostAlarmSegue sender:self.selectedIndex];
+//    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo",@"Choose photo from gallery",@"Take Video",@"Choose Video from gallery",nil];
+//    [actionSheet showInView:self.view];
     
 }
 
@@ -227,7 +241,6 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(FeedMainCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FeedModal *modal = [self.arrayFeeds objectAtIndex:indexPath.row];
     
     
     [self.view setNeedsLayout];
@@ -235,15 +248,6 @@
     
     
     
-    if([modal.feed_is_fake isEqualToString:@"0"])
-    {
-        UIBezierPath *shadowPath  = [UIBezierPath bezierPathWithRect:cell.viewOverlay.bounds];
-        cell.viewOverlay.layer.masksToBounds = NO;
-        cell.viewOverlay.layer.shadowColor = [UIColor lightGrayColor].CGColor;
-        cell.viewOverlay.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
-        cell.viewOverlay.layer.shadowOpacity = 0.75f;
-        cell.viewOverlay.layer.shadowPath = shadowPath.CGPath;
-    }
     
     UIBezierPath *shadowPath1 = [UIBezierPath bezierPathWithRect:cell.viewShadow.bounds];
     cell.viewShadow.layer.masksToBounds = NO;
@@ -277,34 +281,17 @@
     }
     
     
-    [cell.heightMap setConstant:12*[[UIScreen mainScreen] bounds].size.width/16];
+    [cell.heightMap setConstant:9*[[UIScreen mainScreen] bounds].size.width/16];
     
-    if([modal.feed_address isEqualToString:@""]||modal.feed_address==nil)
-    {
-        [cell.labelAddress setText:@"N.A."];
-    }
-    else
-        [cell.labelAddress setText:modal.feed_address];
-    [cell.labelTimeDetail setText:modal.feed_full_time];
-    if(self.feedType==1)
-    {
-        [cell.labelEmergencyName setText:@"Fire"];
-        [cell.labelEmergencyName setTextColor:KOrangeColor];
-        
-    }
-    else if (self.feedType==3)
-    {
-        [cell.labelEmergencyName setText:@"Gun"];
-        [cell.labelEmergencyName setTextColor:KRedColor];
+
+    if ([self.stringUserID isEqualToString:modal.feed_userid]) {
+        [cell.btnCamera setHidden:NO];
     }
     else
     {
-        [cell.labelEmergencyName setText:@"CO Emergency"];
-        [cell.labelEmergencyName setTextColor:KGreenColor];
-        
+        [cell.btnCamera setHidden:YES];
     }
-    [cell.labelAddress setPreferredMaxLayoutWidth:self.view.frame.size.width - 192];
-    
+
     
     
     [cell.imageViewMap sd_setImageWithURL:[NSURL URLWithString:[[NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?center=%@,%@&zoom=14&size=%dx%d&markers=icon:%@|label:C|size=mid|%@,%@",modal.feed_lat,modal.feed_lng,(int)(cell.imageViewMap.frame.size.width*DisplayScale),(int)(cell.imageViewMap.frame.size.height*DisplayScale),self.markerUrl,modal.feed_lat,modal.feed_lng] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
@@ -352,6 +339,16 @@
     {
         [cell.btnDuration setHidden:YES];
     }
+    
+    
+    if ([self.stringUserID isEqualToString:modal.feed_userid]) {
+        [cell.btnCamera setHidden:NO];
+    }
+    else
+    {
+        [cell.btnCamera setHidden:YES];
+    }
+
     [cell.btnCommentCount setTitle:[NSString stringWithFormat:@" %@",fileModal.fileNumberOfComments] forState:UIControlStateNormal];
     [cell.imageViewMap sd_setImageWithURL:[NSURL URLWithString:fileModal.fileThumbCumImageLink]];
     
@@ -626,6 +623,11 @@
     {
         PostViewController *postVC = (PostViewController *)segue.destinationViewController;
         postVC.feedType = self.feedType;
+       if([sender isKindOfClass:[NSIndexPath class]])
+       {
+           FeedModal *f = [self.arrayFeeds objectAtIndex:self.selectedIndex.row];
+           postVC.stringFeedId = f.feed_id;
+       }
     }
 }
 

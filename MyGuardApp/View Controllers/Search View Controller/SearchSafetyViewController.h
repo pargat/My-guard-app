@@ -20,6 +20,7 @@
 
 @interface SearchSafetyViewController : BaseViewController <UITableViewDataSource,UITableViewDelegate>
 
+@property BOOL loaded;
 @property (nonatomic,strong) NSString *stringToSearch;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewSearch;
 @property (nonatomic,strong) NSMutableArray *arraySearch;

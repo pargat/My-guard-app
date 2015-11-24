@@ -10,6 +10,8 @@
 
 
 //Segue names
+#define KSoundRecordSegue @"SoundRecordSegue"
+#define KSoundSelectSegue @"SoundSelectSegue"
 #define KDemoHushSegue @"DemoHushSegue"
 #define KDemo1Segue @"Demo1Segue"
 #define KAdminSegue @"AdminSegue"

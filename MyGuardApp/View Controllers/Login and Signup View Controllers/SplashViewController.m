@@ -34,7 +34,7 @@
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)])
         [self.navigationController.view removeGestureRecognizer:self.navigationController.interactivePopGestureRecognizer];
     [self locationInitialiser];
-    [self.view setBackgroundColor:KPurpleColor];
+   
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -125,11 +125,12 @@
 - (IBAction)actionFB:(id)sender {
     [self setUpLoaderView];
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-    [login logOut];
+    //[login logOut];
     [login logInWithReadPermissions:@[@"public_profile",@"user_birthday",@"email"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
         if(error)
         {
             NSLog(@"fb error:%@",error);
+            [self showStaticAlert:@"Error" message:error.description];
         }
         else if (result.isCancelled)
         {

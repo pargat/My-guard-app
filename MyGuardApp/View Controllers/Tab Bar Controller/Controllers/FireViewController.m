@@ -254,8 +254,9 @@
      }
      else if ([segue.identifier isEqualToString:KFalseAlarmSegue])
      {
-         FalseAlarmViewController *falseVC = (FalseAlarmViewController *)segue.destinationViewController;
-         falseVC.dictInfo  = sender;
+         //FalseAlarmViewController *falseVC = (FalseAlarmViewController *)segue.destinationViewController;
+         //falseVC.dictInfo  = sender;
+                 [[NSUserDefaults standardUserDefaults] setObject:sender forKey:@"false"];
      }
      else     if([segue.identifier isEqualToString:KSearchMainSegue])
      {

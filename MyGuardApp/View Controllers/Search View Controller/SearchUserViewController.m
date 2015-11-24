@@ -104,7 +104,14 @@
     if(self.arraySearch.count==0)
     {
         CommunityNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
-        [cell.labelNoUsers setText:@"No users"];
+        if(self.loaded)
+        {
+            [cell.labelNoUsers setText:@"No users found"];
+        }
+        else
+        {
+            [cell.labelNoUsers setText:@"Search"];
+        }
         cell.separatorInset = UIEdgeInsetsZero;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;

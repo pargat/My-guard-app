@@ -130,6 +130,12 @@
     else
     {
         [self.audioPlayer play];
+        if(self.audioPlayeView.sliderViewTime.value==1.0)
+        {
+            [self.audioPlayeView.sliderViewTime setValue:0];
+            self.count=0;
+        }
+
         self.timerObj = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(handleTimer) userInfo:nil repeats:YES];
     }
 }

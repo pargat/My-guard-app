@@ -15,9 +15,9 @@
     // Initialization code
     self.imageViewDp.layer.cornerRadius = self.imageViewDp.frame.size.width/2;
     self.imageViewDp.clipsToBounds = YES;
-    self.viewOverlay.layer.cornerRadius = 2.0;
-    self.viewOverlay.clipsToBounds = YES;
-    
+    self.btnCamera.layer.cornerRadius = 4.0;
+    self.btnCamera.clipsToBounds = YES;
+
     
 
 }

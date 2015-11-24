@@ -23,6 +23,9 @@
         [self getPushAlarm];
         [self setUpLoaderView];
     }
+    //    [self.collectionViewMain reloadData];
+    [self.view setNeedsLayout];
+    [self.view layoutIfNeeded];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,20 +35,42 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    //Text view tap handler
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
+    [tap setCancelsTouchesInView:NO];
+    [self.textViewDescription addGestureRecognizer:tap];
+
 }
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self.collectionViewMain reloadData];
+    
+}
+-(void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
     if(self.stringFeedId== nil)
     {
-        [self.collectionViewMain scrollToItemAtIndexPath:self.indexToScroll atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+        [self.collectionViewMain reloadData];
+        [self.collectionViewMain scrollToItemAtIndexPath:self.indexToScroll atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
         
     }
-    
     
 }
 #pragma mark -
 #pragma mark - View helpers
+-(void)textTapped:(UITapGestureRecognizer *)tapGesture
+{
+    if(self.isViewingDescription)
+    {
+        
+    }
+    else
+    {
+        
+    }
+}
 -(void)getPushAlarm
 {
     NSString *stringAlarmUrl = [NSString stringWithFormat:KViewMediaApi,KbaseUrl,self.stringFeedId,self.stringPostId];
@@ -64,6 +89,39 @@
 -(void)setNavBar
 {
     [self.navigationItem setTitle:@"GunShot"];
+    if(self.stringAddress.length>0)
+    {
+        if(self.currentTab==1)
+        {
+            [self.navigationItem setTitle:[NSString stringWithFormat:@"Fire Alarm at %@",self.stringAddress]];
+        }
+        else if (self.currentTab==3)
+        {
+            [self.navigationItem setTitle:[NSString stringWithFormat:@"Gunshot at %@",self.stringAddress]];
+            
+        }
+        else
+        {
+            [self.navigationItem setTitle:[NSString stringWithFormat:@"Co Alarm at %@",self.stringAddress]];
+        }
+    }
+    else
+    {
+        if(self.currentTab==1)
+        {
+            [self.navigationItem setTitle:[NSString stringWithFormat:@"Fire Alarm"]];
+        }
+        else if (self.currentTab==3)
+        {
+            [self.navigationItem setTitle:[NSString stringWithFormat:@"Gunshot"]];
+            
+        }
+        else
+        {
+            [self.navigationItem setTitle:[NSString stringWithFormat:@"Co Alarm"]];
+        }
+        
+    }
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
     
@@ -120,21 +178,21 @@
         
         if(leftOrRight)
         {
-            [self.commentView setFrame:CGRectMake(32, [[UIScreen mainScreen] bounds].size.height-64, 0, 0)];
-            self.commentView.rectToDisappear = CGRectMake(32, [[UIScreen mainScreen] bounds].size.height-64, 0, 0);
+            [self.commentView setFrame:CGRectMake(32, [[UIScreen mainScreen] bounds].size.height-64-self.btnComment1.frame.origin.y+42, 0, 0)];
+            self.commentView.rectToDisappear = CGRectMake(32, [[UIScreen mainScreen] bounds].size.height-64-self.btnComment1.frame.origin.y+42, 0, 0);
             [self.commentView.imageViewRight setHidden:YES];
             [self.commentView.imageViewLeft setHidden:NO];
         }
         else
         {
-            [self.commentView setFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width-32, [[UIScreen mainScreen] bounds].size.height-64, 0, 0)];
-            self.commentView.rectToDisappear = CGRectMake([[UIScreen mainScreen] bounds].size.width-32, [[UIScreen mainScreen] bounds].size.height-64, 0, 0);
+            [self.commentView setFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width-32, [[UIScreen mainScreen] bounds].size.height-64-self.btnComment1.frame.origin.y+42, 0, 0)];
+            self.commentView.rectToDisappear = CGRectMake([[UIScreen mainScreen] bounds].size.width-32, [[UIScreen mainScreen] bounds].size.height-64-self.btnComment1.frame.origin.y+42, 0, 0);
             [self.commentView.imageViewRight setHidden:NO];
             [self.commentView.imageViewLeft setHidden:YES];
             
         }
         [UIView animateWithDuration:0.25 animations:^{
-            [self.commentView setFrame:[[UIScreen mainScreen] bounds]];
+            [self.commentView setFrame:CGRectMake(0, 20,[[UIScreen mainScreen] bounds].size.width , [[UIScreen mainScreen] bounds].size.height-self.btnComment1.frame.origin.y+12)];
             
         }];
         self.commentView.delegate = self;
@@ -147,6 +205,16 @@
 
 #pragma mark-
 #pragma mark- collection view delegate and datasource
+
+//- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if([[[collectionView visibleCells] lastObject] isKindOfClass:[ImageAndVideoDetailCell class]])
+//    {
+//        ImageAndVideoDetailCell *cell1 = (ImageAndVideoDetailCell *)[[collectionView visibleCells] lastObject];
+//    }
+//
+//
+//}
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.arrayFiles.count;
@@ -165,7 +233,7 @@
 {
     FileModal *modal = [self.arrayFiles objectAtIndex:indexPath.row];
     [cell.imageViewMain setImageWithURL:[NSURL URLWithString:modal.fileThumbCumImageLink] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    [cell.btnCommentsText setTitle:[NSString stringWithFormat:@"%@ comments",modal.fileNumberOfComments] forState:UIControlStateNormal];
+
     cell.scrollViewMain.minimumZoomScale = 1.0;
     cell.scrollViewMain.maximumZoomScale = 6.0;
     
@@ -192,6 +260,14 @@
     
 }
 
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSIndexPath *indexPath1 = [[self.collectionViewMain indexPathsForVisibleItems] lastObject];
+    FileModal *modal = [self.arrayFiles objectAtIndex:indexPath1.row];
+    [self.btnComment1 setTitle:[NSString stringWithFormat:@"%@ comments",modal.fileNumberOfComments] forState:UIControlStateNormal];
+    [self.textViewDescription setText:modal.fileDescription];
+}
 #pragma mark -
 #pragma mark - Action sheet delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -217,7 +293,7 @@
 }
 -(void)actionBack
 {
-        [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 /*
  #pragma mark - Navigation
@@ -229,4 +305,10 @@
  }
  */
 
+- (IBAction)actionComment2:(id)sender {
+      [self delCommentClicked:NO indexPath:[[self.collectionViewMain indexPathsForVisibleItems] lastObject]];
+}
+- (IBAction)actionComment1:(id)sender {
+    [self delCommentClicked:YES indexPath:[[self.collectionViewMain indexPathsForVisibleItems] lastObject]];
+}
 @end

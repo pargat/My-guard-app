@@ -10,8 +10,8 @@
 
 @protocol ImageVideoDetailDelegate <NSObject>
 
--(void)delCommentClicked:(BOOL)leftOrRight indexPath:(NSIndexPath *)indexPath;
 -(void)delVideo:(NSIndexPath *)indexPath;
+
 @end
 
 @interface ImageAndVideoDetailCell : UICollectionViewCell <UIScrollViewDelegate>
@@ -20,12 +20,8 @@
 @property (assign, nonatomic) id<ImageVideoDetailDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollViewMain;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewMain;
-@property (weak, nonatomic) IBOutlet UIButton *btnCommentsText;
 @property (weak, nonatomic) IBOutlet UIButton *btnVideo;
-@property (weak, nonatomic) IBOutlet UIButton *btnComments;
 
 - (IBAction)actionVideoDelegate:(id)sender;
-- (IBAction)actionCommentRight:(id)sender;
-- (IBAction)actionCommentLeft:(id)sender;
 
 @end

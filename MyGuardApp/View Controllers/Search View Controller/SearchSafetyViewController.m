@@ -50,6 +50,7 @@
     NSString * stringSearchSafety = [NSString stringWithFormat:KSearchNewApi,KbaseUrl,[Profile getCurrentProfileUserId],str,@"2"];
     
     [iOSRequest getJsonResponse:stringSearchSafety success:^(NSDictionary *responseDict) {
+        self.loaded = true;
         self.arraySearch = [SafetyMeasure parseDictToModal:[responseDict valueForKey:@"data"]];
         if(self.tableViewSearch.delegate == nil)
         {
@@ -113,7 +114,14 @@
             if(self.arraySearch.count==0)
         {
             CommunityNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
-            [cell.labelNoUsers setText:@"No safety measures found"];
+            if(self.loaded)
+            {
+                [cell.labelNoUsers setText:@"No safety measures found"];
+            }
+            else
+            {
+                [cell.labelNoUsers setText:@"Search"];
+            }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
             

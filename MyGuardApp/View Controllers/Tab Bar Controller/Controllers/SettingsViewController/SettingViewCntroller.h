@@ -15,6 +15,8 @@
 #import "LOcationUpdater.h"
 #import <JTMaterialSpinner.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
+#import "SettingSwitchCell.h"
+
 @interface SettingViewCntroller : UIViewController<UITableViewDataSource,UITableViewDelegate,FBSDKAppInviteDialogDelegate,MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) NSArray *arraySettings;
