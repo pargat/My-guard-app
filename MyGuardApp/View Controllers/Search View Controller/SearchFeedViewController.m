@@ -29,13 +29,20 @@
     [super viewWillAppear:animated];
     [self.tableViewSearch reloadData];
     [self.tableViewSearch setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-//    if(self.stringToSearch!=nil)
-//    {
-//        [self apiSearch:self.stringToSearch];
-//    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addImage:) name:@"addFeed" object:nil];
 }
 #pragma mark -
 #pragma mark -  View helpers
+-(void)addImage:(NSNotification *)notification
+{
+    NSDictionary *dict = notification.userInfo;
+    FeedModal *feed = [self.arraySearch objectAtIndex:self.selectedIndex.row];
+    NSMutableArray *arrayMut = [NSMutableArray arrayWithArray:feed.feed_files];
+    [arrayMut insertObject:[[FileModal alloc] initWithAttributes:dict]   atIndex:0];
+    feed.feed_files = [NSArray arrayWithArray:arrayMut];
+    [self.tableViewSearch reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 -(void)viewHelper
 {
     self.stringUserID = [Profile getCurrentProfileUserId];
@@ -86,10 +93,11 @@
 }
 -(void)delCameraClicked:(NSIndexPath *)indexPath
 {
+    
     [self.parentViewController.view endEditing:YES];
     self.selectedIndex = indexPath;
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo",@"Choose photo from gallery",@"Take Video",@"Choose Video from gallery",nil];
-    [actionSheet showInView:self.view];
+    [self performSegueWithIdentifier:KPostAlarmSegue sender:self.selectedIndex];
+
     
 }
 #pragma mark -
@@ -248,7 +256,6 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(FeedMainCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FeedModal *modal = [self.arraySearch objectAtIndex:indexPath.row];
     
     
     [self.view setNeedsLayout];
@@ -289,7 +296,7 @@
     }
     
     
-    [cell.heightMap setConstant:12*[[UIScreen mainScreen] bounds].size.width/16];
+    [cell.heightMap setConstant:9*[[UIScreen mainScreen] bounds].size.width/16];
     
         NSString *markerUrl;
     if([modal.feed_type isEqualToString:@"1"])
@@ -316,7 +323,14 @@
     }
 
     
-    
+    if ([self.stringUserID isEqualToString:modal.feed_userid]) {
+        [cell.btnCamera setHidden:NO];
+    }
+    else
+    {
+        [cell.btnCamera setHidden:YES];
+    }
+
     
     [cell.imageViewMap sd_setImageWithURL:[NSURL URLWithString:[[NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?center=%@,%@&zoom=14&size=%dx%d&markers=icon:%@|label:C|size=mid|%@,%@",modal.feed_lat,modal.feed_lng,(int)(cell.imageViewMap.frame.size.width*DisplayScale),(int)(cell.imageViewMap.frame.size.height*DisplayScale),markerUrl,modal.feed_lat,modal.feed_lng] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
     
@@ -364,6 +378,15 @@
     {
         [cell.btnDuration setHidden:YES];
     }
+    
+    if ([self.stringUserID isEqualToString:modal.feed_userid]) {
+        [cell.btnCamera setHidden:NO];
+    }
+    else
+    {
+        [cell.btnCamera setHidden:YES];
+    }
+
     [cell.btnCommentCount setTitle:[NSString stringWithFormat:@" %@",fileModal.fileNumberOfComments] forState:UIControlStateNormal];
     [cell.imageViewMap sd_setImageWithURL:[NSURL URLWithString:fileModal.fileThumbCumImageLink]];
     
@@ -510,6 +533,18 @@
         MapViewController *mapVC = (MapViewController *)segue.destinationViewController;
         mapVC.feed = (FeedModal *)sender;
     }
+    else if ([segue.identifier isEqualToString:KPostAlarmSegue])
+    {
+        PostViewController *postVC = (PostViewController *)segue.destinationViewController;
+        FeedModal *fd = [self.arraySearch objectAtIndex:self.selectedIndex.row];
+        postVC.feedType = [fd.feed_type intValue];
+        if([sender isKindOfClass:[NSIndexPath class]])
+        {
+            FeedModal *f = [self.arraySearch objectAtIndex:self.selectedIndex.row];
+            postVC.stringFeedId = f.feed_id;
+        }
+    }
+
     else
     {
         ImageVideoViewController *imageVc = (ImageVideoViewController *)segue.destinationViewController;

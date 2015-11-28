@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <JTMaterialSpinner.h>
 #import "ApiConstants.h"
-
+#import <JTMaterialSpinner.h>
 @interface BaseViewController : UIViewController
+
 
 -(void)setUpLoaderView:(UIColor *)colorLoader;
 -(void)setUpLoaderView;

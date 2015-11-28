@@ -124,8 +124,8 @@
     NSMutableDictionary *formattedDict = [NSMutableDictionary new];
     //[formattedDict setObject:[dictUser valueForKey:@"id"] forKey:@"apn_id"];
     [formattedDict setObject:[Profile getCurrentProfileUserId] forKey:@"user_id"];
-    [formattedDict setObject:self.textFieldEmail.text forKey:@"email"];
-    [formattedDict setObject:self.textFieldUsername.text forKey:@"username"];
+    [formattedDict setObject:[self.textFieldEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] forKey:@"email"];
+    [formattedDict setObject:[self.textFieldUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] forKey:@"username"];
     
     
     [formattedDict setObject:[self.textFieldFirstName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] forKey:@"firstname"];
@@ -137,7 +137,7 @@
     CLLocation *cords = locMan.currentLoc;
     [formattedDict setObject:[NSString stringWithFormat:@"%f",cords.coordinate.latitude] forKey:@"latitude"];
     [formattedDict setObject:[NSString stringWithFormat:@"%f",cords.coordinate.longitude] forKey:@"longitude"];
-    [formattedDict setObject:self.textFieldCode.text forKey:@"code"];
+    [formattedDict setObject:[self.textFieldCode.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] forKey:@"code"];
     
     if(self.isImageChanged!=2)
     {
@@ -280,6 +280,7 @@
     
     if(stringError==nil)
     {
+        self.btnUpdateInfo.enabled = NO;
         [self setUpLoaderView];
         NSData *imageData;
         if(self.isImageChanged!=2)
@@ -294,8 +295,11 @@
             [[NSUserDefaults standardUserDefaults] rm_setCustomObject:selfProfile forKey:@"profile"];
             [self showStaticAlert:@"Success" message:@"User details successfully updated"];
             [self removeLoaderView];
+            [self.navigationController popViewControllerAnimated:YES];
+            self.btnUpdateInfo.enabled = YES;
         } failure:^(NSError *error) {
             [self removeLoaderView];
+            self.btnUpdateInfo.enabled = YES;
         }];
     }
     else
@@ -386,6 +390,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    chosenImage = [chosenImage imageByScalingAndCroppingForSize:chosenImage.size];
     self.imageViewDp.image = chosenImage;
     self.isImageChanged = 1;
     [picker dismissViewControllerAnimated:YES completion:NULL];

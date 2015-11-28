@@ -43,6 +43,21 @@
 {
     [self.tableViewCommunity setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self getCommunityUsers];
+    if(self.currentTab==GROUP)
+    {
+        Profile *model = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+        [self.labelCommunity setText:NSLocalizedString(@"community_no_code", nil)];
+        if([model.profileCode isEqualToString:@""]||model.profileCode==nil)
+        {
+            [self.tableViewCommunity setHidden:YES];
+            [self.labelCommunity setHidden:NO];
+        }
+        else
+        {
+            [self.tableViewCommunity setHidden:NO];
+            [self.labelCommunity setHidden:YES];
+        }
+    }
 
 }
 -(void)getCommunityUsers
@@ -141,6 +156,8 @@
         CommunityNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
         [cell.labelNoUsers setText:@"No users"];
         cell.separatorInset = UIEdgeInsetsZero;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
         return cell;
     }
     else
@@ -212,11 +229,10 @@
 {
     if(self.arrayCommunity.count!=0)
     {
-    self.selectedIndex = indexPath.row;
-    [self performSegueWithIdentifier:KOtherProfileSegue sender:self];
+        self.selectedIndex = indexPath.row;
+        [self performSegueWithIdentifier:KOtherProfileSegue sender:self];
     }
 }
-
 
 
 #pragma mark -

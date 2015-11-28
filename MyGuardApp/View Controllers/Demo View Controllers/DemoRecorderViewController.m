@@ -26,9 +26,18 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-#pragma mark - 
+#pragma mark -
 #pragma mark - View Helper and observers
+-(void)addTap
+{
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
+    [self.view addGestureRecognizer:tapGesture];
+}
+-(void)tapped
+{
+    [self.view endEditing:YES];
+}
+
 -(void)showPostButton
 {
     UIBarButtonItem *btnPost = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"post", nil) style:UIBarButtonItemStylePlain target:self action:@selector(actionPost)];
@@ -38,8 +47,9 @@
 }
 -(void)postFile
 {
-    MFMailComposeViewController *picker =
-    [[MFMailComposeViewController alloc] init];
+    if ([MFMailComposeViewController canSendMail])
+    {
+    MFMailComposeViewController *picker =[[MFMailComposeViewController alloc] init];
     picker.mailComposeDelegate = self;
     [picker setSubject:@"Audio file of smoke detector"];
     [picker setToRecipients:@[@"support@firesonar.com"]];
@@ -52,7 +62,11 @@
     [self presentViewController:picker animated:YES completion:^{
         
     }];
-   
+    }
+    else
+    {
+        [[[UIAlertView alloc] initWithTitle:nil message:@"Please set up an email account." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show] ;
+    }
 
 }
 -(void)initialiseRecorder
@@ -71,7 +85,20 @@
     self.navigationItem.leftBarButtonItem = btnBack;
     
     [self.navigationItem setTitle:NSLocalizedString(@"demo_recorder_title", nil)];
-
+    
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    
+    [navigationBar setBackgroundColor:KPurpleColorNav];
+    
+    [navigationBar setBarTintColor:KPurpleColorNav];
+    [navigationBar setBarStyle:UIBarStyleBlack];
+    [navigationBar setTranslucent:NO];
+    [navigationBar setBackgroundImage:[UIImage new]
+                       forBarPosition:UIBarPositionAny
+                           barMetrics:UIBarMetricsDefault];
+    
+    [navigationBar setShadowImage:[UIImage new]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 -(void) countMethod
 {
@@ -102,6 +129,7 @@
 //    [self.textFieldSmoke editingRectForBounds:CGRectMake(8, 0, self.textFieldSmoke.frame.size.width, self.textFieldSmoke.frame.size.height)];
 //    [self.textFieldSmoke textRectForBounds:CGRectMake(8, 0, self.textFieldSmoke.frame.size.width, self.textFieldSmoke.frame.size.height)];
     [self.labelRecorder setText:NSLocalizedString(@"demo_recorder", nil)];
+    [self addTap];
 }
 
 -(void)DoneAction

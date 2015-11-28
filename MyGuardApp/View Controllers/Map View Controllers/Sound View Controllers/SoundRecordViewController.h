@@ -19,7 +19,7 @@
 
 @interface SoundRecordViewController : BaseViewController<EZMicrophoneDelegate,AVAudioRecorderDelegate,AVAudioPlayerDelegate,AudioPlayerProtocol,UIAlertViewDelegate>
 
-
+@property (nonatomic,strong) NSString *stringAlert;
 @property (nonatomic,strong) NSTimer *timerObj;
 @property NSInteger alarmCount;
 @property (nonatomic,retain) AudioPlayerView *audioPlayeView;

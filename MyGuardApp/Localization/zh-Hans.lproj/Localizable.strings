@@ -6,6 +6,106 @@
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
 
+
+//Comments
+"no_comments" = "没意见";
+
+//Profile
+"remove_friend" = "删除好友";
+
+
+
+//community
+"community_no_code" = "请只在您的建筑群和近邻添加用户的生活";
+
+//sex offender
+"sex_alert_description" = "";
+"sex_premium" = "高级功能";
+"sex_description" = "这是我的卫队的高级功能。要激活，请购买的应用程序内购买";
+"sex_activate" = "激活";
+
+//Custom alert sound screens
+"alert_sound_for" = "警报声";
+"customise_alert" = "自定义警报";
+"customise_tap_below" = "下面点击更改默认的警报。";
+"tap_to_change" = "点击录制新的声音";
+"record" = "记录";
+
+
+//general
+"group" = "组";
+"admin" = "管理员留言";
+"video_permission" = "你想我们发送实时视频饲料时，报警上升？";
+"sex_permission" = "难道你要我们通知时，性犯罪者是在附近吗？";
+"user_search" = "用户";
+
+//Post
+"new_post" = "新话题";
+"post" = "帖子";
+
+//User
+
+//Notification Screen
+"alert" = "快讯";
+"clear_all" = "清除所有";
+
+//Profile Screen
+"friend" = "朋友";
+"add_friend" = "加为好友";
+"add_family" = "加入家族";
+"friends_p" = "删除好友";
+"family_p" = "删除家庭";
+"friend_r" = "发送朋友请求";
+"friend_pen" = "确认的朋友";
+"friend_pen_r" = "拒绝朋友";
+
+"family_r" = "家庭请求发送";
+"family_pen" = "确认家庭";
+"family_pen_r" = "拒绝家庭";
+
+
+//Demo Screens
+"demo_recorder_title" = "帖子记录";
+"demo_recorder" = "请记录检测器的声音，并邮寄给我们，以便我们可以添加对它的支持。";
+"bring_your_phone" = "把你的手机靠近一个报警60尺内，而它嗡嗡声，等待手机检测警报。";
+"detect_alarm_title" = "检测报警器";
+"detect_alarm_description" = "等待手机检测alarm.It可能需要几秒钟。";
+
+
+
+//Info video screen and next screens
+
+"video" = "视频";
+"map" = "地图";
+//Alert strings
+"email_not_available" = "电子邮件已经被注册";
+
+//Register screen
+"first_name" = "名字";
+"last_name" = "姓";
+"code" = "码";
+"select_dob" = "出生选择日期";
+"already_member" = "已经是会员？";
+"sign_in" = "登入";
+"details" = "详细信息";
+
+//Image detail
+"media" = "媒体";
+
+//Sound Screens
+"alert_sounds" = "警报声";
+
+
+//Emergency Screen
+"emergency_screen_title" = "紧急电话";
+
+//Sex offenders screen
+"restore_purchase" = "恢复购买";
+"sex_offender_title" = "性犯罪者";
+
+
+
+
 //Alarm overlay
 "raising" = "升起";
 "fire_alarm" = "火警";
@@ -13,25 +113,25 @@
 "co_alarm" = "CO 报警";
 
 //Add safety
-"add_to" = "ADD TO";
-"type_here" = "Type here";
-"safety_fire" = "Fire Alarm";
-"safety_gun" = "Gun Shot";
-"safety_co" = "Carbon Monoxide";
+"add_to" = "添加";
+"type_here" = "在此输入";
+"safety_fire" = "火警";
+"safety_gun" = "枪射击";
+"safety_co" = "一氧化碳";
 
 // Settings
-"demo" = "Demo";
-"custom_alert_description" = "Customize alert sound for fire, gunshot and co.";
-"user_guide_des" = "Having trouble using the app?";
+"demo" = "演示";
+"custom_alert_description" = "自火灾，枪击和共同警报声。";
+"user_guide_des" = "¿Tiene problemas con la aplicación?";
 
 
 //My profile
-"my_profile" = "My Profile";
+"my_profile" = "我的简历";
 
 
 "fire_walk" = "Fire walk fire walk through fire walk through";
 "skip_walkthrough_btn" = "跳过演练";
-"action_settings"="Settings";
+"action_settings"="设置";
 "hello_blank_fragment"="Hello blank fragment";
 "title_activity_demo"="DemoActivity";
 "_emergency_message"="救命！我在危险";

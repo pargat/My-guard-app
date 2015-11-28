@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface SettingSwitchCell : UITableViewCell
+
+@property (nonatomic,strong) NSIndexPath *indexPath;
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 @property (weak, nonatomic) IBOutlet UILabel *labelDescription;
 @property (weak, nonatomic) IBOutlet UISwitch *switchVideo;

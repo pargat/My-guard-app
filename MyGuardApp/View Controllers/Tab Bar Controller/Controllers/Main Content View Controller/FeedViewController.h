@@ -31,7 +31,7 @@
 
 @end
 
-@interface FeedViewController : BaseViewController <XLPagerTabStripChildItem,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,FeedMainDelegate,UIActionSheetDelegate,FeedFakeDelegate>
+@interface FeedViewController : BaseViewController <XLPagerTabStripChildItem,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UINavigationControllerDelegate,FeedMainDelegate,FeedFakeDelegate>
 
 @property (nonatomic,strong) NSString *stringUserID;
 @property (nonatomic,strong) NSIndexPath *selectedIndex;

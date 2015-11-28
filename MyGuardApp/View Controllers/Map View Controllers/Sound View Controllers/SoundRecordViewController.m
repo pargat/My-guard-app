@@ -8,9 +8,6 @@
 
 #import "SoundRecordViewController.h"
 
-
-
-
 @interface SoundRecordViewController ()
 
 @end
@@ -162,11 +159,16 @@
     
     if ([fileManager fileExistsAtPath:storePath] == NO) {
         [fileManager copyItemAtPath:resourcePath toPath:storePath error:&error];
+        [[NSUserDefaults standardUserDefaults] setObject:[self.stringAlert stringByAppendingString:@".aac"] forKey:[NSString stringWithFormat:@"%@Sound",self.stringType]];
+        [self.navigationController popViewControllerAnimated:YES];
         
     }
     else
     {
-        [self showStaticAlert:@"Error" message:@"File already exists"];
+        UIAlertView *Alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"File already exists" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        Alert.tag = 2;
+        [Alert show];
+
     }
     
     
@@ -250,12 +252,21 @@
     if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Save"])
     {
         UITextField *tfEmail = [alertView textFieldAtIndex:0];
-        
+        self.stringAlert = tfEmail.text;
         [self copyFile:@"temp.aac" toLocation:[NSString stringWithFormat:@"%@/%@.aac",self.stringType,tfEmail.text]];
-        [self.navigationController popViewControllerAnimated:YES];
-        
-    }
     
+    }
+    if(alertView.tag==2)
+    {
+        UIAlertView* dialog = [[UIAlertView alloc] initWithTitle:nil message:@"Enter File Name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil];
+        
+        dialog.alertViewStyle = UIAlertViewStylePlainTextInput;
+        UITextField *textField = [dialog textFieldAtIndex:0];
+        textField.text = self.stringAlert;
+        [dialog show];
+
+    }
+
     
 }
 

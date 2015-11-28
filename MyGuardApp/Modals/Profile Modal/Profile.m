@@ -15,6 +15,7 @@
     self = [super init];
     if(self!=nil)
     {
+        if([tempDict valueForKey:@"code"]!=nil)
         self.profileCode = [NSString stringWithFormat:@"%@",[tempDict valueForKey:@"code"]];
         self.profileUnreadCount = [NSString stringWithFormat:@"%@",[tempDict valueForKey:@"unread_notifications"]];
         self.profileAddress = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"address"]];

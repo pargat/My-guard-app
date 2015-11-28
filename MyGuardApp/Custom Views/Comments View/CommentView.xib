@@ -45,13 +45,6 @@
                                 <constraint firstAttribute="height" constant="1" id="nZA-pv-PKH"/>
                             </constraints>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ClC-4R-vPq">
-                            <rect key="frame" x="279" y="286" width="42" height="21"/>
-                            <animations/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZBf-PG-B3C">
                             <rect key="frame" x="0.0" y="542" width="600" height="50"/>
                             <subviews>
@@ -92,6 +85,13 @@
                             <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </tableView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ClC-4R-vPq">
+                            <rect key="frame" x="279" y="286" width="42" height="21"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -161,6 +161,7 @@
                 <outlet property="imageViewLeft" destination="Dov-Q6-lGV" id="JUs-Jm-PaE"/>
                 <outlet property="imageViewRight" destination="ss3-0m-jQJ" id="J32-Ro-NBI"/>
                 <outlet property="labelNoComments" destination="ClC-4R-vPq" id="EsZ-Qo-U7u"/>
+                <outlet property="layoutBottomSpace" destination="gir-Rs-c7K" id="LMN-cS-de4"/>
                 <outlet property="tableViewComments" destination="Sao-EQ-Pvn" id="tFG-Mw-sYB"/>
                 <outlet property="textFieldComment" destination="GUX-3H-Eug" id="xpg-wm-tKb"/>
                 <outlet property="viewCommentHolde" destination="ZBf-PG-B3C" id="qHu-OJ-agI"/>

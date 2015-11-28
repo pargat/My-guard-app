@@ -74,16 +74,18 @@
 #pragma mark - Button Actions
 -(void)actionLogin
 {
-    if([[self.tfEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""])
+    if([self.tfEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length==0)
     {
+        [self showStaticAlert:@"Error" message:@"Email field can't be empty"];
         
     }
-    else if ([[self.tfEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""])
+    else if([self.tfEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length==0)
     {
-        
+        [self showStaticAlert:@"Error" message:@"Password field can't be empty"];
     }
     else
     {
+        [self.view endEditing:YES];
         [self.locationManager setDelegate:self];
         [self.locationManager startUpdatingLocation];
     }
@@ -143,7 +145,7 @@
              [[NSUserDefaults standardUserDefaults] rm_setCustomObject:selfProfile forKey:@"profile"];
              [self performSegueWithIdentifier:KtabSegue sender:self];
          }
-         else
+         else                                          
          {
              [self showStaticAlert:NSLocalizedString(@"error", nil) message:NSLocalizedString(@"invalid_email_password", nil)];
          }
@@ -168,10 +170,12 @@
     [self setUpLoaderView];
     NSInteger secondsFromGMT = [[NSTimeZone localTimeZone] secondsFromGMT];
     NSString *urlStr = [NSString stringWithFormat:KLoginApi , KbaseUrl , self.tfEmail.text ,self.tfPassword.text,currentLocation.coordinate.latitude,currentLocation.coordinate.longitude,(long)secondsFromGMT];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     [iOSRequest getJsonResponse:urlStr success:^(NSDictionary *responseDict)
      {
          NSLog(@"%@" ,responseDict);
-         
+         self.navigationItem.rightBarButtonItem.enabled = YES;
+
          if ([[NSString stringWithFormat:@"%@" , [responseDict valueForKey:@"success"]] isEqualToString:@"1"])
          {
              Profile *selfProfile = [[Profile alloc] initWithAttributes:[responseDict valueForKey:@"profile"]];
@@ -181,6 +185,8 @@
          else
          {
              [self showStaticAlert:NSLocalizedString(@"error", nil) message:NSLocalizedString(@"invalid_email_password", nil)];
+             self.navigationItem.rightBarButtonItem.enabled = YES;
+
          }
          [self removeLoaderView];
          

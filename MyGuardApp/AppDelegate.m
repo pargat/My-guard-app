@@ -19,10 +19,7 @@
     
      [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-   if( [launchOptions valueForKey:UIApplicationLaunchOptionsShortcutItemKey] != nil)
-   {
-       
-   }
+
     
     if([launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey]!=nil)
     {

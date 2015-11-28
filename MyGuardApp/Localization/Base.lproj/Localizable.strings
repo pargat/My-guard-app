@@ -7,7 +7,19 @@
 */
 
 
+//Comments
+"no_comments" = "No comments";
+
+//Profile
+"remove_friend" = "Remove Friend";
+
+
+
+//community
+"community_no_code" = "Please only add users that lives within your building complex and close neighbours";
+
 //sex offender
+"sex_alert_description" = "";
 "sex_premium" = "Premium Feature";
 "sex_description" = "This is a premium feature of My Guard. To activate , please buy the in-app purchase";
 "sex_activate" = "Activate";
@@ -23,6 +35,7 @@
 "group" = "GROUP";
 "admin" = "Admin Message";
 "video_permission" = "Do you want us to send live video feed when alarm is raised?";
+"sex_permission" = "Do you want us to notify when sex offender is nearby?";
 "user_search" = "USERS";
 
 //Post
@@ -37,14 +50,17 @@
 
 //Profile Screen
 "friend" = "Friend";
-"add_friend" = "Add friend";
-"add_family" = "Add family";
-"friends_p" = "Friends";
-"family_p" = "Family";
-"friend_r" = "Requested";
-"friend_pen" = "Confirm Friend";
-"family_r" = "Requested";
-"family_pen" = "Confirm Family";
+"add_friend" = "Add as a friend";
+"add_family" = "Add to family";
+"friends_p" = "Remove friend";
+"family_p" = "Remove family";
+"friend_r" = "Friend request sent";
+"friend_pen" = "Confirm friend";
+"friend_pen_r" = "Reject friend";
+
+"family_r" = "Family request sent";
+"family_pen" = "Confirm family";
+"family_pen_r" = "Reject family";
 
 
 //Demo Screens
@@ -98,6 +114,8 @@
 "safety_co" = "Carbon Monoxide";
 
 // Settings
+"sex_title" = "Sex offender permission";
+"sex_desc" = "Allow us to notify when a sex offender is nearby";
 "video_title" = "Live Video permission";
 "video_description" = "Allow us to send live video feed in case of emergency";
 "setting_title" = "Settings";
@@ -196,7 +214,7 @@
 "false_alarm"= "False Alarm";
 "post"= "Post";
 "delete_media"= "Delete media";
-"add_media"= "Add media";
+"add_media"= "Add Media";
 "choose_image_from_gallery"= "Choose image from gallery";
 "take_image_from_camera"= "Take image from camera";
 "choose_video_from_gallery"= "Choose video from gallery";
@@ -241,7 +259,7 @@
 "no_user_available" = "No user available";
 "yes"="Yes";
 "no"="No";
-"cancel_alert_now" = "Cancel alert";
+"cancel_alert_now" = "cancel alert";
 "send_alert_now" = "skip countdown and send alert now";
 "enter_file_name"="Enter file name";
 "raising_fire" = "Raising Fire Alarm";

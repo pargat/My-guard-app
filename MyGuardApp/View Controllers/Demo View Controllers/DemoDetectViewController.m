@@ -8,7 +8,8 @@
 
 #import "DemoDetectViewController.h"
 
-
+#import <malloc/malloc.h>
+#import <objc/runtime.h>
 
 @interface DemoDetectViewController ()
 {
@@ -16,7 +17,6 @@
     const UInt32 FFTLEN;
     int _fftBufIndex;
     float * _fftBuf;
-    int samplesRemaining;
     int previousFreq;
     
     COMPLEX_SPLIT _A;
@@ -24,9 +24,7 @@
     BOOL          _isFFTSetup;
     vDSP_Length   _log2n;
     
-    BOOL timerFlag ;
     
-    int _samplesRemaining;
     NSMutableArray *getsFireArray ;
     NSMutableArray *mainFireMeanArray ;
     
@@ -75,36 +73,58 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [CommonFunctions recordAudio];
-
+    
+    
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    NSError *error;
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+    if (error)
+    {
+        NSLog(@"Error setting up audio session category: %@", error.localizedDescription);
+    }
+    [session setActive:YES error:&error];
+    if (error)
+    {
+        NSLog(@"Error setting up audio session active: %@", error.localizedDescription);
+    }
+    
     self.navigationController.navigationBarHidden = YES;
     self.microphone = [EZMicrophone microphoneWithDelegate:self startsImmediately:YES];
+    
     self.twoHunMSTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(TwoHundredMSSampling) userInfo:nil repeats:YES];
-        [self initialiseArray];
-
+    [self initialiseArray];
+    
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    
     
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBarHidden = NO;
-    [self.microphone setDelegate:nil];
-    self.microphone = nil;
+    if(self.microphone!=nil&&self.microphone.delegate!=nil)
+    {
+        [self.microphone setDelegate:nil];
+        self.microphone = nil;
+    }
     
 }
-
 #pragma mark -
 #pragma mark - View Helper
 -(void)openDemoHush
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        self.microphone = nil;
-        [self.twoHunMSTimer invalidate];
-        [self performSegueWithIdentifier:KDemoHushSegue sender:nil];
-        
-    });
-}
+       dispatch_async(dispatch_get_main_queue(), ^{
+    self.microphone.delegate = nil;
+    self.microphone = nil;
+    [self.twoHunMSTimer invalidate];
+    [self performSegueWithIdentifier:KDemoHushSegue sender:nil];
+    
+     });
+       }
 -(void)initialiseArray
 {
     getsFireArray = [[NSMutableArray alloc] init];
@@ -129,6 +149,8 @@
 }
 -(void)viewHelper
 {
+    
+    
     [self.labrlTitle setText:NSLocalizedString(@"detect_alarm_title", nil)];
     [self.labelDescription setText:NSLocalizedString(@"detect_alarm_description", nil)];
     NSMutableAttributedString *attButtonTitle = [[NSMutableAttributedString alloc] initWithAttributedString:[[NSAttributedString alloc] initWithString:@"Click" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}]];
@@ -349,7 +371,7 @@
                                                                                       range:NSMakeRange(0, replaceOnesWithX.length)];
         
         
-        if ( [replaceOnesWithY hasPrefix:@"xyxyxy"]  && [[NSUserDefaults standardUserDefaults] valueForKey:@"profile"] != nil)
+        if ( [replaceOnesWithY hasPrefix:@"xyxyxy"])
         {
             
             int times = (int)[[original componentsSeparatedByString:@"1"] count]-1;
@@ -513,147 +535,218 @@
     _A.realp = (float *) malloc(nOver2*sizeof(float));
     _A.imagp = (float *) malloc(nOver2*sizeof(float));
 }
+//static sigjmp_buf sigjmp_env;
+//void PointerReadFailedHandler(int signum)
+//{
+//    siglongjmp (sigjmp_env, 1);
+//}
+//BOOL IsPointerAnObject(const void *testPointer, BOOL *allocatedLargeEnough)
+//{
+//    *allocatedLargeEnough = NO;
+//    
+//    // Set up SIGSEGV and SIGBUS handlers
+//    struct sigaction new_segv_action, old_segv_action;
+//    struct sigaction new_bus_action, old_bus_action;
+//    new_segv_action.sa_handler = PointerReadFailedHandler;
+//    new_bus_action.sa_handler = PointerReadFailedHandler;
+//    sigemptyset(&new_segv_action.sa_mask);
+//    sigemptyset(&new_bus_action.sa_mask);
+//    new_segv_action.sa_flags = 0;
+//    new_bus_action.sa_flags = 0;
+//    sigaction (SIGSEGV, &new_segv_action, &old_segv_action);
+//    sigaction (SIGBUS, &new_bus_action, &old_bus_action);
+//    
+//    // The signal handler will return us to here if a signal is raised
+//    if (sigsetjmp(sigjmp_env, 1))
+//    {
+//        sigaction (SIGSEGV, &old_segv_action, NULL);
+//        sigaction (SIGBUS, &old_bus_action, NULL);
+//        return NO;
+//    }
+//    
+//    id testPointerClass = (__bridge id)(testPointer);
+//    
+//    // Get the list of classes and look for testPointerClass
+//    BOOL isClass = NO;
+//    NSInteger numClasses = objc_getClassList(NULL, 0);
+//    id *classesList = malloc(sizeof(id) * numClasses);
+//    numClasses = objc_getClassList(classesList, numClasses);
+//    for (int i = 0; i < numClasses; i++)
+//    {
+//        if (classesList[i] == testPointerClass)
+//        {
+//            isClass = YES;
+//            break;
+//        }
+//    }
+//    free(classesList);
+//    
+//    // We're done with the signal handlers (install the previous ones)
+//    sigaction (SIGSEGV, &old_segv_action, NULL);
+//    sigaction (SIGBUS, &old_bus_action, NULL);
+//    
+//    // Pointer does not point to a valid isa pointer
+//    if (!isClass)
+//    {
+//        return NO;
+//    }
+//    
+//    // Check the allocation size
+//    size_t allocated_size = malloc_size(testPointer);
+//    size_t instance_size = class_getInstanceSize(testPointerClass);
+//    if (allocated_size > instance_size)
+//    {
+//        *allocatedLargeEnough = YES;
+//    }
+//    
+//    return YES;
+//}
 -(void)updateFFTWithBufferSize:(float)bufferSize withAudioData:(float*)data
 {
-    _fftBufIndex=0;
-    // For an FFT, numSamples must be a power of 2, i.e. is always even
-    int nOver2 = bufferSize/2;
     
-    // Pack samples:
-    // C(re) -> A[n], C(im) -> A[n+1]
-    vDSP_ctoz((COMPLEX*)data, 2, &_A, 1, nOver2);
-    
-    // Perform a forward FFT using fftSetup and A
-    // Results are returned in A
-    vDSP_fft_zrip(_FFTSetup, &_A, 1, _log2n, FFT_FORWARD);
-    
-    // Convert COMPLEX_SPLIT A result to magnitudes
-    float maxMag = 0;
-    
-    
-    
-    int _i_max = 0;
-    for(int i=0; i<nOver2; i++)
-    {
-        // Calculate the magnitude
-        float mag = _A.realp[i]*_A.realp[i]+_A.imagp[i]*_A.imagp[i];
-        if(maxMag < mag) {
-            _i_max = i;
-        }
-        maxMag = mag > maxMag ? mag : maxMag;
-    }
-    
-    
-    
-    
-    float frequency = _i_max / bufferSize * 44100.0;
-    
-    //iphone 6 vishnu  7:40 15july
-    //fire 3273 debugging,  one code smoke similar
-    //alana 3229
-    //co1 3531
-    //co2 3488
-    //cherrie 3186
-    //homie 2971 and photo
-    
-    
-    int freq = frequency ;
-    if(freq>2000)
-        NSLog(@"Freq %d",freq);
-    if (freq==3273)
-    {
-        if(freq==previousFreq)
+        if(malloc_size(data)>0)
         {
-            [getsFireArray addObject:[NSNumber numberWithFloat:maxMag]];
+        _fftBufIndex=0;
+        // For an FFT, numSamples must be a power of 2, i.e. is always even
+        int nOver2 = bufferSize/2;
+        
+        // Pack samples:
+        // C(re) -> A[n], C(im) -> A[n+1]
+        
+        
+        vDSP_ctoz((COMPLEX*)data, 2, &_A, 1, nOver2);
+        
+        // Perform a forward FFT using fftSetup and A
+        // Results are returned in A
+        vDSP_fft_zrip(_FFTSetup, &_A, 1, _log2n, FFT_FORWARD);
+        
+        // Convert COMPLEX_SPLIT A result to magnitudes
+        float maxMag = 0;
+        
+        
+        
+        int _i_max = 0;
+        for(int i=0; i<nOver2; i++)
+        {
+            // Calculate the magnitude
+            float mag = _A.realp[i]*_A.realp[i]+_A.imagp[i]*_A.imagp[i];
+            if(maxMag < mag) {
+                _i_max = i;
+            }
+            maxMag = mag > maxMag ? mag : maxMag;
+        }
+        
+        
+        
+        
+        float frequency = _i_max / bufferSize * 44100.0;
+        
+        //iphone 6 vishnu  7:40 15july
+        //fire 3273 debugging,  one code smoke similar
+        //alana 3229
+        //co1 3531
+        //co2 3488
+        //cherrie 3186
+        //homie 2971 and photo
+        
+        
+        int freq = frequency ;
+        if(freq>2000)
+            NSLog(@"Freq %d",freq);
+        if (freq==3273)
+        {
+            if(freq==previousFreq)
+            {
+                [getsFireArray addObject:[NSNumber numberWithFloat:maxMag]];
+            }
+            else
+            {
+                [getsFireArray removeLastObject];
+            }
+            //        dispatch_async(dispatch_get_main_queue(), ^{
+            //            // All the audio plot needs is the buffer data (float*) and the size.
+            //            // Internally the audio plot will handle all the drawing related code,
+            //            // history management, and freeing its own resources. Hence, one badass
+            //            // line of code gets you a pretty plot :)
+            //            [self.audioPlot updateBuffer:data withBufferSize:bufferSize];
+            //        });
+            
         }
         else
         {
-            [getsFireArray removeLastObject];
-        }
-        //        dispatch_async(dispatch_get_main_queue(), ^{
-        //            // All the audio plot needs is the buffer data (float*) and the size.
-        //            // Internally the audio plot will handle all the drawing related code,
-        //            // history management, and freeing its own resources. Hence, one badass
-        //            // line of code gets you a pretty plot :)
-        //            [self.audioPlot updateBuffer:data withBufferSize:bufferSize];
-        //        });
-        
-    }
-    else
-    {
-        [getsFireArray addObject:[NSNumber numberWithFloat:0.0]];
-        //        dispatch_async(dispatch_get_main_queue(), ^{
-        //            // All the audio plot needs is the buffer data (float*) and the size.
-        //            // Internally the audio plot will handle all the drawing related code,
-        //            // history management, and freeing its own resources. Hence, one badass
-        //            // line of code gets you a pretty plot :)
-        //            [self.audioPlot updateBuffer:nil withBufferSize:bufferSize];
-        //        });
-        
-    }
-    
-    
-    if (freq==2971)
-    {
-        [homieAndPhotoFireArray addObject:[NSNumber numberWithFloat:maxMag]];
-    }
-    else
-        [homieAndPhotoFireArray addObject:[NSNumber numberWithFloat:0.0]];
-    
-    
-    //culprit 3617-9 times,3488-4times,3574-5times,3531-3times
-    
-    if (freq==3531||freq==3488||freq==7062||freq==6976)
-    {
-        if(freq==previousFreq)
-        {
-            [ambiguousArray addObject:[NSNumber numberWithFloat:maxMag]];
-        }
-        else
-        {
-            [ambiguousArray removeLastObject];
-        }
-        
-    }
-    
-    else
-        [ambiguousArray addObject:[NSNumber numberWithFloat:0.0]];
-    
-    if (freq==3229)
-    {
-        if(freq==previousFreq)
-        {
-            [alanaFireArray addObject:[NSNumber numberWithFloat:maxMag]];
-        }
-        else
-        {
-            [alanaFireArray addObject:[NSNumber numberWithFloat:0.0]];
+            [getsFireArray addObject:[NSNumber numberWithFloat:0.0]];
+            //        dispatch_async(dispatch_get_main_queue(), ^{
+            //            // All the audio plot needs is the buffer data (float*) and the size.
+            //            // Internally the audio plot will handle all the drawing related code,
+            //            // history management, and freeing its own resources. Hence, one badass
+            //            // line of code gets you a pretty plot :)
+            //            [self.audioPlot updateBuffer:nil withBufferSize:bufferSize];
+            //        });
             
         }
         
-    }
-    else
-        [alanaFireArray addObject:[NSNumber numberWithFloat:0.0]];
-    
-    if (freq==3186)
-    {
-        if(freq==previousFreq)
-            [CherrieFireArray addObject:[NSNumber numberWithFloat:maxMag]];
+        
+        if (freq==2971)
+        {
+            [homieAndPhotoFireArray addObject:[NSNumber numberWithFloat:maxMag]];
+        }
+        else
+            [homieAndPhotoFireArray addObject:[NSNumber numberWithFloat:0.0]];
+        
+        
+        //culprit 3617-9 times,3488-4times,3574-5times,3531-3times
+        
+        if (freq==3531||freq==3488||freq==7062||freq==6976)
+        {
+            if(freq==previousFreq)
+            {
+                [ambiguousArray addObject:[NSNumber numberWithFloat:maxMag]];
+            }
+            else
+            {
+                [ambiguousArray removeLastObject];
+            }
+            
+        }
+        
+        else
+            [ambiguousArray addObject:[NSNumber numberWithFloat:0.0]];
+        
+        if (freq==3229)
+        {
+            if(freq==previousFreq)
+            {
+                [alanaFireArray addObject:[NSNumber numberWithFloat:maxMag]];
+            }
+            else
+            {
+                [alanaFireArray addObject:[NSNumber numberWithFloat:0.0]];
+                
+            }
+            
+        }
+        else
+            [alanaFireArray addObject:[NSNumber numberWithFloat:0.0]];
+        
+        if (freq==3186)
+        {
+            
+            if(freq==previousFreq)
+                [CherrieFireArray addObject:[NSNumber numberWithFloat:maxMag]];
+            else
+                [CherrieFireArray addObject:[NSNumber numberWithFloat:0.0]];
+        }
+        
         else
             [CherrieFireArray addObject:[NSNumber numberWithFloat:0.0]];
-    }
-    
+        
+        
+        previousFreq = freq;
+        }
     else
-        [CherrieFireArray addObject:[NSNumber numberWithFloat:0.0]];
-    
-    
-    previousFreq = freq;
-    
-    
-    
-    
-    
-    
+    {
+        NSLog(@"Haaa");
+    }
 }
 
 
@@ -664,36 +757,24 @@
        withBufferSize:(UInt32)bufferSize
  withNumberOfChannels:(UInt32)numberOfChannels
 {
-    @try {
-        dispatch_async(dispatch_get_main_queue(), ^
-                       {
-                           if (!timerFlag)
-                           {
-                               // Update time domain plot
-                               //
-                               // Setup the FFT if it's not already setup
-                               if( !_isFFTSetup )
-                               {
-                                   [self createFFTWithBufferSize:bufferSize withAudioData:buffer[0]];
-                                   _isFFTSetup = YES;
-                               }
-                               // Get the FFT data
-                               [self updateFFTWithBufferSize:bufferSize withAudioData:buffer[0]];
-                           }
-                       });
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // All the audio plot needs is the buffer data (float*) and the size.
-            // Internally the audio plot will handle all the drawing related code,
-            // history management, and freeing its own resources. Hence, one badass
-            // line of code gets you a pretty plot :)
-            [self.audioPlot updateBuffer:buffer[0] withBufferSize:bufferSize];
-        });
-
-    }
-    @catch (NSException *exception) {
-        
-    }
     
+    if(malloc_size(buffer[0])>0)
+    {
+    dispatch_async(dispatch_get_main_queue(), ^
+                   {
+                       
+                       if( !_isFFTSetup )
+                       {
+                           [self createFFTWithBufferSize:bufferSize withAudioData:buffer[0]];
+                           _isFFTSetup = YES;
+                       }
+                       // Get the FFT data
+                       [self updateFFTWithBufferSize:bufferSize withAudioData:buffer[0]];
+                       [self.audioPlot updateBuffer:buffer[0] withBufferSize:bufferSize];
+                   });
+    
+    }
+
     
     
 }

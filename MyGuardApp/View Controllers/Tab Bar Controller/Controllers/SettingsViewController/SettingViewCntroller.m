@@ -16,7 +16,7 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    self.arraySettings = @[NSLocalizedString(@"video_title", nil),NSLocalizedString(@"change_alert_sounds", nil),NSLocalizedString(@"users_guide", nil),NSLocalizedString(@"demo", nil),NSLocalizedString(@"invite_fb_friends", nil),NSLocalizedString(@"contact_us", nil),NSLocalizedString(@"legal", nil),NSLocalizedString(@"logout", nil)];
+    self.arraySettings = @[NSLocalizedString(@"sex_title", nil),NSLocalizedString(@"video_title", nil),NSLocalizedString(@"change_alert_sounds", nil),NSLocalizedString(@"users_guide", nil),NSLocalizedString(@"demo", nil),NSLocalizedString(@"invite_fb_friends", nil),NSLocalizedString(@"contact_us", nil),NSLocalizedString(@"legal", nil),NSLocalizedString(@"logout", nil)];
     [self.tableViewSettings setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self setUpNavBar];
     
@@ -49,18 +49,20 @@
 #pragma mark - Table View Datasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 8;
+    return 9;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row==0)
+    if(indexPath.row==0||indexPath.row==1)
     {
         SettingSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingSwitchCell"];
         [self configureSettingSwitch:cell atIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
         return cell;
     }
-    else if(indexPath.row==1||indexPath.row==2)
+    else if(indexPath.row==2||indexPath.row==3)
     {
         SettingCellDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingCellDescriptionCell"];
         [cell.labelTitle setText:[self.arraySettings objectAtIndex:indexPath.row]];
@@ -112,10 +114,19 @@
 {
     [cell.labelDescription setPreferredMaxLayoutWidth:self.view.frame.size.width - 64 - cell.switchVideo.frame.size.width ];
     [cell.labelTitle setText:[self.arraySettings objectAtIndex:indexPath.row]];
-    [cell.labelDescription setText:NSLocalizedString(@"video_description", nil)];
+    cell.indexPath = indexPath;
+    if(indexPath.row==0)
+    {
+        [cell.switchVideo setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"sex_permission"]];
+        [cell.labelDescription setText:NSLocalizedString(@"sex_desc", nil)];
 
+    }
+    else
+    {
+        [cell.switchVideo setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"video_permission"]];
+        [cell.labelDescription setText:NSLocalizedString(@"video_description", nil)];
+    }
     
-    [cell.switchVideo setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"video_permission"]];
 }
 #pragma mark - Hide Unhide Loader View
 
@@ -185,20 +196,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row==1)
+    if(indexPath.row==2)
     {
         [self performSegueWithIdentifier:KSoundMainSegue sender:self];
     }
-    else if (indexPath.row==2)
+    else if (indexPath.row==3)
     {
         [self performSegueWithIdentifier:KUserGuideSegue sender:self];
     }
-    else if (indexPath.row==3)
+    else if (indexPath.row==4)
     {
            [[NSUserDefaults standardUserDefaults] setObject:@"Yes" forKey:@"Demo"];
         [self performSegueWithIdentifier:KDemo1Segue sender:nil];
     }
-    else if(indexPath.row==4)
+    else if(indexPath.row==5)
     {
         FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
         content.appLinkURL = [NSURL URLWithString:@"https://fb.me/727046074067178"];
@@ -209,16 +220,16 @@
         [FBSDKAppInviteDialog showWithContent:content
                                      delegate:self];
     }
-    else if (indexPath.row==5)
+    else if (indexPath.row==6)
     {
         [self mailComposer];
     }
-    else if (indexPath.row==6)
+    else if (indexPath.row==7)
     {
         [self performSegueWithIdentifier:KTCSegue sender:self];
         
     }
-    else if(indexPath.row==7)
+    else if(indexPath.row==8)
     {
         [self logOutClicked];
     }
@@ -226,7 +237,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row==0)
+    if(indexPath.row==0||indexPath.row==1)
     {
         static SettingSwitchCell *sizingCell = nil;
         static dispatch_once_t onceToken;
@@ -238,7 +249,7 @@
         CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
         return size.height+1;
     }
-    else if(indexPath.row==1||indexPath.row==2)
+    else if(indexPath.row==2||indexPath.row==3)
     {
         static SettingCellDescriptionCell *sizingCell = nil;
         static dispatch_once_t onceToken;

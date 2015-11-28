@@ -29,7 +29,7 @@
             self.fileType = true;
             self.fileThumbCumImageLink = [dict valueForKey:@"thumb"];
             self.fileVideoLink = [dict valueForKey:@"media"];
-            self.fileDuration =[NSString stringWithFormat:@"%ld",[[dict valueForKey:@"duration"] integerValue]];
+            self.fileDuration =[NSString stringWithFormat:@"%ld",(long)[[dict valueForKey:@"duration"] integerValue]];
         }
         self.fileDescription = [dict valueForKey:@"description"];
     }

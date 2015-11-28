@@ -31,7 +31,8 @@
 #pragma mark - View Helper
 -(void)afterApi
 {
-    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = self.myProfile.profileUnreadCount.integerValue;
+
 }
 
 #pragma mark - 

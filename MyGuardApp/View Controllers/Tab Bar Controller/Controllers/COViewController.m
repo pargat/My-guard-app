@@ -58,6 +58,7 @@
         
         UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
         [btnProfile setTintColor:[UIColor whiteColor]];
+        btnProfile.customView.clipsToBounds = YES;
         self.navigationItem.leftBarButtonItem = btnProfile;
         
     }
@@ -86,6 +87,8 @@
                 UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
                 [btnProfile setTintColor:[UIColor whiteColor]];
                 self.navigationItem.leftBarButtonItem = btnProfile;
+                btnProfile.customView.clipsToBounds = YES;
+
             });
             
         });

@@ -58,7 +58,6 @@
     self.community2.currentTab = FAMILY;
     self.community3 = [self.storyboard instantiateViewControllerWithIdentifier:KCommunityContent];
     self.community3.currentTab = FRIENDS;
-    self.community4 = [self.storyboard instantiateViewControllerWithIdentifier:KCommunitySearchContent];
     self.communityGroup = [self.storyboard instantiateViewControllerWithIdentifier:KCommunityContent];
     self.communityGroup.currentTab = GROUP;
 }
@@ -98,6 +97,8 @@
         UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
         [btnProfile setTintColor:[UIColor whiteColor]];
         self.navigationItem.leftBarButtonItem = btnProfile;
+        btnProfile.customView.clipsToBounds = YES;
+
         
     }
     else
@@ -124,6 +125,8 @@
                 
                 UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
                 [btnProfile setTintColor:[UIColor whiteColor]];
+                btnProfile.customView.clipsToBounds = YES;
+
                 self.navigationItem.leftBarButtonItem = btnProfile;
             });
             
@@ -233,11 +236,8 @@
 -(NSArray *)childViewControllersForPagerTabStripViewController:(XLPagerTabStripViewController *)pagerTabStripViewController
 {
     [self initialiseVCs];
-    Profile *profile = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
-    if(![profile.profileCode isEqualToString:@""])
-        return @[self.community1,self.community2,self.community3,self.communityGroup];
-    else
-        return @[self.community1,self.community2,self.community3];
+    return @[self.community1,self.community2,self.community3,self.communityGroup];
+
 }
 
 

@@ -93,7 +93,9 @@
 -(void)checkValidEmail
 {
     [self setUpLoaderView];
-    NSString *stringEmail = [NSString stringWithFormat:KIsEmailAvailable,KbaseUrl,self.textFieldEmail.text];
+    self.btnContinue.enabled = NO;
+
+    NSString *stringEmail = [NSString stringWithFormat:KIsEmailAvailable,KbaseUrl,[self.textFieldEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     [iOSRequest getJsonResponse:stringEmail success:^(NSDictionary *responseDict) {
         [self removeLoaderView];
         if([[NSString stringWithFormat:@"%@",[responseDict valueForKey:@"success"]] isEqualToString:@"1"])
@@ -104,8 +106,10 @@
         {
             [self showStaticAlert:NSLocalizedString(@"error", nil) message:NSLocalizedString(@"email_not_available", nil)];
         }
+        self.btnContinue.enabled = YES;
     } failure:^(NSString *errorString) {
          [self removeLoaderView];
+        self.btnContinue.enabled = YES;
     }];
 }
 
@@ -136,7 +140,7 @@
 -(NSString *)isValidDetails
 {
     NSString *stringError;
-    if(![self.textFieldEmail hasText])
+    if([self.textFieldEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length==0)
     {
         stringError = @"Email field can't be empty";
     }
@@ -144,11 +148,11 @@
     {
         stringError = @"Please enter a valid email";
     }
-    else if (![self.textFieldPassword hasText])
+    else if ([self.textFieldPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length==0)
     {
         stringError = @"Password field can't be empty";
     }
-    else if(self.textFieldPassword.text.length<6)
+    else if([self.textFieldPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length<6)
     {
         stringError = @"Password should be atleast 6 characters long.";
     }

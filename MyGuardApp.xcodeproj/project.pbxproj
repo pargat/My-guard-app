@@ -83,6 +83,8 @@
 		27867B361C043A4C00C1886E /* SettingSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27867B351C043A4C00C1886E /* SettingSwitchCell.m */; };
 		278711891BAAAC8500F9CA16 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 278711881BAAAC8500F9CA16 /* Profile.m */; };
 		278711981BAAE6B900F9CA16 /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278711971BAAE6B900F9CA16 /* StartViewController.m */; };
+		278C88731C0A48E400B11788 /* SexOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 278C88721C0A48E400B11788 /* SexOverlay.m */; };
+		278C88751C0A4A8F00B11788 /* SexOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278C88741C0A4A8F00B11788 /* SexOverlay.xib */; };
 		278CAFB71BA6E909005814C6 /* WalkThroughView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CAFB61BA6E909005814C6 /* WalkThroughView.m */; };
 		278CAFB91BA6E926005814C6 /* WalkThroughView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278CAFB81BA6E926005814C6 /* WalkThroughView.xib */; };
 		278CAFBD1BA6EA89005814C6 /* WalkThroughViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CAFBC1BA6EA89005814C6 /* WalkThroughViewController.m */; };
@@ -318,6 +320,9 @@
 		278711881BAAAC8500F9CA16 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
 		278711961BAAE6B900F9CA16 /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
 		278711971BAAE6B900F9CA16 /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
+		278C88711C0A48E400B11788 /* SexOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SexOverlay.h; sourceTree = "<group>"; };
+		278C88721C0A48E400B11788 /* SexOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SexOverlay.m; sourceTree = "<group>"; };
+		278C88741C0A4A8F00B11788 /* SexOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SexOverlay.xib; sourceTree = "<group>"; };
 		278CAFB01BA6E53E005814C6 /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
 		278CAFB51BA6E909005814C6 /* WalkThroughView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalkThroughView.h; sourceTree = "<group>"; };
 		278CAFB61BA6E909005814C6 /* WalkThroughView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalkThroughView.m; sourceTree = "<group>"; };
@@ -1275,6 +1280,9 @@
 				27DE4E001BBA6AB100135DF6 /* AlarmOverLayView.h */,
 				27DE4E011BBA6AB100135DF6 /* AlarmOverLayView.m */,
 				27DE4E021BBA6AB100135DF6 /* AlarmOverLayView.xib */,
+				278C88711C0A48E400B11788 /* SexOverlay.h */,
+				278C88721C0A48E400B11788 /* SexOverlay.m */,
+				278C88741C0A4A8F00B11788 /* SexOverlay.xib */,
 			);
 			name = "Alarm Views";
 			path = "Custom Table Cells/Settings Cell/Alarm Views";
@@ -1513,6 +1521,7 @@
 				278CAFED1BA82AD9005814C6 /* orange@2x.png in Resources */,
 				277B6B761BED269B00E862FB /* AudioPlayerView.xib in Resources */,
 				27DE4E111BBAAF3100135DF6 /* WaveAnimationView.xib in Resources */,
+				278C88751C0A4A8F00B11788 /* SexOverlay.xib in Resources */,
 				278210A51B9AE822000EA90B /* Main.storyboard in Resources */,
 				278E6D7D1BDA79FD00B68BD8 /* SexOffender.mp3 in Resources */,
 				278210AA1B9AE822000EA90B /* LaunchScreen.xib in Resources */,
@@ -1712,6 +1721,7 @@
 				273338D91BAD3E7E00BDECCA /* User.m in Sources */,
 				278210C41B9B1705000EA90B /* SplashViewController.m in Sources */,
 				277B6B791BED437800E862FB /* UITextFieldRect.m in Sources */,
+				278C88731C0A48E400B11788 /* SexOverlay.m in Sources */,
 				2703E8991BDF54FF000BDD2C /* ImageBigView.m in Sources */,
 				2745D1991BAFED9D002261B0 /* InfoVideoCell.m in Sources */,
 				27FBA6F31BA94BEA00F373E4 /* XLButtonBarView.m in Sources */,

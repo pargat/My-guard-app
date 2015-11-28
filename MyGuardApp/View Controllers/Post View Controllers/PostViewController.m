@@ -247,6 +247,7 @@
 {
     AVAsset *asset = [AVAsset assetWithURL:url];
     AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
+    imageGenerator.appliesPreferredTrackTransform = YES;
     CMTime time = [asset duration];
     time.value = 1;
     CGImageRef imageRef = [imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
@@ -254,13 +255,14 @@
     CGImageRelease(imageRef);  // CGImageRef won't be released by ARC
     
     return thumbnail;
+    
+    
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     
     
-    [picker dismissViewControllerAnimated:YES completion:nil];
     
     NSString *mediaType = [info valueForKey:UIImagePickerControllerMediaType];
     
@@ -271,7 +273,7 @@
         //CGSize size = CGSizeMake(600, 800);
         
         self.imagePost = [info valueForKey:UIImagePickerControllerOriginalImage];
-        //self.imagePost = [self.imagePost imageByScalingAndCroppingForSize:size];
+        self.imagePost = [self.imagePost imageByScalingAndCroppingForSize:self.imagePost.size];
         
         
         [self.imageViewMessage setImage:self.imagePost];
@@ -318,6 +320,7 @@
                         self.videoData = [NSData dataWithContentsOfFile:tmpFile];
                         self.imagePost = [self generateThumbImage:[info objectForKey:
                                                                    UIImagePickerControllerMediaURL]];
+                        self.imagePost = [self.imagePost imageByScalingAndCroppingForSize:self.imagePost.size];
                         [self.imageViewMessage setImage:self.imagePost];
                         
                     });
@@ -334,7 +337,8 @@
         
     }
     [self.btnRemove setHidden:NO];
-    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+
 }
 
 #pragma mark -
@@ -374,10 +378,11 @@
         [self setUpLoaderView:colorProfile];
         if(self.isPostVideo)
         {
+            self.navigationItem.rightBarButtonItem.enabled = NO;
             if(self.stringFeedId.length>0)
             {
                 
-                NSDictionary *dict = @{@"id":self.stringFeedId,@"user_id":[Profile getCurrentProfileUserId],@"duration":[NSString stringWithFormat:@"%d",self.duration]};
+                NSDictionary *dict = @{@"id":self.stringFeedId,@"user_id":[Profile getCurrentProfileUserId],@"duration":[NSString stringWithFormat:@"%d",self.duration],@"description0":[self.textViewMessage.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]};
                 NSData *imageData = UIImageJPEGRepresentation(self.imagePost, 0.5);
                 [iOSRequest postVideoAlarm:[NSString stringWithFormat:KUpdateAlarm,KbaseUrl] parameters:dict videoData:self.videoData thumbData:imageData success:^(NSDictionary *responseStr) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"addFeed" object:nil userInfo:[[responseStr valueForKey:@"data"] objectAtIndex:0]];
@@ -394,7 +399,7 @@
             {
                 NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
                 [dict setObject:[Profile getCurrentProfileUserId] forKey:@"user_id"];
-                [dict setObject:[NSString stringWithFormat:@"%@",self.textViewMessage.text] forKey:@"description[0]"];
+                [dict setObject:[NSString stringWithFormat:@"%@",[self.textViewMessage.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]] forKey:@"description"];
                 [dict setObject:[NSString stringWithFormat:@"%d",self.feedType] forKey:@"type"];
                 [dict setObject:[NSString stringWithFormat:@"%d", self.duration] forKey:@"duration"];
                 [iOSRequest postVideoAlarm:[NSString stringWithFormat:KPostAlarmApi,KbaseUrl] parameters:dict videoData:self.videoData thumbData:UIImageJPEGRepresentation(self.imagePost, 0.5) success:^(NSDictionary *responseStr) {
@@ -413,11 +418,12 @@
         }
         else
         {
+             self.navigationItem.rightBarButtonItem.enabled = NO;
             if(self.stringFeedId.length>0)
             {
                 
                 NSData *imageData = UIImageJPEGRepresentation(self.imagePost, 0.5);
-                NSDictionary *dict = @{@"id":self.stringFeedId,@"user_id":[Profile getCurrentProfileUserId]};
+                NSDictionary *dict = @{@"id":self.stringFeedId,@"user_id":[Profile getCurrentProfileUserId],@"description0":[self.textViewMessage.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]};
                 [iOSRequest postImageAlarm:[NSString stringWithFormat:KUpdateAlarm,KbaseUrl] parameters:dict imageData:imageData success:^(NSDictionary *responseStr) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"addFeed" object:nil userInfo:[[responseStr valueForKey:@"data"] objectAtIndex:0]];
                     [self.navigationController popViewControllerAnimated:YES];
@@ -435,7 +441,7 @@
                 NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
                 [dict setObject:[Profile getCurrentProfileUserId] forKey:@"user_id"];
                 
-                [dict setObject:[NSString stringWithFormat:@"%@",self.textViewMessage.text] forKey:@"description"];
+                [dict setObject:[NSString stringWithFormat:@"%@",[self.textViewMessage.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]] forKey:@"description"];
                 [dict setObject:[NSString stringWithFormat:@"%d",self.feedType] forKey:@"type"];
                 
                 

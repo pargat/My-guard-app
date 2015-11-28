@@ -55,43 +55,86 @@
 -(void)afterApi
 {
     
+//    0 -- no relation
+//    1 -- friend
+//    2 -- friend request sent pending
+//    3 -- friend request received pending
+//    4 -- family
+//    5 -- family request sent pending
+//    6 -- family request recieved pending
+
+    
     NSString *stringStatus = self.myProfile.profileFStatus;
     NSString *titleFamily;
     NSString *titleFriend;
+    [self.viewLine setHidden:YES];
     if([stringStatus isEqualToString:@"0"])
     {
         titleFamily = NSLocalizedString(@"add_family", nil);
         titleFriend = NSLocalizedString(@"add_friend", nil);
+        [self.viewLine setHidden:NO];
+        self.layoutWidthBtn2.constant = 120;
+        self.layoutWidthBtn1.constant = 120;
+        self.layoutWidthView.constant = 241;
+
     }
     else if ([stringStatus isEqualToString:@"1"])
     {
-        titleFamily = NSLocalizedString(@"add_family", nil);
-        titleFriend = NSLocalizedString(@"friend", nil);
+        titleFamily = @"";
+        titleFriend = NSLocalizedString(@"remove_friend", nil);
+        self.layoutWidthBtn2.constant = 0;
+        self.layoutWidthBtn1.constant = 160;
+        self.layoutWidthView.constant = 161;
+//        self.layoutWidthView.constant = 120;
+        
     }
     else if([stringStatus isEqualToString:@"2"])
     {
-        titleFamily = NSLocalizedString(@"add_family", nil);
+        titleFamily = @"";
         titleFriend = NSLocalizedString(@"friend_r", nil);
+        self.layoutWidthBtn2.constant = 0;
+        self.layoutWidthBtn1.constant = 160;
+        self.layoutWidthView.constant = 161;
+
     }
     else if ([stringStatus isEqualToString:@"3"])
     {
-        titleFamily = NSLocalizedString(@"add_family", nil);
+        titleFamily = NSLocalizedString(@"friend_pen_r", nil);
         titleFriend = NSLocalizedString(@"friend_pen", nil);
+        [self.viewLine setHidden:NO];
+        self.layoutWidthBtn2.constant = 120;
+        self.layoutWidthBtn1.constant = 120;
+        self.layoutWidthView.constant = 241;
+
+
     }
     else if ([stringStatus isEqualToString:@"4"])
     {
         titleFamily = NSLocalizedString(@"family_p", nil);
-        titleFriend = NSLocalizedString(@"add_friend", nil);
+        titleFriend = @"";
+        self.layoutWidthBtn2.constant = 160;
+        self.layoutWidthBtn1.constant = 0;
+        self.layoutWidthView.constant = 161;
+
     }
     else if ([stringStatus isEqualToString:@"5"])
     {
         titleFamily = NSLocalizedString(@"family_r", nil);
-        titleFriend = NSLocalizedString(@"add_friend", nil);
+        titleFriend = @"";
+        self.layoutWidthBtn2.constant = 160;
+        self.layoutWidthBtn1.constant = 0;
+        self.layoutWidthView.constant = 161;
+
     }
     else if ([stringStatus isEqualToString:@"6"])
     {
-        titleFamily = NSLocalizedString(@"family_pen", nil);
-        titleFriend = NSLocalizedString(@"add_friend", nil);
+        titleFamily = NSLocalizedString(@"family_pen_r", nil);
+        titleFriend = NSLocalizedString(@"family_pen", nil);
+        [self.viewLine setHidden:NO];
+        self.layoutWidthBtn2.constant = 120;
+        self.layoutWidthBtn1.constant = 120;
+        self.layoutWidthView.constant = 241;
+
 
     }
     
@@ -314,6 +357,13 @@
  // Pass the selected object to the new view controller.
  }
  */
+//0 -- no relation
+//1 -- friend
+//2 -- friend request sent pending
+//3 -- friend request received pending
+//4 -- family
+//5 -- family request sent pending
+//6 -- family request recieved pending
 
 - (IBAction)actionAddFamily:(id)sender {
     
@@ -321,7 +371,13 @@
     Profile *modalProfile = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
     NSString *familyUrl;
     
-    if([strStatus isEqualToString:@"0"])
+    if([strStatus isEqualToString:@"3"])
+    {
+        familyUrl = [NSString stringWithFormat:KCancelRequest,KbaseUrl,modalProfile.profileUserId,self.myProfile.profileUserId];
+        self.myProfile.profileFStatus = @"0";
+
+    }
+    else if([strStatus isEqualToString:@"0"])
     {
         familyUrl = [NSString stringWithFormat:KAddFamilyApi,KbaseUrl,modalProfile.profileUserId,self.myProfile.profileUserId];
         self.myProfile.profileFStatus = @"5";
@@ -333,8 +389,8 @@
     }
     else if([strStatus isEqualToString:@"6"])
     {
-        familyUrl = [NSString stringWithFormat:KAcceptRequest,KbaseUrl,modalProfile.profileUserId,self.myProfile.profileUserId,@"2"];
-        self.myProfile.profileFStatus = @"4";
+        familyUrl = [NSString stringWithFormat:KCancelRequest,KbaseUrl,modalProfile.profileUserId,self.myProfile.profileUserId];
+        self.myProfile.profileFStatus = @"0";
     }
     else
     {
@@ -361,7 +417,15 @@
     Profile *modalProfile = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
     NSString *friendUrl;
     
-    if([strStatus isEqualToString:@"0"])
+    if([strStatus isEqualToString:@"6"])
+    {
+        friendUrl = [NSString stringWithFormat:KAcceptRequest,KbaseUrl,modalProfile.profileUserId,self.myProfile.profileUserId,@"2"];
+        self.myProfile.profileFStatus = @"4";
+
+        
+    }
+
+    else if([strStatus isEqualToString:@"0"])
     {
         friendUrl = [NSString stringWithFormat:KAddFriendApi,KbaseUrl,modalProfile.profileUserId,self.myProfile.profileUserId];
         self.myProfile.profileFStatus = @"2";
@@ -409,6 +473,7 @@
         {
             safetyVC.currentTab = @"2";
         }
+        
         else
         {
             safetyVC.currentTab = @"3";

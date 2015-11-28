@@ -5,6 +5,106 @@
   Created by vishnu on 14/09/15.
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
+
+//Comments
+"no_comments" = "Sans commentaires";
+
+//Profile
+"remove_friend" = "Retirez ami";
+
+
+//community
+"community_no_code" = "S'il vous plaît ne ajouter des utilisateurs qui vit au sein de votre complexe de bâtiments et de proches voisins";
+
+//sex offender
+"sex_alert_description" = "";
+"sex_premium" = "fonctionnalité Premium";
+"sex_description" = "Ceci est une fonctionnalité Premium de ma garde. Pour l'activer, s'il vous plaît acheter l'achat in-app";
+"sex_activate" = "Activer";
+
+//Custom alert sound screens
+"alert_sound_for" = "Alerte sonore pour un";
+"customise_alert" = "Customisez alertes";
+"customise_tap_below" = "Tapez ci-dessous pour changer alertes par défaut.";
+"tap_to_change" = "Appuyez sur pour enregistrer un nouveau son";
+"record" = "Enregistrement";
+
+
+
+
+//general
+"group" = "GROUPE";
+"admin" = "Administrateur message";
+"video_permission" = "Voulez-vous que nous vous envoyions flux vidéo en direct lorsque l'alarme est soulevé?";
+"sex_permission" = "Voulez-vous nous en informerons lorsque délinquant sexuel est à proximité?";
+"user_search" = "UTILISATEURS";
+
+//Post
+"new_post" = "Nouveau poste";
+"post" = "Poster";
+
+//User
+
+//Notification Screen
+"alert" = "alertes";
+"clear_all" = "Tout effacer";
+
+//Profile Screen
+"friend" = "Ami";
+"add_friend" = "Ajouter comme ami";
+"add_family" = "Ajouter à la famille";
+"friends_p" = "Retirer des amis";
+"family_p" = "Retirer la famille";
+"friend_r" = "Demande d'ami envoyée";
+"friend_pen" = "Confirmez ami";
+"friend_pen_r" = "rejeter ami";
+
+"family_r" = "Demande de la famille envoyé";
+"family_pen" = "Confirmez famille";
+"family_pen_r" = "rejeter la famille";
+
+
+//Demo Screens
+"demo_recorder_title" = "Poster enregistrement";
+"demo_recorder" = "S'il vous plaît enregistrer le son du détecteur et l'envoyer à nous afin que nous pouvons ajouter le support pour elle.";
+"bring_your_phone" = "Apportez votre téléphone à proximité d'une alarme dans les 60 pi. Alors qu'il est en pleine effervescence et attendre que le téléphone pour détecter l'alarme.";
+"detect_alarm_title" = "alarme détection";
+"detect_alarm_description" = "Attendez que le téléphone pour détecter la alarm.It pourrait prendre quelques secondes.";
+
+
+
+//Info video screen and next screens
+
+"video" = "Vidéo";
+"map" = "Carte";
+//Alert strings
+"email_not_available" = "L'adresse e-mail est déjà utilisée";
+
+//Register screen
+"first_name" = "Prénom";
+"last_name" = "Nom de famille";
+"code" = "Code";
+"select_dob" = "Sélectionnez Date de naissance";
+"already_member" = "Déjà membre?";
+"sign_in" = "se connecter";
+"details" = "Détails";
+
+//Image detail
+"media" = "Médias";
+
+//Sound Screens
+"alert_sounds" = "les sons d'alerte";
+
+
+//Emergency Screen
+"emergency_screen_title" = "Téléphone d'urgence";
+
+//Sex offenders screen
+"restore_purchase" = "restaurer achat";
+"sex_offender_title" = "Délinquant sexuel";
+
+
+
 //Alarm overlay
 "raising" = "élevage";
 "fire_alarm" = "Alarme d'incendie";
@@ -12,25 +112,25 @@
 "co_alarm" = "CO alarme";
 
 //Add safety
-"type_here" = "Type here";
-"add_to" = "ADD TO";
-"safety_fire" = "Fire Alarm";
-"safety_gun" = "Gun Shot";
-"safety_co" = "Carbon Monoxide";
+"type_here" = "Écrivez ici";
+"add_to" = "AJOUTER À";
+"safety_fire" = "Alarme d'incendie";
+"safety_gun" = "Coup de feu";
+"safety_co" = "Monoxyde de carbone";
 
 // Settings
-"demo" = "Demo";
-"custom_alert_description" = "Customize alert sound for fire, gunshot and co.";
-"user_guide_des" = "Having trouble using the app?";
+"demo" = "Démo";
+"custom_alert_description" = "Personnaliser son d'alerte pour le feu, coup de feu et co.";
+"user_guide_des" = "Ayant des difficultés à utiliser l'application?";
 
 //My profile
-"my_profile" = "My Profile";
+"my_profile" = "Mon profil";
 
 
 
 "fire_walk" = "Fire walk fire walk through fire walk through";
 "skip_walkthrough_btn" = "Passer walkthrough";
-"action_settings" = "Settings";
+"action_settings" = "Paramètres";
 "hello_blank_fragment"= "Hello blank fragment";
 "title_activity_demo"= "DemoActivity";
 "_emergency_message"= "Aidez-Moi! Je suis en danger";

@@ -17,7 +17,7 @@
 #import "FeedFakeCell.h"
 #import "BaseViewController.h"
 #import <JTMaterialSpinner.h>
-
+#import "PostViewController.h"
 
 @class SearchMainViewController;
 @interface SearchFeedViewController : BaseViewController<FeedMainDelegate,UIActionSheetDelegate,UINavigationBarDelegate,UIImagePickerControllerDelegate,FeedFakeDelegate,UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource>

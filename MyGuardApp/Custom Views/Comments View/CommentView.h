@@ -12,15 +12,17 @@
 #import <UIImageView+WebCache.h>
 #import "ApiConstants.h"
 #import "iOSRequest.h"
+#import <JTMaterialSpinner.h>
 
 @protocol CommentDelegate <NSObject>
 
 -(void)delCommentPosted;
-
+-(void)delChange;
 @end
 
 @interface CommentView : UIView <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
+@property(nonatomic,strong) JTMaterialSpinner *loaderObj ;
 @property (nonatomic,assign) id<CommentDelegate> delegate;
 @property CGRect rectToDisappear;
 @property (nonatomic,strong) NSString *image_id;

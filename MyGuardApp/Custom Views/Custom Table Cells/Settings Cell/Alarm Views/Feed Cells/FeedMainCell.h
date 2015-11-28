@@ -11,6 +11,7 @@
 #import <UIImageView+WebCache.h>
 #import "ApiConstants.h"
 #import "FileModal.h"
+#import "CommonFunctions.h"
 
 @protocol FeedMainDelegate <NSObject>
 

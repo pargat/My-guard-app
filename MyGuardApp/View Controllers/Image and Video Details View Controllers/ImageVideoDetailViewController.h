@@ -17,8 +17,9 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <UIImageView+UIActivityIndicatorForSDWebImage.h>
 
-@interface ImageVideoDetailViewController : BaseViewController<ImageVideoDetailDelegate,UIActionSheetDelegate,UICollectionViewDataSource,UICollectionViewDelegate,CommentDelegate>
+@interface ImageVideoDetailViewController : BaseViewController<ImageVideoDetailDelegate,UIActionSheetDelegate,UICollectionViewDataSource,UICollectionViewDelegate,CommentDelegate,UIScrollViewDelegate>
 
+@property BOOL isLoaded;
 @property BOOL isViewingDescription;
 @property int currentTab;
 @property (nonatomic,strong) NSString *stringAddress;
@@ -27,6 +28,7 @@
 @property (nonatomic,strong) NSString *stringPostId;
 @property (nonatomic,strong) NSString *stringFeedId;
 @property (weak, nonatomic) IBOutlet UIView *viewDetails;
+
 @property (nonatomic,strong) NSIndexPath *indexToScroll;
 @property (nonatomic,strong) CommentView *commentView;
 @property (nonatomic,strong) NSString *feed_id;
@@ -35,6 +37,8 @@
 @property (weak, nonatomic) IBOutlet UITextView *textViewDescription;
 @property (weak, nonatomic) IBOutlet UIButton *btnComment1;
 @property (weak, nonatomic) IBOutlet UIButton *btnComment2;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutHeight;
+@property (weak, nonatomic) IBOutlet UIView *viewOverlay;
 
 - (IBAction)actionComment2:(id)sender;
 - (IBAction)actionComment1:(id)sender;

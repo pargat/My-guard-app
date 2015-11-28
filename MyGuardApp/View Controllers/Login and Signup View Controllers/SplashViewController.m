@@ -34,6 +34,11 @@
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)])
         [self.navigationController.view removeGestureRecognizer:self.navigationController.interactivePopGestureRecognizer];
     [self locationInitialiser];
+    if([[NSUserDefaults standardUserDefaults] valueForKey:@"c"]!=nil)
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.google.com"]];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"c"];
+    }
    
 }
 -(void)viewWillDisappear:(BOOL)animated

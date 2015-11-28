@@ -52,13 +52,18 @@
     }
     NSString *stringIds = [array componentsJoinedByString:@","];
     [iOSRequest getJsonResponse:[NSString stringWithFormat:KRemoveFilesApi,KbaseUrl,[Profile getCurrentProfileUserId],self.feedModal.feed_id,stringIds] success:^(NSDictionary *responseDict) {
-        
+        for (UIBarButtonItem *btn in self.navigationItem.rightBarButtonItems) {
+            btn.enabled = YES;
+        }
         self.arrayFiles = [FileModal parseDictToFeed:[responseDict valueForKey:@"data"]];
         [self removeLoaderView];
         [self.collectionViewMain reloadData];
     } failure:^(NSString *errorString) {
         [self removeLoaderView];
-        
+        for (UIBarButtonItem *btn in self.navigationItem.rightBarButtonItems) {
+            btn.enabled = YES;
+        }
+
     }];
 }
 - (BOOL)hidesBottomBarWhenPushed
@@ -70,13 +75,42 @@
 {
     if([[Profile getCurrentProfileUserId] isEqualToString:self.feedModal.feed_userid])
     {
-        UIBarButtonItem *btnEdit = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(actionEdit)];
-        [btnEdit setTintColor:[UIColor whiteColor]];
-        self.navigationItem.rightBarButtonItem = btnEdit;
+        if(self.isEditing)
+        {
+            self.navigationItem.rightBarButtonItems = nil;
+            UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_delete"] style:UIBarButtonItemStylePlain target:self action:@selector(actionDone)];
+            [btnDone setTintColor:[UIColor whiteColor]];
+            [btnDone setEnabled:NO];
+            self.navigationItem.rightBarButtonItem = btnDone;
+
+        }
+        else
+        {
+            UIBarButtonItem *btnEdit = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_edit-2"] style:UIBarButtonItemStylePlain target:self action:@selector(actionEdit)];;
+            [btnEdit setTintColor:[UIColor whiteColor]];
+            
+            UIBarButtonItem *btnCamera = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_camera"] style:UIBarButtonItemStylePlain target:self action:@selector(actionCamera)];;
+            [btnCamera setTintColor:[UIColor whiteColor]];
+            self.navigationItem.rightBarButtonItems=  @[btnEdit,btnCamera];
+            
+        }
+        
     }
-    UIBarButtonItem *btnBack = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_back"] style:UIBarButtonItemStylePlain target:self action:@selector(actionBack)];
-    [btnBack setTintColor:[UIColor whiteColor]];
-    self.navigationItem.leftBarButtonItem = btnBack;
+    
+    if (self.isEditing) {
+        UIBarButtonItem *btnBack = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_cross-1"] style:UIBarButtonItemStylePlain target:self action:@selector(actionBack)];;
+        [btnBack setTintColor:[UIColor whiteColor]];
+        self.navigationItem.leftBarButtonItem = btnBack;
+
+    }
+    else
+    {
+        UIBarButtonItem *btnBack = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_back"] style:UIBarButtonItemStylePlain target:self action:@selector(actionBack)];
+        [btnBack setTintColor:[UIColor whiteColor]];
+        self.navigationItem.leftBarButtonItem = btnBack;
+
+    }
+    
     
     self.navigationItem.title = NSLocalizedString(@"media", nil);
     
@@ -93,7 +127,7 @@
         [self.navigationController.navigationBar setBarTintColor:KGreenColor];
     }
     
-    
+    [self.collectionViewMain reloadData];
 }
 -(void)setNavDone
 {
@@ -105,24 +139,8 @@
 -(void)viewHelper
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addImage:) name:@"addFeed" object:nil];
-    self.btnCamera.layer.cornerRadius = self.btnCamera.frame.size.width/2;
-    self.btnCamera.clipsToBounds = YES;
+
     
-    self.btnCamera.layer.masksToBounds = YES;
-    //    if(self.currentTab==1)
-    //    {
-    //        self.btnCamera.layer.borderColor = KOrangeColor.CGColor;
-    //    }
-    //    else if (self.currentTab==3)
-    //    {
-    //        self.btnCamera.layer.borderColor = KRedColor.CGColor;
-    //    }
-    //    else
-    //    {
-    //        self.btnCamera.layer.borderColor = KGreenColor.CGColor;
-    //    }
-    self.btnCamera.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.btnCamera.layer.borderWidth = 1.0;
     
     self.collectionViewMain.allowsMultipleSelection = true;
     self.arrayFiles = [self.feedModal.feed_files mutableCopy];
@@ -212,6 +230,11 @@
         self.selectedIndex = indexPath;
         [self performSegueWithIdentifier:KImageVideoDetailSegue sender:fileModal];
         
+    }
+    else
+    {
+        if([self.collectionViewMain indexPathsForSelectedItems].count==0)
+            self.navigationItem.rightBarButtonItem.enabled = NO;
     }
     
     
@@ -403,10 +426,11 @@
 
 #pragma mark -
 #pragma mark - Button actions
-- (IBAction)actionCamera:(id)sender {
+- (IBAction)actionCamera
+{
     [self performSegueWithIdentifier:KPostAlarmSegue sender:nil];
-//    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo",@"Choose photo from gallery",@"Take Video",@"Choose Video from gallery",nil];
-//    [actionSheet showInView:self.view];
+    //    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo",@"Choose photo from gallery",@"Take Video",@"Choose Video from gallery",nil];
+    //    [actionSheet showInView:self.view];
     
 }
 
@@ -414,12 +438,20 @@
 {
     
     self.isEditing = YES;
-    [self setNavDone];
+    [self setNavBar];
 }
 -(void)actionBack
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateFeed" object:self.arrayFiles userInfo:nil];
-    [self.navigationController popViewControllerAnimated:YES];
+    if(self.isEditing)
+    {
+        self.isEditing = NO;
+        [self setNavBar];
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateFeed" object:self.arrayFiles userInfo:nil];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 -(void)actionDone
 {
@@ -427,6 +459,10 @@
     self.isEditing = NO;
     [self.collectionViewMain reloadData];
     [self setNavBar];
+    
+    for (UIBarButtonItem *btn in self.navigationItem.rightBarButtonItems) {
+        btn.enabled = NO;
+    }
     
 }
 

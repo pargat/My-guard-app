@@ -12,6 +12,7 @@
 #import <RMDateSelectionViewController.h>
 #import <RMPickerViewController.h>
 #import "MainTabBarController.h"
+#import "UIImage+Extras.h"
 
 @interface RegisterStep2ViewController : BaseViewController<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
 

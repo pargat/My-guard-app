@@ -113,22 +113,35 @@
 #pragma mark - Request delegate
 -(void)delAcceptOrReject:(BOOL)accept atIndexPath:(NSIndexPath *)indexPath
 {
+    
     NotificationModal *modal = [self.arrayNotifs objectAtIndex:indexPath.row];
-    NSString *type;
-    if([modal.notifType isEqualToString:@"1"])
+    NSString *familyUrl;
+    if(accept)
     {
-        type = @"1";
+        NSString *type;
+        if([modal.notifType isEqualToString:@"1"])
+        {
+            type = @"1";
+        }
+        else
+        {
+            type = @"2";
+        }
+        familyUrl = [NSString stringWithFormat:KAcceptRequest,KbaseUrl,[Profile getCurrentProfileUserId],modal.notifFromUser,type];
     }
     else
     {
-        type = @"2";
+        familyUrl = [NSString stringWithFormat:KCancelRequest,KbaseUrl,[Profile getCurrentProfileUserId],modal.notifFromUser];
+        
+        
+        
     }
-    NSString *familyUrl = [NSString stringWithFormat:KAcceptRequest,KbaseUrl,[Profile getCurrentProfileUserId],modal.notifFromUser,type];
     [iOSRequest getJsonResponse:familyUrl success:^(NSDictionary *responseDict) {
         
     } failure:^(NSString *errorString) {
         
     }];
+    
     [self.arrayNotifs removeObjectAtIndex:indexPath.row];
     [self.tableViewNotifs reloadData];
     [self readNotif:modal.notifId];
@@ -190,7 +203,7 @@
         });
         
         CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        return size.height;
+        return size.height+1;
     }
     else
     {
@@ -206,7 +219,7 @@
             
             [self configureCellRequest:sizingCell atIndexPath:indexPath];
             CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-            return size.height;
+            return size.height+1;
             
         }
         else
@@ -219,7 +232,7 @@
             
             [self configureCell:sizingCell atIndexPath:indexPath];
             CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-            return size.height;
+            return size.height+1;
             
         }
         
@@ -229,6 +242,9 @@
 
 -(void)configureCell:(NotificationSimpleCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+    [cell.labelTitlw setPreferredMaxLayoutWidth:self.view.frame.size.width - 88];
+    [cell.labelDescription setPreferredMaxLayoutWidth:self.view.frame.size.width - 88];
+
     NotificationModal *modal = [self.arrayNotifs objectAtIndex:indexPath.row];
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",modal.notifDp,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
     
@@ -257,7 +273,7 @@
     cell.delegate = self;
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",modal.notifDp,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
     
-   
+    
     
     [cell.labelTitle setText:[self stringByStrippingHTML:modal.notifTitle]];
     [cell.labelTitle setFont:[UIFont systemFontOfSize:14]];
@@ -335,7 +351,7 @@
     {
         OtherProfileViewController *otherVC = (OtherProfileViewController *)segue.destinationViewController;
         NotificationModal *modal = (NotificationModal *)sender;
-        otherVC.stringUserId = modal.notifId;
+        otherVC.stringUserId = modal.notifFromUser;
         otherVC.stringUsername = modal.notifFirstName;
     }
     else if ([segue.identifier isEqualToString:KImageVideoDetailSegue])

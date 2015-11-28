@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavBar];
+    [self.textViewDescription setText:@""];
     // Do any additional setup after loading the view.
     if(self.stringFeedId!= nil)
     {
@@ -26,6 +27,7 @@
     //    [self.collectionViewMain reloadData];
     [self.view setNeedsLayout];
     [self.view layoutIfNeeded];
+    [self tapDetail];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,18 +41,22 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
     [tap setCancelsTouchesInView:NO];
     [self.textViewDescription addGestureRecognizer:tap];
-
+    
 }
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self.collectionViewMain reloadData];
+    self.isLoaded = true;
+    //self.textViewDescription.textContainer.maximumNumberOfLines = 2;
+    
+    
     
 }
 -(void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    if(self.stringFeedId== nil)
+    if(self.stringFeedId== nil&&!self.isLoaded)
     {
         [self.collectionViewMain reloadData];
         [self.collectionViewMain scrollToItemAtIndexPath:self.indexToScroll atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
@@ -60,15 +66,63 @@
 }
 #pragma mark -
 #pragma mark - View helpers
+-(void)tapDetail
+{
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapper)];
+    [self.viewDetails addGestureRecognizer:tapGesture];
+}
+-(void)tapper
+{
+    self.isViewingDescription = false;
+    self.layoutHeight.constant = 128;
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.view layoutIfNeeded];
+        [self.viewOverlay setAlpha:0.0];
+        
+    } completion:^(BOOL finished) {
+        self.textViewDescription.scrollEnabled = NO;
+        [self.viewOverlay setHidden:YES];
+        
+        
+    }];
+    
+    
+}
 -(void)textTapped:(UITapGestureRecognizer *)tapGesture
 {
-    if(self.isViewingDescription)
+    if(self.textViewDescription.contentSize.height/self.textViewDescription.font.lineHeight>2)
     {
-        
-    }
-    else
-    {
-        
+        if(self.isViewingDescription)
+        {
+            [self.viewOverlay setHidden:YES];
+            self.layoutHeight.constant = 128;
+            [UIView animateWithDuration:0.25 animations:^{
+                [self.view layoutIfNeeded];
+                [self.viewOverlay setAlpha:0.0];
+                
+            } completion:^(BOOL finished) {
+                self.textViewDescription.scrollEnabled = NO;
+                
+            }];
+        }
+        else
+        {
+            [self.viewOverlay setHidden:NO];
+            // self.textViewDescription.textContainer.maximumNumberOfLines = 0;
+            self.layoutHeight.constant = self.view.frame.size.height;
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                [self.view layoutIfNeeded];
+                [self.viewOverlay setAlpha:0.5];
+                
+            } completion:^(BOOL finished) {
+                self.textViewDescription.scrollEnabled = YES;
+                
+            }];
+            
+            
+        }
+        self.isViewingDescription = !self.isViewingDescription;
     }
 }
 -(void)getPushAlarm
@@ -80,12 +134,16 @@
         self.arrayFiles = [FileModal parseDictToFeed:[responseDict valueForKeyPath:@"data.files"]];
         if(self.isCommentShow==false)
             [self delCommentClicked:YES indexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        FileModal *modal = [self.arrayFiles objectAtIndex:0];
+        [self.btnComment1 setTitle:[NSString stringWithFormat:@"%@ comments",modal.fileNumberOfComments] forState:UIControlStateNormal];
+        [self.textViewDescription setText:modal.fileDescription];
         [self.collectionViewMain reloadData];
         [self removeLoaderView];
     } failure:^(NSString *errorString) {
         [self removeLoaderView];
     }];
 }
+
 -(void)setNavBar
 {
     [self.navigationItem setTitle:@"GunShot"];
@@ -136,6 +194,11 @@
 
 #pragma mark -
 #pragma mark - Comment delegate
+-(void)delChange
+{
+    self.isCommentShowing = false;
+    
+}
 -(void)delCommentPosted
 {
     NSIndexPath *indexPath = [[self.collectionViewMain indexPathsForVisibleItems] lastObject];
@@ -178,23 +241,35 @@
         
         if(leftOrRight)
         {
-            [self.commentView setFrame:CGRectMake(32, [[UIScreen mainScreen] bounds].size.height-64-self.btnComment1.frame.origin.y+42, 0, 0)];
-            self.commentView.rectToDisappear = CGRectMake(32, [[UIScreen mainScreen] bounds].size.height-64-self.btnComment1.frame.origin.y+42, 0, 0);
+            CGRect rec = CGRectMake(32, [[UIScreen mainScreen] bounds].size.height-self.btnComment1.frame.size.height-32, 0, 0);
+            [self.commentView setFrame:rec];
+            self.commentView.rectToDisappear = rec;
             [self.commentView.imageViewRight setHidden:YES];
             [self.commentView.imageViewLeft setHidden:NO];
+            [UIView animateWithDuration:0.25 animations:^{
+                [self.commentView setFrame:CGRectMake(0, 20,[[UIScreen mainScreen] bounds].size.width , [[UIScreen mainScreen] bounds].size.height-self.btnComment1.frame.size.height-32)];
+                
+                
+            }];
+            
         }
         else
         {
-            [self.commentView setFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width-32, [[UIScreen mainScreen] bounds].size.height-64-self.btnComment1.frame.origin.y+42, 0, 0)];
-            self.commentView.rectToDisappear = CGRectMake([[UIScreen mainScreen] bounds].size.width-32, [[UIScreen mainScreen] bounds].size.height-64-self.btnComment1.frame.origin.y+42, 0, 0);
+            CGRect rec = CGRectMake([[UIScreen mainScreen] bounds].size.width-32, [[UIScreen mainScreen] bounds].size.height-self.btnComment2.frame.size.height-32, 0, 0);
+            [self.commentView setFrame:rec];
+            self.commentView.rectToDisappear = rec;
             [self.commentView.imageViewRight setHidden:NO];
             [self.commentView.imageViewLeft setHidden:YES];
             
-        }
-        [UIView animateWithDuration:0.25 animations:^{
-            [self.commentView setFrame:CGRectMake(0, 20,[[UIScreen mainScreen] bounds].size.width , [[UIScreen mainScreen] bounds].size.height-self.btnComment1.frame.origin.y+12)];
+            [UIView animateWithDuration:0.25 animations:^{
+                [self.commentView setFrame:CGRectMake(0, 20,[[UIScreen mainScreen] bounds].size.width , [[UIScreen mainScreen] bounds].size.height-self.btnComment2.frame.size.height-32)];
+                
+                
+            }];
             
-        }];
+            
+        }
+        NSLog(@"Comment View height %f",self.btnComment1.frame.origin.y);
         self.commentView.delegate = self;
         [[[UIApplication sharedApplication] keyWindow] addSubview:self.commentView];
         [self.commentView setter];
@@ -233,7 +308,7 @@
 {
     FileModal *modal = [self.arrayFiles objectAtIndex:indexPath.row];
     [cell.imageViewMain setImageWithURL:[NSURL URLWithString:modal.fileThumbCumImageLink] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-
+    
     cell.scrollViewMain.minimumZoomScale = 1.0;
     cell.scrollViewMain.maximumZoomScale = 6.0;
     
@@ -251,7 +326,6 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CGSize sizeMake = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
-    NSLog(@"width %f  height %f",sizeMake.width,sizeMake.height);
     return sizeMake;
 }
 
@@ -306,9 +380,11 @@
  */
 
 - (IBAction)actionComment2:(id)sender {
-      [self delCommentClicked:NO indexPath:[[self.collectionViewMain indexPathsForVisibleItems] lastObject]];
+    if(!self.isCommentShowing)
+        [self delCommentClicked:NO indexPath:[[self.collectionViewMain indexPathsForVisibleItems] lastObject]];
 }
 - (IBAction)actionComment1:(id)sender {
-    [self delCommentClicked:YES indexPath:[[self.collectionViewMain indexPathsForVisibleItems] lastObject]];
+    if(!self.isCommentShowing)
+        [self delCommentClicked:YES indexPath:[[self.collectionViewMain indexPathsForVisibleItems] lastObject]];
 }
 @end

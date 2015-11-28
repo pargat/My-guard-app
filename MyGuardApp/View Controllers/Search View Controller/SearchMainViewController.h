@@ -24,6 +24,8 @@
 @property (nonatomic,strong) SearchUserViewController *searchUserVC;
 @property (nonatomic,strong) SearchSafetyViewController *searchSafetyVC;
 @property (nonatomic,strong) SearchFeedViewController *searchFeedVC;
+@property (weak, nonatomic) IBOutlet UIView *viewAd;
+
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutHeightAd;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewAd;

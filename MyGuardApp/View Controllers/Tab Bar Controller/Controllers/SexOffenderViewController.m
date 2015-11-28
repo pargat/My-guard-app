@@ -23,13 +23,13 @@
     [self.tableViewOffenders setDelegate:self];
     [self.tableViewOffenders setDataSource:self];
     [self setUpLoaderView];
-    [self getOffenders];
+    //[self getOffenders];
     self.searchBar = [[UISearchBar alloc] init];
     [self.searchBar setDelegate:self];
     [self.searchBar setShowsCancelButton:YES];
     [self.searchBar setTintColor:[UIColor whiteColor]];
     [self.tableViewOffenders setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
-    [self setInAppThing];
+    //[self setInAppThing];
     // Do any additional setup after loading the view.
 }
 
@@ -75,6 +75,10 @@
                     [self.arraySearch addObject:modal];
                     
                 }
+                else if ([modal.offenderFirstName containsString:self.searchBar.text])
+                {
+                    [self.arraySearch addObject:modal];
+                }
             }
             else
             {
@@ -84,7 +88,12 @@
                     [self.arraySearch addObject:modal];
                     
                 }
-                
+                else if ([modal.offenderFirstName rangeOfString:self.searchBar.text].length != 0) {
+                    
+                    [self.arraySearch addObject:modal];
+                    
+                }
+
             }
             
         }
@@ -139,7 +148,9 @@
 }
 -(void)getOffenders
 {
-    [SexOffender callAPIForSexOffenders:@"http://services.familywatchdog.us/json/json.asp?key=YOUR-KEY-HERE&lite=0&type=searchbylatlong&minlat=39.9537592&maxlat=39.9557592&minlong=-75.2694439&maxlong=-75.2654439" Params:nil success:^(NSMutableArray *offenderArr) {
+    LOcationUpdater *loc = [LOcationUpdater sharedManager];
+    NSArray *array = [self getBoundingBox:10 lat:loc.currentLoc.coordinate.latitude lon:loc.currentLoc.coordinate.longitude];
+    [SexOffender callAPIForSexOffenders:[ NSString stringWithFormat:@"http://services.familywatchdog.us/json/json.asp?key=%@&lite=0&type=searchbylatlong&minlat=%@&maxlat=%@&minlong=%@&maxlong=%@",KSEXKEY,[array objectAtIndex:0],[array objectAtIndex:1],[array objectAtIndex:2],[array objectAtIndex:3]] Params:nil success:^(NSMutableArray *offenderArr) {
         self.arraySexOffender = [NSMutableArray arrayWithArray:offenderArr];
         [self.tableViewOffenders reloadData];
         [self removeLoaderView];
@@ -178,6 +189,8 @@
         
         UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
         [btnProfile setTintColor:[UIColor whiteColor]];
+        btnProfile.customView.clipsToBounds = YES;
+
         self.navigationItem.leftBarButtonItem = btnProfile;
         
     }
@@ -206,17 +219,19 @@
                 UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
                 [btnProfile setTintColor:[UIColor whiteColor]];
                 self.navigationItem.leftBarButtonItem = btnProfile;
+                btnProfile.customView.clipsToBounds = YES;
+
             });
             
         });
     }
     
-    if([[NSUserDefaults standardUserDefaults] valueForKey:@"purchased"]!=nil)
-    {
+//    if([[NSUserDefaults standardUserDefaults] valueForKey:@"purchased"]!=nil)
+//    {
         UIBarButtonItem *btnSearch = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(actionSearch)];
         [btnSearch setTintColor:[UIColor whiteColor]];
         self.navigationItem.rightBarButtonItem = btnSearch;
-    }
+  //  }
     
     self.navigationItem.titleView = nil;
     
@@ -239,7 +254,7 @@
     double lon1 = lon - (M_PI/180) *(kilometers / R / cos(lat*180/M_PI));
     double lat2 = lat + (M_PI/180) *(kilometers / R);
     double lon2 = lon +(M_PI/180) *(kilometers / R / cos(lat*180/M_PI));
-    return @[[NSString stringWithFormat:@"%f",lat1],[NSString stringWithFormat:@"%f",lon1],[NSString stringWithFormat:@"%f",lat2],[NSString stringWithFormat:@"%f",lon2]];
+    return @[[NSString stringWithFormat:@"%f",lat1],[NSString stringWithFormat:@"%f",lat2],[NSString stringWithFormat:@"%f",lon1],[NSString stringWithFormat:@"%f",lon2]];
 }
 
 

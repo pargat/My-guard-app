@@ -32,4 +32,8 @@
     }
 
 }
++(NSString *)getFullImage:(NSString *)stringLink view:(UIView *)view
+{
+   return [NSString stringWithFormat:@"%@&w=%f&h=%f",stringLink,view.frame.size.width*DisplayScale,view.frame.size.height*DisplayScale];
+}
 @end

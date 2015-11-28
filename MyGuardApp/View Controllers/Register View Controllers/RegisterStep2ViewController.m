@@ -91,6 +91,7 @@
 #pragma mark - Helpers
 -(void)hitSignUp
 {
+    self.btnSignUp.enabled = NO;
     [self setUpLoaderView];
     NSData *imageData;
     if(self.isImageSelected)
@@ -106,9 +107,11 @@
             [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"FirstGuide"];
         }
         [self removeLoaderView];
+        self.btnSignUp.enabled = YES;
         
     } failure:^(NSError *error) {
         [self removeLoaderView];
+        self.btnSignUp.enabled = YES;
     }];
 }
 -(NSDictionary *)formatDataBeforeSending
@@ -116,7 +119,7 @@
     
     NSMutableDictionary *formattedDict = [NSMutableDictionary new];
     [formattedDict setObject:self.stringEmail forKey:@"email"];
-    [formattedDict setObject:self.textFieldUser.text forKey:@"username"];
+    [formattedDict setObject:[self.textFieldUser.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] forKey:@"username"];
     [formattedDict setObject:self.stringPassword forKey:@"password"];
     
     [formattedDict setObject:[self.textFieldFirstName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] forKey:@"firstname"];
@@ -125,7 +128,7 @@
         [formattedDict setObject:[self.textFieldTypeOFDisability.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]  forKey:@"disability"];
     else
         [formattedDict setObject:@"none" forKey:@"disability"];
-    [formattedDict setObject:self.textFieldCode.text forKey:@"code"];
+    [formattedDict setObject:[self.textFieldCode.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] forKey:@"code"];
     [formattedDict setObject:(self.segmentedControlGender.selectedSegmentIndex == 0? @"male" : @"female") forKey:@"gender"];
     [formattedDict setObject:self.stringDob forKey:@"dob"];
     
@@ -145,10 +148,10 @@
     NSString *usernameString=@"";
     
     
-    NSString *userNameRegex = @"[A-Za-z]+[A-Za-z0-9]{3,39}";
-    NSPredicate *userTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", userNameRegex];
-    BOOL isValidUsername = [userTest  evaluateWithObject:userName];
-    if(!isValidUsername)
+//    NSString *userNameRegex = @"[A-Za-z]+[A-Za-z0-9]{3,39}";
+//    NSPredicate *userTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", userNameRegex];
+//    BOOL isValidUsername = [userTest  evaluateWithObject:userName];
+    if([self.textFieldUser.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length==0)
     {
         usernameString = @"Please enter a valid username";
     }
@@ -158,7 +161,7 @@
 -(NSString *)validateForm
 {
     NSString *msg ;
-    if (![[self validateUsername:self.textFieldUser.text] isEqualToString:@""])
+    if (![[self validateUsername:[self.textFieldUser.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]] isEqualToString:@""])
     {
         msg = [self validateUsername:self.textFieldUser.text] ;
     }
@@ -171,8 +174,8 @@
     else if (self.stringDob==nil)
         msg = @"Please enter your date of birth" ;
     
-    else if (self.textFieldCode.text.length == 0)
-        msg = @"Please enter your code" ;
+//    else if (self.textFieldCode.text.length == 0)
+//        msg = @"Please enter your code" ;
     
     return msg;
 }
@@ -346,6 +349,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    chosenImage = [chosenImage imageByScalingAndCroppingForSize:chosenImage.size];
     self.imageViewDp.image = chosenImage;
     self.isImageSelected = true;
     [picker dismissViewControllerAnimated:YES completion:^{

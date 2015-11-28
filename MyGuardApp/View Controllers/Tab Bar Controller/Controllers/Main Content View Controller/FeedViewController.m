@@ -52,7 +52,13 @@
     NSMutableArray *arrayMut = [NSMutableArray arrayWithArray:feed.feed_files];
     [arrayMut insertObject:[[FileModal alloc] initWithAttributes:dict]   atIndex:0];
     feed.feed_files = [NSArray arrayWithArray:arrayMut];
-    [self.tableViewFeeds reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+    @try {
+        [self.tableViewFeeds reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    @catch (NSException *exception) {
+        
+    }
+
 }
 -(void)updateFeed:(NSNotification *)notification
 {
@@ -113,7 +119,7 @@
     
     
     Profile *profileD = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
-    NSString *strUrl = [NSString stringWithFormat:KGetAlarms,KbaseUrl,profileD.profileUserId,self.feedType,self.pageIndex,TIMEOFFSET];
+    NSString *strUrl = [NSString stringWithFormat:KGetAlarms,KbaseUrl,profileD.profileUserId,self.feedType,self.pageIndex,(long)[[NSTimeZone localTimeZone] secondsFromGMT]];
     
     [FeedModal callAPIForFeed:strUrl Params:nil success:^(NSMutableArray *feedArr) {
         
@@ -350,182 +356,10 @@
     }
 
     [cell.btnCommentCount setTitle:[NSString stringWithFormat:@" %@",fileModal.fileNumberOfComments] forState:UIControlStateNormal];
-    [cell.imageViewMap sd_setImageWithURL:[NSURL URLWithString:fileModal.fileThumbCumImageLink]];
+    [cell.imageViewMap sd_setImageWithURL:[NSURL URLWithString:[CommonFunctions getFullImage:fileModal.fileThumbCumImageLink view:cell.imageViewMap] ]];
     
 }
 
-
-#pragma mark -
-#pragma mark - Action Sheet Delegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
-    [pickerController setDelegate:self];
-    
-    if(buttonIndex==0)
-    {
-        pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        
-        pickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
-        
-    }
-    
-    if(buttonIndex==1)
-    {
-        pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary|UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-        
-        pickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
-    }
-    if(buttonIndex==2)
-    {
-        pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        pickerController.videoQuality = UIImagePickerControllerQualityTypeMedium;
-        pickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie,nil];
-    }
-    if(buttonIndex==3)
-    {
-        
-        pickerController.videoQuality = UIImagePickerControllerQualityTypeMedium;
-        pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary|UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-        pickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie,nil];
-        
-    }
-    if(buttonIndex==4)
-    {
-        return;
-    }
-    [self presentViewController:pickerController animated:YES completion:^{
-        
-    }];
-    
-}
-
-#pragma mark -
-#pragma mark - image picker delegate
--(UIImage *)generateThumbImage : (NSURL *)url
-{
-    AVAsset *asset = [AVAsset assetWithURL:url];
-    AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
-    CMTime time = [asset duration];
-    time.value = 1;
-    CGImageRef imageRef = [imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
-    UIImage *thumbnail = [UIImage imageWithCGImage:imageRef];
-    CGImageRelease(imageRef);  // CGImageRef won't be released by ARC
-    
-    return thumbnail;
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    
-    
-    FeedModal *feed = [self.arrayFeeds objectAtIndex:self.selectedIndex.row];
-    
-    [self setUpLoaderView1];
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    
-    NSString *mediaType = [info valueForKey:UIImagePickerControllerMediaType];
-    
-    
-    if([mediaType isEqualToString:(NSString *)kUTTypeImage])
-    {
-        
-        CGSize size = CGSizeMake(600, 800);
-        
-        UIImage *imageOriginal = [info valueForKey:UIImagePickerControllerOriginalImage];
-        imageOriginal = [imageOriginal imageByScalingAndCroppingForSize:size];
-        NSData *imageData = UIImageJPEGRepresentation(imageOriginal, 0.5);
-        
-        NSDictionary *dict = @{@"id":feed.feed_id,@"user_id":[Profile getCurrentProfileUserId]};
-        [iOSRequest postImageAlarm:[NSString stringWithFormat:KUpdateAlarm,KbaseUrl] parameters:dict imageData:imageData success:^(NSDictionary *responseStr) {
-            
-            NSMutableArray *arrayMut = [NSMutableArray arrayWithArray:feed.feed_files];
-            [arrayMut insertObject:[[FileModal alloc] initWithAttributes:[[responseStr valueForKey:@"data"] objectAtIndex:0] ]  atIndex:0];
-            feed.feed_files = [NSArray arrayWithArray:arrayMut];
-            [self.tableViewFeeds reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self removeLoaderView];
-            
-        } failure:^(NSError *error) {
-            [self removeLoaderView];        }];
-    }
-    
-    else
-    {
-        NSURL *url1 = [info objectForKey:
-                       UIImagePickerControllerMediaURL] ;
-        
-        AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:url1 options:nil];
-        AVAssetExportSession *exportSession = [[AVAssetExportSession alloc]initWithAsset:avAsset presetName:AVAssetExportPresetLowQuality];
-        
-        
-        NSString *tmpDirectory = NSTemporaryDirectory();
-        
-        NSString *tmpFile = [tmpDirectory stringByAppendingPathComponent:@"crazy11"];
-        [[NSFileManager defaultManager] removeItemAtPath:tmpFile error:nil];
-        
-        exportSession.outputURL = [NSURL fileURLWithPath:tmpFile];
-        //set the output file format if you want to make it in other file format (ex .3gp)
-        exportSession.outputFileType = AVFileTypeMPEG4;
-        exportSession.shouldOptimizeForNetworkUse = YES;
-        
-        [exportSession exportAsynchronouslyWithCompletionHandler:^{
-            switch ([exportSession status])
-            {
-                case AVAssetExportSessionStatusFailed:
-                    NSLog(@"Export session failed");
-                    break;
-                case AVAssetExportSessionStatusCancelled:
-                    NSLog(@"Export canceled");
-                    break;
-                case AVAssetExportSessionStatusCompleted:
-                {
-                    //Video conversion finished
-                    NSLog(@"Successful!");
-                    
-                    NSData *videoData = [NSData dataWithContentsOfFile:tmpFile];
-                    NSDictionary *dict = @{@"id":feed.feed_id,@"user_id":[Profile getCurrentProfileUserId],@"duration":[NSString stringWithFormat:@"%f",CMTimeGetSeconds(avAsset.duration)
-                                                                                                                        ]};
-                    [[NSFileManager defaultManager] removeItemAtPath:tmpFile error:nil];
-                    
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-                        UIImage *thumbImage = [self generateThumbImage:[info objectForKey:
-                                                                        UIImagePickerControllerMediaURL]];
-                        thumbImage = [thumbImage imageByScalingAndCroppingForSize:thumbImage.size];
-                        NSData *thumbData = UIImageJPEGRepresentation(thumbImage, 1);
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            
-                            [iOSRequest postVideoAlarm:[NSString stringWithFormat:KUpdateAlarm,KbaseUrl] parameters:dict videoData:videoData thumbData:thumbData success:^(NSDictionary *responseStr) {
-                                
-                                NSMutableArray *arrayMut = [NSMutableArray arrayWithArray:feed.feed_files];
-                                [arrayMut insertObject:[[FileModal alloc] initWithAttributes:[[responseStr valueForKey:@"data"] objectAtIndex:0] ]  atIndex:0];
-                                
-                                feed.feed_files = [NSArray arrayWithArray:arrayMut];
-                                [self.tableViewFeeds reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
-                                [self removeLoaderView];
-                            } failure:^(NSError *error) {
-                                [self removeLoaderView];
-                            }];
-                            
-                            
-                        });
-                    });
-                    
-                }
-                    break;
-                default:
-                    break;
-            }
-        }];
-        
-        
-        
-        
-        
-    }
-    
-    
-    
-}
 
 
 

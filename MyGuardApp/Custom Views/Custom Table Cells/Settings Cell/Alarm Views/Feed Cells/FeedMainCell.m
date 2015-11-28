@@ -69,14 +69,14 @@
     FileModal *modal = [self.arrayFiles objectAtIndex:indexPath.row];
     if(modal.fileType)
     {
-        [cell.imageViewM sd_setImageWithURL:[NSURL URLWithString:modal.fileThumbCumImageLink] placeholderImage:[UIImage imageNamed:@"video.png"]];
+        [cell.imageViewM sd_setImageWithURL:[NSURL URLWithString:[CommonFunctions getFullImage:modal.fileThumbCumImageLink view:cell.imageViewM]] placeholderImage:[UIImage imageNamed:@"video.png"]];
         [cell.btnVideo setHidden:NO];
         [cell.btnVideo setTitle:modal.fileDuration forState:UIControlStateNormal];
     
     }
     else
     {
-        [cell.imageViewM sd_setImageWithURL:[NSURL URLWithString:modal.fileThumbCumImageLink] placeholderImage:[UIImage imageNamed:@"defaultImg80.png"]];
+        [cell.imageViewM sd_setImageWithURL:[NSURL URLWithString:[CommonFunctions getFullImage:modal.fileThumbCumImageLink view:cell.imageViewM]] placeholderImage:[UIImage imageNamed:@"defaultImg80.png"]];
         [cell.btnVideo setHidden:YES];
 
     }

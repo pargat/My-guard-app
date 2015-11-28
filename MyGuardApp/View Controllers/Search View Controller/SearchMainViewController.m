@@ -41,6 +41,8 @@
 #pragma mark - View Helpers
 -(void)fetchAd
 {
+    self.viewAd.layer.borderWidth = 1.0;
+    self.viewAd.layer.borderColor = [UIColor colorWithWhite:0 alpha:0.1].CGColor;
     [iOSRequest getJsonResponse:[NSString stringWithFormat:KGetAdvertisment,KbaseUrl] success:^(NSDictionary *responseDict) {
         if([responseDict valueForKeyPath:@"data.image"] !=(id)[NSNull null])
         {
@@ -57,6 +59,7 @@
 {
     self.layoutHeightAd.constant = self.view.frame.size.width/3;
     self.dictAd = dict;
+    
 }
 -(void)viewHelper
 {

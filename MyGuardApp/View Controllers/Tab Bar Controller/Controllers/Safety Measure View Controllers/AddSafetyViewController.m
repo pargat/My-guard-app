@@ -107,7 +107,7 @@
     {
         type = @"2";
     }
-    
+     self.navigationItem.rightBarButtonItem.enabled = NO;
     [iOSRequest getJsonResponse:[NSString stringWithFormat:KAddSafetyMeasureApi,KbaseUrl,[Profile getCurrentProfileUserId],type,[self.textViewDescription.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]] success:^(NSDictionary *responseDict) {
         [self removeLoaderView];
         [self showStaticAlert:@"Success" message:@"Safety measure added successfully"];

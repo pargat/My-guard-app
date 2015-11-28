@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyGuardApp/View Controllers/Other Profile View Controllers/OtherProfileViewController.m"
-            timestampString = "468616041.477573"
+            timestampString = "470328496.666892"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "350"
-            endingLineNumber = "350"
+            startingLineNumber = "406"
+            endingLineNumber = "406"
             landmarkName = "-actionAddFamily:"
             landmarkType = "5">
             <Locations>
@@ -36,12 +36,12 @@
                   moduleName = "MyGuardApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/View%20Controllers/Other%20Profile%20View%20Controllers/OtherProfileViewController.m"
-                  timestampString = "470070073.62998"
+                  timestampString = "470431123.28979"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "352"
-                  endingLineNumber = "352"
-                  offsetFromSymbolStart = "1776">
+                  startingLineNumber = "408"
+                  endingLineNumber = "408"
+                  offsetFromSymbolStart = "2140">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -51,11 +51,11 @@
                   moduleName = "MyGuardApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/View%20Controllers/Other%20Profile%20View%20Controllers/OtherProfileViewController.m"
-                  timestampString = "470070073.630408"
+                  timestampString = "470431123.290396"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "352"
-                  endingLineNumber = "352"
+                  startingLineNumber = "408"
+                  endingLineNumber = "408"
                   offsetFromSymbolStart = "48">
                </Location>
             </Locations>
@@ -82,11 +82,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyGuardApp/View Controllers/Tab Bar Controller/MainTabBarController.m"
-            timestampString = "469024622.380556"
+            timestampString = "470435301.716487"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "949"
-            endingLineNumber = "949"
+            startingLineNumber = "962"
+            endingLineNumber = "962"
             landmarkName = "-handleTimer:"
             landmarkType = "5">
          </BreakpointContent>
@@ -114,7 +114,7 @@
                   moduleName = "MyGuardApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/Custom%20Views/Custom%20Table%20Cells/Settings%20Cell/Alarm%20Views/WaveAnimationView.m"
-                  timestampString = "470070073.633452"
+                  timestampString = "470431123.299182"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "107"
@@ -129,7 +129,7 @@
                   moduleName = "MyGuardApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/Custom%20Views/Custom%20Table%20Cells/Settings%20Cell/Alarm%20Views/WaveAnimationView.m"
-                  timestampString = "470070073.633743"
+                  timestampString = "470431123.299506"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "107"
@@ -210,22 +210,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyGuardApp/View Controllers/Tab Bar Controller/Controllers/Vendors/In app purchase/IAPHelper.m"
-            timestampString = "469953470.731166"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "-productsRequest:didReceiveResponse:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyGuardApp/View Controllers/Tab Bar Controller/Controllers/Vendors/In app purchase/IAPHelper.m"
             timestampString = "469953483.046902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -241,13 +225,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MyGuardApp/View Controllers/Search View Controller/SearchMainViewController.m"
-            timestampString = "469976192.631943"
+            filePath = "MyGuardApp/View Controllers/Map View Controllers/Sound View Controllers/SoundRecordViewController.m"
+            timestampString = "470215231.774208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "-searchBarTextDidEndEditing:"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "-copyFile:toLocation:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -257,13 +241,157 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MyGuardApp/View Controllers/Image and Video Details View Controllers/ImageVideoViewController.m"
-            timestampString = "470069957.836756"
+            filePath = "MyGuardApp/View Controllers/Tab Bar Controller/Controllers/SexOffenderViewController.m"
+            timestampString = "470244300.818685"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "-addImage:"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "-getOffenders"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SexOffenderViewController getOffenders]"
+                  moduleName = "MyGuardApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/View%20Controllers/Tab%20Bar%20Controller/Controllers/SexOffenderViewController.m"
+                  timestampString = "470431123.308385"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "153"
+                  endingLineNumber = "153"
+                  offsetFromSymbolStart = "328">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__41-[SexOffenderViewController getOffenders]_block_invoke"
+                  moduleName = "MyGuardApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/View%20Controllers/Tab%20Bar%20Controller/Controllers/SexOffenderViewController.m"
+                  timestampString = "470431123.308791"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "153"
+                  endingLineNumber = "153"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyGuardApp/Modals/Sex Offender/SexOffender.m"
+            timestampString = "470225692.09291"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "+callAPIForSexOffenders:Params:success:failure:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[SexOffender callAPIForSexOffenders:Params:success:failure:]"
+                  moduleName = "MyGuardApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/Modals/Sex%20Offender/SexOffender.m"
+                  timestampString = "470431123.310606"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "184">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__61+[SexOffender callAPIForSexOffenders:Params:success:failure:]_block_invoke"
+                  moduleName = "MyGuardApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vishnu/Desktop/MyGuardApp/MyGuardApp/Modals/Sex%20Offender/SexOffender.m"
+                  timestampString = "470431123.311001"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyGuardApp/View Controllers/Tab Bar Controller/Controllers/Safety Measure View Controllers/Edit Profile View Controller/EditProfileViewController.m"
+            timestampString = "470230607.034597"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "-setDefaultValues"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyGuardApp/View Controllers/Search View Controller/SearchFeedViewController.m"
+            timestampString = "470248684.782538"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "541"
+            endingLineNumber = "541"
+            landmarkName = "-prepareForSegue:sender:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyGuardApp/View Controllers/Tab Bar Controller/Controllers/Notification View Controller/NotificationViewController.m"
+            timestampString = "470417704.569971"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
+            landmarkName = "-configureCellRequest:atIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyGuardApp/View Controllers/Tab Bar Controller/Controllers/Notification View Controller/NotificationViewController.m"
+            timestampString = "470417704.569971"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
+            landmarkName = "-configureCell:atIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

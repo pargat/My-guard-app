@@ -13,7 +13,7 @@
 #import <RMDateSelectionViewController.h>
 #import "BaseViewController.h"
 #import "LOcationUpdater.h"
-
+#import "UIImage+Extras.h"
 
 @interface EditProfileViewController : BaseViewController<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
 

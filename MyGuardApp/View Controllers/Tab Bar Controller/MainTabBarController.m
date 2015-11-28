@@ -206,7 +206,14 @@ int previousFreq=0;
     if(self.isFirstTime)
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"video_permission", nil) delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        alertView.tag = 1;
         [alertView show];
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"sex_permission", nil) delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+            alertView.tag = 2;
+            [alertView show];
+
+        }
         self.isFirstTime = NO;
     }
     
@@ -241,11 +248,17 @@ int previousFreq=0;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex==0) {
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"video_permission"];
+        if(alertView.tag==1)
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"video_permission"];
+        else
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"sex_permission"];
     }
     else
     {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"video_permission"];
+        if(alertView.tag==1)
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"video_permission"];
+        else
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sex_permission"];
     }
 }
 

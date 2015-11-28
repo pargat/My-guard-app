@@ -24,6 +24,10 @@
 @property (nonatomic,strong) NSString *stringUserId;
 @property (nonatomic,strong) Profile *myProfile;
 @property (nonatomic, strong) NSMutableArray *arraySafety;
+@property (weak, nonatomic) IBOutlet UIView *viewLine;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutWidthView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutWidthBtn2;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutWidthBtn1;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewProfile;
 @property (weak, nonatomic) IBOutlet UIView *viewButtonHolder;

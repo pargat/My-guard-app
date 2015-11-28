@@ -14,7 +14,7 @@
 
 @interface DemoDetectViewController : UIViewController<EZMicrophoneDelegate>
 
-@property (nonatomic,strong) EZMicrophone *microphone;
+@property (nonatomic,retain) EZMicrophone *microphone;
 @property (weak, nonatomic) IBOutlet UILabel *labrlTitle;
 @property (weak, nonatomic) IBOutlet UILabel *labelDescription;
 @property (weak, nonatomic) IBOutlet UIButton *btnClickhere;

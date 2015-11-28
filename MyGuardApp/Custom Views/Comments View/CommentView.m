@@ -17,7 +17,7 @@
     if (self)
     {
         self = [[[NSBundle mainBundle] loadNibNamed:@"CommentView" owner:self options:nil] lastObject];
-     
+        [self.labelNoComments setHidden:YES];
     }
     
     return self;
@@ -25,6 +25,7 @@
 }
 -(void)setter
 {
+    [self.labelNoComments setText:NSLocalizedString(@"no_comments", nil)];
     [self.btnSend setEnabled:NO];
     [self.textFieldComment setDelegate:self];
     [self.tableViewComments setDelegate:self];
@@ -46,10 +47,22 @@
 #pragma mark - Api related functions
 -(void)fetchComments
 {
+    [self setUpLoaderView];
     [CommentModal callAPIForComments:[NSString stringWithFormat:KGetCommentApi,KbaseUrl,[Profile getCurrentProfileUserId],self.image_id,self.feed_id] Params:nil success:^(NSMutableArray *commentsArr) {
+        
         self.arrayComments = [commentsArr mutableCopy];
-        [self.tableViewComments reloadData];;
+        if(self.arrayComments.count==0)
+        {
+            [self.labelNoComments setHidden:NO];
+        }
+        else
+        {
+            [self.labelNoComments setHidden:YES];
+        }
+        [self.tableViewComments reloadData];
+        [self removeLoaderView];
     } failure:^(NSString *errorStr) {
+        [self removeLoaderView];
         
     }];
 }
@@ -140,7 +153,7 @@
     NSDictionary* info = [aNotification userInfo];
     
     CGRect kbRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.layoutBottomSpace.constant = kbRect.size.height;
+    self.layoutBottomSpace.constant = kbRect.size.height-54;
     [UIView animateWithDuration:0.5 animations:^{
         [self layoutIfNeeded];
     }
@@ -155,7 +168,7 @@
 
 {
     
-    self.layoutBottomSpace.constant = 54;
+    self.layoutBottomSpace.constant = 0;
     [UIView animateWithDuration:0.5 animations:^{
         [self layoutIfNeeded];
     }];
@@ -271,7 +284,7 @@
 
 - (IBAction)actionBAck:(id)sender {
     [self.textFieldComment resignFirstResponder];
-    
+    [self.delegate delChange];
     
     [UIView animateWithDuration:0.25 animations:^{
         [self setFrame:self.rectToDisappear];
@@ -284,4 +297,25 @@
     }];
 
 }
+
+#pragma mark - Loader
+-(void)setUpLoaderView
+{
+    [self.loaderObj removeFromSuperview];
+    self.loaderObj = [[JTMaterialSpinner alloc] init];
+    self.loaderObj.frame = CGRectMake(self.frame.size.width/2-20, self.frame.size.height/2-20, 40, 40);
+    self.loaderObj.circleLayer.lineWidth = 2.0;
+    
+    self.loaderObj.circleLayer.strokeColor = KPurpleColor.CGColor;
+    [[UIApplication sharedApplication].keyWindow addSubview:self.loaderObj];
+    [self.loaderObj beginRefreshing];
+}
+
+-(void)removeLoaderView
+{
+    [self setUserInteractionEnabled:YES];
+    [self.loaderObj removeFromSuperview];
+    [self.loaderObj endRefreshing];
+}
+
 @end

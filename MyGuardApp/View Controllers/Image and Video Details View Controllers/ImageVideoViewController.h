@@ -30,8 +30,5 @@
 @property (nonatomic,strong) FeedModal *feedModal;
 @property (nonatomic,strong) NSMutableArray *arrayFiles;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionViewMain;
-@property (weak, nonatomic) IBOutlet UIButton *btnCamera;
-
-- (IBAction)actionCamera:(id)sender;
 
 @end

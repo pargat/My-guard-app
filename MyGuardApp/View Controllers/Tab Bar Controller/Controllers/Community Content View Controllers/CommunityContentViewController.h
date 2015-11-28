@@ -20,6 +20,7 @@
 #import "BaseViewController.h"
 #import <SVPullToRefresh.h>
 
+
 @interface CommunityContentViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) NSMutableArray *arraySearch;
@@ -27,6 +28,7 @@
 @property COMMUNITYTAB currentTab;
 @property(nonatomic,strong) NSMutableArray *arrayCommunity;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewCommunity;
+@property (weak, nonatomic) IBOutlet UILabel *labelCommunity;
 
 
 

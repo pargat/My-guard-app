@@ -6,6 +6,105 @@
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
 
+//Comments
+"no_comments" = "Sin comentarios";
+
+//Profile
+"remove_friend" = "Eliminar amigo";
+
+
+
+//community
+"community_no_code" = "Por favor, sólo agregar usuarios que vive dentro de su complejo de edificios y vecinos cercanos";
+
+//sex offender
+"sex_alert_description" = "";
+"sex_premium" = "Función Premium";
+"sex_description" = "Esta es una característica premium de guardia. Para activarlo, por favor, compre la compra in-app";
+"sex_activate" = "Activar";
+
+//Custom alert sound screens
+"alert_sound_for" = "Sonido de alerta para";
+"customise_alert" = "Personalice alertas";
+"customise_tap_below" = "Pulse abajo para cambiar alertas por defecto.";
+"tap_to_change" = "Pulse para grabar un nuevo sonido";
+"record" = "Grabar";
+
+
+
+//general
+"group" = "GRUPO";
+"admin" = "Mensaje de administración";
+"video_permission" = "¿Quiere que le enviemos video en vivo cuando se levanta la alarma?";
+"sex_permission" = "¿Quieres que notifiquemos cuando agresor sexual está cerca?";
+"user_search" = "USUARIOS";
+
+//Post
+"new_post" = "Nueva entrada";
+"post" = "Enviar";
+
+//User
+
+//Notification Screen
+"alert" = "alertas";
+"clear_all" = "Limpiar todo";
+
+//Profile Screen
+"friend" = "Amigo";
+"add_friend" = "Agregar como amigo";
+"add_family" = "Añadir a la familia";
+"friends_p" = "Eliminar amigo";
+"family_p" = "Retire la familia";
+"friend_r" = "enviada";
+"friend_pen" = "confirme amigo";
+"friend_pen_r" = "rechazar amigo";
+
+"family_r" = "Petición de la familia envió";
+"family_pen" = "confirme la familia";
+"family_pen_r" = "rechazar familia";
+
+
+//Demo Screens
+"demo_recorder_title" = "la grabación del anuncio";
+"demo_recorder" = "Por favor, grabar el sonido del detector y enviarlo por correo a nosotros para que podamos añadir soporte para ello.";
+"bring_your_phone" = "Lleve su teléfono cerca de una alarma dentro de los 60 pies. Mientras se está a tope y esperar a que el teléfono para detectar la alarma.";
+"detect_alarm_title" = "La detección de la alarma";
+"detect_alarm_description" = "Espere a que el teléfono para detectar la alarm.It puede tardar unos segundos.";
+
+
+
+//Info video screen and next screens
+
+"video" = "Vídeo";
+"map" = "Mapa";
+//Alert strings
+"email_not_available" = "Correo ya está registrado";
+
+//Register screen
+"first_name" = "Nombre de pila";
+"last_name" = "Apellido";
+"code" = "Código";
+"select_dob" = "Seleccione Fecha de Nacimiento";
+"already_member" = "ya eres miembro?";
+"sign_in" = "registrarse";
+"details" = "Detalles";
+
+//Image detail
+"media" = "Medios de comunicación";
+
+//Sound Screens
+"alert_sounds" = "sonidos de alerta";
+
+
+//Emergency Screen
+"emergency_screen_title" = "teléfono de emergencia";
+
+//Sex offenders screen
+"restore_purchase" = "Restaurar compra";
+"sex_offender_title" = "Delincuentes Sexuales";
+
+
+
 //Alarm overlay
 "raising" = "levantamiento";
 "fire_alarm" = "Alarma de incendios";
@@ -13,26 +112,26 @@
 "co_alarm" = "CO alarma";
 
 //Add safety
-"type_here" = "Type here";
-"add_to" = "ADD TO";
-"safety_fire" = "Fire Alarm";
-"safety_gun" = "Gun Shot";
-"safety_co" = "Carbon Monoxide";
+"type_here" = "Escribe aquí";
+"add_to" = "AÑADIR A";
+"safety_fire" = "Alarma de incendios";
+"safety_gun" = "Cañonazo";
+"safety_co" = "Monóxido de carbono";
 
 // Settings
-"demo" = "Demo";
-"custom_alert_description" = "Customize alert sound for fire, gunshot and co.";
+"demo" = "Manifestación";
+"custom_alert_description" = "Personaliza sonido de alerta para el fuego, arma de fuego y co.";
 "user_guide_des" = "Having trouble using the app?";
 
 
 //My profile
-"my_profile" = "My Profile";
+"my_profile" = "Mi perfil";
 
 
 
 "fire_walk" = "Fire walk fire walk through fire walk through";
 "skip_walkthrough_btn" = "Saltar tutorial";
-"action_settings"="Settings";
+"action_settings"="Ajustes";
 "hello_blank_fragment"="Hello blank fragment";
 "title_activity_demo"="DemoActivity";
 "_emergency_message"="Ayuda! Estoy en Peligro";

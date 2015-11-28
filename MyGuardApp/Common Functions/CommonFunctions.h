@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
+#import <UIKit/UIKit.h>
+#import "ApiConstants.h"
 
 @interface CommonFunctions : NSObject
 
 +(void)videoPlay;
 +(void)recordAudio;
++(NSString *)getFullImage:(NSString *)stringLink view:(UIView *)view;
 
 @end
