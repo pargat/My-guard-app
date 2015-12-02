@@ -135,7 +135,9 @@ int previousFreq=0;
     _fftBuf = (float *)malloc(sizeof(float)*FFTLEN);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performPushForeground:) name:@"pushForeground" object:nil];
-    
+    [self checkLocationStatus];
+        [[NSUserDefaults standardUserDefaults] rm_setCustomObject:nil forKey:@"sex_loc"];
+         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"sex_loc"];
     
 }
 
@@ -162,6 +164,20 @@ int previousFreq=0;
 
 #pragma mark -
 #pragma mark - View Helpers and observers
+-(void)checkLocationStatus
+{
+    if([CLLocationManager authorizationStatus]==kCLAuthorizationStatusDenied)
+    {
+        
+        UIAlertView *Alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"location_disabled", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"open_settings", nil), nil];
+        Alert.tag = 11;
+        [Alert show];
+        
+        
+        
+    }
+
+}
 -(void)setDefaultSounds
 {
     if([[NSUserDefaults standardUserDefaults] valueForKey:@"FireSound"]==nil)
@@ -247,6 +263,16 @@ int previousFreq=0;
 #pragma mark - alert view delegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if(alertView.tag==11)
+    {
+        if(buttonIndex==1)
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }
+
+    }
+    else
+    {
     if (buttonIndex==0) {
         if(alertView.tag==1)
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"video_permission"];
@@ -259,6 +285,7 @@ int previousFreq=0;
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"video_permission"];
         else
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"sex_permission"];
+    }
     }
 }
 
@@ -1184,10 +1211,11 @@ int previousFreq=0;
         [[NSUserDefaults standardUserDefaults] setObject:[responseDict valueForKey:@"token"] forKey:@"token"];
         [[NSUserDefaults standardUserDefaults] setObject:[responseDict valueForKey:@"sessionId"] forKey:@"sessionId"];
         [self waveAnimationTurnOff];
-        [self stopMicrophone];
+        
 
         if([[NSUserDefaults standardUserDefaults] boolForKey:@"video_permission"]==YES)
         {
+            [self stopMicrophone];
             VideoStreamViewController *vStreamVC = [[VideoStreamViewController alloc] init];
             [vStreamVC.view setFrame:self.view.frame];
             dispatch_async(dispatch_get_main_queue(), ^{

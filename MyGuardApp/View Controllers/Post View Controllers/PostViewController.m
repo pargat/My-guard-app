@@ -348,6 +348,7 @@
     self.isPostVideo = false;
     [self.imageViewMessage setImage:nil];
     self.imagePost = nil;
+    self.videoData = nil;
     
 }
 
@@ -387,7 +388,7 @@
                 [iOSRequest postVideoAlarm:[NSString stringWithFormat:KUpdateAlarm,KbaseUrl] parameters:dict videoData:self.videoData thumbData:imageData success:^(NSDictionary *responseStr) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"addFeed" object:nil userInfo:[[responseStr valueForKey:@"data"] objectAtIndex:0]];
                     [self.navigationController popViewControllerAnimated:YES];
-
+                    
                     [self removeLoaderView];
                 } failure:^(NSError *error) {
                     [self removeLoaderView];
@@ -410,6 +411,7 @@
                     [self.textViewMessage setText:@""];
                     [self removeLoaderView];
                     [self.imageViewMessage setImage:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"addFeed" object:nil userInfo:nil];
                 } failure:^(NSError *error) {
                     [self removeLoaderView];
                 }];
@@ -450,7 +452,7 @@
                     [self showStaticAlert:@"Success" message:@"Media posted successfully"];
                     [self.navigationController popViewControllerAnimated:YES];
                     [self removeLoaderView];
-                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"addFeed" object:nil userInfo:nil];
                 } failure:^(NSError *error) {
                     [self removeLoaderView];
                 }];

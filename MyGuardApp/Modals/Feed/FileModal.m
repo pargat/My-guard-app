@@ -16,7 +16,7 @@
     self = [super init];
     if(self!=nil)
     {
-        
+        self.fileImageName = [dict valueForKey:@"image_name"];
         self.fileNumberOfComments = [dict valueForKey:@"comment_count"];
         self.fileId = [dict valueForKey:@"id"];
         if([[dict valueForKey:@"thumb"] isEqualToString:@""])

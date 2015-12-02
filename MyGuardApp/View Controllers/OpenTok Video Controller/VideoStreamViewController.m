@@ -33,6 +33,11 @@ static NSString *const kApiKey = @"45282132";
     [super viewWillAppear:animated];
     [self setupSession];
     
+    UIButton *btnBack = [[UIButton alloc] initWithFrame:CGRectMake(16, 16, 44, 44)];
+    [btnBack setImage:[UIImage imageNamed:@"ic_back"] forState:UIControlStateNormal];
+    [btnBack addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnBack];
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -101,5 +106,12 @@ static NSString *const kApiKey = @"45282132";
 - (void)publisher:(OTPublisherKit*)publisher streamCreated:(OTStream*)stream
 {
     
+}
+
+-(void)actionBack
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 @end

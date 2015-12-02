@@ -31,7 +31,7 @@
                             </state>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GI9-5o-z9T">
-                            <rect key="frame" x="80" y="39" width="120" height="120"/>
+                            <rect key="frame" x="80" y="62" width="120" height="120"/>
                             <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="120" id="qE5-IX-dgn"/>
@@ -39,12 +39,12 @@
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jg4-M3-SiN">
-                            <rect key="frame" x="0.0" y="0.0" width="280" height="39"/>
+                            <rect key="frame" x="0.0" y="45" width="280" height="17"/>
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bfr-BS-kNc">
-                            <rect key="frame" x="0.0" y="166" width="280" height="46"/>
+                            <rect key="frame" x="0.0" y="189" width="280" height="23"/>
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
@@ -78,6 +78,13 @@
                                 <action selector="cancelAct:" destination="8Jt-ZX-qD2" eventType="touchUpInside" id="UiA-q9-JhW"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iW9-q3-Vcp">
+                            <rect key="frame" x="119" y="16" width="42" height="21"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" red="1" green="0.36078431372549019" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -91,12 +98,14 @@
                         <constraint firstItem="GI9-5o-z9T" firstAttribute="top" secondItem="Jg4-M3-SiN" secondAttribute="bottom" id="EU1-CJ-leC"/>
                         <constraint firstAttribute="trailing" secondItem="STQ-4z-F40" secondAttribute="trailing" constant="16" id="FVI-3S-QP1"/>
                         <constraint firstItem="Jg4-M3-SiN" firstAttribute="leading" secondItem="d11-Bl-icf" secondAttribute="leading" id="Nel-SR-6fK"/>
+                        <constraint firstItem="iW9-q3-Vcp" firstAttribute="centerX" secondItem="d11-Bl-icf" secondAttribute="centerX" id="Px3-67-oIp"/>
                         <constraint firstItem="bfr-BS-kNc" firstAttribute="leading" secondItem="d11-Bl-icf" secondAttribute="leading" id="Qcp-pb-Ap0"/>
+                        <constraint firstItem="Jg4-M3-SiN" firstAttribute="top" secondItem="iW9-q3-Vcp" secondAttribute="bottom" constant="8" id="RmX-zo-cVM"/>
                         <constraint firstAttribute="trailing" secondItem="bfr-BS-kNc" secondAttribute="trailing" id="RqF-vR-OWG"/>
                         <constraint firstItem="bfr-BS-kNc" firstAttribute="top" secondItem="GI9-5o-z9T" secondAttribute="bottom" constant="7" id="TFU-w6-8dO"/>
-                        <constraint firstItem="Jg4-M3-SiN" firstAttribute="top" secondItem="d11-Bl-icf" secondAttribute="top" id="U3c-mY-7O0"/>
                         <constraint firstItem="XgC-pt-2Fh" firstAttribute="leading" secondItem="d11-Bl-icf" secondAttribute="leading" constant="16" id="bIi-Tx-xW5"/>
                         <constraint firstItem="Jg4-M3-SiN" firstAttribute="height" secondItem="bfr-BS-kNc" secondAttribute="height" constant="-7" id="gvR-Hh-PFH"/>
+                        <constraint firstItem="iW9-q3-Vcp" firstAttribute="top" secondItem="d11-Bl-icf" secondAttribute="top" constant="16" id="ig8-cT-LjT"/>
                         <constraint firstAttribute="centerX" secondItem="GI9-5o-z9T" secondAttribute="centerX" id="ldX-al-4sx"/>
                         <constraint firstItem="eBG-L3-TFx" firstAttribute="top" secondItem="bfr-BS-kNc" secondAttribute="bottom" id="qlq-n3-Ge1"/>
                         <constraint firstItem="STQ-4z-F40" firstAttribute="top" secondItem="XgC-pt-2Fh" secondAttribute="bottom" constant="8" id="xCI-TR-rCe"/>
@@ -121,6 +130,7 @@
                 <outlet property="btnFalseAlarm" destination="STQ-4z-F40" id="f9i-6D-1EM"/>
                 <outlet property="btnHush" destination="XgC-pt-2Fh" id="nLv-S5-SKT"/>
                 <outlet property="btnNotify" destination="eBG-L3-TFx" id="UeU-NU-O63"/>
+                <outlet property="labelAlarmRaised" destination="iW9-q3-Vcp" id="j5T-G4-QXi"/>
                 <outlet property="overlay_AnimationImg" destination="GI9-5o-z9T" id="UQ0-LE-inu"/>
                 <outlet property="overlay_background" destination="d11-Bl-icf" id="yai-dE-qrc"/>
             </connections>

@@ -39,6 +39,7 @@
 {
     [super viewWillDisappear:animated];
     [self removeObservers];
+    [self removeLoaderView];
 }
 #pragma mark -
 #pragma mark - View Helper
@@ -139,10 +140,10 @@
     [formattedDict setObject:[NSString stringWithFormat:@"%f",cords.coordinate.longitude] forKey:@"longitude"];
     [formattedDict setObject:[self.textFieldCode.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] forKey:@"code"];
     
-    if(self.isImageChanged!=2)
+    if(self.isImageChanged==0)
     {
         Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
-        [formattedDict setObject:modal.profileImageFullLink forKey:@"old_image"];
+        [formattedDict setObject:modal.profileImageName forKey:@"old_image"];
     }
     
     
@@ -283,7 +284,7 @@
         self.btnUpdateInfo.enabled = NO;
         [self setUpLoaderView];
         NSData *imageData;
-        if(self.isImageChanged!=2)
+        if(self.isImageChanged==1)
         {
             imageData = UIImageJPEGRepresentation(self.imageViewDp.image, 1);
         }

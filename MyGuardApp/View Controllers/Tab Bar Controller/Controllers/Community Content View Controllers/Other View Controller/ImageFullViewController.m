@@ -45,7 +45,8 @@
 }
 -(void)viewHelper
 {
-    [self.imageViewMain sd_setImageWithURL:[NSURL URLWithString:self.imageLink]];
+    //[self.imageViewMain sd_setImageWithURL:[NSURL URLWithString:self.imageLink]];
+    [self.imageViewMain setImageWithURL:[NSURL URLWithString:self.imageLink] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [self.scrollViewMain setMinimumZoomScale:1];
     [self.scrollViewMain setMaximumZoomScale:6];
     [self.scrollViewMain setDelegate:self];

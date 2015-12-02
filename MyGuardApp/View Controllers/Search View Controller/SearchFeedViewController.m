@@ -29,7 +29,10 @@
     [super viewWillAppear:animated];
     [self.tableViewSearch reloadData];
     [self.tableViewSearch setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addImage:) name:@"addFeed" object:nil];
+}
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"addFeed" object:nil];
 }
 #pragma mark -
 #pragma mark -  View helpers
@@ -40,11 +43,20 @@
     NSMutableArray *arrayMut = [NSMutableArray arrayWithArray:feed.feed_files];
     [arrayMut insertObject:[[FileModal alloc] initWithAttributes:dict]   atIndex:0];
     feed.feed_files = [NSArray arrayWithArray:arrayMut];
+    @try {
+        
     [self.tableViewSearch reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    @catch (NSException *exception) {
+        
+    }
+
 }
 
 -(void)viewHelper
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addImage:) name:@"addFeed" object:nil];
+
     self.stringUserID = [Profile getCurrentProfileUserId];
     [self.tableViewSearch setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self.tableViewSearch setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];

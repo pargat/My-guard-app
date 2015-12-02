@@ -26,6 +26,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *overlay_AnimationImg;
 @property (strong, nonatomic) IBOutlet UIView *overlay_background;
 @property (weak, nonatomic) IBOutlet UIButton *btnFalseAlarm;
+@property (weak, nonatomic) IBOutlet UILabel *labelAlarmRaised;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnNotify;
 

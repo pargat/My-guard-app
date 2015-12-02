@@ -98,16 +98,19 @@
     if ([self.feed.feed_type isEqualToString:@"1"]) {
         imageString = @"tb_fire_pressed.png";
         typeString = @"Fire";
+        [self.navigationController.navigationBar setBarTintColor:KOrangeColor];
     }
     else if ([self.feed.feed_type isEqualToString:@"3"])
     {
         imageString = @"tb_gun_pressed.png";
         typeString = @"Gun Shot";
+         [self.navigationController.navigationBar setBarTintColor:KRedColor];
     }
     else
     {
         imageString = @"tb_co_pressed.png";
         typeString = @"CO";
+         [self.navigationController.navigationBar setBarTintColor:KGreenColor];
     }
     [self.imageViewType setImage:[UIImage imageNamed:imageString]];
     NSMutableAttributedString *stringMut = [[NSMutableAttributedString alloc] init];
@@ -170,18 +173,22 @@
         imageString = @"tb_fire_pressed.png";
         typeString = @"Fire";
         [self.btnHush setBackgroundColor:KOrangeColor];
+         [self.navigationController.navigationBar setBarTintColor:KOrangeColor];
+        
     }
     else if ([[self.dictInfo valueForKey:@"y"] isEqualToString:@"3"])
     {
         imageString = @"tb_gun_pressed.png";
         typeString = @"Gun Shot";
         [self.btnHush setBackgroundColor:KRedColor];
+         [self.navigationController.navigationBar setBarTintColor:KRedColor];
     }
     else
     {
         imageString = @"tb_co_pressed.png";
         typeString = @"CO";
         [self.btnHush setBackgroundColor:KGreenColor];
+         [self.navigationController.navigationBar setBarTintColor:KGreenColor];
         
     }
     [self.imageViewType setImage:[UIImage imageNamed:typeString]];

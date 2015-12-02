@@ -10,7 +10,9 @@
 #import <JTMaterialSpinner.h>
 #import "ApiConstants.h"
 #import <JTMaterialSpinner.h>
-@interface BaseViewController : UIViewController
+#import <CoreLocation/CoreLocation.h>
+
+@interface BaseViewController : UIViewController <UIAlertViewDelegate>
 
 
 -(void)setUpLoaderView:(UIColor *)colorLoader;

@@ -66,6 +66,7 @@
 }
 -(void)localizeFun
 {
+    [self.labelAlarmRaised setText:NSLocalizedString(@"alarm_raised", nil)];
     [self.btnNotify setTitle:NSLocalizedString(@"countdown_notify", nil) forState:UIControlStateNormal];
     [self.btnFalseAlarm setTitle:NSLocalizedString(@"false_alarm", nil) forState:UIControlStateNormal];
 }
@@ -87,7 +88,6 @@
     
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"False Alarm" message:@"Are you sure?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     [alertView show];
-    NSLog(@"coo2222l");
 }
 
 #pragma mark -

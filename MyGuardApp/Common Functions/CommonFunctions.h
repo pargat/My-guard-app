@@ -16,5 +16,6 @@
 +(void)videoPlay;
 +(void)recordAudio;
 +(NSString *)getFullImage:(NSString *)stringLink view:(UIView *)view;
-
++(NSArray *)getBoundingBox:(double)kilometers lat:(double)lat lon:(double)lon;
++(UIViewController*) currentViewController ;
 @end

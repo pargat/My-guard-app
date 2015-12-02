@@ -197,6 +197,7 @@
 -(void)delChange
 {
     self.isCommentShowing = false;
+    self.commentView.delegate = nil;
     
 }
 -(void)delCommentPosted
@@ -342,19 +343,45 @@
     [self.btnComment1 setTitle:[NSString stringWithFormat:@"%@ comments",modal.fileNumberOfComments] forState:UIControlStateNormal];
     [self.textViewDescription setText:modal.fileDescription];
 }
+
+#pragma mark -
+#pragma mark -  Sharing
+- (void)shareText:(NSString *)text andImage:(UIImage *)image andUrl:(NSURL *)url
+{
+    NSMutableArray *sharingItems = [NSMutableArray new];
+    
+    if (text) {
+        [sharingItems addObject:text];
+    }
+    if (image) {
+        [sharingItems addObject:image];
+    }
+    if (url) {
+        [sharingItems addObject:url];
+    }
+    
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
+    [self presentViewController:activityController animated:YES completion:nil];
+}
+
 #pragma mark -
 #pragma mark - Action sheet delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    NSIndexPath *indexPath = [[self.collectionViewMain indexPathsForVisibleItems] lastObject];
+    FileModal *modal = [self.arrayFiles objectAtIndex:indexPath.row];
+
     if(buttonIndex==0)
     {
-        NSIndexPath *indexPath = [[self.collectionViewMain indexPathsForVisibleItems] lastObject];
-        FileModal *modal = [self.arrayFiles objectAtIndex:indexPath.row];
         [iOSRequest getJsonResponse:[NSString stringWithFormat:KReportImageApi,KbaseUrl,[Profile getCurrentProfileUserId],modal.fileId] success:^(NSDictionary *responseDict) {
             [self showStaticAlert:@"Success" message:@"Reported successfully"];
         } failure:^(NSString *errorString) {
             
         }];
+    }
+    else if (buttonIndex==1&&actionSheet.tag==11)
+    {
+        [self shareText:nil andImage:nil andUrl:[NSURL URLWithString:modal.fileImageName]];
     }
 }
 
@@ -362,8 +389,19 @@
 #pragma mark - Button actions
 -(void)actionMore
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Report this post", nil];
-    [actionSheet showInView:self.view];
+//    ImageAndVideoDetailCell *cell = (ImageAndVideoDetailCell *)[self.collectionViewMain cellForItemAtIndexPath:[[self.collectionViewMain indexPathsForVisibleItems] lastObject]];
+//    if(cell.imageViewMain.image==nil)
+//    {
+//        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Report this post", nil];
+//        [actionSheet showInView:self.view];
+//    }
+//    else
+//    {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Report this post",@"Share", nil];
+        actionSheet.tag = 11;
+        [actionSheet showInView:self.view];
+        
+   // }
 }
 -(void)actionBack
 {

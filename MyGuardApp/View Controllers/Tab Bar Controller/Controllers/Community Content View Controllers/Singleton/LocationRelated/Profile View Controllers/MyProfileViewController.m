@@ -15,12 +15,13 @@
     
     self.myProfile = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
     [self.tableViewProfile setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-        [self getSafetyMeasure];
+    
     
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self getSafetyMeasure];
     [self.tableViewProfile reloadData];
     [self setNavBarAndTab];
 
@@ -83,7 +84,8 @@
     
     [SafetyMeasure callAPIForSafetyMeasureOfUserOther:[NSString stringWithFormat:KGetProfile,KbaseUrl,self.myProfile.profileUserId,self.myProfile.profileUserId] Params:nil success:^(NSMutableDictionary *dict) {
         self.arraySafety = [dict valueForKey:@"array"];
-        self.myProfile = [dict valueForKey:@"profile"];
+        self.myProfile = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+        self.myProfile.profileUnreadCount = ((Profile *)[dict valueForKey:@"profile"]).profileUnreadCount;
         [[NSUserDefaults standardUserDefaults] rm_setCustomObject:self.myProfile forKey:@"profile"];
         [self.tableViewProfile reloadData];
         [self afterApi];

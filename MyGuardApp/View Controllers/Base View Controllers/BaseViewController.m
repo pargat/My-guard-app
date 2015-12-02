@@ -19,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,6 +76,13 @@
     [self.view setUserInteractionEnabled:YES];
     [loaderObj removeFromSuperview];
     [loaderObj endRefreshing];
+}
+
+
+#pragma mark - 
+#pragma mark - Alert view delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
 }
 
 

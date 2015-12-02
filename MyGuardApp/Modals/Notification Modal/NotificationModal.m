@@ -26,6 +26,7 @@
         self.notifTitle = [tempDict valueForKey:@"notification_title"];
         self.notifToUser = [tempDict valueForKey:@"to_user"];
         self.notifType = [tempDict valueForKey:@"notification_type"];
+        self.notifSafetyType = [tempDict valueForKey:@"notification_safety_type"];
     }
     return self;
 }

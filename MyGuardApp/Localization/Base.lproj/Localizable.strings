@@ -5,7 +5,15 @@
   Created by vishnu on 14/09/15.
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
+"ok" = "Ok";
+"open_settings" = "Open Settings";
+"location_disabled" = "Please enable the location access in your settings to allow app to fetch your current location.";
 
+"sex_disabled" = "Sex offenders are curretly disabled. Please enable it in settings.";
+"sex_nearby" = "No sex offenders were found in nearby area";
+"alarm_raised" = "Alarm raised";
+"dont_track" = "Stop tracking";
+"view_offender" = "View offenders";
 
 //Comments
 "no_comments" = "No comments";
@@ -19,7 +27,7 @@
 "community_no_code" = "Please only add users that lives within your building complex and close neighbours";
 
 //sex offender
-"sex_alert_description" = "";
+"sex_alert_description" = "Sex Offender Found";
 "sex_premium" = "Premium Feature";
 "sex_description" = "This is a premium feature of My Guard. To activate , please buy the in-app purchase";
 "sex_activate" = "Activate";
@@ -114,9 +122,9 @@
 "safety_co" = "Carbon Monoxide";
 
 // Settings
-"sex_title" = "Sex offender permission";
+"sex_title" = "Enable sex offender";
 "sex_desc" = "Allow us to notify when a sex offender is nearby";
-"video_title" = "Live Video permission";
+"video_title" = "Live video permission";
 "video_description" = "Allow us to send live video feed in case of emergency";
 "setting_title" = "Settings";
 "demo" = "Demo";

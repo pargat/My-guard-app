@@ -35,7 +35,7 @@ typedef enum : NSUInteger {
 
 
 //General Constants
-#define KSEXKEY @"46D0C57D-25E6-4532-9C82-094F72860AD1__"
+#define KSEXKEY @"46D0C57D-25E6-4532-9C82-094F72860AD2"
 #define KInternetNotAvailable @"Internet is not available"
 #define EmergencyDefaultKey @"emergencyContacts"
 #define DisplayScale [[UIScreen mainScreen] scale]

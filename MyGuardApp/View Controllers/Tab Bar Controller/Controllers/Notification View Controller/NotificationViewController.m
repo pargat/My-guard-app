@@ -345,6 +345,7 @@
     {
         SafetyDetailViewController *safetyVC = (SafetyDetailViewController *)segue.destinationViewController;
         safetyVC.stringId = modal.notifRefId;
+        safetyVC.currentTab = modal.notifSafetyType;
         
     }
     else if ([segue.identifier isEqualToString:KOtherProfileSegue])

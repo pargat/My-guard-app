@@ -21,6 +21,8 @@
 		2703E89D1BE0B4F8000BDD2C /* NotificationSimpleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2703E89C1BE0B4F8000BDD2C /* NotificationSimpleCell.m */; };
 		2703E8A01BE0B513000BDD2C /* NotificationRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2703E89F1BE0B513000BDD2C /* NotificationRequestCell.m */; };
 		2703E8A41BE0B8C3000BDD2C /* NotificationModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2703E8A31BE0B8C3000BDD2C /* NotificationModal.m */; };
+		2709DB4E1C0B019000180CAD /* SexOverlayNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 2709DB4D1C0B018F00180CAD /* SexOverlayNew.m */; };
+		2709DB501C0B01A400180CAD /* SexOverlayNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2709DB4F1C0B01A400180CAD /* SexOverlayNew.xib */; };
 		272869481BCD45AD00CDA04D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 272869471BCD45AD00CDA04D /* MapViewController.m */; };
 		273338D91BAD3E7E00BDECCA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 273338D81BAD3E7E00BDECCA /* User.m */; };
 		2745D1961BAFE692002261B0 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 2745D1951BAFE692002261B0 /* Video.m */; };
@@ -200,6 +202,9 @@
 		2703E89F1BE0B513000BDD2C /* NotificationRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationRequestCell.m; sourceTree = "<group>"; };
 		2703E8A21BE0B8C3000BDD2C /* NotificationModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationModal.h; sourceTree = "<group>"; };
 		2703E8A31BE0B8C3000BDD2C /* NotificationModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationModal.m; sourceTree = "<group>"; };
+		2709DB4C1C0B018F00180CAD /* SexOverlayNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SexOverlayNew.h; sourceTree = "<group>"; };
+		2709DB4D1C0B018F00180CAD /* SexOverlayNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SexOverlayNew.m; sourceTree = "<group>"; };
+		2709DB4F1C0B01A400180CAD /* SexOverlayNew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SexOverlayNew.xib; sourceTree = "<group>"; };
 		272869461BCD45AD00CDA04D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		272869471BCD45AD00CDA04D /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		273338D71BAD3E7E00BDECCA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -1283,6 +1288,9 @@
 				278C88711C0A48E400B11788 /* SexOverlay.h */,
 				278C88721C0A48E400B11788 /* SexOverlay.m */,
 				278C88741C0A4A8F00B11788 /* SexOverlay.xib */,
+				2709DB4C1C0B018F00180CAD /* SexOverlayNew.h */,
+				2709DB4D1C0B018F00180CAD /* SexOverlayNew.m */,
+				2709DB4F1C0B01A400180CAD /* SexOverlayNew.xib */,
 			);
 			name = "Alarm Views";
 			path = "Custom Table Cells/Settings Cell/Alarm Views";
@@ -1532,6 +1540,7 @@
 				278CAFEC1BA82AD9005814C6 /* orange.png in Resources */,
 				270114681BDD46E800E8FE95 /* CommentCell.xib in Resources */,
 				278CAFEE1BA82AD9005814C6 /* orange@3x.png in Resources */,
+				2709DB501C0B01A400180CAD /* SexOverlayNew.xib in Resources */,
 				2703E89A1BDF54FF000BDD2C /* ImageBigView.xib in Resources */,
 				278CAFF91BA8622E005814C6 /* WalkThroughLastView.xib in Resources */,
 				27DE4E041BBA6AB100135DF6 /* AlarmOverLayView.xib in Resources */,
@@ -1703,6 +1712,7 @@
 				27DE4E0C1BBA95AE00135DF6 /* ZoomInteractiveTransition.m in Sources */,
 				276088671BCF853A009F1E18 /* SoundMainCell1.m in Sources */,
 				276088791BCFD86B009F1E18 /* OtherProfileViewController.m in Sources */,
+				2709DB4E1C0B019000180CAD /* SexOverlayNew.m in Sources */,
 				27867B361C043A4C00C1886E /* SettingSwitchCell.m in Sources */,
 				27DE4E151BBAB04C00135DF6 /* VideoStreamViewController.m in Sources */,
 				27F3614E1BD66BEE0042C8AA /* EditProfileViewController.m in Sources */,
@@ -1797,8 +1807,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1818,10 +1828,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "221fbb02-6347-453f-a4a1-b336913f673d";
+				PROVISIONING_PROFILE = "62ef4c37-d999-4240-818c-70575af5aef8";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1843,8 +1853,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1857,9 +1867,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "221fbb02-6347-453f-a4a1-b336913f673d";
+				PROVISIONING_PROFILE = "62ef4c37-d999-4240-818c-70575af5aef8";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1908,7 +1918,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1921,7 +1931,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "221fbb02-6347-453f-a4a1-b336913f673d";
+				PROVISIONING_PROFILE = "62ef4c37-d999-4240-818c-70575af5aef8";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyGuardApp.app/MyGuardApp";
 			};
 			name = Debug;
@@ -1930,7 +1940,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1939,7 +1949,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "221fbb02-6347-453f-a4a1-b336913f673d";
+				PROVISIONING_PROFILE = "62ef4c37-d999-4240-818c-70575af5aef8";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyGuardApp.app/MyGuardApp";
 			};
 			name = Release;

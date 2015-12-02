@@ -30,7 +30,6 @@
 {
     [super viewWillAppear:animated];
     [self.delegate delChangeNavButton:NO];
-     //[self getFeed:YES];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -47,16 +46,23 @@
 #pragma mark - api related and helper function
 -(void)addImage:(NSNotification *)notification
 {
+    if(notification.userInfo!=nil)
+    {
     NSDictionary *dict = notification.userInfo;
     FeedModal *feed = [self.arrayFeeds objectAtIndex:self.selectedIndex.row];
     NSMutableArray *arrayMut = [NSMutableArray arrayWithArray:feed.feed_files];
-    [arrayMut insertObject:[[FileModal alloc] initWithAttributes:dict]   atIndex:0];
+    [arrayMut addObject:[[FileModal alloc] initWithAttributes:dict]];
     feed.feed_files = [NSArray arrayWithArray:arrayMut];
     @try {
         [self.tableViewFeeds reloadRowsAtIndexPaths:@[self.selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     @catch (NSException *exception) {
         
+    }
+    }
+    else
+    {
+        [self getFeed:YES];
     }
 
 }

@@ -5,6 +5,25 @@
   Created by vishnu on 14/09/15.
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
+"ok" = "D'accord";
+"open_settings" = "Ouvrez Paramètres";
+"location_disabled" = "S'il vous plaît permettre à l'accès de l'emplacement dans les paramètres pour permettre l'application pour aller chercher votre emplacement actuel.";
+
+
+"sex_disabled" = "Les délinquants sexuels sont actuellement désactivés. S'il vous plaît activer dans les paramètres.";
+"sex_nearby" = "Pas de délinquants sexuels ont été trouvés dans environs";
+"alarm_raised" = "alarme soulevé";
+"dont_track" = "Arrêter le suivi";
+"view_offender" = "Voir le délinquant";
+
+
+// Settings
+"sex_title" = "Activer délinquant sexuel";
+"sex_desc" = "Laissez-nous en informerons lorsque le délinquant sexuel est à proximité";
+"video_title" = "La permission en direct vidéo";
+"video_description" = "Permettez-nous de envoyons flux vidéo en direct en cas d'urgence";
+"setting_title" = "Paramètres";
+
 
 //Comments
 "no_comments" = "Sans commentaires";
@@ -17,7 +36,7 @@
 "community_no_code" = "S'il vous plaît ne ajouter des utilisateurs qui vit au sein de votre complexe de bâtiments et de proches voisins";
 
 //sex offender
-"sex_alert_description" = "";
+"sex_alert_description" = "Trouvé sur les délinquants sexuels";
 "sex_premium" = "fonctionnalité Premium";
 "sex_description" = "Ceci est une fonctionnalité Premium de ma garde. Pour l'activer, s'il vous plaît acheter l'achat in-app";
 "sex_activate" = "Activer";

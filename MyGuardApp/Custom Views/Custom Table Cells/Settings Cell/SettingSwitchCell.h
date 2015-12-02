@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ApiConstants.h"
 
 @interface SettingSwitchCell : UITableViewCell
 

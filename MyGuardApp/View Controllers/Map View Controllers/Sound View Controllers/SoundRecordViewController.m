@@ -160,6 +160,7 @@
     if ([fileManager fileExistsAtPath:storePath] == NO) {
         [fileManager copyItemAtPath:resourcePath toPath:storePath error:&error];
         [[NSUserDefaults standardUserDefaults] setObject:[self.stringAlert stringByAppendingString:@".aac"] forKey:[NSString stringWithFormat:@"%@Sound",self.stringType]];
+        [self.view endEditing:YES];
         [self.navigationController popViewControllerAnimated:YES];
         
     }

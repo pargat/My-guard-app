@@ -18,6 +18,7 @@
 #import "LOcationUpdater.h"
 #import "BaseViewController.h"
 #import "MyGuardInAppHelper.h"
+#import "CommonFunctions.h"
 
 @interface SexOffenderViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 
@@ -26,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOffenders;
 @property (nonatomic,strong) SexOffender *sexOffenderModal;
 @property (strong, nonatomic)  UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UIView *viewNoOne;
+@property (weak, nonatomic) IBOutlet UILabel *labelCool;
 
 @property (weak, nonatomic) IBOutlet UIView *viewInpp;
 @property (weak, nonatomic) IBOutlet UILabel *labelPremium;

@@ -363,6 +363,7 @@
     [controller dismissViewControllerAnimated:YES completion:^{
         
     }];
+     [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex: self.navigationController.viewControllers.count-4] animated:YES];
 }
 
 #pragma mark - 

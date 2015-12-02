@@ -5,7 +5,23 @@
   Created by vishnu on 14/09/15.
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
+"ok" = "好";
+"open_settings" = "打开设置";
+"location_disabled" = "请启用您的设置位置获得允许应用获取您的当前位置。";
 
+
+"sex_disabled" = "性犯罪者目前已停用。请在设置中启用它。";
+"sex_nearby" = "没有性犯罪者被发现在附近地区";
+// Settings
+"sex_title" = "允許性犯罪者";
+"sex_desc" = "讓我們通知時，性犯罪者是附近";
+"video_title" = "實時視頻的權限";
+"video_description" = "請允許我們發送實時視頻飼料在緊急情況下";
+"setting_title" = "設置";
+
+"alarm_raised" = "报警上调";
+"dont_track" = "停止跟踪";
+"view_offender" = "查看罪犯";
 
 //Comments
 "no_comments" = "没意见";
@@ -19,7 +35,7 @@
 "community_no_code" = "请只在您的建筑群和近邻添加用户的生活";
 
 //sex offender
-"sex_alert_description" = "";
+"sex_alert_description" = "性罪犯发现";
 "sex_premium" = "高级功能";
 "sex_description" = "这是我的卫队的高级功能。要激活，请购买的应用程序内购买";
 "sex_activate" = "激活";

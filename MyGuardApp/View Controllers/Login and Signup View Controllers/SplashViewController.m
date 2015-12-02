@@ -130,7 +130,7 @@
 - (IBAction)actionFB:(id)sender {
     [self setUpLoaderView];
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-    //[login logOut];
+    [login logOut];
     [login logInWithReadPermissions:@[@"public_profile",@"user_birthday",@"email"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
         if(error)
         {

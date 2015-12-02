@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSString *notifTitle;
 @property (nonatomic, strong) NSString *notifDp;
 @property (nonatomic, strong) NSString *notifTimePassed;
+@property (nonatomic, strong) NSString *notifSafetyType;
 
 +(void)callAPIForNotifications : (NSString *)urlStr  Params : (NSDictionary *)paramsDict success : (void(^)(NSMutableArray *notifArr))success failure : (void(^)(NSString *errorStr))failure;
 

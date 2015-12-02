@@ -157,6 +157,10 @@
     [self setUpLoaderView];
     [iOSRequest getJsonResponse:urlString success:^(NSDictionary *responseDict) {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"profile"];
+        [[NSUserDefaults standardUserDefaults] rm_setCustomObject:nil forKey:@"sex_loc"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"sex_loc"];
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+
         [[NSUserDefaults standardUserDefaults] synchronize];
         LOcationUpdater *loc = [LOcationUpdater sharedManager];
         loc.imageDp = nil;

@@ -79,7 +79,7 @@
         [self showStaticAlert:@"Error" message:@"Email field can't be empty"];
         
     }
-    else if([self.tfEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length==0)
+    else if([self.tfPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length==0)
     {
         [self showStaticAlert:@"Error" message:@"Password field can't be empty"];
     }

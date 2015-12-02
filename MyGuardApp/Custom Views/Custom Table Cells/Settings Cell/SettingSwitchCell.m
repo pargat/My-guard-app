@@ -22,7 +22,11 @@
 
 - (IBAction)actionVideoPermissionChanged:(UISwitch *)sender {
     if(self.indexPath.row==0)
+    {
         [[NSUserDefaults standardUserDefaults] setBool:sender.isOn forKey:@"sex_permission"];
+        if(!sender.isOn)
+             [[NSUserDefaults standardUserDefaults] rm_setCustomObject:nil forKey:@"sex_list"];
+    }
     else
         [[NSUserDefaults standardUserDefaults] setBool:sender.isOn forKey:@"video_permission"];
 }

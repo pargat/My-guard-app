@@ -22,7 +22,7 @@
     [self.tableViewOffenders setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self.tableViewOffenders setDelegate:self];
     [self.tableViewOffenders setDataSource:self];
-    [self setUpLoaderView];
+//    [self setUpLoaderView];
     //[self getOffenders];
     self.searchBar = [[UISearchBar alloc] init];
     [self.searchBar setDelegate:self];
@@ -41,6 +41,30 @@
 {
     [super viewWillAppear:animated];
     [self setNavBarAndTab];
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"sex_permission"]==false||[[NSUserDefaults standardUserDefaults] valueForKey:@"sex_permission"] == nil)
+    {
+        [self.tableViewOffenders setHidden:YES];
+        [self.viewNoOne setHidden:NO];
+        [self.labelCool setText:NSLocalizedString(@"sex_disabled", nil)];
+    }
+    else if([[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"sex_list"]==nil)
+    {
+        [self.tableViewOffenders setHidden:YES];
+        [self.labelCool setText:NSLocalizedString(@"sex_nearby", nil)];
+        [self.viewNoOne setHidden:NO];
+    }
+    else
+    {
+        self.arraySexOffender = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"sex_list"];
+        [self.tableViewOffenders setHidden:NO];
+        if(self.tableViewOffenders.delegate == nil)
+        {
+            [self.tableViewOffenders setDelegate:self];
+            [self.tableViewOffenders setDataSource:self];
+        }
+        [self.tableViewOffenders reloadData];
+        [self.viewNoOne setHidden:YES];
+    }
     
 }
 -(void)viewWillDisappear:(BOOL)animated
@@ -149,7 +173,7 @@
 -(void)getOffenders
 {
     LOcationUpdater *loc = [LOcationUpdater sharedManager];
-    NSArray *array = [self getBoundingBox:10 lat:loc.currentLoc.coordinate.latitude lon:loc.currentLoc.coordinate.longitude];
+    NSArray *array = [CommonFunctions getBoundingBox:10 lat:loc.currentLoc.coordinate.latitude lon:loc.currentLoc.coordinate.longitude];
     [SexOffender callAPIForSexOffenders:[ NSString stringWithFormat:@"http://services.familywatchdog.us/json/json.asp?key=%@&lite=0&type=searchbylatlong&minlat=%@&maxlat=%@&minlong=%@&maxlong=%@",KSEXKEY,[array objectAtIndex:0],[array objectAtIndex:1],[array objectAtIndex:2],[array objectAtIndex:3]] Params:nil success:^(NSMutableArray *offenderArr) {
         self.arraySexOffender = [NSMutableArray arrayWithArray:offenderArr];
         [self.tableViewOffenders reloadData];
@@ -228,9 +252,9 @@
     
 //    if([[NSUserDefaults standardUserDefaults] valueForKey:@"purchased"]!=nil)
 //    {
-        UIBarButtonItem *btnSearch = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(actionSearch)];
-        [btnSearch setTintColor:[UIColor whiteColor]];
-        self.navigationItem.rightBarButtonItem = btnSearch;
+//        UIBarButtonItem *btnSearch = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(actionSearch)];
+//        [btnSearch setTintColor:[UIColor whiteColor]];
+//        self.navigationItem.rightBarButtonItem = btnSearch;
   //  }
     
     self.navigationItem.titleView = nil;
@@ -243,18 +267,6 @@
     self.navigationItem.rightBarButtonItem = nil;
     [self.navigationItem setTitleView:self.searchBar];
     [self.searchBar becomeFirstResponder];
-}
-#pragma mark -
-#pragma mark - lat long calculating formula
-
--(NSArray *)getBoundingBox:(double)kilometers lat:(double)lat lon:(double)lon
-{
-    double R = 6371; // earth radius in km
-    double lat1 = lat - (M_PI/180) *(kilometers / R);
-    double lon1 = lon - (M_PI/180) *(kilometers / R / cos(lat*180/M_PI));
-    double lat2 = lat + (M_PI/180) *(kilometers / R);
-    double lon2 = lon +(M_PI/180) *(kilometers / R / cos(lat*180/M_PI));
-    return @[[NSString stringWithFormat:@"%f",lat1],[NSString stringWithFormat:@"%f",lat2],[NSString stringWithFormat:@"%f",lon1],[NSString stringWithFormat:@"%f",lon2]];
 }
 
 
