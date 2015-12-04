@@ -116,7 +116,7 @@ int previousFreq=0;
     self.twoHunMSTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(TwoHundredMSSampling) userInfo:nil repeats:YES];
     
     [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(setOffAlarmViaNotification:) name:@"alarmOff" object:nil];
-    
+     [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(startMicrophone) name:@"start" object:nil];
     
     
     //push notification

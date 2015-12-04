@@ -41,8 +41,9 @@
         [self performSegueWithIdentifier:KWalkSegue sender:nil];
     }
 
-    
 }
+
+
 
 #pragma mark - Navigation
 

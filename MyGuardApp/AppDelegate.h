@@ -13,10 +13,13 @@
 #import "ApiConstants.h"
 #import "Profile.h"
 #import <GoogleMaps/GoogleMaps.h>
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import <AVFoundation/AVFoundation.h>
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (strong, nonatomic) NSString *strVersionNumber;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;

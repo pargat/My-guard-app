@@ -29,6 +29,10 @@ typedef enum : NSUInteger {
 
 #define KGetAdvertisment @"%@get_advertisement.php"
 
+//Check version
+#define KCheckVersion @"%@is_update_available_ios.php"
+
+
 //Post
 #define KPostAlarmApi @"%@post_fake_alarm.php"
 #define KViewMediaApi @"%@view_media.php?alarm_id=%@&image_id=%@"

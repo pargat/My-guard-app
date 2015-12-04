@@ -15,7 +15,7 @@
 #import "Register1ViewController.h"
 #import "MainTabBarController.h"
 
-@interface SplashViewController : UIViewController<CLLocationManagerDelegate>
+@interface SplashViewController : UIViewController<CLLocationManagerDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong) NSDictionary *dictFB;
 @property (nonatomic,strong) CLLocationManager *locationManager;

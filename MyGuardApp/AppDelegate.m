@@ -47,6 +47,23 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [FBSDKAppEvents activateApp];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    NSError *error;
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+    if (error)
+    {
+        NSLog(@"Error setting up audio session category: %@", error.localizedDescription);
+    }
+    [session setActive:YES error:&error];
+    if (error)
+    {
+        NSLog(@"Error setting up audio session active: %@", error.localizedDescription);
+    }
+    
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"start" object:nil];
+    [self checkVersion];
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -143,6 +160,63 @@
     }
 }
 
+#pragma mark - versioning
+
+-(void)checkVersion
+{
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *build = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
+    
+    [iOSRequest getJsonResponse:[NSString stringWithFormat:KCheckVersion,KbaseUrl] success:^(NSDictionary *responseDict) {
+        if(![[NSString stringWithFormat:@"%@",[responseDict valueForKey:@"version_number"]] isEqualToString:version]||![[NSString stringWithFormat:@"%@",[responseDict valueForKey:@"version_code"]] isEqualToString:build])
+        {
+            
+            if([[responseDict valueForKey:@"block"] boolValue])
+            {
+                [[[UIAlertView alloc] initWithTitle:[responseDict valueForKey:@"title"] message:[responseDict valueForKey:@"description"] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Update version", nil]show ];
+            }
+            else
+            {
+                if(![[[NSUserDefaults standardUserDefaults] valueForKey:@"v"] isEqualToString:[NSString stringWithFormat:@"%@",[responseDict valueForKey:@"version_number"]]])
+                {
+                self.strVersionNumber = [NSString stringWithFormat:@"%@",[responseDict valueForKey:@"version_number"]];
+                [[[UIAlertView alloc] initWithTitle:[responseDict valueForKey:@"title"] message:[responseDict valueForKey:@"description"] delegate:self cancelButtonTitle:@"Ignore" otherButtonTitles:@"Update version", nil]show ];
+                }
+            }
+        }
+        else
+        {
+        }
+    } failure:^(NSString *errorString) {
+        
+    }];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.numberOfButtons==2)
+    {
+        if(buttonIndex==0)
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:self.strVersionNumber forKey:@"v"];
+        }
+        else if(buttonIndex==1)
+        {
+            if([[UIApplication sharedApplication]  canOpenURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id734443295"]])
+            {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id734443295"]];
+            }
+
+        }
+    }
+    else
+    {
+        if([[UIApplication sharedApplication]  canOpenURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id734443295"]])
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id734443295"]];
+        }
+    }
+}
 
 
 
