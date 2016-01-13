@@ -10,6 +10,7 @@
 
 
 //Segue names
+#define KAddMissingSegue @"addMissing"
 #define KSoundRecordSegue @"SoundRecordSegue"
 #define KSoundSelectSegue @"SoundSelectSegue"
 #define KDemoHushSegue @"DemoHushSegue"
@@ -42,6 +43,7 @@
 #define KRegisterStep2 @"Register2"
 
 //Storyboard identifier names
+#define KMissingPeople @"MissingPeople"
 #define KCommunityContent @"CommunityContent"
 #define KCommunitySearchContent @"CommunitySearchContent"
 #define KFeedVC @"feed"

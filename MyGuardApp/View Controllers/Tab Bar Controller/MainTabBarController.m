@@ -251,7 +251,7 @@ int previousFreq=0;
     
     
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:0] setTitle:NSLocalizedString(@"fire", nil)];
-    [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:2] setTitle:NSLocalizedString(@"co", nil)];
+    [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:2] setTitle:@"CO"];
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:1] setTitle:NSLocalizedString(@"gunshot", nil)];
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:3] setTitle:NSLocalizedString(@"community", nil)];
     [(UITabBarItem*)[[[self tabBar] items] objectAtIndex:4] setTitle:NSLocalizedString(@"tb_sex_offenders", nil)];

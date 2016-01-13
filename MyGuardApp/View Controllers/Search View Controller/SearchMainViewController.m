@@ -31,11 +31,24 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     [self.searchBar becomeFirstResponder];
+    [self initialiseTimer];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBarHidden = NO;
+    [self invalidateTimer];
+}
+#pragma mark -
+#pragma mark - Timer related functions
+-(void)initialiseTimer
+{
+    
+    self.timerAd = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(fetchAd) userInfo:nil repeats:YES];
+}
+-(void)invalidateTimer
+{
+    [self.timerAd invalidate];
 }
 #pragma mark -
 #pragma mark - View Helpers

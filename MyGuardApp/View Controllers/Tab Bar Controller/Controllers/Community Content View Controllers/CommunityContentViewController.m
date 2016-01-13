@@ -117,11 +117,7 @@
     {
         return NSLocalizedString(@"group", nil);
     }
-    else
-    {
-        return NSLocalizedString(@"search", nil);
-        
-    }
+ 
     
     return NSLocalizedString(@"feed", nil);
 }

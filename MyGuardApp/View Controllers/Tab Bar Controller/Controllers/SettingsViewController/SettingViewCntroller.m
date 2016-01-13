@@ -87,7 +87,8 @@
 }
 -(void)configureSettingCelldescription:(SettingCellDescriptionCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row==0)
+    [cell.labelDescription setPreferredMaxLayoutWidth:self.view.frame.size.width - 64];
+    if(indexPath.row==2)
     {
         [cell.viewBottom setHidden:YES];
         cell.heightBottom.constant = 0;
@@ -159,6 +160,8 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"profile"];
         [[NSUserDefaults standardUserDefaults] rm_setCustomObject:nil forKey:@"sex_loc"];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"sex_loc"];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"sex_list"];
+
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -263,7 +266,7 @@
         
         [self configureSettingCelldescription:sizingCell atIndexPath:indexPath];
         CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        return size.height;
+        return size.height+1;
     }
     else
     {

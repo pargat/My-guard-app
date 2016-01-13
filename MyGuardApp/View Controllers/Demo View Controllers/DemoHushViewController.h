@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "UIButtonRound.h"
+#import <AVFoundation/AVFoundation.h>
+#import "ApiConstants.h"
 
 @interface DemoHushViewController : UIViewController
+
+
+@property (nonatomic,strong) NSString *type;
 @property (weak, nonatomic) IBOutlet UILabel *labelDemoAlarm;
 @property (weak, nonatomic) IBOutlet UILabel *labelAlarmRaised;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewAnim;

@@ -27,6 +27,11 @@
 		273338D91BAD3E7E00BDECCA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 273338D81BAD3E7E00BDECCA /* User.m */; };
 		2745D1961BAFE692002261B0 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 2745D1951BAFE692002261B0 /* Video.m */; };
 		2745D1991BAFED9D002261B0 /* InfoVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2745D1981BAFED9D002261B0 /* InfoVideoCell.m */; };
+		274BD04A1C464503000CFD92 /* MissingCommunityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274BD0491C464503000CFD92 /* MissingCommunityViewController.m */; };
+		274BD04D1C464518000CFD92 /* MissingPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274BD04C1C464518000CFD92 /* MissingPersonViewController.m */; };
+		274BD0511C46462F000CFD92 /* MissingCommunityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 274BD0501C46462F000CFD92 /* MissingCommunityCell.m */; };
+		274BD0551C4651AD000CFD92 /* MissingModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 274BD0541C4651AD000CFD92 /* MissingModal.m */; };
+		274BD0581C4659C4000CFD92 /* AddMissingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274BD0571C4659C4000CFD92 /* AddMissingViewController.m */; };
 		274E8E871BD4D07000171C5C /* TCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274E8E861BD4D07000171C5C /* TCViewController.m */; };
 		274E8E8B1BD4F85800171C5C /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274E8E8A1BD4F85800171C5C /* BaseViewController.m */; };
 		274E8E8F1BD578C600171C5C /* CommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 274E8E8E1BD578C600171C5C /* CommonFunctions.m */; };
@@ -213,6 +218,16 @@
 		2745D1951BAFE692002261B0 /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
 		2745D1971BAFED9D002261B0 /* InfoVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoVideoCell.h; sourceTree = "<group>"; };
 		2745D1981BAFED9D002261B0 /* InfoVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoVideoCell.m; sourceTree = "<group>"; };
+		274BD0481C464503000CFD92 /* MissingCommunityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissingCommunityViewController.h; sourceTree = "<group>"; };
+		274BD0491C464503000CFD92 /* MissingCommunityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissingCommunityViewController.m; sourceTree = "<group>"; };
+		274BD04B1C464518000CFD92 /* MissingPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissingPersonViewController.h; sourceTree = "<group>"; };
+		274BD04C1C464518000CFD92 /* MissingPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissingPersonViewController.m; sourceTree = "<group>"; };
+		274BD04F1C46462F000CFD92 /* MissingCommunityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissingCommunityCell.h; sourceTree = "<group>"; };
+		274BD0501C46462F000CFD92 /* MissingCommunityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissingCommunityCell.m; sourceTree = "<group>"; };
+		274BD0531C4651AD000CFD92 /* MissingModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissingModal.h; sourceTree = "<group>"; };
+		274BD0541C4651AD000CFD92 /* MissingModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissingModal.m; sourceTree = "<group>"; };
+		274BD0561C4659C4000CFD92 /* AddMissingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddMissingViewController.h; sourceTree = "<group>"; };
+		274BD0571C4659C4000CFD92 /* AddMissingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddMissingViewController.m; sourceTree = "<group>"; };
 		274E8E851BD4D07000171C5C /* TCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCViewController.h; sourceTree = "<group>"; };
 		274E8E861BD4D07000171C5C /* TCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCViewController.m; sourceTree = "<group>"; };
 		274E8E891BD4F85800171C5C /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -578,6 +593,37 @@
 			path = "Safety Measure Modal/UserModal/Videos";
 			sourceTree = "<group>";
 		};
+		274BD0471C46311B000CFD92 /* Missing view controllers */ = {
+			isa = PBXGroup;
+			children = (
+				274BD0481C464503000CFD92 /* MissingCommunityViewController.h */,
+				274BD0491C464503000CFD92 /* MissingCommunityViewController.m */,
+				274BD04B1C464518000CFD92 /* MissingPersonViewController.h */,
+				274BD04C1C464518000CFD92 /* MissingPersonViewController.m */,
+				274BD0561C4659C4000CFD92 /* AddMissingViewController.h */,
+				274BD0571C4659C4000CFD92 /* AddMissingViewController.m */,
+			);
+			path = "Missing view controllers";
+			sourceTree = "<group>";
+		};
+		274BD04E1C464613000CFD92 /* Missing Cells */ = {
+			isa = PBXGroup;
+			children = (
+				274BD04F1C46462F000CFD92 /* MissingCommunityCell.h */,
+				274BD0501C46462F000CFD92 /* MissingCommunityCell.m */,
+			);
+			path = "Missing Cells";
+			sourceTree = "<group>";
+		};
+		274BD0521C4650CE000CFD92 /* Missing Modal */ = {
+			isa = PBXGroup;
+			children = (
+				274BD0531C4651AD000CFD92 /* MissingModal.h */,
+				274BD0541C4651AD000CFD92 /* MissingModal.m */,
+			);
+			path = "Missing Modal";
+			sourceTree = "<group>";
+		};
 		274E8E831BD4CFB600171C5C /* Privacy and terms View Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -896,6 +942,7 @@
 		278210C01B9AE87D000EA90B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				274BD0471C46311B000CFD92 /* Missing view controllers */,
 				27DD67651BE8E88E001CDDBB /* Post View Controllers */,
 				2780F6D41BE51ECF0086449B /* Search View Controller */,
 				2780F6D01BE4D61A0086449B /* False Alarm View Controller */,
@@ -905,8 +952,8 @@
 				274E8E881BD4F67900171C5C /* Base View Controllers */,
 				274E8E831BD4CFB600171C5C /* Privacy and terms View Controller */,
 				27C5EE851BD111F00010061E /* Register View Controllers */,
-				276088761BCFD83F009F1E18 /* Other Profile View Controllers */,
 				2760886E1BCFC3EE009F1E18 /* Image and Video Details View Controllers */,
+				276088761BCFD83F009F1E18 /* Other Profile View Controllers */,
 				2760885D1BCF774A009F1E18 /* Sound View Controllers */,
 				272869451BCD1EE000CDA04D /* Map View Controllers */,
 				278418701BCCD4C80075B7C1 /* Emergency View Controller */,
@@ -1120,6 +1167,7 @@
 		278CAFFE1BA871FC005814C6 /* Modals */ = {
 			isa = PBXGroup;
 			children = (
+				274BD0521C4650CE000CFD92 /* Missing Modal */,
 				2780F6CC1BE4AC230086449B /* Push Modal */,
 				2703E8A11BE0B8B1000BDD2C /* Notification Modal */,
 				270114691BDD48AB00E8FE95 /* Comment Modal */,
@@ -1137,6 +1185,7 @@
 		2794EE981BABF9A90036BB75 /* Custom Table Cells */ = {
 			isa = PBXGroup;
 			children = (
+				274BD04E1C464613000CFD92 /* Missing Cells */,
 				276088721BCFC50D009F1E18 /* Custom Collection Cells */,
 				276088641BCF8520009F1E18 /* Sound Table Cells */,
 				278418741BCCE0F10075B7C1 /* Emergency Cell */,
@@ -1613,6 +1662,7 @@
 				270114731BDD5AED00E8FE95 /* DemoDetectViewController.m in Sources */,
 				2701145B1BDD04C800E8FE95 /* ImageAndVideoDetailCell.m in Sources */,
 				277A8EBD1BB2B84500A7C347 /* ProfileHeaderMyCell.m in Sources */,
+				274BD04A1C464503000CFD92 /* MissingCommunityViewController.m in Sources */,
 				278711891BAAAC8500F9CA16 /* Profile.m in Sources */,
 				27C137C01BCBB1570072EDB6 /* SexOffenderDetailViewController.m in Sources */,
 				2780F6D31BE4E1F40086449B /* FalseAlarmViewController.m in Sources */,
@@ -1641,6 +1691,7 @@
 				2780F6D71BE51EDC0086449B /* SearchMainViewController.m in Sources */,
 				2701146C1BDD48BE00E8FE95 /* CommentModal.m in Sources */,
 				278418811BCCEF0B0075B7C1 /* ContactsData.m in Sources */,
+				274BD0551C4651AD000CFD92 /* MissingModal.m in Sources */,
 				279FBD4D1BB13785007AEFCB /* LOcationUpdater.m in Sources */,
 				2760886A1BCF854C009F1E18 /* SoundMainCell2.m in Sources */,
 				279FBD451BB022CD007AEFCB /* CommunityCell.m in Sources */,
@@ -1693,6 +1744,7 @@
 				278CAFE01BA82A5D005814C6 /* NSObject+RMCopyable.m in Sources */,
 				27630AAD1BB90AD800474F0D /* SettingViewCntroller.m in Sources */,
 				276088631BCF77C1009F1E18 /* SoundSelectViewController.m in Sources */,
+				274BD0581C4659C4000CFD92 /* AddMissingViewController.m in Sources */,
 				27C5EE881BD112610010061E /* Register1ViewController.m in Sources */,
 				27FBA6F41BA94BEA00F373E4 /* XLButtonBarViewCell.m in Sources */,
 				274E8E8B1BD4F85800171C5C /* BaseViewController.m in Sources */,
@@ -1711,11 +1763,13 @@
 				2703E8A01BE0B513000BDD2C /* NotificationRequestCell.m in Sources */,
 				27DE4E0C1BBA95AE00135DF6 /* ZoomInteractiveTransition.m in Sources */,
 				276088671BCF853A009F1E18 /* SoundMainCell1.m in Sources */,
+				274BD04D1C464518000CFD92 /* MissingPersonViewController.m in Sources */,
 				276088791BCFD86B009F1E18 /* OtherProfileViewController.m in Sources */,
 				2709DB4E1C0B019000180CAD /* SexOverlayNew.m in Sources */,
 				27867B361C043A4C00C1886E /* SettingSwitchCell.m in Sources */,
 				27DE4E151BBAB04C00135DF6 /* VideoStreamViewController.m in Sources */,
 				27F3614E1BD66BEE0042C8AA /* EditProfileViewController.m in Sources */,
+				274BD0511C46462F000CFD92 /* MissingCommunityCell.m in Sources */,
 				274E8E871BD4D07000171C5C /* TCViewController.m in Sources */,
 				2760886D1BCF9DC5009F1E18 /* SoundRecordViewController.m in Sources */,
 				278CAFE31BA82A5D005814C6 /* UIImage+Extras.m in Sources */,
@@ -1807,8 +1861,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1831,7 +1885,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "62ef4c37-d999-4240-818c-70575af5aef8";
+				PROVISIONING_PROFILE = "221fbb02-6347-453f-a4a1-b336913f673d";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1853,8 +1907,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1869,7 +1923,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "62ef4c37-d999-4240-818c-70575af5aef8";
+				PROVISIONING_PROFILE = "221fbb02-6347-453f-a4a1-b336913f673d";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1888,7 +1942,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "221fbb02-6347-453f-a4a1-b336913f673d";
+				PROVISIONING_PROFILE = "fc9c552c-90c8-4444-9ab6-3c636087e038";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyGuardApp/sounds/MyGuardApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1908,7 +1962,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "221fbb02-6347-453f-a4a1-b336913f673d";
+				PROVISIONING_PROFILE = "fc9c552c-90c8-4444-9ab6-3c636087e038";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyGuardApp/sounds/MyGuardApp-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

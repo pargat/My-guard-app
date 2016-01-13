@@ -15,6 +15,8 @@
 #import "User.h"
 #import "SearchMainViewController.h"
 #import "LOcationUpdater.h"
+#import "MissingCommunityViewController.h"
+
 
 @class CommunitySearchViewController;
 @class CommunityContentViewController;
@@ -27,5 +29,6 @@
 @property (nonatomic,strong) CommunityContentViewController *community3;
 @property (nonatomic,strong) CommunityContentViewController *communityGroup;
 @property (nonatomic,strong) CommunitySearchViewController *community4;
+@property (nonatomic,strong) MissingCommunityViewController *missingVC;
 
 @end

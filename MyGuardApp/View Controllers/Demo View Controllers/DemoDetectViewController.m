@@ -124,7 +124,7 @@
     [self performSegueWithIdentifier:KDemoHushSegue sender:nil];
     
      });
-       }
+    }
 -(void)initialiseArray
 {
     getsFireArray = [[NSMutableArray alloc] init];
@@ -221,6 +221,7 @@
             int times = (int)[[original componentsSeparatedByString:@"1"] count]-1;
             if(times>=5)
             {
+                self.type = @"1";
                 [self openDemoHush];
                 return;
             }
@@ -256,6 +257,7 @@
         {
             if ([[original substringToIndex:4] containsString:@"1111"]&&[[original substringToIndex:1] isEqualToString:@"1"]&&![[original substringFromIndex:5] containsString:@"1"])
             {
+                self.type = @"2";
                 [self openDemoHush];
                 return;
             }
@@ -264,7 +266,7 @@
         {
             
             if ([[original substringToIndex:4] rangeOfString:@"1111"].length != 0&&[[original substringFromIndex:5] rangeOfString:@"1"].length == 0) {
-                
+                self.type = @"2";
                 [self openDemoHush];
                 return;
                 
@@ -290,6 +292,7 @@
             int times =(int) [[original componentsSeparatedByString:@"1"] count]-1;
             if(times>=6)
             {
+                self.type = @"1";
                 [self openDemoHush];
                 return;
             }
@@ -334,6 +337,7 @@
             int times =(int) [[original componentsSeparatedByString:@"1"] count]-1;
             if(times>=6)
             {
+                  self.type = @"1";
                 [self openDemoHush];
                 return;
             }
@@ -377,6 +381,7 @@
             int times = (int)[[original componentsSeparatedByString:@"1"] count]-1;
             if(times>=6)
             {
+                self.type = @"1";
                 [self openDemoHush];
                 return;
             }
@@ -419,6 +424,7 @@
             int times = (int)[[original componentsSeparatedByString:@"1"] count]-1;
             if(times>=6)
             {
+                self.type = @"1";
                 [self openDemoHush];
                 return;
             }
@@ -461,6 +467,7 @@
             int times = (int)[[original componentsSeparatedByString:@"1"] count]-1;
             if(times>=6)
             {
+                self.type = @"1";
                 [self openDemoHush];
                 return;
             }
@@ -792,14 +799,19 @@
 }
 
 
-/*
+
  #pragma mark - Navigation
  
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSDictionary *)sender {
+    
+    if([segue.identifier isEqualToString:KDemoHushSegue])
+    {
+        DemoHushViewController *demoVC = (DemoHushViewController *)segue.destinationViewController;
+        demoVC.type = self.type;
+    }
+    
+    
+}
+
 
 @end

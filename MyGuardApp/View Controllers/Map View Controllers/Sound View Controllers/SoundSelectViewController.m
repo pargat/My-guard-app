@@ -226,16 +226,16 @@
         SoundSelectCell2 *cell = (SoundSelectCell2 *)[tableView cellForRowAtIndexPath:indexPath];
         if(cell.isSelected)
         {
-            actionSheet= [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play",nil ];
+            actionSheet= [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play",nil ];
         }
         else if(indexPath.row==1)
         {
-            actionSheet= [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play",@"Set it as alarm",nil ];
+            actionSheet= [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play",@"Set it as alarm",nil ];
         }
         else
         {
             
-            actionSheet= [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play",@"Set it as alarm",@"Delete",nil ];
+            actionSheet= [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play",@"Set it as alarm",@"Delete",nil ];
             
         }
         

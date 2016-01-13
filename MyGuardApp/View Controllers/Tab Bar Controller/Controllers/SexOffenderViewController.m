@@ -19,27 +19,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.arraySexOffender = [[NSMutableArray alloc] init];
     [self.tableViewOffenders setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self.tableViewOffenders setDelegate:self];
     [self.tableViewOffenders setDataSource:self];
-//    [self setUpLoaderView];
-    //[self getOffenders];
     self.searchBar = [[UISearchBar alloc] init];
     [self.searchBar setDelegate:self];
     [self.searchBar setShowsCancelButton:YES];
     [self.searchBar setTintColor:[UIColor whiteColor]];
     [self.tableViewOffenders setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
-    //[self setInAppThing];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
     [self setNavBarAndTab];
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"sex_permission"]==false||[[NSUserDefaults standardUserDefaults] valueForKey:@"sex_permission"] == nil)
     {
@@ -57,22 +45,59 @@
     {
         self.arraySexOffender = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"sex_list"];
         [self.tableViewOffenders setHidden:NO];
-        if(self.tableViewOffenders.delegate == nil)
-        {
-            [self.tableViewOffenders setDelegate:self];
-            [self.tableViewOffenders setDataSource:self];
-        }
         [self.tableViewOffenders reloadData];
         [self.viewNoOne setHidden:YES];
     }
+    self.arraySexOffender = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"sex_list"];
     
+    //[self setInAppThing];
+    // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setNavBarAndTab];
+    [self refresh];
+    [self.tabBarController.tabBar setHidden:NO];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:@"sex" object:nil];
+    [self fetchInAppPurchases];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [self removeLoaderView];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sex" object:nil];
 }
+-(void)refresh
+{
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"sex_permission"]==false||[[NSUserDefaults standardUserDefaults] valueForKey:@"sex_permission"] == nil)
+    {
+        [self.tableViewOffenders setHidden:YES];
+        [self.viewNoOne setHidden:NO];
+        [self.labelCool setText:NSLocalizedString(@"sex_disabled", nil)];
+    }
+    else if([[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"sex_list"]==nil)
+    {
+        [self.tableViewOffenders setHidden:YES];
+        [self.labelCool setText:NSLocalizedString(@"sex_nearby", nil)];
+        [self.viewNoOne setHidden:NO];
+    }
+    else
+    {
+        self.arraySexOffender = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"sex_list"];
+        [self.tableViewOffenders setHidden:NO];
+        [self.tableViewOffenders setDelegate:self];
+        [self.tableViewOffenders setDataSource:self];
+        [self.tableViewOffenders reloadData];
+        [self.viewNoOne setHidden:YES];
+    }
 
+}
 
 #pragma mark -
 #pragma mark - Search bar delegate
@@ -286,7 +311,7 @@
 #pragma mark - Table View Delegate and datasource functions
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(self.navigationItem.leftBarButtonItem==nil)
+    if(self.navigationItem.rightBarButtonItem!=nil)
         return self.arraySearch.count;
     else
         return self.arraySexOffender.count;
@@ -315,14 +340,14 @@
 -(void)configureCell:(SexOffenderCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     SexOffender *modal;
-    if(self.navigationItem.leftBarButtonItem==nil)
+    if(self.navigationItem.rightBarButtonItem!=nil)
         modal = [self.arraySearch objectAtIndex:indexPath.row];
     else
         modal = [self.arraySexOffender objectAtIndex:indexPath.row];
     
     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:modal.offenderPhoto]];
     [cell.labelName setText:modal.offenderName];
-    [cell.labelDescription setText:[NSString stringWithFormat:@"Age : %@ Sex : %@",modal.offenderAge,modal.offenderSex]];
+    [cell.labelDescription setText:[NSString stringWithFormat:@"Age : %@   Sex : %@",modal.offenderAge,modal.offenderSex]];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

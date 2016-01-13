@@ -185,8 +185,6 @@
 {
     self.selectedIndex = indexPath;
     [self performSegueWithIdentifier:KPostAlarmSegue sender:self.selectedIndex];
-//    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo",@"Choose photo from gallery",@"Take Video",@"Choose Video from gallery",nil];
-//    [actionSheet showInView:self.view];
     
 }
 

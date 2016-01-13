@@ -5,6 +5,21 @@
   Created by vishnu on 14/09/15.
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
+
+//Missing people
+"missing_people" = "失踪人员";
+"full_name" = "全名";
+"missing_since" = "由于缺少";
+"last_seen_at" = "最后看时";
+"tap_to_add" = "点击添加缺少的人的图片";
+"description_missing" = "说明（最多300个字符";
+"post_a_missing" = "发布漏报";
+"contact_missing" = "联系电话";
+
+
+
+
+"or_choose_preset" = "或者选择预设";
 "ok" = "好";
 "open_settings" = "打开设置";
 "location_disabled" = "请启用您的设置位置获得允许应用获取您的当前位置。";
@@ -14,7 +29,7 @@
 "sex_nearby" = "没有性犯罪者被发现在附近地区";
 // Settings
 "sex_title" = "允許性犯罪者";
-"sex_desc" = "讓我們通知時，性犯罪者是附近";
+"sex_desc" = "让我们通知您，当一个性犯罪者是附近";
 "video_title" = "實時視頻的權限";
 "video_description" = "請允許我們發送實時視頻飼料在緊急情況下";
 "setting_title" = "設置";
@@ -52,7 +67,7 @@
 "group" = "组";
 "admin" = "管理员留言";
 "video_permission" = "你想我们发送实时视频饲料时，报警上升？";
-"sex_permission" = "难道你要我们通知时，性犯罪者是在附近吗？";
+"sex_permission" = "你希望我们通知您的性犯罪者是在附近吗";
 "user_search" = "用户";
 
 //Post
@@ -137,7 +152,7 @@
 
 // Settings
 "demo" = "演示";
-"custom_alert_description" = "自火灾，枪击和共同警报声。";
+"custom_alert_description" = "自火灾，枪击和共同警报声";
 "user_guide_des" = "¿Tiene problemas con la aplicación?";
 
 

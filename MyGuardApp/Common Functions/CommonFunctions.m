@@ -42,10 +42,11 @@
 +(NSArray *)getBoundingBox:(double)kilometers lat:(double)lat lon:(double)lon
 {
     double R = 6371; // earth radius in km
-    double lat1 = lat - (M_PI/180) *(kilometers / R);
-    double lon1 = lon - (M_PI/180) *(kilometers / R / cos(lat*180/M_PI));
-    double lat2 = lat + (M_PI/180) *(kilometers / R);
-    double lon2 = lon +(M_PI/180) *(kilometers / R / cos(lat*180/M_PI));
+    double lat1 = lat - (180/M_PI) *(kilometers / R);
+    double lon1 = lon - (180/M_PI) *(kilometers / R / cos(lat*M_PI/180));
+    double lat2 = lat + (180/M_PI) *(kilometers / R);
+    double lon2 = lon +(180/M_PI) *(kilometers / R / cos(lat*M_PI/180));
+
     return @[[NSString stringWithFormat:@"%f",lat1],[NSString stringWithFormat:@"%f",lat2],[NSString stringWithFormat:@"%f",lon1],[NSString stringWithFormat:@"%f",lon2]];
 }
 

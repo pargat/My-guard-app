@@ -30,12 +30,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self setNavBarAndTab];
+    [self setNavBarAndTab:YES];
 }
 
 
 #pragma mark -
 #pragma mark - View helpers
+-(void)addMissing
+{
+    [self performSegueWithIdentifier:KAddMissingSegue sender:nil];
+}
 -(void)viewHelpers
 {
     self.isProgressiveIndicator = YES;
@@ -60,10 +64,12 @@
     self.community3.currentTab = FRIENDS;
     self.communityGroup = [self.storyboard instantiateViewControllerWithIdentifier:KCommunityContent];
     self.communityGroup.currentTab = GROUP;
+    self.missingVC = [self.storyboard instantiateViewControllerWithIdentifier:KMissingPeople];
+
 }
 
 
--(void)setNavBarAndTab
+-(void)setNavBarAndTab:(BOOL)missing
 {
     [self.tabBarController.tabBar setTintColor:KPurpleColor];
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
@@ -79,9 +85,6 @@
     [self.navigationItem setTitle:NSLocalizedString(@"community", nil)];
     
     
-    UIBarButtonItem *btnSearch = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(actionSearch)];
-    [btnSearch setTintColor:[UIColor whiteColor]];
-    self.navigationItem.rightBarButtonItem = btnSearch;
     
     LOcationUpdater *locationUpdater = [LOcationUpdater sharedManager];
     if(locationUpdater.imageDp!=nil)
@@ -133,7 +136,22 @@
         });
     }
     
-    
+    if(missing)
+    {
+        UIBarButtonItem *btnAdd = [[UIBarButtonItem alloc] initWithTitle:@"+" style:UIBarButtonItemStylePlain target:self action:@selector(addMissing)];
+        [btnAdd setTintColor:[UIColor whiteColor]];
+        self.navigationItem.rightBarButtonItem = btnAdd;
+
+    }
+    else
+    {
+        
+        UIBarButtonItem *btnSearch = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_search"] style:UIBarButtonItemStylePlain target:self action:@selector(actionSearch)];
+        [btnSearch setTintColor:[UIColor whiteColor]];
+        self.navigationItem.rightBarButtonItem = btnSearch;
+
+    }
+
 }
 
 #pragma mark -
@@ -236,7 +254,7 @@
 -(NSArray *)childViewControllersForPagerTabStripViewController:(XLPagerTabStripViewController *)pagerTabStripViewController
 {
     [self initialiseVCs];
-    return @[self.community1,self.community2,self.community3,self.communityGroup];
+    return @[self.community1,self.community2,self.community3,self.communityGroup,self.missingVC];
 
 }
 

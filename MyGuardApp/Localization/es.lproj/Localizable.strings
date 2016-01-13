@@ -5,6 +5,22 @@
   Created by vishnu on 14/09/15.
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
+//Missing people
+"missing_people" = "las personas que faltan";
+"full_name" = "Nombre completo";
+"missing_since" = "Desaparecido desde el";
+"last_seen_at" = "Visto por última vez en";
+"tap_to_add" = "Toque para agregar la imagen de la persona desaparecida";
+"description_missing" = "Descripción (máximo 300 caracteres)";
+"post_a_missing" = "Publica un informe desaparecidos";
+"contact_missing" = "Número de contacto";
+
+
+
+
+
+"or_choose_preset" = "O ELEGIR DE PRESETS";
+
 "ok" = "Ok";
 "open_settings" = "Configuración abierta";
 "location_disabled" = "Por favor, activa el acceso a la ubicación en la configuración para permitir la aplicación para buscar a su ubicación actual.";
@@ -14,7 +30,7 @@
 "sex_nearby" = "No hay delincuentes sexuales se encuentran en zona";
 // Settings
 "sex_title" = "Habilitar delincuente sexual";
-"sex_desc" = "Permitir que notifiquemos cuando un delincuente sexual está cerca";
+"sex_desc" = "Nos permitirá notificaremos cuando un delincuente sexual está cerca";
 "video_title" = "Permiso de video en vivo";
 "video_description" = "Permítanos enviaremos video en vivo en caso de emergencia";
 "setting_title" = "Ajustes";
@@ -53,7 +69,7 @@
 "group" = "GRUPO";
 "admin" = "Mensaje de administración";
 "video_permission" = "¿Quiere que le enviemos video en vivo cuando se levanta la alarma?";
-"sex_permission" = "¿Quieres que notifiquemos cuando agresor sexual está cerca?";
+"sex_permission" = "¿Desea que notifiquemos cuando agresor sexual está cerca?";
 "user_search" = "USUARIOS";
 
 //Post
@@ -137,7 +153,7 @@
 
 // Settings
 "demo" = "Manifestación";
-"custom_alert_description" = "Personaliza sonido de alerta para el fuego, arma de fuego y co.";
+"custom_alert_description" = "Personaliza sonido de alerta para el fuego, arma de fuego y co";
 "user_guide_des" = "Having trouble using the app?";
 
 

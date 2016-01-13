@@ -127,7 +127,7 @@
 -(void)configureCellMain:(SoundMainCell1 *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     [cell.label1 setText:NSLocalizedString(@"customise_alert", nil)];
-    [cell.label2 setText:NSLocalizedString(@"customise_tap_below", nil)];
+    [cell.label2 setText:NSLocalizedString(@"or_choose_preset", nil)];
 }
 -(void)configureCell:(SoundMainCell2 *)cell atIndexPath:(NSIndexPath *)indexPath
 {

@@ -359,6 +359,7 @@
     if (url) {
         [sharingItems addObject:url];
     }
+    //[sharingItems addObject:[NSURL URLWithString:@"http://www.google.com"]];
     
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
     [self presentViewController:activityController animated:YES completion:nil];
@@ -368,6 +369,7 @@
 #pragma mark - Action sheet delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+
     NSIndexPath *indexPath = [[self.collectionViewMain indexPathsForVisibleItems] lastObject];
     FileModal *modal = [self.arrayFiles objectAtIndex:indexPath.row];
 
@@ -379,9 +381,10 @@
             
         }];
     }
+    
     else if (buttonIndex==1&&actionSheet.tag==11)
     {
-        [self shareText:nil andImage:nil andUrl:[NSURL URLWithString:modal.fileImageName]];
+        [self shareText:nil andImage:nil andUrl:[NSURL URLWithString:[NSString stringWithFormat:@"http://firesonar.com/Image.php?img=%@",modal.fileImageName]]];
     }
 }
 
@@ -389,33 +392,18 @@
 #pragma mark - Button actions
 -(void)actionMore
 {
-//    ImageAndVideoDetailCell *cell = (ImageAndVideoDetailCell *)[self.collectionViewMain cellForItemAtIndexPath:[[self.collectionViewMain indexPathsForVisibleItems] lastObject]];
-//    if(cell.imageViewMain.image==nil)
-//    {
-//        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Report this post", nil];
-//        [actionSheet showInView:self.view];
-//    }
-//    else
-//    {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Report this post",@"Share", nil];
+
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                 delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Report this post",@"Share", nil];
         actionSheet.tag = 11;
         [actionSheet showInView:self.view];
         
-   // }
 }
 -(void)actionBack
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
 
 - (IBAction)actionComment2:(id)sender {
     if(!self.isCommentShowing)

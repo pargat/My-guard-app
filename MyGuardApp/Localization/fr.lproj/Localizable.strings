@@ -5,6 +5,21 @@
   Created by vishnu on 14/09/15.
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
+
+//Missing people
+"missing_people" = "personnes disparues";
+"full_name" = "Nom complet";
+"missing_since" = "Disparu depuis";
+"last_seen_at" = "Vu dernièrement à";
+"tap_to_add" = "Appuyez sur pour ajouter la photo de la personne disparue";
+"description_missing" = "Description (maximum de 300 caractères)";
+"post_a_missing" = "Diffusez un rapport manquant";
+"contact_missing" = "Numéro de contact";
+
+
+
+"or_choose_preset" = "Ou choisir parmi les préréglages";
+
 "ok" = "D'accord";
 "open_settings" = "Ouvrez Paramètres";
 "location_disabled" = "S'il vous plaît permettre à l'accès de l'emplacement dans les paramètres pour permettre l'application pour aller chercher votre emplacement actuel.";
@@ -19,7 +34,7 @@
 
 // Settings
 "sex_title" = "Activer délinquant sexuel";
-"sex_desc" = "Laissez-nous en informerons lorsque le délinquant sexuel est à proximité";
+"sex_desc" = "Laissez-nous vous informerons quand un délinquant sexuel est à proximité";
 "video_title" = "La permission en direct vidéo";
 "video_description" = "Permettez-nous de envoyons flux vidéo en direct en cas d'urgence";
 "setting_title" = "Paramètres";
@@ -55,7 +70,7 @@
 "group" = "GROUPE";
 "admin" = "Administrateur message";
 "video_permission" = "Voulez-vous que nous vous envoyions flux vidéo en direct lorsque l'alarme est soulevé?";
-"sex_permission" = "Voulez-vous nous en informerons lorsque délinquant sexuel est à proximité?";
+"sex_permission" = "Voulez-vous que nous vous informerons de délinquant sexuel est à proximité?";
 "user_search" = "UTILISATEURS";
 
 //Post
@@ -139,7 +154,7 @@
 
 // Settings
 "demo" = "Démo";
-"custom_alert_description" = "Personnaliser son d'alerte pour le feu, coup de feu et co.";
+"custom_alert_description" = "Personnaliser son d'alerte pour le feu, coup de feu et co";
 "user_guide_des" = "Ayant des difficultés à utiliser l'application?";
 
 //My profile

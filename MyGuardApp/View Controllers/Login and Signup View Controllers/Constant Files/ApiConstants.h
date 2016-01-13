@@ -17,7 +17,8 @@ typedef enum : NSUInteger {
     FAMILY,
     FRIENDS,
     SEARCH,
-    GROUP
+    GROUP,
+    MISSING
 } COMMUNITYTAB;
 
 typedef enum : NSUInteger {
@@ -39,7 +40,9 @@ typedef enum : NSUInteger {
 
 
 //General Constants
-#define KSEXKEY @"46D0C57D-25E6-4532-9C82-094F72860AD2"
+#define KSEXKEY @"46D0C57D-25E6-4532-9C82-094F72860AD1"
+//#define KSEXKEY @"YOUR_KEY_HERE"
+
 #define KInternetNotAvailable @"Internet is not available"
 #define EmergencyDefaultKey @"emergencyContacts"
 #define DisplayScale [[UIScreen mainScreen] scale]
@@ -136,3 +139,8 @@ typedef enum : NSUInteger {
 #define KFireIcon @"http://api.firesonar.com/FireSonar/uploads/pin_fire.png"
 #define KCOIcon @"http://api.firesonar.com/FireSonar/uploads/pin_co.png"
 #define KGunIcon @"http://api.firesonar.com/FireSonar/uploads/pin_gunshot.png"
+
+
+//Missing people
+#define KListMissing @"%@missing_feed.php?user_id=%@&latitude=%f&longitude=%f&page=%d"
+#define KAddMissing @"%@add_missing.php"

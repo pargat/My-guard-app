@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:default.gpx">
+   </FileRef>
+   <FileRef
+      location = "group:default2.gpx">
+   </FileRef>
+   <FileRef
       location = "group:MyGuardApp.xcodeproj">
    </FileRef>
    <FileRef

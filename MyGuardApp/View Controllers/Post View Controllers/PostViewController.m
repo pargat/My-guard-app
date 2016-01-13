@@ -355,7 +355,7 @@
 
 - (IBAction)actionCamera:(id)sender {
     [self.view endEditing:YES];
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo",@"Choose photo from gallery",@"Take Video",@"Choose Video from gallery",nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo",@"Select photo from gallery",@"Take Video",@"Select Video from gallery",nil];
     [actionSheet showInView:self.view];
 }
 

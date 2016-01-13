@@ -5,6 +5,21 @@
   Created by vishnu on 14/09/15.
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
+
+
+//Missing people
+"missing_people" = "MISSING PEOPLE";
+"full_name" = "Full name";
+"missing_since" = "Missing since";
+"last_seen_at" = "Last seen at";
+"tap_to_add" = "Tap to add the missing person's picture";
+"description_missing" = "Description (maximum 300 characters)";
+"post_a_missing" = "Post a missing report";
+"contact_missing" = "Contact number";
+
+
+"or_choose_preset" = "OR CHOOSE FROM PRESETS";
+
 "ok" = "Ok";
 "open_settings" = "Open Settings";
 "location_disabled" = "Please enable the location access in your settings to allow app to fetch your current location.";
@@ -43,7 +58,7 @@
 "group" = "GROUP";
 "admin" = "Admin Message";
 "video_permission" = "Do you want us to send live video feed when alarm is raised?";
-"sex_permission" = "Do you want us to notify when sex offender is nearby?";
+"sex_permission" = "Do you want us to notify you when sex offender is nearby?";
 "user_search" = "USERS";
 
 //Post
@@ -123,12 +138,12 @@
 
 // Settings
 "sex_title" = "Enable sex offender";
-"sex_desc" = "Allow us to notify when a sex offender is nearby";
+"sex_desc" = "Allow us to notify you when a sex offender is nearby";
 "video_title" = "Live video permission";
 "video_description" = "Allow us to send live video feed in case of emergency";
 "setting_title" = "Settings";
 "demo" = "Demo";
-"custom_alert_description" = "Customize alert sound for fire, gunshot and co.";
+"custom_alert_description" = "Customize alert sound for fire, gunshot and co";
 "user_guide_des" = "Having trouble using the app?";
 
 //Walk Through
@@ -210,7 +225,7 @@
 "invite_fb_friends"= "Invite Facebook friends";
 "legal"= "Legal";
 "users_guide"= "User's guide";
-"contact_us"= "ContactUs";
+"contact_us"= "Contact Us";
 "logout"= "Logout";
 "call_911"= "Call 911";
 "sms"= "SMS";
@@ -223,9 +238,9 @@
 "post"= "Post";
 "delete_media"= "Delete media";
 "add_media"= "Add Media";
-"choose_image_from_gallery"= "Choose image from gallery";
+"choose_image_from_gallery"= "Select image from gallery";
 "take_image_from_camera"= "Take image from camera";
-"choose_video_from_gallery"= "Choose video from gallery";
+"choose_video_from_gallery"= "Select video from gallery";
 "take_video_from_camera"= "Take video from camera";
 "call"= "Call";
 "message"= "Message";

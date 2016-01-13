@@ -24,7 +24,7 @@
     [self locationInitialiser];
     self.timerObj = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(updateLocation) userInfo:nil repeats:YES];
     [self updateLocation];
-    [self locationSex];
+
     return self;
 }
 
@@ -96,7 +96,7 @@
 }
 -(void)checkSexLat:(CLLocation *)loc
 {
-    if([[NSUserDefaults standardUserDefaults] objectForKey:@"sex_loc"]!=nil)
+    if([[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"sex_loc"]!=nil)
     {
         CLLocation *prevLoc = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"sex_loc"];
         BOOL shouldHit = [self whetherTravelledSignificant:loc prevLoc:prevLoc];
@@ -121,7 +121,7 @@
     double distance = (loc.coordinate.latitude-locPre.coordinate.latitude)*2+(loc.coordinate.longitude-locPre.coordinate.longitude)*2;
     distance = sqrt(distance);
     CLLocationDistance dis = [locPre distanceFromLocation:loc];
-    if(dis<100)
+    if(dis<50)
         return NO;
     else
         return YES;
@@ -129,19 +129,20 @@
 -(void)hitSexOffender
 {
    
-    NSArray *array = [CommonFunctions getBoundingBox:10 lat:self.currentLoc.coordinate.latitude lon:self.currentLoc.coordinate.longitude];
+    NSArray *array = [CommonFunctions getBoundingBox:1.0 lat:self.currentLoc.coordinate.latitude lon:self.currentLoc.coordinate.longitude];
     [SexOffender callAPIForSexOffenders:[ NSString stringWithFormat:@"http://services.familywatchdog.us/json/json.asp?key=%@&lite=0&type=searchbylatlong&minlat=%@&maxlat=%@&minlong=%@&maxlong=%@",KSEXKEY,[array objectAtIndex:0],[array objectAtIndex:1],[array objectAtIndex:2],[array objectAtIndex:3]] Params:nil success:^(NSMutableArray *offenderArr) {
         
         if(offenderArr.count>0)
         {
             [[NSUserDefaults standardUserDefaults] rm_setCustomObject:offenderArr forKey:@"sex_list"];
             [self showSexOverlay];
+           
         }
-//        else
-//        {
-//            [[[UIAlertView alloc] initWithTitle:@"Working" message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
-//        }
-//
+        else
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"sex_list"];
+        }
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"sex" object:nil];
 
     } failure:^(NSString *errorStr) {
     

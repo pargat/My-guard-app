@@ -14,7 +14,7 @@
     static dispatch_once_t once;
     static MyGuardInAppHelper *sharedInstance;
     dispatch_once(&once, ^{
-        NSSet *productIdentifier = [NSSet setWithObjects:@"com.myguardapps.firesonar.SON1",
+        NSSet *productIdentifier = [NSSet setWithObjects:@"com.myguardapps.sexoffender",
                                     nil];
         sharedInstance = [[self alloc] initWithProductIdentifiers:productIdentifier];
     });

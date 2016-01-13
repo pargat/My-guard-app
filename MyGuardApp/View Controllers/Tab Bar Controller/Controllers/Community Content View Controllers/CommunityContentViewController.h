@@ -20,7 +20,6 @@
 #import "BaseViewController.h"
 #import <SVPullToRefresh.h>
 
-
 @interface CommunityContentViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) NSMutableArray *arraySearch;

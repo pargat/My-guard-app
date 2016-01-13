@@ -19,6 +19,10 @@
     {
         
         self.offenderAge = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"age"]];
+        if(self.offenderAge.length==0)
+        {
+            self.offenderAge = @"N.A.";
+        }
         self.offenderCity = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"city"]];
         self.offenderCounty = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"county"]];
         self.offenderDob = [tempDict valueForKey:@"dob"];
