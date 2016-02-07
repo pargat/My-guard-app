@@ -7,8 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Colors.h"
+#import "CommonFunctions.h"
 @interface MissingCommunityCell : UITableViewCell
+
+@property (nonatomic,strong) NSString *stringPhone;
+@property (weak, nonatomic) IBOutlet UILabel *labelAgeP;
+@property (weak, nonatomic) IBOutlet UILabel *labelAge;
+@property (weak, nonatomic) IBOutlet UILabel *labelHeightP;
+@property (weak, nonatomic) IBOutlet UILabel *labelHeight;
+@property (weak, nonatomic) IBOutlet UILabel *labelHairP;
+@property (weak, nonatomic) IBOutlet UILabel *labelHair;
+@property (weak, nonatomic) IBOutlet UILabel *labelEyeP;
+@property (weak, nonatomic) IBOutlet UILabel *labelEye;
+
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewPerson;
 @property (weak, nonatomic) IBOutlet UILabel *labelNameP;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;

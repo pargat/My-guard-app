@@ -14,7 +14,7 @@
 #import "Profile.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <AVFoundation/AVFoundation.h>
-
+#import <IQKeyboardManager.h>
 @interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

@@ -18,7 +18,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self viewHelpers];
-    
+
+
     
     
 }
@@ -32,7 +33,17 @@
     [super viewWillAppear:animated];
     [self setNavBarAndTab:YES];
 }
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.badgeC removeFromSuperview];
+}
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.badgeC removeFromSuperview];
 
+}
 
 #pragma mark -
 #pragma mark - View helpers
@@ -58,14 +69,35 @@
 {
     self.community1 = [self.storyboard instantiateViewControllerWithIdentifier:KCommunityContent];
     self.community1.currentTab = NEIGHBOUR;
+    self.community1.delegate = self;
     self.community2 = [self.storyboard instantiateViewControllerWithIdentifier:KCommunityContent];
     self.community2.currentTab = FAMILY;
+     self.community2.delegate = self;
     self.community3 = [self.storyboard instantiateViewControllerWithIdentifier:KCommunityContent];
     self.community3.currentTab = FRIENDS;
+     self.community3.delegate = self;
     self.communityGroup = [self.storyboard instantiateViewControllerWithIdentifier:KCommunityContent];
     self.communityGroup.currentTab = GROUP;
+     self.communityGroup.delegate = self;
     self.missingVC = [self.storyboard instantiateViewControllerWithIdentifier:KMissingPeople];
+    self.missingVC.delegate = self;
 
+}
+-(void)badge
+{
+    [self.badgeC removeFromSuperview];
+    
+    Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+    if([modal.profileUnreadCount integerValue]>0)
+    {
+        self.badgeC = [CustomBadge customBadgeWithString:modal.profileUnreadCount];
+        [self.badgeC setBadgeText:modal.profileUnreadCount];
+        [self.badgeC setFrame:CGRectMake(35, 16, 28, 28)];
+        //    [self.navigationController.navigationBar addSubview:self.badgeC];
+        //    [self.badgeC bringSubviewToFront:self.navigationController.navigationBar];
+        UIWindow* currentWindow = [UIApplication sharedApplication].keyWindow;
+        [currentWindow addSubview:self.badgeC];
+    }
 }
 
 
@@ -99,9 +131,9 @@
         
         UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
         [btnProfile setTintColor:[UIColor whiteColor]];
-        self.navigationItem.leftBarButtonItem = btnProfile;
         btnProfile.customView.clipsToBounds = YES;
-
+        self.navigationItem.leftBarButtonItem = btnProfile;
+        [self badge];
         
     }
     else
@@ -131,6 +163,7 @@
                 btnProfile.customView.clipsToBounds = YES;
 
                 self.navigationItem.leftBarButtonItem = btnProfile;
+                [self badge];
             });
             
         });
@@ -138,7 +171,7 @@
     
     if(missing)
     {
-        UIBarButtonItem *btnAdd = [[UIBarButtonItem alloc] initWithTitle:@"+" style:UIBarButtonItemStylePlain target:self action:@selector(addMissing)];
+        UIBarButtonItem *btnAdd = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addMissing)];
         [btnAdd setTintColor:[UIColor whiteColor]];
         self.navigationItem.rightBarButtonItem = btnAdd;
 
@@ -152,6 +185,12 @@
 
     }
 
+}
+#pragma mark - 
+#pragma mark - MDelegaet and CBDelegaet
+-(void)delShouldShowAdd:(BOOL)show
+{
+    [self setNavBarAndTab:show];
 }
 
 #pragma mark -
@@ -236,7 +275,7 @@
 {
     self.isSearching = false;
     self.navigationItem.titleView = nil;
-    [self setNavBarAndTab];
+    [self setNavBarAndTab:NO];
     [self.community1.tableViewCommunity reloadData];
     [self.community2.tableViewCommunity reloadData];
     [self.community3.tableViewCommunity reloadData];

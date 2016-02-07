@@ -47,8 +47,16 @@
         self.offenderWeight = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"weight"]];
         self.offenderZipCode = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"zipcode"]];
         
-        self.offenderAddress = [NSString stringWithFormat:@"%@ \n%@\n%@,%@", self.offenderStreet1,self.offenderStreet2,self.offenderCity,self.offenderState];
-
+        if(self.offenderStreet1.length!=0)
+            self.offenderAddress = self.offenderStreet1;
+        if(self.offenderStreet2.length!=0)
+            self.offenderAddress = [NSString stringWithFormat:@"%@\n%@",self.offenderAddress,self.offenderStreet2];
+        if(self.offenderCity.length!=0)
+            self.offenderAddress = [NSString stringWithFormat:@"%@\n%@",self.offenderAddress,self.offenderCity];
+        if(self.offenderState.length!=0)
+            self.offenderAddress = [NSString stringWithFormat:@"%@\n%@",self.offenderAddress,self.offenderState];
+        
+       // self.offenderAddress = [NSString stringWithFormat:@"%@ \n%@\n%@,%@", self.offenderStreet1,self.offenderStreet2,self.offenderCity,self.offenderState];
     }
     return self;
 }

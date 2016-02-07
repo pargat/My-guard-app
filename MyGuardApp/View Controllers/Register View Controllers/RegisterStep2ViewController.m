@@ -10,8 +10,8 @@
 
 @interface RegisterStep2ViewController ()
 {
-    UITextField *activeField;
-    
+    IQKeyboardReturnKeyHandler *returnKeyHandler;
+
 }
 @end
 
@@ -21,7 +21,6 @@
     [super viewDidLoad];
     [self setUpNavBar];
     [self viewHelper];
-    [self registerForKeyboardNotifications];
     // Do any additional setup after loading the view.
 }
 
@@ -32,59 +31,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self registerForKeyboardNotifications];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self removeObservers];
-}
-#pragma mark -
-#pragma mark - Keyboard Notifications
--(void)removeObservers
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)registerForKeyboardNotifications
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardWillShowNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillBeHidden:)
-                                                 name:UIKeyboardWillHideNotification object:nil];
-    
-}
-
-// Called when the UIKeyboardDidShowNotification is sent.
-- (void)keyboardWasShown:(NSNotification*)aNotification
-{
-    NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height+30, 0.0);
-    self.scrollViewObj.contentInset = contentInsets;
-    self.scrollViewObj.scrollIndicatorInsets = contentInsets;
-    
-    // If active text field is hidden by keyboard, scroll it so it's visible
-    // Your app might not need or want this behavior.
-    CGRect aRect = self.view.frame;
-    aRect.size.height -= (kbSize.height);
-    if (!CGRectContainsPoint(aRect, activeField.frame.origin) )
-    {
-        [self.scrollViewObj scrollRectToVisible:CGRectMake(activeField.frame.origin.x, activeField.frame.origin.y - 30 , activeField.frame.size.width, activeField.frame.size.height)  animated:YES];
-    }
-}
-
-// Called when the UIKeyboardWillHideNotification is sent
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification
-{
-    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    self.scrollViewObj.contentInset = contentInsets;
-    self.scrollViewObj.scrollIndicatorInsets = contentInsets;
 }
 
 #pragma mark -
@@ -180,25 +130,7 @@
     return msg;
 }
 
-#pragma mark -
-#pragma mark - UITextfield Delegates
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    activeField = textField;
-    
-}
 
--(void)textFieldDidEndEditing:(UITextField *)textField
-{
-    activeField = nil;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    UITextField *nextTf = (UITextField *)[self.view viewWithTag:textField.tag+1];
-    (nextTf == nil ) ?  [textField resignFirstResponder] : [nextTf becomeFirstResponder]  ;
-    return TRUE;
-}
 #pragma mark -
 #pragma mark - Helpers
 -(void)setUpNavBar
@@ -211,6 +143,7 @@
 }
 -(void)viewHelper
 {
+    returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
     self.imageViewDp.layer.cornerRadius = self.imageViewDp.frame.size.width/2;
     self.imageViewDp.clipsToBounds = YES;
     [self.segmentedControlGender setTitle:NSLocalizedString(@"male", nil) forSegmentAtIndex:0];
@@ -223,12 +156,7 @@
     
     [self.textFieldUser setPlaceholder:NSLocalizedString(@"user", nil)];
     
-    [self.textFieldUser setDelegate:self];
-    [self.textFieldCode setDelegate:self];
-    [self.textFieldFirstName setDelegate:self];
-    [self.textFieldLastName setDelegate:self];
-    [self.textFieldTypeOFDisability setDelegate:self];
-    
+        
     //Normal view tap
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
     [tapGesture setCancelsTouchesInView:YES];

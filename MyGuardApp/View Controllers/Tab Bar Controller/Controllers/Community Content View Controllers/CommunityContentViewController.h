@@ -20,8 +20,14 @@
 #import "BaseViewController.h"
 #import <SVPullToRefresh.h>
 
-@interface CommunityContentViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
+@protocol CVDelegate <NSObject>
 
+-(void)delShouldShowAdd:(BOOL)show;
+
+@end
+
+@interface CommunityContentViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
+@property(nonatomic,assign) id<CVDelegate> delegate;
 @property (nonatomic,strong) NSMutableArray *arraySearch;
 @property NSInteger selectedIndex;
 @property COMMUNITYTAB currentTab;

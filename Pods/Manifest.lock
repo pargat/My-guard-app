@@ -46,6 +46,7 @@ PODS:
   - FBSDKShareKit (4.5.1):
     - FBSDKCoreKit
   - GoogleMaps (1.10.2)
+  - IQKeyboardManager (3.3.5)
   - JTMaterialSpinner (1.0.1)
   - OpenTok (2.6.0)
   - RMActionController (1.0.4)
@@ -69,6 +70,7 @@ DEPENDENCIES:
   - FBSDKLoginKit
   - FBSDKShareKit
   - GoogleMaps
+  - IQKeyboardManager
   - JTMaterialSpinner
   - OpenTok
   - RMDateSelectionViewController (~> 2.0.0)
@@ -87,6 +89,7 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: 225cc9a388a92916ee3f3bb14422017b6e44b65b
   FBSDKShareKit: 642034ac9f30793dfd897851b724bb4281750266
   GoogleMaps: 5c92e599b07b0a2a9b367c5dd128edc629bddfea
+  IQKeyboardManager: 128bcb96b3ec03ff87942cdd7fa7f44491aa3d08
   JTMaterialSpinner: 4e025e1511dc2b06975a3b8d758005ec765e9338
   OpenTok: 2b99bd75055554f4028735fa84e4242e4932d245
   RMActionController: 19423654600d40ca15132a4e548d005042d68f09

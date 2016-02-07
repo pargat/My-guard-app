@@ -56,9 +56,6 @@
 
 -(void)viewHelper
 {
-    [self.textFieldEmail setDelegate:self];
-    [self.textFieldPassword setDelegate:self];
-    
     
     //Text view tap handler
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
@@ -113,21 +110,6 @@
     }];
 }
 
-#pragma mark -
-#pragma mark - UITextfield Delegates
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    if (textField==self.textFieldEmail) {
-        [self.textFieldPassword becomeFirstResponder];
-    }
-    else
-    {
-        [self.view endEditing:YES];
-    }
-    return TRUE;
-}
-
 #pragma mark - 
 #pragma mark - Validations
 - (BOOL)validateEmailWithString:(NSString*)email
@@ -158,6 +140,7 @@
     }
     else if(!self.btnCheckBox.isSelected)
     {
+        [self.view endEditing:YES];
         stringError = @"Please agree to our terms and conditions.";
     }
 

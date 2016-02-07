@@ -16,12 +16,15 @@
 #import "SearchMainViewController.h"
 #import "LOcationUpdater.h"
 #import "MissingCommunityViewController.h"
+#import "CustomBadge.h"
 
 
+@class MissingCommunityViewController;
 @class CommunitySearchViewController;
 @class CommunityContentViewController;
-@interface CommunityViewController : XLButtonBarPagerTabStripViewController<UISearchBarDelegate>
+@interface CommunityViewController : XLButtonBarPagerTabStripViewController<UISearchBarDelegate,MDelegate>
 
+@property (nonatomic,strong) CustomBadge *badgeC;
 @property BOOL isSearching;
 @property (nonatomic,strong) UISearchBar *sBar;
 @property (nonatomic,strong) CommunityContentViewController *community1;

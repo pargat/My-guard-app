@@ -120,25 +120,23 @@ int previousFreq=0;
     
     
     //push notification
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)])
-    {
+  
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
         
-    }
-    else
-    {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-        
-    }
+  
     
     [self locationInitialiser];
     _fftBuf = (float *)malloc(sizeof(float)*FFTLEN);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performPushForeground:) name:@"pushForeground" object:nil];
     [self checkLocationStatus];
+    [self checkMicrophoneStatus];
         [[NSUserDefaults standardUserDefaults] rm_setCustomObject:nil forKey:@"sex_loc"];
          [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"sex_loc"];
     
+    [self setSelectedIndex:1];
+
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -164,6 +162,17 @@ int previousFreq=0;
 
 #pragma mark -
 #pragma mark - View Helpers and observers
+-(void)checkMicrophoneStatus
+{
+    if([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio]==AVAuthorizationStatusDenied)
+    {
+        UIAlertView *Alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please give access to access microphone" delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"open_settings", nil), nil];
+        Alert.tag = 11;
+        [Alert show];
+    }
+
+}
+
 -(void)checkLocationStatus
 {
     if([CLLocationManager authorizationStatus]==kCLAuthorizationStatusDenied)
@@ -213,6 +222,10 @@ int previousFreq=0;
     else if ([str isEqualToString:@"5"])
     {
         [self performSegueWithIdentifier:KAdminSegue sender:dict];
+    }
+    else if ([str isEqualToString:@"14"])
+    {
+        [self performSegueWithIdentifier:KMissingDetailSegue sender:dict];
     }
 
 }
@@ -942,31 +955,45 @@ int previousFreq=0;
 }
 -(void)setOffAlarmViaNotification1 : (NSDictionary *)n
 {
-    [[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] endEditing:YES];
-
-    [self resetArrays];
-    
-    ISOVERLAYSHOWING = YES ;
+ 
+    Profile *p = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
     self.type = [n valueForKey:@"type"];
     self.AlarmObj = [[AlarmOverLayView alloc] init];
-    
-    self.AlarmObj = [[AlarmOverLayView alloc] init];
-    
-    if([self.type isEqualToString:@"1"])
+
+    if([self.type isEqualToString:@"1"]&&[p.profileFireBuy isEqualToString:@"1"])
     {
         self.AlarmObj.currentTab = FIRE;
         
     }
+    else if([self.type isEqualToString:@"1"]&&![p.profileFireBuy isEqualToString:@"1"])
+    {
+        return;
+        
+    }
+    
     else if ([self.type isEqualToString:@"2"])
     {
         self.AlarmObj.currentTab = GUN;
         
     }
-    else
+    else if([self.type isEqualToString:@"3"]&&[p.profileCOBuy isEqualToString:@"1"])
     {
         self.AlarmObj.currentTab = CO;
         
     }
+    else
+    {
+        return;
+    }
+
+    [[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] endEditing:YES];
+
+    [self resetArrays];
+    
+    ISOVERLAYSHOWING = YES ;
+
+    
+    
     [self.AlarmObj viewColorSetter];
     self.AlarmObj.delegate = self;
     [[[UIApplication sharedApplication] keyWindow]addSubview:self.AlarmObj];
@@ -1260,6 +1287,12 @@ int previousFreq=0;
         AdminMessageViewController *adminVC = (AdminMessageViewController *)segue.destinationViewController;
         adminVC.messageId = [sender valueForKey:@"id"];
         adminVC.messageString = [sender valueForKey:@"m"];
+    }
+    else if ([segue.identifier isEqualToString:KMissingDetailSegue])
+    {
+        [self.navigationController.navigationBar setHidden:NO];
+        MissingPersonViewController *missingVC = (MissingPersonViewController *)segue.destinationViewController;
+        missingVC.missingId = [sender valueForKey:@"id"];
     }
 
 }

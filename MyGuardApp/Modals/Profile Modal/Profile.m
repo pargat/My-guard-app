@@ -36,6 +36,12 @@
         self.profileIsFamily = [tempDict valueForKey:@"is_family"];
         self.profileIsFriend = [tempDict valueForKey:@"is_friend"];
         self.profileFStatus = [tempDict valueForKey:@"fstatus"];
+        self.profileFireBuy = [tempDict valueForKey:@"fire_purchased"];
+        self.profileSexBuy = [tempDict valueForKey:@"offender_purchased"];
+        self.profileCOBuy = [tempDict valueForKey:@"co_purchased"];
+        self.profileFireBuyAt = [tempDict valueForKey:@"fire_purchased_at"];
+        self.profileSexBuyAt = [tempDict valueForKey:@"offender_purchased_at"];
+        self.profileCOBuyAt = [tempDict valueForKey:@"co_purchased_at"];
         
     }
     return self;

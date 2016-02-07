@@ -15,7 +15,7 @@
     
     self.myProfile = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
     [self.tableViewProfile setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    
+    self.isSafetyShowing = true;
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -24,19 +24,20 @@
     [self getSafetyMeasure];
     [self.tableViewProfile reloadData];
     [self setNavBarAndTab];
-
+    [self getMissingPeople];
+    
 }
 
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - View Helper
 -(void)afterApi
 {
     [UIApplication sharedApplication].applicationIconBadgeNumber = self.myProfile.profileUnreadCount.integerValue;
-
+    
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - Animation zoom
 -(UIView *)viewForZoomTransition:(BOOL)isSource
 {
@@ -76,7 +77,22 @@
     UIBarButtonItem *btnBack = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_back"] style:UIBarButtonItemStylePlain target:self action:@selector(actionBack)];
     [btnBack setTintColor:[UIColor whiteColor]];
     self.navigationItem.leftBarButtonItem = btnBack;
-
+    
+    
+}
+-(void)getMissingPeople
+{
+    Profile *profile = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+    
+    [MissingModal callAPIForMissing:[NSString stringWithFormat:KMyMissing,KbaseUrl,profile.profileUserId] Params:nil success:^(NSMutableArray *offenderArr) {
+        self.arrayMissing = offenderArr;
+        [self.tableViewProfile reloadData];
+        [self removeLoaderView];
+        
+    } failure:^(NSString *errorStr) {
+        [self removeLoaderView];
+        
+    }];
     
 }
 -(void)getSafetyMeasure
@@ -89,53 +105,73 @@
         [[NSUserDefaults standardUserDefaults] rm_setCustomObject:self.myProfile forKey:@"profile"];
         [self.tableViewProfile reloadData];
         [self afterApi];
+        [self removeLoaderView];
         
     } failure:^(NSString *errorStr) {
-        
+        [self removeLoaderView];
     }];
-
-//    [SafetyMeasure callAPIForSafetyMeasureOfUserSelf:[NSString stringWithFormat:KGetProfile,KbaseUrl,self.myProfile.profileUserId,self.myProfile.profileUserId] Params:nil success:^(NSMutableArray *safetyArr) {
-//        
-//        self.arraySafety = [[NSMutableArray alloc] initWithArray:safetyArr];
-//        [self.tableViewProfile reloadData];
-//        
-//    } failure:^(NSString *errorStr) {
-//        
-//    }];
+    
+    //    [SafetyMeasure callAPIForSafetyMeasureOfUserSelf:[NSString stringWithFormat:KGetProfile,KbaseUrl,self.myProfile.profileUserId,self.myProfile.profileUserId] Params:nil success:^(NSMutableArray *safetyArr) {
+    //
+    //        self.arraySafety = [[NSMutableArray alloc] initWithArray:safetyArr];
+    //        [self.tableViewProfile reloadData];
+    //
+    //    } failure:^(NSString *errorStr) {
+    //
+    //    }];
 }
 #pragma mark -
 #pragma mark - ProfileMyDelegate
+-(void)delSelected:(BOOL)showSafety
+{
+    self.isSafetyShowing = showSafety;
+    [self.tableViewProfile reloadData];
+}
 -(void)delBigView
 {
     [self performSegueWithIdentifier:KImageFullSegue sender:nil];
 }
 
-#pragma mark - 
-#pragma mark - Animations 
+#pragma mark -
+#pragma mark - Animations
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
-    MyProfileViewController* toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    FireViewController* fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    [[transitionContext containerView] addSubview:toViewController.view];
-    toViewController.view.frame = [transitionContext.containerView convertRect:toViewController.imageViewS.frame  fromView:(UIButton *)[fromViewController.navigationItem.leftBarButtonItems firstObject]];
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        toViewController.view.frame = [transitionContext finalFrameForViewController:toViewController];
-    } completion:^(BOOL finished) {
-        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-    }];
+    //    MyProfileViewController* toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    //    FireViewController* fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    //    [[transitionContext containerView] addSubview:toViewController.view];
+    //    toViewController.view.frame = [transitionContext.containerView convertRect:toViewController.imageViewS.frame  fromView:(UIButton *)[fromViewController.navigationItem.leftBarButtonItems firstObject]];
+    //
+    //    [UIView animateWithDuration:0.5 animations:^{
+    //        toViewController.view.frame = [transitionContext finalFrameForViewController:toViewController];
+    //    } completion:^(BOOL finished) {
+    //        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
+    //    }];
 }
 
 #pragma mark -
 #pragma mark - Table View Datasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(self.arraySafety.count==0)
+    if(self.isSafetyShowing)
     {
-        return 2;
+        if(self.arraySafety.count==0)
+        {
+            return 3;
+        }
+        else
+            return 2+self.arraySafety.count;
     }
     else
-        return 1+self.arraySafety.count;
+    {
+        if(self.arrayMissing.count==0)
+        {
+            return 3;
+        }
+        else
+            return 2+self.arrayMissing.count;
+    }
+    
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -144,33 +180,71 @@
     {
         ProfileHeaderMyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProfileHeaderMyCell"];
         [self configureProfileHeaderCell:cell atIndexPath:indexPath];
-         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
+    }
+    else if (indexPath.row==1)
+    {
+        ProfileSelectionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProfileSelectionCell"];
+        [self configureSegmentCell:cell atIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+        
     }
     else
     {
-        if(self.arraySafety.count==0)
+        if(self.isSafetyShowing)
         {
-            CommunityNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
-            [cell.labelNoUsers setText:@"No safety measures shared yet"];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
-
+            if(self.arraySafety.count==0)
+            {
+                CommunityNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
+                [cell.labelNoUsers setText:@"No safety measures shared yet"];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                return cell;
+                
+            }
+            else
+            {
+                SafetyProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SafetyProfileCell"];
+                [self configureSafetyCell:cell atIndexPath:indexPath];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                return cell;
+                
+            }
         }
         else
         {
-            SafetyProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SafetyProfileCell"];
-            [self configureSafetyCell:cell atIndexPath:indexPath];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
-
+            if(self.arrayMissing.count==0)
+            {
+                CommunityNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
+                [cell.labelNoUsers setText:@"You haven't added any missing person yet."];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                return cell;
+                
+            }
+            else
+            {
+                MissingCommunityCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MissingCommunityCell"];
+                [self configureMissingCell:cell atIndexPath:indexPath];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                return cell;
+                
+            }
         }
     }
 }
 
+-(void)configureSegmentCell:(ProfileSelectionCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    if(self.isSafetyShowing)
+        [cell.segmentedControl setSelectedSegmentIndex:0];
+    else
+        [cell.segmentedControl setSelectedSegmentIndex:1];
+    cell.delegate = self;
+}
 -(void)configureSafetyCell:(SafetyProfileCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    SafetyMeasure *modal = [self.arraySafety objectAtIndex:indexPath.row-1];
+    SafetyMeasure *modal = [self.arraySafety objectAtIndex:indexPath.row-2];
     [cell.labelDescription setText:modal.safetyDescription];
     [cell.labelDescription setPreferredMaxLayoutWidth:self.view.frame.size.width - 82];
     if([modal.safetyType isEqualToString:@"1"])
@@ -208,6 +282,23 @@
         [cell.viewNotifCount setHidden:YES];
     }
 }
+-(void)configureMissingCell:(MissingCommunityCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    MissingModal *modal = [self.arrayMissing objectAtIndex:indexPath.row-2];
+    [cell.labelLast setText:modal.missingLocation];
+    [cell.labelMissingSince setText:modal.missingDate];
+    [cell.labelDescription setText:modal.missingDescription];
+    [cell.labelName setText:modal.missingName];
+    [cell.imageViewPerson sd_setImageWithURL:[NSURL URLWithString:modal.missingImage]];
+    cell.stringPhone = modal.missingPhone;
+    [cell.labelEye setText:modal.missingEye];
+    [cell.labelHair setText:modal.missingHair];
+    [cell.labelHeight setText:modal.missingHeight];
+    [cell.labelAge setText:modal.missingAge];
+
+    [cell.labelDescription setPreferredMaxLayoutWidth:self.view.frame.size.width - 112];
+}
+
 
 #pragma mark -
 #pragma mark - Table view delegates
@@ -233,49 +324,147 @@
 {
     if(indexPath.row==0)
     {
-    static ProfileHeaderMyCell *sizingCell = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sizingCell = [tableView dequeueReusableCellWithIdentifier:@"ProfileHeaderMyCell"];
-    });
-    
-    [self configureProfileHeaderCell:sizingCell atIndexPath:indexPath];
-    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return size.height+1;
+        static ProfileHeaderMyCell *sizingCell = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            sizingCell = [tableView dequeueReusableCellWithIdentifier:@"ProfileHeaderMyCell"];
+        });
+        
+        [self configureProfileHeaderCell:sizingCell atIndexPath:indexPath];
+        CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        return size.height+1;
+    }
+    else if (indexPath.row==1)
+    {
+        static ProfileSelectionCell *sizingCell = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            sizingCell = [tableView dequeueReusableCellWithIdentifier:@"ProfileSelectionCell"];
+        });
+        
+        [self configureSegmentCell:sizingCell atIndexPath:indexPath];
+        CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        return size.height+1;
+        
     }
     else
     {
-        if(self.arraySafety.count==0)
+        if(self.isSafetyShowing)
         {
-            static CommunityNoCell *sizingCell = nil;
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                sizingCell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
-            });
-            
-            CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-            return size.height+1;
-            
+            if(self.arraySafety.count==0)
+            {
+                static CommunityNoCell *sizingCell = nil;
+                static dispatch_once_t onceToken;
+                dispatch_once(&onceToken, ^{
+                    sizingCell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
+                });
+                
+                CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+                return size.height+1;
+                
+            }
+            else
+            {
+                static SafetyProfileCell *sizingCell = nil;
+                static dispatch_once_t onceToken;
+                dispatch_once(&onceToken, ^{
+                    sizingCell = [tableView dequeueReusableCellWithIdentifier:@"SafetyProfileCell"];
+                });
+                
+                [self configureSafetyCell:sizingCell atIndexPath:indexPath];
+                CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+                return size.height+1;
+            }
         }
         else
         {
-            static SafetyProfileCell *sizingCell = nil;
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                sizingCell = [tableView dequeueReusableCellWithIdentifier:@"SafetyProfileCell"];
-            });
-            
-            [self configureSafetyCell:sizingCell atIndexPath:indexPath];
-            CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-            return size.height+1;
+            if(self.arrayMissing.count==0)
+            {
+                static CommunityNoCell *sizingCell = nil;
+                static dispatch_once_t onceToken;
+                dispatch_once(&onceToken, ^{
+                    sizingCell = [tableView dequeueReusableCellWithIdentifier:@"CommunityNoCell"];
+                });
+                
+                CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+                return size.height+1;
+                
+            }
+            else
+            {
+                static MissingCommunityCell *sizingCell = nil;
+                static dispatch_once_t onceToken;
+                dispatch_once(&onceToken, ^{
+                    sizingCell = [tableView dequeueReusableCellWithIdentifier:@"MissingCommunityCell"];
+                });
+                
+                [self configureMissingCell:sizingCell atIndexPath:indexPath];
+                CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+                return size.height+1;
+            }
         }
     }
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-        if(indexPath.row>0&&self.arraySafety.count!=0)
-     [self performSegueWithIdentifier:KSafetyDetailSegue sender:[self.arraySafety objectAtIndex:indexPath.row-1]];
+    if(self.isSafetyShowing)
+    {
+        if(indexPath.row>1&&self.arraySafety.count!=0)
+        {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"view", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self performSegueWithIdentifier:KSafetyDetailSegue sender:[self.arraySafety objectAtIndex:indexPath.row-2]];
+                
+            }]];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"delete", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                SafetyMeasure *modal = [self.arraySafety objectAtIndex:indexPath.row-2];
+                [self setUpLoaderView];
+                [iOSRequest getJsonResponse:[NSString stringWithFormat:KDeleteSafety,KbaseUrl,modal.safetyId,[Profile getCurrentProfileUserId]] success:^(NSDictionary *responseDict) {
+                    [self getSafetyMeasure];
+                } failure:^(NSString *errorString) {
+                    [self removeLoaderView];
+                }];
+                
+            }]];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
+            [self presentViewController:alertController animated:YES completion:^{
+                
+            }];
+        }
+    }
+    else
+    {
+        if(indexPath.row>1&&self.arrayMissing.count!=0)
+        {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"view", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [self performSegueWithIdentifier:KMissingDetailSegue sender:[self.arrayMissing objectAtIndex:indexPath.row-2]];
+                
+            }]];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"delete", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                MissingModal *modal = [self.arrayMissing objectAtIndex:indexPath.row-2];
+                [self setUpLoaderView];
+                [iOSRequest getJsonResponse:[NSString stringWithFormat:KDeleteMissing,KbaseUrl,modal.missingId,[Profile getCurrentProfileUserId]] success:^(NSDictionary *responseDict) {
+                    [self getMissingPeople];
+                } failure:^(NSString *errorString) {
+                    [self removeLoaderView];
+                }];
+
+                
+            }]];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
+            [self presentViewController:alertController animated:YES completion:^{
+                
+            }];
+
+        }
+
+    }
 }
 #pragma mark -
 #pragma mark - Action Sheet Delegate
@@ -303,7 +492,7 @@
 }
 
 
-#pragma mark - 
+#pragma mark -
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
@@ -327,7 +516,7 @@
         }
         
         safetyVC.stringSafety = modal.safetyDescription;
-
+        
         safetyVC.stringSafety = modal.safetyDescription;
     }
     else if ([segue.identifier isEqualToString:KImageFullSegue])
@@ -335,6 +524,12 @@
         ImageFullViewController *imageVc = (ImageFullViewController *)segue.destinationViewController;
         imageVc.username = self.myProfile.profileUserName;
         imageVc.imageLink = self.myProfile.profileImageFullLink;
+    }
+    else if ([segue.identifier isEqualToString:KMissingDetailSegue])
+    {
+        MissingPersonViewController *mVC = (MissingPersonViewController *)segue.destinationViewController;
+        mVC.missingModal = (MissingModal*)sender;
+        
     }
 }
 @end

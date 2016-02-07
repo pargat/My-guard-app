@@ -14,7 +14,7 @@
 #import "MainTabBarController.h"
 #import "UIImage+Extras.h"
 
-@interface RegisterStep2ViewController : BaseViewController<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
+@interface RegisterStep2ViewController : BaseViewController<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic,strong) NSDictionary *dictFb;
 @property BOOL isImageSelected;

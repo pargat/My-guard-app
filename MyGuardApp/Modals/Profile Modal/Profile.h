@@ -31,6 +31,14 @@
 @property (nonatomic,strong) NSString *profileLongitude;
 @property (nonatomic,strong) NSString *profilePhoneNumber;
 @property (nonatomic,strong) NSString *profileUserName;
+@property (nonatomic,strong) NSString *profileFireBuy;
+@property (nonatomic,strong) NSString *profileSexBuy;
+@property (nonatomic,strong) NSString *profileCOBuy;
+
+@property (nonatomic,strong) NSString *profileFireBuyAt;
+@property (nonatomic,strong) NSString *profileSexBuyAt;
+@property (nonatomic,strong) NSString *profileCOBuyAt;
+
 
 -(id)initWithAttributes:(NSDictionary *)tempDict;
 +(NSMutableArray *)parseDictToModal : (NSArray *)tempArr;

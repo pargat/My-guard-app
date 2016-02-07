@@ -14,9 +14,21 @@
 #import "LOcationUpdater.h"
 #import "MissingModal.h"
 #import <UIImageView+WebCache.h>
+#import "BaseViewController.h"
+#import <SVPullToRefresh.h>
+#import "MissingPersonViewController.h"
 
-@interface MissingCommunityViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@protocol MDelegate <NSObject>
 
+-(void)delShouldShowAdd:(BOOL)show;
+
+@end
+
+
+@interface MissingCommunityViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
+
+@property int page;
+@property(nonatomic,assign) id<MDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewMissing;
 @property (nonatomic,strong) NSMutableArray *arrayMissing;
 

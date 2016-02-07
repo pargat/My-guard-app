@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>IQKeyboardManager.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>JTMaterialSpinner.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -97,22 +102,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>11580D5147D065AF5D178F9AA4B83CA9</key>
+		<key>13A93FB62C27450BE944B879AD880E33</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>160B94FA26A3DB3DAC8D16978A923138</key>
+		<key>1A909F859AD3184DCDA47C87A4FF71B6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2DA3D61DF6DC23ED39246EEC55C4447A</key>
+		<key>23CFC17CF656FBC762D9305BACB76CA7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4067638E1A061213F08B90A74F2ECBC2</key>
+		<key>3F9317F855B94A54B7C2E18FD5A2751D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,12 +127,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>49D881FF2571E145F38AFD7C7E9DB157</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>61DFD15E1A174FFE8DBFED89F10AA3F7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9BD81D9D6574CBDDFDA1AE8363425C8B</key>
+		<key>90A6B164ACFD9FF120831DC678EDED59</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -142,22 +152,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B057095F437A00AE45EA59D66D846144</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>B2B0610F68C9DCCDBB4DA53BFA95EBA3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B2B593A91D5B652B6A5402282B2E97F8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BEC6D40DEBAA8FD384ECBD3E7035AFBB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -167,12 +162,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F21523DE0EE1E35B265242490D97EE4C</key>
+		<key>DDF20B0F68F66BD16FBA71676D7785CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F626EBE300042EF9DEDA23BCECC0B305</key>
+		<key>E1DFE9D0354E48667835A7A3D4BFC5DA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F05C6138D52AB38FA74A1F0F5B242A90</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F0F986A1B1693AA4255FA30A6F32DDE0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F21523DE0EE1E35B265242490D97EE4C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

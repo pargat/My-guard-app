@@ -7,7 +7,7 @@
 //
 
 #import "SexOffenderViewController.h"
-
+#define RGB(r, g, b)	 [UIColor colorWithRed: (r) / 255.0 green: (g) / 255.0 blue: (b) / 255.0 alpha : 1]
 @interface SexOffenderViewController ()
 {
     JTMaterialSpinner *loaderObj ;
@@ -20,37 +20,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.arraySexOffender = [[NSMutableArray alloc] init];
-    [self.tableViewOffenders setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [self.tableViewOffenders setDelegate:self];
-    [self.tableViewOffenders setDataSource:self];
     self.searchBar = [[UISearchBar alloc] init];
     [self.searchBar setDelegate:self];
     [self.searchBar setShowsCancelButton:YES];
     [self.searchBar setTintColor:[UIColor whiteColor]];
-    [self.tableViewOffenders setKeyboardDismissMode:UIScrollViewKeyboardDismissModeOnDrag];
-    [self setNavBarAndTab];
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"sex_permission"]==false||[[NSUserDefaults standardUserDefaults] valueForKey:@"sex_permission"] == nil)
-    {
-        [self.tableViewOffenders setHidden:YES];
-        [self.viewNoOne setHidden:NO];
-        [self.labelCool setText:NSLocalizedString(@"sex_disabled", nil)];
-    }
-    else if([[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"sex_list"]==nil)
-    {
-        [self.tableViewOffenders setHidden:YES];
-        [self.labelCool setText:NSLocalizedString(@"sex_nearby", nil)];
-        [self.viewNoOne setHidden:NO];
-    }
-    else
-    {
-        self.arraySexOffender = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"sex_list"];
-        [self.tableViewOffenders setHidden:NO];
-        [self.tableViewOffenders reloadData];
-        [self.viewNoOne setHidden:YES];
-    }
+    [self refresh];
     self.arraySexOffender = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"sex_list"];
     
-    //[self setInAppThing];
+    [self.viewContainer setDelegate:self];
+    [self.viewContainer setDataSource:self];
+    self.viewContainer.canDraggableDirection = YSLDraggableDirectionLeft | YSLDraggableDirectionRight;
+    [self setInAppThing];
+
     // Do any additional setup after loading the view.
 }
 
@@ -59,110 +40,144 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self setNavBarAndTab];
+{    [super viewWillAppear:animated];
+
+   
     [self refresh];
     [self.tabBarController.tabBar setHidden:NO];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:@"sex" object:nil];
-    [self fetchInAppPurchases];
+
+    [CommonFunctions buySexInApp];
+
+    
+    self.layoutLaid = false;
+    self.deleteCount = 0;
+    [self setNavBarAndTab];
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.tabBarController.tabBar setHidden:NO];
+    self.layoutLaid = true;
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [self removeLoaderView];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sex" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"in_app" object:nil];
+    [self.badgeC removeFromSuperview];
 }
+-(void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    if(!self.layoutLaid)
+    {
+        [self.viewContainer reloadCardContainer];
+    }
+}
+-(void)badge
+{
+    [self.badgeC removeFromSuperview];
+    
+    Profile *modal = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+    if([modal.profileUnreadCount integerValue]>0)
+    {
+        self.badgeC = [CustomBadge customBadgeWithString:modal.profileUnreadCount];
+        [self.badgeC setBadgeText:modal.profileUnreadCount];
+        [self.badgeC setFrame:CGRectMake(35, 16, 28, 28)];
+        //    [self.navigationController.navigationBar addSubview:self.badgeC];
+        //    [self.badgeC bringSubviewToFront:self.navigationController.navigationBar];
+        UIWindow* currentWindow = [UIApplication sharedApplication].keyWindow;
+        [currentWindow addSubview:self.badgeC];
+    }
+}
+
 -(void)refresh
 {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"sex_permission"]==false||[[NSUserDefaults standardUserDefaults] valueForKey:@"sex_permission"] == nil)
     {
-        [self.tableViewOffenders setHidden:YES];
+        [self.viewContainer setHidden:YES];
         [self.viewNoOne setHidden:NO];
         [self.labelCool setText:NSLocalizedString(@"sex_disabled", nil)];
     }
     else if([[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"sex_list"]==nil)
     {
-        [self.tableViewOffenders setHidden:YES];
+        [self.viewContainer setHidden:YES];
         [self.labelCool setText:NSLocalizedString(@"sex_nearby", nil)];
         [self.viewNoOne setHidden:NO];
     }
     else
     {
         self.arraySexOffender = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"sex_list"];
-        [self.tableViewOffenders setHidden:NO];
-        [self.tableViewOffenders setDelegate:self];
-        [self.tableViewOffenders setDataSource:self];
-        [self.tableViewOffenders reloadData];
+        [self.viewContainer setHidden:NO];
         [self.viewNoOne setHidden:YES];
     }
+    
+    [self.viewContainer reloadCardContainer];
+    Profile *profile = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+    
+    if([profile.profileSexBuy isEqualToString:@"1"])
+    {
+        [self.viewInpp setHidden:YES];
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(purchased:) name:@"in_app" object:nil];
+    }
 
 }
+
+
+
 
 #pragma mark -
-#pragma mark - Search bar delegate
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+#pragma mark - In app purchase functions
+-(void)fetchAndPurchase
 {
-    UIButton *btnCancel = [self.searchBar valueForKey:@"_cancelButton"];
-    [btnCancel setEnabled:YES];
-}
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    if(![[searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""])
-    {
+    [[MyGuardInAppHelper sharedInstance] requestProductWithCompletionHandler:^(BOOL success, NSArray *products) {
         
-        [self.searchBar resignFirstResponder];
-        // [self setUpLoaderView];
         
-        self.arraySearch = [[NSMutableArray alloc] init];
-        for (SexOffender *modal in self.arraySexOffender) {
-            if([modal.offenderZipCode respondsToSelector:@selector(containsString:)])
-            {
-                if ([modal.offenderZipCode containsString:self.searchBar.text])
-                {
-                    
-                    [self.arraySearch addObject:modal];
-                    
-                }
-                else if ([modal.offenderFirstName containsString:self.searchBar.text])
-                {
-                    [self.arraySearch addObject:modal];
-                }
-            }
-            else
-            {
-                
-                if ([modal.offenderZipCode rangeOfString:self.searchBar.text].length != 0) {
-                    
-                    [self.arraySearch addObject:modal];
-                    
-                }
-                else if ([modal.offenderFirstName rangeOfString:self.searchBar.text].length != 0) {
-                    
-                    [self.arraySearch addObject:modal];
-                    
-                }
-
-            }
-            
+        if (success) {
+            //sort products according to price
+            //            NSSortDescriptor *lowestPriceToHighest = [NSSortDescriptor sortDescriptorWithKey:@"price" ascending:YES];
+            //            NSArray *sortedProducts = [products sortedArrayUsingDescriptors:[NSArray arrayWithObject:lowestPriceToHighest]];
+            self.arrayInApp = [NSArray arrayWithArray:products];
+            [self actionBuy:nil];
+        }
+        else {
         }
         
-        UIButton *btnCancel = [self.searchBar valueForKey:@"_cancelButton"];
-        [btnCancel setEnabled:YES];
-        [self.tableViewOffenders reloadData];
+    }];
+}
+
+-(void)setInAppThing
+{
+    self.btnBuy.layer.cornerRadius = 8.0;
+    self.btnBuy.clipsToBounds = YES;
+    
+    [self.labelPremium setText:NSLocalizedString(@"sex_premium", nil)];
+    [self.labelPrimiumDes setText:NSLocalizedString(@"sex_description", nil)];
+    [self.btnBuy setTitle:[NSString stringWithFormat:@"%@ (%@)",NSLocalizedString(@"sex_activate", nil),@"$4.99/yr"] forState:UIControlStateNormal];
+    [self fetchInAppPurchases];
+}
+
+-(void)purchased:(NSNotification *)n
+{
+    if([n.object isEqualToString:INAPP_SEX_ID])
+    {
+        [self removeLoaderView];
+        [[NSUserDefaults standardUserDefaults] setObject:@"yes" forKey:@"sex_in"];
+        [self.viewInpp setHidden:YES];
+        [self refresh];
+    }
+    else
+    {
+        [self removeLoaderView];
         
     }
-}
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    [self setNavBarAndTab];
-    [self.tableViewOffenders reloadData];
-    
-}
 
-
-#pragma mark -
-#pragma mark - In ap purchase functions
+}
 - (void)fetchInAppPurchases {
     [[MyGuardInAppHelper sharedInstance] requestProductWithCompletionHandler:^(BOOL success, NSArray *products) {
         
@@ -171,6 +186,7 @@
             //sort products according to price
 //            NSSortDescriptor *lowestPriceToHighest = [NSSortDescriptor sortDescriptorWithKey:@"price" ascending:YES];
 //            NSArray *sortedProducts = [products sortedArrayUsingDescriptors:[NSArray arrayWithObject:lowestPriceToHighest]];
+            self.arrayInApp = [NSArray arrayWithArray:products];
             
         }
         else {
@@ -182,33 +198,6 @@
 
 #pragma mark -
 #pragma mark - Helper functions
--(void)setInAppThing
-{
-    self.btnBuy.layer.cornerRadius = 8.0;
-    self.btnBuy.clipsToBounds = YES;
-    self.btnRestore.layer.cornerRadius = 8.0;
-    self.btnRestore.clipsToBounds = YES;
-
-    [self.labelPremium setText:NSLocalizedString(@"sex_premium", nil)];
-    [self.btnRestore setTitle:NSLocalizedString(@"restore_purchase", nil) forState:UIControlStateNormal];
-    [self.labelPrimiumDes setText:NSLocalizedString(@"sex_description", nil)];
-    [self.btnBuy setTitle:[NSString stringWithFormat:@"%@ (%@)",NSLocalizedString(@"sex_activate", nil),@"$20"] forState:UIControlStateNormal];
-    [self fetchInAppPurchases];
-}
--(void)getOffenders
-{
-    LOcationUpdater *loc = [LOcationUpdater sharedManager];
-    NSArray *array = [CommonFunctions getBoundingBox:10 lat:loc.currentLoc.coordinate.latitude lon:loc.currentLoc.coordinate.longitude];
-    [SexOffender callAPIForSexOffenders:[ NSString stringWithFormat:@"http://services.familywatchdog.us/json/json.asp?key=%@&lite=0&type=searchbylatlong&minlat=%@&maxlat=%@&minlong=%@&maxlong=%@",KSEXKEY,[array objectAtIndex:0],[array objectAtIndex:1],[array objectAtIndex:2],[array objectAtIndex:3]] Params:nil success:^(NSMutableArray *offenderArr) {
-        self.arraySexOffender = [NSMutableArray arrayWithArray:offenderArr];
-        [self.tableViewOffenders reloadData];
-        [self removeLoaderView];
-        
-    } failure:^(NSString *errorStr) {
-        [self removeLoaderView];
-        
-    }];
-}
 -(void)setNavBarAndTab
 {
     [self.tabBarController.tabBar setTintColor:KPurpleColor];
@@ -241,6 +230,7 @@
         btnProfile.customView.clipsToBounds = YES;
 
         self.navigationItem.leftBarButtonItem = btnProfile;
+        [self badge];
         
     }
     else
@@ -267,9 +257,10 @@
                 
                 UIBarButtonItem *btnProfile = [[UIBarButtonItem alloc] initWithCustomView:btnProfileA];
                 [btnProfile setTintColor:[UIColor whiteColor]];
-                self.navigationItem.leftBarButtonItem = btnProfile;
                 btnProfile.customView.clipsToBounds = YES;
 
+                self.navigationItem.leftBarButtonItem = btnProfile;
+                [self badge];
             });
             
         });
@@ -308,54 +299,6 @@
 }
 
 #pragma mark -
-#pragma mark - Table View Delegate and datasource functions
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if(self.navigationItem.rightBarButtonItem!=nil)
-        return self.arraySearch.count;
-    else
-        return self.arraySexOffender.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    SexOffenderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SexOffenderCell"];
-    [self configureCell:cell atIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-    
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static SexOffenderCell *sizingCell = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sizingCell = [self.tableViewOffenders dequeueReusableCellWithIdentifier:@"SexOffenderCell"];
-    });
-    
-    [self configureCell:sizingCell atIndexPath:indexPath];
-    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return size.height;
-}
--(void)configureCell:(SexOffenderCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    SexOffender *modal;
-    if(self.navigationItem.rightBarButtonItem!=nil)
-        modal = [self.arraySearch objectAtIndex:indexPath.row];
-    else
-        modal = [self.arraySexOffender objectAtIndex:indexPath.row];
-    
-    [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:modal.offenderPhoto]];
-    [cell.labelName setText:modal.offenderName];
-    [cell.labelDescription setText:[NSString stringWithFormat:@"Age : %@   Sex : %@",modal.offenderAge,modal.offenderSex]];
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    self.sexOffenderModal = [self.arraySexOffender objectAtIndex:indexPath.row];
-    [self performSegueWithIdentifier:KSexOffenderDetailSegue sender:self];
-}
-
-#pragma mark -
 #pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -372,8 +315,124 @@
 
 
 - (IBAction)actionBuy:(id)sender {
+    [self setUpLoaderView];
+    for (SKProduct *product in self.arrayInApp) {
+        if([product.productIdentifier isEqualToString:INAPP_SEX_ID])
+        {
+            [[MyGuardInAppHelper sharedInstance] buy_Product:product];
+            break;
+        }
+    }
+    
+    if(self.arrayInApp.count == 0)
+    {
+        [self fetchAndPurchase];
+    }
+
 }
 
-- (IBAction)actionRestore:(id)sender {
+
+
+#pragma mark -- YSLDraggableCardContainer DataSource
+- (UIView *)cardContainerViewNextViewWithIndex:(NSInteger)index
+{
+    SexOffender *modal = [self.arraySexOffender objectAtIndex:index];
+    CardView *view = [[CardView alloc]init];
+    [view setFrame:CGRectMake(32, 32, self.viewContainer.frame.size.width-64, self.viewContainer.frame.size.height-80)];
+    [view setNeedsLayout];
+    [view layoutIfNeeded];
+    //[view setFrame:self.viewContainer.frame];
+    view.backgroundColor = [UIColor whiteColor];
+    [view.imageViewSex sd_setImageWithURL:[NSURL URLWithString:modal.offenderPhoto]];
+
+    view.labelName.text = modal.offenderName;
+    [view.labelGenderAge setText:[NSString stringWithFormat:@"%@ , %@ yrs",modal.offenderSex,modal.offenderAge]];
+    [view.labelAddress setText:modal.offenderAddress];
+    
+    
+  UIBezierPath *shadowPath1 = [UIBezierPath bezierPathWithRect:view.bounds];
+//    UIBezierPath *shadowPath1 = [UIBezierPath bezierPathWithRect:CGRectMake(0, 5, view.frame.size.width, view.frame.size.height)];
+
+    view.layer.masksToBounds = NO;
+    view.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+    view.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    view.layer.shadowOpacity = 0.75f;
+    view.layer.shadowPath = shadowPath1.CGPath;
+    //view.clipsToBounds = YES;
+   // view.imageViewSex.clipsToBounds = YES;
+    
+    
+    UIBezierPath *maskPath;
+    maskPath = [UIBezierPath bezierPathWithRoundedRect:view.imageViewSex.bounds
+                                     byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerTopRight)
+                                           cornerRadii:CGSizeMake(7.0, 7.0)];
+    
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = view.imageViewSex.bounds;
+    maskLayer.path = maskPath.CGPath;
+    view.imageViewSex.layer.mask = maskLayer;
+
+    view.imageViewSex.layer.masksToBounds = YES;
+    
+    return view;
 }
+
+- (NSInteger)cardContainerViewNumberOfViewInIndex:(NSInteger)index
+{
+    return self.arraySexOffender.count;
+}
+
+
+
+#pragma mark -- YSLDraggableCardContainer Delegate
+- (void)cardContainerView:(YSLDraggableCardContainer *)cardContainerView didEndDraggingAtIndex:(NSInteger)index draggableView:(UIView *)draggableView draggableDirection:(YSLDraggableDirection)draggableDirection
+{
+    @try {
+        [self.arraySexOffender removeObjectAtIndex:0];
+        [[NSUserDefaults standardUserDefaults] rm_setCustomObject:self.arraySexOffender forKey:@"sex_list"];
+        if (self.arraySexOffender.count==0) {
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"sex_list"];
+            [self refresh];
+        }
+        
+        
+    }
+    @catch (NSException *exception) {
+        
+    }
+
+    if (draggableDirection == YSLDraggableDirectionLeft) {
+        [cardContainerView movePositionWithDirection:draggableDirection
+                                         isAutomatic:NO];
+    }
+    
+    if (draggableDirection == YSLDraggableDirectionRight) {
+        [cardContainerView movePositionWithDirection:draggableDirection
+                                         isAutomatic:NO];
+    }
+    
+    if (draggableDirection == YSLDraggableDirectionUp) {
+        [cardContainerView movePositionWithDirection:draggableDirection
+                                         isAutomatic:NO];
+    }
+    
+}
+
+- (void)cardContainderView:(YSLDraggableCardContainer *)cardContainderView updatePositionWithDraggableView:(UIView *)draggableView draggableDirection:(YSLDraggableDirection)draggableDirection widthRatio:(CGFloat)widthRatio heightRatio:(CGFloat)heightRatio
+{
+}
+
+- (void)cardContainerViewDidCompleteAll:(YSLDraggableCardContainer *)container;
+{
+}
+
+- (void)cardContainerView:(YSLDraggableCardContainer *)cardContainerView didSelectAtIndex:(NSInteger)index draggableView:(UIView *)draggableView
+{
+     self.sexOffenderModal = [self.arraySexOffender objectAtIndex:0];
+    [self performSegueWithIdentifier:KSexOffenderDetailSegue sender:nil];
+   
+}
+
+
+
 @end

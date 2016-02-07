@@ -161,6 +161,8 @@
         [[NSUserDefaults standardUserDefaults] rm_setCustomObject:nil forKey:@"sex_loc"];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"sex_loc"];
         [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"sex_list"];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"sex_in"];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"sex_in"];
 
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 

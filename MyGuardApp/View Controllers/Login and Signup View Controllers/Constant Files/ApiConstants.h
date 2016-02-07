@@ -28,6 +28,10 @@ typedef enum : NSUInteger {
 } MAINTAB;
 
 
+#define INAPP_FIRE_ID @"com.myguardapp.firealarmnew"
+#define INAPP_SEX_ID @"com.myguardapps.sexoffenderlatest"
+#define INAPP_CO_ID @"com.myguardapps.co"
+
 #define KGetAdvertisment @"%@get_advertisement.php"
 
 //Check version
@@ -75,6 +79,7 @@ typedef enum : NSUInteger {
 
 //Adding Safety Measure
 #define KAddSafetyMeasureApi @"%@post_safety_measure_v2.php?user_id=%@&type=%@&description=%@"
+#define KDeleteSafety @"%@delete_safety_measure.php?id=%@&user_id=%@"
 
 
 //feeds
@@ -142,5 +147,13 @@ typedef enum : NSUInteger {
 
 
 //Missing people
+#define KDeleteMissing @"%@delete_missing.php?id=%@&user_id=%@"
 #define KListMissing @"%@missing_feed.php?user_id=%@&latitude=%f&longitude=%f&page=%d"
 #define KAddMissing @"%@add_missing.php"
+#define KFetchMissingApi @"%@view_missing.php?id=%@"
+#define KMyMissing @"%@my_missing.php?user_id=%@"
+
+//sex offender
+#define KBuyFireApi @"%@buy_fire.php?user_id=%@"
+#define KBuySexApi @"%@buy_offender.php?user_id=%@"
+#define KBuyCOApi @"%@buy_co.php?user_id=%@"

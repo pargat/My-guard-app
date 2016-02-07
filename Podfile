@@ -17,6 +17,8 @@ pod 'UIActivityIndicator-for-SDWebImage'
 pod 'RMPickerViewController'
 pod 'RMDateSelectionViewController','~> 2.0.0'
 pod 'ZLHistogramAudioPlot'
+pod 'IQKeyboardManager'
+
 end
 
 target 'MyGuardAppTests' do

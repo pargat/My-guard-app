@@ -14,6 +14,7 @@
 #import "NSUserDefaults+RMSaveCustomObject.h"
 #import "BaseViewController.h"
 #import "MainTabBarController.h"
+
 @interface LoginViewController : BaseViewController<CLLocationManagerDelegate,UITextFieldDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong) CLLocationManager *locationManager;

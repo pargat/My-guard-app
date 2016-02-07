@@ -21,6 +21,7 @@
 #import "MapViewController.h"
 #import "FalseAlarmViewController.h"
 #import "AdminMessageViewController.h"
+#import "MissingPersonViewController.h"
 
 @interface MainTabBarController : UITabBarController<CLLocationManagerDelegate,alarmOverlayDelegate,waveAnimationDelegate,EZMicrophoneDelegate,UIAlertViewDelegate>
 

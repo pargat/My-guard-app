@@ -19,7 +19,7 @@
     
      [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-
+    [[IQKeyboardManager sharedManager] setShouldShowTextFieldPlaceholder:NO];
     
     if([launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey]!=nil)
     {
@@ -62,7 +62,7 @@
     }
     
      [[NSNotificationCenter defaultCenter] postNotificationName:@"start" object:nil];
-    [self checkVersion];
+    //[self checkVersion];
 
 }
 
@@ -247,8 +247,7 @@
     
     NSUInteger rntypes;
     
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)])
-    {
+
         //returns UIRemoteNotificationType typedef for nsuinteger
         UIUserNotificationSettings * notificationSettings;
         notificationSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
@@ -257,15 +256,6 @@
         pushAlert = (rntypes & UIUserNotificationTypeAlert) ? @"enabled" : @"disabled";
         pushSound = (rntypes & UIUserNotificationTypeSound) ? @"enabled" : @"disabled";
         
-    }
-    else
-    {
-        rntypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-        pushBadge = (rntypes & UIRemoteNotificationTypeBadge) ? @"enabled" : @"disabled";
-        pushAlert = (rntypes & UIRemoteNotificationTypeAlert) ? @"enabled" : @"disabled";
-        pushSound = (rntypes & UIRemoteNotificationTypeSound) ? @"enabled" : @"disabled";
-        
-    }
     
     // Get the users Device Model, Display Name, Unique ID, Token & Version Number
     

@@ -62,14 +62,18 @@ NSString *const IAPHelperProductPurchaseNotification = @"IAPHelperProductPurchas
               ,sk_product.localizedTitle,
               sk_product.price.floatValue);
     }
-    _completionHandler (YES, skProduct);
-    _completionHandler = nil;
+    if(_completionHandler!=nil)
+    {
+        _completionHandler (YES, skProduct);
+        _completionHandler = nil;
+    }
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
     [Utility alert:@"" msg:@"Failed to load products"];
     NSLog(@"failed to load products");
     productRequest = nil;
+    if(_completionHandler!=nil)
     _completionHandler (NO, nil);
     _completionHandler = nil;
 }
@@ -94,11 +98,11 @@ NSString *const IAPHelperProductPurchaseNotification = @"IAPHelperProductPurchas
                 [self completeTransection:payment_transation];
                 break;
                 
-                case SKPaymentTransactionStateRestored:
+            case SKPaymentTransactionStateRestored:
                 [self restoreTrasaction:payment_transation];
                 break;
                 
-                case SKPaymentTransactionStateFailed:
+            case SKPaymentTransactionStateFailed:
                 [self failedTransaction:payment_transation];
                 break;
                 
@@ -115,7 +119,44 @@ NSString *const IAPHelperProductPurchaseNotification = @"IAPHelperProductPurchas
     [self provideContentForProduct_Identifier:transaction.payment.productIdentifier];
     
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"in_app" object:transaction.payment.productIdentifier];
+    if([transaction.payment.productIdentifier isEqualToString:INAPP_FIRE_ID])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:@"Yes" forKey:@"fire_in"];
+        [iOSRequest getJsonResponse:[NSString stringWithFormat:KBuyFireApi,KbaseUrl,[Profile getCurrentProfileUserId]] success:^(NSDictionary *responseDict) {
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"fire_in"];
+            Profile *prof = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+            prof.profileFireBuy = @"1";
+            [[NSUserDefaults standardUserDefaults] rm_setCustomObject:prof forKey:@"profile"];        } failure:^(NSString *errorString) {
+                
+            }];
+    }
+    else if ([transaction.payment.productIdentifier isEqualToString:INAPP_SEX_ID])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:@"Yes" forKey:@"sex_in"];
+        [iOSRequest getJsonResponse:[NSString stringWithFormat:KBuyFireApi,KbaseUrl,[Profile getCurrentProfileUserId]] success:^(NSDictionary *responseDict) {
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"sex_in"];
+            Profile *prof = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+            prof.profileSexBuy = @"1";
+            [[NSUserDefaults standardUserDefaults] rm_setCustomObject:prof forKey:@"profile"];
+        } failure:^(NSString *errorString) {
+            
+        }];
+        
+    }
+    else if ([transaction.payment.productIdentifier isEqualToString:INAPP_CO_ID])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:@"Yes" forKey:@"co_in"];
+        [iOSRequest getJsonResponse:[NSString stringWithFormat:KBuyCOApi,KbaseUrl,[Profile getCurrentProfileUserId]] success:^(NSDictionary *responseDict) {
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"co_in"];
+            Profile *prof = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+            prof.profileCOBuy = @"1";
+            [[NSUserDefaults standardUserDefaults] rm_setCustomObject:prof forKey:@"profile"];
+        } failure:^(NSString *errorString) {
+            
+        }];
+
+    }
     //[Utility alert:@"" msg:@"Trasaction is completed"];
 }
 
@@ -129,6 +170,8 @@ NSString *const IAPHelperProductPurchaseNotification = @"IAPHelperProductPurchas
 }
 
 - (void)failedTransaction:(SKPaymentTransaction *)transaction {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"in_app" object:nil];
+    
     NSLog(@"Failed Trasaction");
     [[UIApplication sharedApplication]endIgnoringInteractionEvents];
     if (transaction.error.code != SKErrorPaymentCancelled) {

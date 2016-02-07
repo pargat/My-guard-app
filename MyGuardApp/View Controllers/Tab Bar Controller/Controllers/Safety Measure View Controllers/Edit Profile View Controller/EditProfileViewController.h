@@ -15,6 +15,7 @@
 #import "LOcationUpdater.h"
 #import "UIImage+Extras.h"
 
+
 @interface EditProfileViewController : BaseViewController<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
 
 @property int isImageChanged;

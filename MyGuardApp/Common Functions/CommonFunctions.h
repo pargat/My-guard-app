@@ -12,7 +12,7 @@
 #import "ApiConstants.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
-
+#import "Profile.h"
 @interface CommonFunctions : NSObject
 
 +(void)videoPlay;
@@ -20,4 +20,7 @@
 +(NSString *)getFullImage:(NSString *)stringLink view:(UIView *)view;
 +(NSArray *)getBoundingBox:(double)kilometers lat:(double)lat lon:(double)lon;
 +(UIViewController*) currentViewController ;
++(void)buyFireInApp;
++(void)buySexInApp;
+
 @end

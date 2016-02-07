@@ -18,13 +18,17 @@
 #import "ImageFullViewController.h"
 #import <UIImageView+WebCache.h>
 #import "CustomBadge.h"
+#import "ProfileSelectionCell.h"
+#import "MissingCommunityCell.h"
+#import "MissingModal.h"
+#import "MissingPersonViewController.h"
+#import "BaseViewController.h"
+@interface MyProfileViewController : BaseViewController <UITableViewDataSource,UITableViewDelegate,ZoomTransitionProtocol,UIActionSheetDelegate,ProfileMyDelegate,ProfileSelectionDelegate>
 
-@interface MyProfileViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,ZoomTransitionProtocol,UIActionSheetDelegate,ProfileMyDelegate>
-
-
+@property BOOL isSafetyShowing;
 @property (nonatomic,strong) Profile *myProfile;
+@property (nonatomic, strong) NSMutableArray *arrayMissing;
 @property (nonatomic, strong) NSMutableArray *arraySafety;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewProfile;
-@property (weak, nonatomic) IBOutlet UIImageView *imageViewS;
 
 @end

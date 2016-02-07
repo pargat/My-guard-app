@@ -131,6 +131,9 @@
     
     
     [iOSRequest getJsonResponse:stringAlarmUrl success:^(NSDictionary *responseDict) {
+        
+        if([[responseDict valueForKey:@"success"] isEqualToString:@"1"])
+        {
         self.arrayFiles = [FileModal parseDictToFeed:[responseDict valueForKeyPath:@"data.files"]];
         if(self.isCommentShow==false)
             [self delCommentClicked:YES indexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
@@ -138,6 +141,7 @@
         [self.btnComment1 setTitle:[NSString stringWithFormat:@"%@ comments",modal.fileNumberOfComments] forState:UIControlStateNormal];
         [self.textViewDescription setText:modal.fileDescription];
         [self.collectionViewMain reloadData];
+        }
         [self removeLoaderView];
     } failure:^(NSString *errorString) {
         [self removeLoaderView];

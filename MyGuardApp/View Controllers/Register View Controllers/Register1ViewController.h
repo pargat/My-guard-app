@@ -11,7 +11,8 @@
 #import "BaseViewController.h"
 #import "RegisterStep2ViewController.h"
 
-@interface Register1ViewController : BaseViewController<UITextFieldDelegate>
+
+@interface Register1ViewController : BaseViewController
 
 @property (nonatomic,strong) NSDictionary *dictFb;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldEmail;

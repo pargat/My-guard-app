@@ -241,7 +241,7 @@
 	}
 	
 	if ([self.badgeText length]>0) {
-		CGFloat sizeOfFont = 13.5*badgeScaleFactor;
+		CGFloat sizeOfFont = 12*badgeScaleFactor;
 		if ([self.badgeText length]<2) {
             sizeOfFont += sizeOfFont * 0.20f;
 		}

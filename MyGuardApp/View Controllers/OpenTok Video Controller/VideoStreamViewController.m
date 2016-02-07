@@ -100,14 +100,31 @@ static NSString *const kApiKey = @"45282132";
 {
     
 }
-
+- (void)session:(OTSession*)session streamCreated:(OTStream*)stream{
+    
+}
+- (void)session:(OTSession*)session streamDestroyed:(OTStream*)stream
+{
+    
+}
 #pragma mark - 
 #pragma mark - OTpublisher delegate
 - (void)publisher:(OTPublisherKit*)publisher streamCreated:(OTStream*)stream
 {
     
 }
+- (void)publisher:(OTPublisherKit*)publisher streamDestroyed:(OTStream*)stream
+{
+    
+}
+- (void)publisher:(OTPublisherKit*)publisher didFailWithError:(OTError*)error
+{
+    
+}
 
+
+#pragma mark -
+#pragma mark - Button Actions
 -(void)actionBack
 {
     [self dismissViewControllerAnimated:YES completion:^{

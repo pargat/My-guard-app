@@ -88,7 +88,7 @@
         [self.locationManager stopUpdatingLocation];
         [self.locationManager setDelegate:nil];
     
-        if([[NSUserDefaults standardUserDefaults] boolForKey:@"sex_permission"]&&[[NSUserDefaults standardUserDefaults] valueForKey:@"profile"]!=nil)
+        if([[NSUserDefaults standardUserDefaults] boolForKey:@"sex_permission"]&&[[NSUserDefaults standardUserDefaults] valueForKey:@"profile"]!=nil&&[myProfile.profileSexBuy isEqualToString:@"1"])
             [self checkSexLat:self.currentLoc];
     
     //}

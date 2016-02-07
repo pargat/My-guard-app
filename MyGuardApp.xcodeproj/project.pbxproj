@@ -24,6 +24,7 @@
 		2709DB4E1C0B019000180CAD /* SexOverlayNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 2709DB4D1C0B018F00180CAD /* SexOverlayNew.m */; };
 		2709DB501C0B01A400180CAD /* SexOverlayNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2709DB4F1C0B01A400180CAD /* SexOverlayNew.xib */; };
 		272869481BCD45AD00CDA04D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 272869471BCD45AD00CDA04D /* MapViewController.m */; };
+		272F4E2B1C56D38E005794A1 /* ProfileSelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 272F4E2A1C56D38E005794A1 /* ProfileSelectionCell.m */; };
 		273338D91BAD3E7E00BDECCA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 273338D81BAD3E7E00BDECCA /* User.m */; };
 		2745D1961BAFE692002261B0 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 2745D1951BAFE692002261B0 /* Video.m */; };
 		2745D1991BAFED9D002261B0 /* InfoVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2745D1981BAFED9D002261B0 /* InfoVideoCell.m */; };
@@ -71,6 +72,10 @@
 		277B6B751BED269B00E862FB /* AudioPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6B731BED269B00E862FB /* AudioPlayerView.m */; };
 		277B6B761BED269B00E862FB /* AudioPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 277B6B741BED269B00E862FB /* AudioPlayerView.xib */; };
 		277B6B791BED437800E862FB /* UITextFieldRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6B781BED437800E862FB /* UITextFieldRect.m */; };
+		277CC47F1C4BBA2C001AFAFD /* YSLCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 277CC47C1C4BBA2C001AFAFD /* YSLCardView.m */; };
+		277CC4801C4BBA2D001AFAFD /* YSLDraggableCardContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 277CC47E1C4BBA2C001AFAFD /* YSLDraggableCardContainer.m */; };
+		277CC4831C4BBAC3001AFAFD /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 277CC4821C4BBAC3001AFAFD /* CardView.m */; };
+		277CC4851C4BBAD9001AFAFD /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 277CC4841C4BBAD9001AFAFD /* CardView.xib */; };
 		2780F6CF1BE4BC360086449B /* PushModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2780F6CE1BE4BC360086449B /* PushModal.m */; };
 		2780F6D31BE4E1F40086449B /* FalseAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2780F6D21BE4E1F40086449B /* FalseAlarmViewController.m */; };
 		2780F6D71BE51EDC0086449B /* SearchMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2780F6D61BE51EDC0086449B /* SearchMainViewController.m */; };
@@ -79,7 +84,6 @@
 		2782109F1B9AE822000EA90B /* MyGuardApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2782109D1B9AE822000EA90B /* MyGuardApp.xcdatamodeld */; };
 		278210A51B9AE822000EA90B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 278210A31B9AE822000EA90B /* Main.storyboard */; };
 		278210AA1B9AE822000EA90B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278210A81B9AE822000EA90B /* LaunchScreen.xib */; };
-		278210B61B9AE822000EA90B /* MyGuardAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 278210B51B9AE822000EA90B /* MyGuardAppTests.m */; };
 		278210C41B9B1705000EA90B /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278210C31B9B1705000EA90B /* SplashViewController.m */; };
 		278210C81B9B1CEB000EA90B /* UIButtonRound.m in Sources */ = {isa = PBXBuildFile; fileRef = 278210C71B9B1CEB000EA90B /* UIButtonRound.m */; };
 		278418731BCCD4F90075B7C1 /* EmergencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278418721BCCD4F90075B7C1 /* EmergencyViewController.m */; };
@@ -150,6 +154,7 @@
 		27E9B4111BE744E700C5EAAF /* SearchFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9B4101BE744E700C5EAAF /* SearchFeedViewController.m */; };
 		27E9B4141BE744FD00C5EAAF /* SearchSafetyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9B4131BE744FD00C5EAAF /* SearchSafetyViewController.m */; };
 		27E9B4171BE7451200C5EAAF /* SearchUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9B4161BE7451200C5EAAF /* SearchUserViewController.m */; };
+		27EF62BC1C4A4C8F00D4223F /* NotificationMissingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EF62BB1C4A4C8F00D4223F /* NotificationMissingCell.m */; };
 		27F3614A1BD651EA0042C8AA /* SafetyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F361491BD651EA0042C8AA /* SafetyDetailViewController.m */; };
 		27F3614E1BD66BEE0042C8AA /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F3614D1BD66BEE0042C8AA /* EditProfileViewController.m */; };
 		27F361511BD6C4B50042C8AA /* CommunityNoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F361501BD6C4B40042C8AA /* CommunityNoCell.m */; };
@@ -169,16 +174,6 @@
 		27FBA7081BA951A700F373E4 /* InfoVideosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FBA7071BA951A700F373E4 /* InfoVideosViewController.m */; };
 		807367E257384AD4134A8AA8 /* libPods-MyGuardApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2EEA2D1B08C3196CF4D2C7D /* libPods-MyGuardApp.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		278210B01B9AE822000EA90B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2782108B1B9AE822000EA90B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 278210921B9AE822000EA90B;
-			remoteInfo = MyGuardApp;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		057FBDCE3FE922A3EC550FB2 /* Pods-MyGuardApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyGuardApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyGuardApp/Pods-MyGuardApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -212,6 +207,8 @@
 		2709DB4F1C0B01A400180CAD /* SexOverlayNew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SexOverlayNew.xib; sourceTree = "<group>"; };
 		272869461BCD45AD00CDA04D /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		272869471BCD45AD00CDA04D /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		272F4E291C56D38E005794A1 /* ProfileSelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileSelectionCell.h; sourceTree = "<group>"; };
+		272F4E2A1C56D38E005794A1 /* ProfileSelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileSelectionCell.m; sourceTree = "<group>"; };
 		273338D71BAD3E7E00BDECCA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		273338D81BAD3E7E00BDECCA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		2745D1941BAFE692002261B0 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
@@ -303,6 +300,13 @@
 		277B6B741BED269B00E862FB /* AudioPlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioPlayerView.xib; sourceTree = "<group>"; };
 		277B6B771BED437800E862FB /* UITextFieldRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextFieldRect.h; sourceTree = "<group>"; };
 		277B6B781BED437800E862FB /* UITextFieldRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextFieldRect.m; sourceTree = "<group>"; };
+		277CC47B1C4BBA2C001AFAFD /* YSLCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLCardView.h; sourceTree = "<group>"; };
+		277CC47C1C4BBA2C001AFAFD /* YSLCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLCardView.m; sourceTree = "<group>"; };
+		277CC47D1C4BBA2C001AFAFD /* YSLDraggableCardContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSLDraggableCardContainer.h; sourceTree = "<group>"; };
+		277CC47E1C4BBA2C001AFAFD /* YSLDraggableCardContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSLDraggableCardContainer.m; sourceTree = "<group>"; };
+		277CC4811C4BBAC3001AFAFD /* CardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardView.h; sourceTree = "<group>"; };
+		277CC4821C4BBAC3001AFAFD /* CardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardView.m; sourceTree = "<group>"; };
+		277CC4841C4BBAD9001AFAFD /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		2780F6CD1BE4BC360086449B /* PushModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushModal.h; sourceTree = "<group>"; };
 		2780F6CE1BE4BC360086449B /* PushModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushModal.m; sourceTree = "<group>"; };
 		2780F6D11BE4E1F40086449B /* FalseAlarmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FalseAlarmViewController.h; sourceTree = "<group>"; };
@@ -317,9 +321,6 @@
 		2782109E1B9AE822000EA90B /* MyGuardApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyGuardApp.xcdatamodel; sourceTree = "<group>"; };
 		278210A41B9AE822000EA90B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		278210A91B9AE822000EA90B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		278210AF1B9AE822000EA90B /* MyGuardAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyGuardAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		278210B41B9AE822000EA90B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		278210B51B9AE822000EA90B /* MyGuardAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyGuardAppTests.m; sourceTree = "<group>"; };
 		278210C21B9B1705000EA90B /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
 		278210C31B9B1705000EA90B /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		278210C61B9B1CEB000EA90B /* UIButtonRound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIButtonRound.h; sourceTree = "<group>"; };
@@ -450,6 +451,8 @@
 		27E9B4131BE744FD00C5EAAF /* SearchSafetyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSafetyViewController.m; sourceTree = "<group>"; };
 		27E9B4151BE7451200C5EAAF /* SearchUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchUserViewController.h; sourceTree = "<group>"; };
 		27E9B4161BE7451200C5EAAF /* SearchUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchUserViewController.m; sourceTree = "<group>"; };
+		27EF62BA1C4A4C8F00D4223F /* NotificationMissingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationMissingCell.h; sourceTree = "<group>"; };
+		27EF62BB1C4A4C8F00D4223F /* NotificationMissingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationMissingCell.m; sourceTree = "<group>"; };
 		27F361481BD651EA0042C8AA /* SafetyDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafetyDetailViewController.h; sourceTree = "<group>"; };
 		27F361491BD651EA0042C8AA /* SafetyDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SafetyDetailViewController.m; sourceTree = "<group>"; };
 		27F3614C1BD66BEE0042C8AA /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
@@ -495,13 +498,6 @@
 			files = (
 				2761D3341C01A9B90090A265 /* StoreKit.framework in Frameworks */,
 				807367E257384AD4134A8AA8 /* libPods-MyGuardApp.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		278210AC1B9AE822000EA90B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -808,6 +804,8 @@
 				277A8EBC1BB2B84500A7C347 /* ProfileHeaderMyCell.m */,
 				2760887A1BCFD96B009F1E18 /* ProfileHeaderOtherCell.h */,
 				2760887B1BCFD96B009F1E18 /* ProfileHeaderOtherCell.m */,
+				272F4E291C56D38E005794A1 /* ProfileSelectionCell.h */,
+				272F4E2A1C56D38E005794A1 /* ProfileSelectionCell.m */,
 			);
 			path = "Profile Cells";
 			sourceTree = "<group>";
@@ -823,6 +821,20 @@
 				277B6B6F1BED0F0B00E862FB /* RecordView.xib */,
 			);
 			path = "Audio Player View";
+			sourceTree = "<group>";
+		};
+		277CC47A1C4BBA2C001AFAFD /* YSLDraggableCardContainer */ = {
+			isa = PBXGroup;
+			children = (
+				277CC47B1C4BBA2C001AFAFD /* YSLCardView.h */,
+				277CC47C1C4BBA2C001AFAFD /* YSLCardView.m */,
+				277CC47D1C4BBA2C001AFAFD /* YSLDraggableCardContainer.h */,
+				277CC47E1C4BBA2C001AFAFD /* YSLDraggableCardContainer.m */,
+				277CC4811C4BBAC3001AFAFD /* CardView.h */,
+				277CC4821C4BBAC3001AFAFD /* CardView.m */,
+				277CC4841C4BBAD9001AFAFD /* CardView.xib */,
+			);
+			path = YSLDraggableCardContainer;
 			sourceTree = "<group>";
 		};
 		2780F6CC1BE4AC230086449B /* Push Modal */ = {
@@ -862,7 +874,6 @@
 			isa = PBXGroup;
 			children = (
 				278210951B9AE822000EA90B /* MyGuardApp */,
-				278210B21B9AE822000EA90B /* MyGuardAppTests */,
 				278210941B9AE822000EA90B /* Products */,
 				2DB4702E28CDBA02F08F0C06 /* Pods */,
 				4D4CD3A95523AE86D63FC63A /* Frameworks */,
@@ -873,7 +884,6 @@
 			isa = PBXGroup;
 			children = (
 				278210931B9AE822000EA90B /* MyGuardApp.app */,
-				278210AF1B9AE822000EA90B /* MyGuardAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -909,23 +919,6 @@
 			children = (
 				278210971B9AE822000EA90B /* Info.plist */,
 				278210981B9AE822000EA90B /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		278210B21B9AE822000EA90B /* MyGuardAppTests */ = {
-			isa = PBXGroup;
-			children = (
-				278210B51B9AE822000EA90B /* MyGuardAppTests.m */,
-				278210B31B9AE822000EA90B /* Supporting Files */,
-			);
-			path = MyGuardAppTests;
-			sourceTree = "<group>";
-		};
-		278210B31B9AE822000EA90B /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				278210B41B9AE822000EA90B /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1270,6 +1263,8 @@
 				2703E89C1BE0B4F8000BDD2C /* NotificationSimpleCell.m */,
 				2703E89E1BE0B513000BDD2C /* NotificationRequestCell.h */,
 				2703E89F1BE0B513000BDD2C /* NotificationRequestCell.m */,
+				27EF62BA1C4A4C8F00D4223F /* NotificationMissingCell.h */,
+				27EF62BB1C4A4C8F00D4223F /* NotificationMissingCell.m */,
 			);
 			path = "Notification Cells";
 			sourceTree = "<group>";
@@ -1417,6 +1412,7 @@
 		27FBA6E81BA94BBD00F373E4 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				277CC47A1C4BBA2C001AFAFD /* YSLDraggableCardContainer */,
 				2761D3241C0089910090A265 /* In app purchase */,
 				2761D31D1C006E080090A265 /* CustomBadge */,
 				27DE4E051BBA95AE00135DF6 /* ZoomTransition */,
@@ -1499,24 +1495,6 @@
 			productReference = 278210931B9AE822000EA90B /* MyGuardApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		278210AE1B9AE822000EA90B /* MyGuardAppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 278210BC1B9AE822000EA90B /* Build configuration list for PBXNativeTarget "MyGuardAppTests" */;
-			buildPhases = (
-				278210AB1B9AE822000EA90B /* Sources */,
-				278210AC1B9AE822000EA90B /* Frameworks */,
-				278210AD1B9AE822000EA90B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				278210B11B9AE822000EA90B /* PBXTargetDependency */,
-			);
-			name = MyGuardAppTests;
-			productName = MyGuardAppTests;
-			productReference = 278210AF1B9AE822000EA90B /* MyGuardAppTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1535,10 +1513,6 @@
 								enabled = 1;
 							};
 						};
-					};
-					278210AE1B9AE822000EA90B = {
-						CreatedOnToolsVersion = 6.4;
-						TestTargetID = 278210921B9AE822000EA90B;
 					};
 				};
 			};
@@ -1559,7 +1533,6 @@
 			projectRoot = "";
 			targets = (
 				278210921B9AE822000EA90B /* MyGuardApp */,
-				278210AE1B9AE822000EA90B /* MyGuardAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1571,6 +1544,7 @@
 			files = (
 				278E6D7F1BDA7A0D00B68BD8 /* CODefault.mp3 in Resources */,
 				277B6B711BED0F0B00E862FB /* RecordView.xib in Resources */,
+				277CC4851C4BBAD9001AFAFD /* CardView.xib in Resources */,
 				27DE4E201BBABEB000135DF6 /* sound.mp3 in Resources */,
 				278CAFC11BA6F71E005814C6 /* Localizable.strings in Resources */,
 				278CAFF01BA82AD9005814C6 /* LoaderView.xib in Resources */,
@@ -1594,13 +1568,6 @@
 				278CAFF91BA8622E005814C6 /* WalkThroughLastView.xib in Resources */,
 				27DE4E041BBA6AB100135DF6 /* AlarmOverLayView.xib in Resources */,
 				270114611BDD440F00E8FE95 /* CommentView.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		278210AD1B9AE822000EA90B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1662,6 +1629,7 @@
 				270114731BDD5AED00E8FE95 /* DemoDetectViewController.m in Sources */,
 				2701145B1BDD04C800E8FE95 /* ImageAndVideoDetailCell.m in Sources */,
 				277A8EBD1BB2B84500A7C347 /* ProfileHeaderMyCell.m in Sources */,
+				277CC4831C4BBAC3001AFAFD /* CardView.m in Sources */,
 				274BD04A1C464503000CFD92 /* MissingCommunityViewController.m in Sources */,
 				278711891BAAAC8500F9CA16 /* Profile.m in Sources */,
 				27C137C01BCBB1570072EDB6 /* SexOffenderDetailViewController.m in Sources */,
@@ -1735,7 +1703,9 @@
 				27FBA7051BA9519B00F373E4 /* SafetyMeasuresViewController.m in Sources */,
 				27E9B4111BE744E700C5EAAF /* SearchFeedViewController.m in Sources */,
 				27FBA6E41BA93B9200F373E4 /* SexOffenderViewController.m in Sources */,
+				277CC4801C4BBA2D001AFAFD /* YSLDraggableCardContainer.m in Sources */,
 				278CAFE21BA82A5D005814C6 /* RMMapper.m in Sources */,
+				27EF62BC1C4A4C8F00D4223F /* NotificationMissingCell.m in Sources */,
 				27FBA7021BA9516E00F373E4 /* FeedViewController.m in Sources */,
 				27C137B91BC7BF2C0072EDB6 /* SexOffenderCell.m in Sources */,
 				2761D3321C008F8A0090A265 /* Utility.m in Sources */,
@@ -1758,6 +1728,7 @@
 				270114601BDD440F00E8FE95 /* CommentView.m in Sources */,
 				2703E8A41BE0B8C3000BDD2C /* NotificationModal.m in Sources */,
 				2761D32C1C0089E80090A265 /* MyGuardInAppHelper.m in Sources */,
+				277CC47F1C4BBA2C001AFAFD /* YSLCardView.m in Sources */,
 				2794EE9F1BABFCE80036BB75 /* SafetyMeasure.m in Sources */,
 				270114701BDD5AD500E8FE95 /* DemoBringViewController.m in Sources */,
 				2703E8A01BE0B513000BDD2C /* NotificationRequestCell.m in Sources */,
@@ -1771,6 +1742,7 @@
 				27F3614E1BD66BEE0042C8AA /* EditProfileViewController.m in Sources */,
 				274BD0511C46462F000CFD92 /* MissingCommunityCell.m in Sources */,
 				274E8E871BD4D07000171C5C /* TCViewController.m in Sources */,
+				272F4E2B1C56D38E005794A1 /* ProfileSelectionCell.m in Sources */,
 				2760886D1BCF9DC5009F1E18 /* SoundRecordViewController.m in Sources */,
 				278CAFE31BA82A5D005814C6 /* UIImage+Extras.m in Sources */,
 				277B6B701BED0F0B00E862FB /* RecordView.m in Sources */,
@@ -1795,23 +1767,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		278210AB1B9AE822000EA90B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				278210B61B9AE822000EA90B /* MyGuardAppTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		278210B11B9AE822000EA90B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 278210921B9AE822000EA90B /* MyGuardApp */;
-			targetProxy = 278210B01B9AE822000EA90B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		278210A31B9AE822000EA90B /* Main.storyboard */ = {
@@ -1861,8 +1817,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1885,7 +1841,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "221fbb02-6347-453f-a4a1-b336913f673d";
+				PROVISIONING_PROFILE = "c0b2cfe8-8d62-4fc6-b65a-32f33ffb9c2c";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1907,8 +1863,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1923,7 +1879,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "221fbb02-6347-453f-a4a1-b336913f673d";
+				PROVISIONING_PROFILE = "c0b2cfe8-8d62-4fc6-b65a-32f33ffb9c2c";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1935,14 +1891,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyGuardApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fc9c552c-90c8-4444-9ab6-3c636087e038";
+				PROVISIONING_PROFILE = "62ef4c37-d999-4240-818c-70575af5aef8";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyGuardApp/sounds/MyGuardApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1955,56 +1911,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Browne (PAFV9X28Q7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyGuardApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fc9c552c-90c8-4444-9ab6-3c636087e038";
+				PROVISIONING_PROFILE = "62ef4c37-d999-4240-818c-70575af5aef8";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyGuardApp/sounds/MyGuardApp-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		278210BD1B9AE822000EA90B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = MyGuardAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "62ef4c37-d999-4240-818c-70575af5aef8";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyGuardApp.app/MyGuardApp";
-			};
-			name = Debug;
-		};
-		278210BE1B9AE822000EA90B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Fire Sonar Technologies, Inc. (72UJCHZWH7)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = MyGuardAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.myguardapps.firesonar;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "62ef4c37-d999-4240-818c-70575af5aef8";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyGuardApp.app/MyGuardApp";
 			};
 			name = Release;
 		};
@@ -2025,15 +1941,6 @@
 			buildConfigurations = (
 				278210BA1B9AE822000EA90B /* Debug */,
 				278210BB1B9AE822000EA90B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		278210BC1B9AE822000EA90B /* Build configuration list for PBXNativeTarget "MyGuardAppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				278210BD1B9AE822000EA90B /* Debug */,
-				278210BE1B9AE822000EA90B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

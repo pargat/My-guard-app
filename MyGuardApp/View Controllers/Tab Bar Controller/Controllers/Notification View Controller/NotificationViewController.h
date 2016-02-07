@@ -18,6 +18,8 @@
 #import "SafetyDetailViewController.h"
 #import "OtherProfileViewController.h"
 #import "ImageVideoDetailViewController.h"
+#import "NotificationMissingCell.h"
+#import "MissingPersonViewController.h"
 
 @interface NotificationViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,NotificationDelegate>
 

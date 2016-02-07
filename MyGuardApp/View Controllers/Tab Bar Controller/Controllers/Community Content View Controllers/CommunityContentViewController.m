@@ -34,8 +34,14 @@
 {
     [super viewWillDisappear:animated];
     [self removeLoaderView];
+    //[self.delegate delShouldShowAdd:YES];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.delegate delShouldShowAdd:NO];
+}
 
 #pragma mark -
 #pragma mark - Helper and api related functions

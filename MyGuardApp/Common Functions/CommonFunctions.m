@@ -30,11 +30,11 @@
                         error:&setCategoryError]) {
         // handle error
     }
-
+    
 }
 +(NSString *)getFullImage:(NSString *)stringLink view:(UIView *)view
 {
-   return [NSString stringWithFormat:@"%@&w=%f&h=%f",stringLink,view.frame.size.width*DisplayScale,view.frame.size.height*DisplayScale];
+    return [NSString stringWithFormat:@"%@&w=%f&h=%f",stringLink,view.frame.size.width*DisplayScale,view.frame.size.height*DisplayScale];
 }
 #pragma mark -
 #pragma mark - lat long calculating formula
@@ -46,7 +46,7 @@
     double lon1 = lon - (180/M_PI) *(kilometers / R / cos(lat*M_PI/180));
     double lat2 = lat + (180/M_PI) *(kilometers / R);
     double lon2 = lon +(180/M_PI) *(kilometers / R / cos(lat*M_PI/180));
-
+    
     return @[[NSString stringWithFormat:@"%f",lat1],[NSString stringWithFormat:@"%f",lat2],[NSString stringWithFormat:@"%f",lon1],[NSString stringWithFormat:@"%f",lon2]];
 }
 
@@ -102,4 +102,33 @@
     }
     
 }
+
++(void)buyFireInApp
+{
+    if([[NSUserDefaults standardUserDefaults]valueForKey:@"fire_in"]!=nil)
+    {
+        [iOSRequest getJsonResponse:[NSString stringWithFormat:KBuySexApi,KbaseUrl,[Profile getCurrentProfileUserId]] success:^(NSDictionary *responseDict) {
+            Profile *prof = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+            prof.profileFireBuy = @"1";
+            [[NSUserDefaults standardUserDefaults] rm_setCustomObject:prof forKey:@"profile"];            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"fire_in"];
+        } failure:^(NSString *errorString) {
+            
+        }];
+    }
+}
++(void)buySexInApp
+{
+    if([[NSUserDefaults standardUserDefaults]valueForKey:@"sex_in"]!=nil)
+    {
+        [iOSRequest getJsonResponse:[NSString stringWithFormat:KBuyFireApi,KbaseUrl,[Profile getCurrentProfileUserId]] success:^(NSDictionary *responseDict) {
+            Profile *prof = [[NSUserDefaults standardUserDefaults] rm_customObjectForKey:@"profile"];
+            prof.profileSexBuy = @"1";
+            [[NSUserDefaults standardUserDefaults] rm_setCustomObject:prof forKey:@"profile"];
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"sex_in"];
+        } failure:^(NSString *errorString) {
+            
+        }];
+    }
+}
+
 @end

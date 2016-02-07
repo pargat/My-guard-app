@@ -6,7 +6,17 @@
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
 
+
+
+
+"view" = "查看";
+
 //Missing people
+"missing_eye_color" = "眼睛的颜色";
+"missing_hair_color" = "发色";
+"missing_height" = "高度";
+"missing_age" = "年龄";
+"missing_person" = "失踪者";
 "missing_people" = "失踪人员";
 "full_name" = "全名";
 "missing_since" = "由于缺少";

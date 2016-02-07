@@ -10,6 +10,9 @@
 #import <StoreKit/StoreKit.h>
 #import "Utility.h"
 #import "UIView+Toast.h"
+#import "iOSRequest.h"
+#import "ApiConstants.h"
+#import "Profile.h"
 
 @protocol LoaderDelgate <NSObject>
 

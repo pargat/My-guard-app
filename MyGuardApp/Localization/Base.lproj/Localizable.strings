@@ -7,8 +7,15 @@
 */
 
 
+"view" = "View";
+
 //Missing people
-"missing_people" = "MISSING PEOPLE";
+"missing_eye_color" = "Eye Color";
+"missing_hair_color" = "Hair Color";
+"missing_height" = "Height";
+"missing_age" = "Age";
+"missing_person" = "MISSING PERSON";
+"missing_people" = "MISSING PERSONS";
 "full_name" = "Full name";
 "missing_since" = "Missing since";
 "last_seen_at" = "Last seen at";

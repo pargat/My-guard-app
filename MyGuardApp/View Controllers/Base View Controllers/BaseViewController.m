@@ -11,6 +11,8 @@
 @interface BaseViewController ()
 {
     JTMaterialSpinner *loaderObj ;
+    IQKeyboardReturnKeyHandler *returnKeyHandler;
+
 }
 @end
 
@@ -18,6 +20,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
+
     // Do any additional setup after loading the view.
     
 }
@@ -26,7 +30,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
+}
+-(void)dealloc
+{
+    returnKeyHandler = nil;
+}
 /*
  #pragma mark - Navigation
  

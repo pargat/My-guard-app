@@ -5,8 +5,17 @@
   Created by vishnu on 14/09/15.
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
+
+
+
+"view" = "Ver";
 //Missing people
-"missing_people" = "las personas que faltan";
+"missing_eye_color" = "Color de los ojos";
+"missing_hair_color" = "Color de pelo";
+"missing_height" = "altura";
+"missing_age" = "edad";
+"missing_person" = "PERSONA DESAPARECIDA";
+"missing_people" = "PERSONAS DESAPARECIDAS";
 "full_name" = "Nombre completo";
 "missing_since" = "Desaparecido desde el";
 "last_seen_at" = "Visto por última vez en";

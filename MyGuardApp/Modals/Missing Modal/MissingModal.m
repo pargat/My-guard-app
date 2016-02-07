@@ -19,7 +19,7 @@
         
         self.missingCreatedOn = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"createdOn"]];
         self.missingDate = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"date"]];
-        self.missingDescription = [tempDict valueForKey:@"description"];
+        self.missingDescription = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"description"]];
         self.missingId = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"id"]];
         self.missingImage = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"image"]];
         self.missingLat = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"lat"]];
@@ -27,7 +27,13 @@
         self.missingLocation = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"location"]];
         self.missingName = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"name"]];
         self.missingUserId = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"user_id"]];
-        
+        self.missingPhone = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"phone"]];
+        self.missingAge = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"age"]];
+        self.missingEye = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"eye"]];
+        self.missingHair = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"hair"]];
+        self.missingHeight = [NSString stringWithFormat:@"%@", [tempDict valueForKey:@"height"]];
+
+
     }
     return self;
 }

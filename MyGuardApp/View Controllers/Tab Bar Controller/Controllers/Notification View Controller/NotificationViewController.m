@@ -180,6 +180,13 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
+        else if ([modal.notifType isEqualToString:@"8"])
+        {
+            NotificationMissingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationMissingCell"];
+            [self configureCellMissing:cell atIndexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
         else
         {
             NotificationSimpleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationSimpleCell"];
@@ -222,6 +229,18 @@
             return size.height+1;
             
         }
+        else if ([modal.notifType isEqualToString:@"8"])
+        {
+            static NotificationMissingCell *sizingCell = nil;
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                sizingCell = [self.tableViewNotifs dequeueReusableCellWithIdentifier:@"NotificationMissingCell"];
+            });
+            
+            [self configureCellMissing:sizingCell atIndexPath:indexPath];
+            CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            return size.height+1;
+        }
         else
         {
             static NotificationSimpleCell *sizingCell = nil;
@@ -239,7 +258,24 @@
     }
     
 }
+-(void)configureCellMissing:(NotificationMissingCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    NotificationModal *modal = [self.arrayNotifs objectAtIndex:indexPath.row];
+    [cell.labelMissing setText:NSLocalizedString(@"missing_person", nil)];
+    [cell.labelName setText:modal.notifFirstName];
+    [cell.labelLastSeen setText:[NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"last_seen_at", nil),modal.notifTimePassed]];
+     [cell.imageViewDp sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&w=%f&h=%f",modal.notifDp,cell.imageViewDp.frame.size.width*DisplayScale,cell.imageViewDp.frame.size.height*DisplayScale]]];
+    
+    if([modal.notifIsRead isEqualToString:@"y"])
+    {
+        [cell.viewOverlay setHidden:YES];
+    }
+    else
+    {
+        [cell.viewOverlay setHidden:NO];
+    }
 
+}
 -(void)configureCell:(NotificationSimpleCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     [cell.labelTitlw setPreferredMaxLayoutWidth:self.view.frame.size.width - 88];
@@ -310,7 +346,10 @@
         {
             [self performSegueWithIdentifier:KImageVideoDetailSegue sender:@{@"id":modal.notifAlarmId,@"mid":modal.notifRefId,@"Comment":@"yes"}];
         }
-        
+        else if ([modal.notifType isEqualToString:@"8"])
+        {
+            [self performSegueWithIdentifier:KMissingDetailSegue sender:modal.notifId];
+        }
         [self readNotif];
         modal.notifIsRead = @"y";
         [self.tableViewNotifs reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -362,6 +401,12 @@
         imageVideoDetailVc.stringPostId = [sender valueForKey:@"mid"];
         if([sender valueForKey:@"Comment"]!=nil)
             imageVideoDetailVc.isCommentShow = YES;
+        
+    }
+    else if ([segue.identifier isEqualToString:KMissingDetailSegue])
+    {
+        MissingPersonViewController *mvc = (MissingPersonViewController *)segue.destinationViewController;
+        mvc.missingId = modal.notifRefId;
         
     }
 }

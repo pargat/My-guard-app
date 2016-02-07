@@ -6,8 +6,16 @@
   Copyright (c) 2015 myguardapps. All rights reserved.
 */
 
+
+"view" = "Voir";
 //Missing people
-"missing_people" = "personnes disparues";
+"missing_eye_color" = "Couleur des yeux";
+"missing_hair_color" = "Couleur de cheveux";
+"missing_height" = "hauteur";
+"missing_age" = "âge";
+"missing_person" = "PERSONNE MANQUANTE";
+
+"missing_people" = "PERSONNES DISPARUES";
 "full_name" = "Nom complet";
 "missing_since" = "Disparu depuis";
 "last_seen_at" = "Vu dernièrement à";

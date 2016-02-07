@@ -19,24 +19,29 @@
 #import "BaseViewController.h"
 #import "MyGuardInAppHelper.h"
 #import "CommonFunctions.h"
+#import "YSLDraggableCardContainer.h"
+#import "CardView.h"
+#import "CustomBadge.h"
 
-@interface SexOffenderViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 
+@interface SexOffenderViewController : BaseViewController<UISearchBarDelegate,YSLDraggableCardContainerDataSource,YSLDraggableCardContainerDelegate>
+@property (nonatomic,strong) CustomBadge *badgeC;
+@property BOOL layoutLaid;
+@property (nonatomic,strong) NSArray *arrayInApp;
+@property int deleteCount;
 @property (nonatomic,strong) NSMutableArray *arraySearch;
 @property (nonatomic,strong) NSMutableArray *arraySexOffender;
-@property (weak, nonatomic) IBOutlet UITableView *tableViewOffenders;
 @property (nonatomic,strong) SexOffender *sexOffenderModal;
+@property (weak, nonatomic) IBOutlet YSLDraggableCardContainer *viewContainer;
 @property (strong, nonatomic)  UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIView *viewNoOne;
 @property (weak, nonatomic) IBOutlet UILabel *labelCool;
-
+@property (weak, nonatomic) IBOutlet YSLDraggableCardContainer *viewDraggable;
 @property (weak, nonatomic) IBOutlet UIView *viewInpp;
 @property (weak, nonatomic) IBOutlet UILabel *labelPremium;
 @property (weak, nonatomic) IBOutlet UILabel *labelPrimiumDes;
-@property (weak, nonatomic) IBOutlet UIButton *btnRestore;
 @property (weak, nonatomic) IBOutlet UIButton *btnBuy;
 - (IBAction)actionBuy:(id)sender;
-- (IBAction)actionRestore:(id)sender;
 
 
 

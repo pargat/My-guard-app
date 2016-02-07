@@ -10,6 +10,7 @@
 
 
 //Segue names
+#define KMissingDetailSegue @"MissingDetailSegue"
 #define KAddMissingSegue @"addMissing"
 #define KSoundRecordSegue @"SoundRecordSegue"
 #define KSoundSelectSegue @"SoundSelectSegue"
